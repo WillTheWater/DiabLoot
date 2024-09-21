@@ -7,7 +7,7 @@
 class RenderManager
 {
 public:
-	RenderManager();
+	RenderManager(AssetManager& assetMgr);
 
 	sf::RenderWindow&							GetWindow();
 	AssetManager&								GetAssetManager();
@@ -18,6 +18,6 @@ public:
 	void										Draw(const T& drawObject) { mGameWindow.draw(drawObject); }
 
 private:
-	AssetManager								mAssetMgr;
+	AssetManager&								mAssetMgr;
 	sf::RenderWindow							mGameWindow;
 };

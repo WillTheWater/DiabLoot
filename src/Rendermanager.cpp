@@ -1,7 +1,8 @@
 #include "RenderManager.h"
 
-RenderManager::RenderManager()
-	: mGameWindow{ sf::VideoMode(1920u, 1080u), "DiabLoot", sf::Style::Close }
+RenderManager::RenderManager(AssetManager& assetMgr)
+	: mAssetMgr{assetMgr}
+	, mGameWindow{ sf::VideoMode(1920u, 1080u), "DiabLoot", sf::Style::Close }
 {
 }
 

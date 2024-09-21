@@ -1,18 +1,20 @@
 #pragma once
-#include <vector>
-#include <memory>
 #include <SFML/Graphics.hpp>
-#include "RenderManager.h"
+#include <vector>
 #include "Button.h"
+
+class RenderManager;
 
 class GUIManager
 {
 public:
 	GUIManager(RenderManager& renderMgr);
-	void										Draw();
-	void										Update();
+
+	void									AddButton(const sf::Vector2f& position);
+	void									UpdateButtons(const sf::Vector2f& mousePos, bool isClicked);
+	void									RenderButtons();
 
 private:
-	RenderManager& mRenderMgr;
-	std::vector<std::unique_ptr<Button>>		mButtons;
+	std::vector<Button>						mButtons;
+	RenderManager&							mRenderMgr;
 };
