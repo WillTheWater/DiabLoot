@@ -12,7 +12,6 @@ public:
 	void										Draw();
 	void										Update();
 
-
 private:
 	RenderManager& mRenderMgr;
 	std::vector<std::unique_ptr<Button>>		mButtons;
