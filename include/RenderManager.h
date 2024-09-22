@@ -13,7 +13,6 @@ public:
 
 	sf::RenderWindow&							GetWindow();
 	void									    MainMenuRender();
-	void										PlayRender();
 	void										DrawButtons();
 	void										RenderLevel(Level& level);
 
