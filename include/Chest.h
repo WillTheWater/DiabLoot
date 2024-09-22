@@ -5,7 +5,8 @@
 
 class Chest : public InputObserver
 {
-	Chest(sf::Vector2f position, std::function<void(sf::Vector2f)> callback);
+public:
+	Chest(sf::Vector2f position, bool mirrored, std::function<void(sf::Vector2f)> callback);
 
 	// Observer overrides
 	void								OnMouseMove(int x, int y) override;
@@ -14,6 +15,9 @@ class Chest : public InputObserver
 	void								OnMouseClick(sf::Mouse::Button button) override;
 	void								OnMouseRelease(sf::Mouse::Button button) override;
 	void								OpenChest();
+	sf::Vector2f						GetPosition();
+	bool								IsOpened();
+	bool								IsMirrored();
 
 private:
 	bool mMirrored;

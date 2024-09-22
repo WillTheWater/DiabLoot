@@ -1,9 +1,9 @@
 #include "Chest.h"
 
-Chest::Chest(sf::Vector2f position, std::function<void(sf::Vector2f)> callback)
+Chest::Chest(sf::Vector2f position, bool mirrored, std::function<void(sf::Vector2f)> callback)
 	:mPos{position}
 	,mRect{ {30.f,30.f} }
-	,mMirrored{false}
+	,mMirrored{mirrored}
 	,mOpened{false}
 	,mMouseOver{false}
 	,mCallback{callback}
@@ -53,4 +53,19 @@ void Chest::OpenChest()
 {
 	mOpened = true; 
 	mCallback(mPos);
+}
+
+sf::Vector2f Chest::GetPosition()
+{
+	return mPos;
+}
+
+bool Chest::IsOpened()
+{
+	return mOpened;
+}
+
+bool Chest::IsMirrored()
+{
+	return mMirrored;
 }

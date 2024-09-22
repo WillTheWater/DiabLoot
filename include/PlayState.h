@@ -19,6 +19,7 @@ public:
 	void									OnKeyRelease(sf::Keyboard::Key key) override;
 	void									OnMouseClick(sf::Mouse::Button button) override;
 	void									OnMouseRelease(sf::Mouse::Button button) override;
+	void									DrawParticles();
 	int										GetUniqueParticleId();
 	void									SpawnChests();
 	void									SpawnParticles(sf::Vector2f position);

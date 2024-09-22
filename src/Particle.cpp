@@ -36,4 +36,8 @@ int Particle::getId()
 	return mId;
 }
 
+sf::Vector2f Particle::getCurrentPos()
+{
+	return mCurrentPos.getAsSFVec2F();
+}
 

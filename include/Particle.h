@@ -13,9 +13,9 @@ public:
 	// callback is the function called when the particle lands
 	Particle(int id, sf::Vector2f pathStart, sf::Vector2f pathEnd, float anchorHeight, float stepIncrement, std::function<void(sf::Vector2f, Particle&)> callback);
 
-	void stepParticle();
-
-	int getId();
+	void						stepParticle();
+	int							getId();
+	sf::Vector2f				getCurrentPos();
 
 
 

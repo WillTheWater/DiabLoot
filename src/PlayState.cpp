@@ -72,6 +72,11 @@ int PlayState::GetUniqueParticleId()
 	return mParticleUniqueId;
 }
 
+void PlayState::DrawParticles()
+{
+	mRenderManager.RenderParticles(mParticles);
+}
+
 void PlayState::SpawnParticles(sf::Vector2f position) 
 {
 	int numOfParticles = MathU::Random(5, 10);
