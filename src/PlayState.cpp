@@ -1,10 +1,9 @@
 #include "PlayState.h"
-#include "MainMenuState.h"
-#include "Core.h"
 
-PlayState::PlayState(TimeManager& timeMgr, RenderManager& renderMgr, InputManager& inputMgr, EventManager& eventMgr, ChangeStateCallback changeStateCB)
+PlayState::PlayState(TimeManager& timeMgr, RenderManager& renderMgr, InputManager& inputMgr, EventManager& eventMgr, ChangeStateCallback changeStateCB, LEVELS::LEVEL level)
 	: GameState{ timeMgr, renderMgr, inputMgr, eventMgr, changeStateCB }
 {
+	mLevel = std::make_unique<Level>(level, timeMgr, inputMgr);
 }
 
 void PlayState::Enter()
@@ -20,12 +19,12 @@ void PlayState::Exit()
 void PlayState::Update()
 {
 	float dt = mTimeManager.GetDeltaTime();
-
+	mLevel->UpdateLevel();
 }
 
 void PlayState::Draw()
 {
-	mRenderManager.PlayRender();
+	mRenderManager.RenderLevel(*mLevel);
 }
 
 void PlayState::OnMouseMove(int x, int y)
@@ -47,6 +46,7 @@ void PlayState::OnKeyRelease(sf::Keyboard::Key key)
 		mChangeStateCB(std::move(newState));
 	}
 }
+
 void PlayState::OnMouseClick(sf::Mouse::Button button)
 {
 	LOG("Observer: Mouse clicked")
@@ -55,3 +55,4 @@ void PlayState::OnMouseRelease(sf::Mouse::Button button)
 {
 	LOG("Observer: Mouse released")
 }
+

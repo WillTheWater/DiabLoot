@@ -4,6 +4,7 @@
 #include <memory>
 #include <vector>
 #include "Assets.h"
+#include <cassert>
 
 class AssetManager
 {
@@ -12,6 +13,7 @@ public:
 
 	sf::Texture&								GetTexture(TEXTURES::TEXTURE texture);
 	sf::Sprite&									GetSprite(SPRITES::SPRITE sprite);
+	sf::Sprite&									GetLevelMap(LEVELS::LEVEL level);
 
 private:
 	void										InitializeTextureSprites();

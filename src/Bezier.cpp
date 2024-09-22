@@ -22,6 +22,15 @@ Bezier::Bezier(Vec2 startPos, Vec2 endPos, float height)
 	mA.sety(mA.gety() + height);
 }
 
+Vec2 Bezier::getEndPos()
+{
+	return mS;
+}
+Vec2 Bezier::getStartPos()
+{
+	return mE;
+}
+
 Vec2 Bezier::pointStartToEnd(float t)
 {
 	Vec2 pt = mS.lerpTo(mE, t);
