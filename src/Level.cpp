@@ -44,12 +44,12 @@ void Level::CreateLevelChests()
 	switch (mLevelID)
 	{
 	case LEVELS::LEVEL_ONE : 
-		SpawnChest({ 500.f,600.f }, true);
+		SpawnChest({ 500.f, 600.f }, true);
 		SpawnChest({ 1000.f, 800.f }, false);
 	}
 }
 
-int	 Level::GetUniqueParticleId()
+int Level::GetUniqueParticleId()
 {
 	mParticleUniqueId++;
 	return mParticleUniqueId;

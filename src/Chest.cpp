@@ -66,3 +66,5 @@ bool Chest::IsMirrored()
 {
 	return mMirrored;
 }
+
+
