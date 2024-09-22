@@ -204,3 +204,15 @@ float Vec2::angleInRads()
 {
 	return std::atan2(this->m_y, this->m_x);
 }
+
+Vec2 Vec2::getRotatedVector(float angle)
+{
+	float theta = angle * DegToRads;
+
+	float cosTheta = std::cos(theta);
+	float sinTheta = std::sin(theta);
+
+	float x = (m_x * cosTheta) - (m_y * sinTheta);
+	float y = (m_x * sinTheta) - (m_y * cosTheta);
+	return{ x,y };
+}

@@ -1,5 +1,8 @@
 #pragma once
 #include "GameState.h"
+#include "Particle.h"
+#include "Chest.h"
+#include "MathUtilities.h"
 
 class PlayState : public GameState, public InputObserver
 {
@@ -16,4 +19,14 @@ public:
 	void									OnKeyRelease(sf::Keyboard::Key key) override;
 	void									OnMouseClick(sf::Mouse::Button button) override;
 	void									OnMouseRelease(sf::Mouse::Button button) override;
+	int										GetUniqueParticleId();
+	void									SpawnChests();
+	void									SpawnParticles(sf::Vector2f position);
+	void									UpdateParticles();
+	void									RemoveParticle(Particle& particle);
+	void									SpawnItem(sf::Vector2f position, Particle& particle);
+private:
+	int										mParticleUniqueId;
+	std::vector<std::unique_ptr<Chest>>		mChests;
+	std::vector<std::unique_ptr<Particle>>	mParticles;
 };
