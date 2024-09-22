@@ -25,7 +25,7 @@ void PlayState::Exit()
 void PlayState::Update()
 {
 	float dt = mTimeManager.GetDeltaTime();
-
+	UpdateParticles();
 }
 
 void PlayState::Draw()
@@ -64,7 +64,7 @@ void PlayState::OnMouseRelease(sf::Mouse::Button button)
 void PlayState::SpawnChests()
 {
 	// Update this to have actual chest positions
-	std::function<void(sf::Vector2f)> callback = [this](Chest& chest) {this->SpawnParticles(chest); };
+	std::function<void(Chest&)> callback = [this](Chest& chest) {this->SpawnParticles(chest); };
 	sf::Vector2f chestPos{ 600.f,600.f };
 	mChests.push_back(std::make_unique<Chest>(chestPos, true, callback));
 

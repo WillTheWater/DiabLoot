@@ -16,7 +16,6 @@ void Particle::stepParticle()
 {
 	if (mFinished)
 	{
-	
 		mCallback(*this);
 		return;
 		

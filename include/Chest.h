@@ -1,3 +1,4 @@
+#pragma once
 #include "SFML/Graphics.hpp"
 #include "InputManager.h"
 #include "Vec2.h"

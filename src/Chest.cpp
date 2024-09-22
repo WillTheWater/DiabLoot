@@ -1,6 +1,6 @@
 #include "Chest.h"
 
-Chest::Chest(sf::Vector2f position, bool mirrored, std::function<void(sf::Vector2f)> callback)
+Chest::Chest(sf::Vector2f position, bool mirrored, std::function<void(Chest&)> callback)
 	:mPos{position}
 	,mRect{ {30.f,30.f} }
 	,mMirrored{mirrored}
@@ -28,12 +28,10 @@ void Chest::OnMouseMove(int x, int y)
 
 void Chest::OnKeyPress(sf::Keyboard::Key key)
 {
-
 }
 
 void Chest::OnKeyRelease(sf::Keyboard::Key key)
 {
-
 }
 
 void Chest::OnMouseClick(sf::Mouse::Button button)
@@ -46,7 +44,6 @@ void Chest::OnMouseClick(sf::Mouse::Button button)
 
 void Chest::OnMouseRelease(sf::Mouse::Button button)
 {
-
 }
 
 void Chest::OpenChest()
