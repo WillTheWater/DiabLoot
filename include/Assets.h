@@ -6,9 +6,10 @@ namespace TEXTURES
 	{
 		MAINMENU,
 		BUTTON,
-		CHEST,
-		CHESTR,
+		CHESTCLOSED,
+		CHESTOPENED,
 		MAP_ONE,
+		PARTICLE,
 		MAX_TEXTURES
 	};
 }
@@ -19,11 +20,13 @@ namespace SPRITES
 	{
 		MAINMENU,
 		BUTTON,
-		CHEST,
-		CHESTR,
+		CHESTCLOSED,
+		CHESTOPENED,
 		MAP_ONE,
+		PARTICLE,
 		MAX_SPRITES
 	};
+
 }
 
 namespace FONTS
@@ -64,5 +67,14 @@ namespace CHANNELS
 		MUSIC,
 		AMBIENT,
 		MAX_CHANNELS
+	};
+}
+
+namespace LEVELS
+{
+	enum LEVEL
+	{
+		LEVEL_ONE,
+		MAX_LEVELS
 	};
 }

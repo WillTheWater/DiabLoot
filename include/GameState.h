@@ -35,4 +35,5 @@ protected:
 	InputManager&							mInputManager;
 	EventManager&							mEventManager;
 	ChangeStateCallback						mChangeStateCB;
+
 };

@@ -28,7 +28,7 @@ namespace MathU
 	// ================================================
 	//         Discrete Probability function           
 	// ================================================
-	int DiscreteProbability(const std::vector<float>& probabilities)
+	static int DiscreteProbability(const std::vector<float>& probabilities)
 	{
 		std::random_device rd;
 		std::mt19937 gen(rd());

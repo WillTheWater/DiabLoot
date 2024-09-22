@@ -8,6 +8,7 @@ class Vec2
 public:
 	// ### PUBLIC PARAMETERS ###
 	const float PI = 3.14159265f;
+	const float DegToRads = 0.0174533f;
 
 	// ### CONSTRUCTORS ###
 	Vec2(float x = 0, float y = 0);
@@ -81,6 +82,8 @@ public:
 	float angleInDegrees();
 
 	float angleInRads();
+
+	Vec2 getRotatedVector(float angle);
 
 private:
 	float m_x;

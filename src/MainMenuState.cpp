@@ -43,7 +43,7 @@ void MainMenuState::OnKeyRelease(sf::Keyboard::Key key)
 {
 	if (key == sf::Keyboard::P)
 	{ 
-		auto newState = std::make_unique<PlayState>(mTimeManager, mRenderManager, mInputManager, mEventManager, mChangeStateCB);
+		auto newState = std::make_unique<PlayState>(mTimeManager, mRenderManager, mInputManager, mEventManager, mChangeStateCB, LEVELS::LEVEL_ONE);
 		mChangeStateCB(std::move(newState));
 	}
 }

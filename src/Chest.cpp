@@ -1,9 +1,9 @@
 #include "Chest.h"
 
-Chest::Chest(sf::Vector2f position, std::function<void(sf::Vector2f)> callback)
+Chest::Chest(sf::Vector2f position, bool mirrored, std::function<void(Chest&)> callback)
 	:mPos{position}
-	,mRect{ {30.f,30.f} }
-	,mMirrored{false}
+	,mRect{ {50.f,60.f} }
+	,mMirrored{mirrored}
 	,mOpened{false}
 	,mMouseOver{false}
 	,mCallback{callback}
@@ -14,7 +14,7 @@ Chest::Chest(sf::Vector2f position, std::function<void(sf::Vector2f)> callback)
 
 void Chest::OnMouseMove(int x, int y)
 {
-	sf::Rect bound = mRect.getLocalBounds();
+	sf::Rect bound = mRect.getGlobalBounds();
 	sf::Vector2f mousePos (x, y);
 	if (bound.contains(mousePos))
 	{
@@ -28,12 +28,10 @@ void Chest::OnMouseMove(int x, int y)
 
 void Chest::OnKeyPress(sf::Keyboard::Key key)
 {
-
 }
 
 void Chest::OnKeyRelease(sf::Keyboard::Key key)
 {
-
 }
 
 void Chest::OnMouseClick(sf::Mouse::Button button)
@@ -46,11 +44,27 @@ void Chest::OnMouseClick(sf::Mouse::Button button)
 
 void Chest::OnMouseRelease(sf::Mouse::Button button)
 {
-
 }
 
 void Chest::OpenChest()
 {
 	mOpened = true; 
-	mCallback(mPos);
+	mCallback(*this);
 }
+
+sf::Vector2f Chest::GetPosition()
+{
+	return mPos;
+}
+
+bool Chest::IsOpened()
+{
+	return mOpened;
+}
+
+bool Chest::IsMirrored()
+{
+	return mMirrored;
+}
+
+

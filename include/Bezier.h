@@ -12,6 +12,9 @@ public:
 	Vec2 resultPoint(float t);
 	void DebugDraw(sf::RenderWindow& window, float t);
 
+	Vec2 getEndPos();
+	Vec2 getStartPos();
+
 private:
 	Vec2 mS;	// Start point
 	Vec2 mE;	// End Point
