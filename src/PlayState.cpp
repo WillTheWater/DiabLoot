@@ -14,6 +14,7 @@ PlayState::PlayState(TimeManager& timeMgr, RenderManager& renderMgr, InputManage
 void PlayState::Enter()
 {
 	mInputManager.AddObserver(this);
+	SpawnChests();
 }
 
 void PlayState::Exit()
@@ -63,7 +64,14 @@ void PlayState::OnMouseRelease(sf::Mouse::Button button)
 void PlayState::SpawnChests()
 {
 	// Update this to have actual chest positions
-	mChests.push_back(std::make_unique<Chest>(sf::Vector2f{ 600.f,600.f }));
+	std::function<void(sf::Vector2f)> callback = [this](Chest& chest) {this->SpawnParticles(chest); };
+	sf::Vector2f chestPos{ 600.f,600.f };
+	mChests.push_back(std::make_unique<Chest>(chestPos, true, callback));
+
+	for (auto& chest : mChests)
+	{
+		mInputManager.AddObserver(chest.get());
+	}
 }
 
 int PlayState::GetUniqueParticleId()
@@ -77,11 +85,11 @@ void PlayState::DrawParticles()
 	mRenderManager.RenderParticles(mParticles);
 }
 
-void PlayState::SpawnParticles(sf::Vector2f position) 
+void PlayState::SpawnParticles(Chest& chest) 
 {
 	int numOfParticles = MathU::Random(5, 10);
 	// Need to solve the function bind problem below
-	std::function<void(sf::Vector2f, Particle&)> callback = [this](sf::Vector2f pos, Particle& particle) {this->SpawnItem(pos, particle); };
+	std::function<void(Particle&)> callback = [this](Particle& particle) {this->SpawnItem(particle); };
 	float animStep = 0.1f;
 	for (int i{ 0 }; i < numOfParticles; i++)
 	{
@@ -89,9 +97,9 @@ void PlayState::SpawnParticles(sf::Vector2f position)
 		float randAngle = MathU::Random(0.f, 360.f);
 		float randAnchorheight = MathU::Random(200.f, 500.f) * -1;
 		Vec2 endPos{ randDist, 0 };
-		endPos = endPos + Vec2{ position };
+		endPos = endPos + Vec2{ chest.GetPosition()};
 		endPos = endPos.getRotatedVector(randAngle);
-		Vec2 startPos{ position };
+		Vec2 startPos{ chest.GetPosition() };
 		int id = GetUniqueParticleId();
 		mParticles.push_back(std::make_unique<Particle>(id, startPos, endPos, randAnchorheight, animStep, callback));
 	}
@@ -121,7 +129,8 @@ void PlayState::RemoveParticle(Particle& particle)
 	assert(success && "PlayState::RemoveParticle failed to remove the particle");
 }
 
-void PlayState::SpawnItem(sf::Vector2f, Particle& particle)
+void PlayState::SpawnItem(Particle& particle)
 {
+	sf::Vector2f position = particle.getEndPos();
 	RemoveParticle(particle);
 }

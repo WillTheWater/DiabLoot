@@ -22,13 +22,17 @@ void AssetManager::InitializeTextureSprites()
 
     mTextures[TEXTURES::MAINMENU]->loadFromFile("assets/graphics/mainmenu.png");
     mTextures[TEXTURES::BUTTON]->loadFromFile("assets/graphics/button.png");
-    mTextures[TEXTURES::CHEST]->loadFromFile("assets/graphics/chest.png");
-    mTextures[TEXTURES::CHESTR]->loadFromFile("assets/graphics/chestr.png");
+    mTextures[TEXTURES::CHESTCLOSED]->loadFromFile("assets/graphics/chestclosed.png");
+    mTextures[TEXTURES::CHESTOPENED]->loadFromFile("assets/graphics/chestopened.png");
     mTextures[TEXTURES::MAP_ONE]->loadFromFile("assets/graphics/map1.png");
+    mTextures[TEXTURES::PARTICLE]->loadFromFile("assets/graphics/particle.png");
 
     
     mSprites[SPRITES::MAINMENU]->setTexture(GetTexture(TEXTURES::MAINMENU));
     mSprites[SPRITES::MAP_ONE]->setTexture(GetTexture(TEXTURES::MAP_ONE));
+    mSprites[SPRITES::CHESTCLOSED]->setTexture(GetTexture(TEXTURES::CHESTCLOSED));
+    mSprites[SPRITES::CHESTOPENED]->setTexture(GetTexture(TEXTURES::CHESTOPENED));
+    mSprites[SPRITES::PARTICLE]->setTexture(GetTexture(TEXTURES::PARTICLE));
 }
 
 sf::Texture& AssetManager::GetTexture(TEXTURES::TEXTURE texture)

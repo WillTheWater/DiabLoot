@@ -1,6 +1,6 @@
 #include "Particle.h"
 
-Particle::Particle(int id, sf::Vector2f pathStart, sf::Vector2f pathEnd, float anchorHeight, float stepIncrement, std::function<void(sf::Vector2f, Particle&)> callback)
+Particle::Particle(int id, sf::Vector2f pathStart, sf::Vector2f pathEnd, float anchorHeight, float stepIncrement, std::function<void(Particle&)> callback)
 	:mId{id}
 	,mPath(Vec2(pathStart), Vec2(pathEnd), anchorHeight)
 	,mStepProgress(0)
@@ -17,7 +17,7 @@ void Particle::stepParticle()
 	if (mFinished)
 	{
 	
-		mCallback(mPath.getEndPos().getAsSFVec2F(), *this);
+		mCallback(*this);
 		return;
 		
 	}
@@ -39,5 +39,10 @@ int Particle::getId()
 sf::Vector2f Particle::getCurrentPos()
 {
 	return mCurrentPos.getAsSFVec2F();
+}
+
+sf::Vector2f Particle::getEndPos()
+{
+	return mPath.getEndPos().getAsSFVec2F();
 }
 

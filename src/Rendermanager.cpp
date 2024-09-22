@@ -31,7 +31,7 @@ void RenderManager::RenderParticles(std::vector<std::unique_ptr<Particle>>& part
 	{
 		sf::Vector2f pos = p->getCurrentPos();
 		// Change this to the correct sprite
-		sf::Sprite particleSprite = mAssetMgr.GetSprite(SPRITES::BUTTON);
+		sf::Sprite particleSprite = mAssetMgr.GetSprite(SPRITES::PARTICLE);
 		// Are we setting the origin in the asset manager? If not, would make sense to... 
 		particleSprite.setOrigin(particleSprite.getTextureRect().getSize().x / 2.f, particleSprite.getTextureRect().getSize().y / 2.f);
 		mGameWindow.draw(particleSprite);
@@ -48,11 +48,11 @@ void RenderManager::RenderChests(std::vector<std::unique_ptr<Chest>>& chests)
 		if (chest->IsOpened())
 		{
 			// No open sprite yet.
-			chestSprite = mAssetMgr.GetSprite(SPRITES::CHEST);
+			chestSprite = mAssetMgr.GetSprite(SPRITES::CHESTOPENED);
 		}
 		else
 		{
-			chestSprite = mAssetMgr.GetSprite(SPRITES::CHEST);
+			chestSprite = mAssetMgr.GetSprite(SPRITES::CHESTCLOSED);
 		}
 		// Is this being done in the asset manager?
 		chestSprite.setOrigin(chestSprite.getGlobalBounds().getSize().x / 2.f, chestSprite.getGlobalBounds().getSize().y / 2.f);

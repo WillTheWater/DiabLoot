@@ -6,9 +6,10 @@ namespace TEXTURES
 	{
 		MAINMENU,
 		BUTTON,
-		CHEST,
-		CHESTR,
+		CHESTCLOSED,
+		CHESTOPENED,
 		MAP_ONE,
+		PARTICLE,
 		MAX_TEXTURES
 	};
 }
@@ -19,11 +20,13 @@ namespace SPRITES
 	{
 		MAINMENU,
 		BUTTON,
-		CHEST,
-		CHESTR,
+		CHESTCLOSED,
+		CHESTOPENED,
 		MAP_ONE,
+		PARTICLE,
 		MAX_SPRITES
 	};
+
 }
 
 namespace FONTS

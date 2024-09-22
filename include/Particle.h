@@ -11,11 +11,12 @@ public:
 	Particle() = delete;
 	// anchorHeight sets how hight the partile travels, stepIncrement is used to go between 0 to 1 each step for the animation, 
 	// callback is the function called when the particle lands
-	Particle(int id, sf::Vector2f pathStart, sf::Vector2f pathEnd, float anchorHeight, float stepIncrement, std::function<void(sf::Vector2f, Particle&)> callback);
+	Particle(int id, sf::Vector2f pathStart, sf::Vector2f pathEnd, float anchorHeight, float stepIncrement, std::function<void(Particle&)> callback);
 
 	void						stepParticle();
 	int							getId();
 	sf::Vector2f				getCurrentPos();
+	sf::Vector2f				getEndPos();
 
 
 

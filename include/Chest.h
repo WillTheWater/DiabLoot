@@ -6,7 +6,7 @@
 class Chest : public InputObserver
 {
 public:
-	Chest(sf::Vector2f position, bool mirrored, std::function<void(sf::Vector2f)> callback);
+	Chest(sf::Vector2f position, bool mirrored, std::function<void(Chest&)> callback);
 
 	// Observer overrides
 	void								OnMouseMove(int x, int y) override;
@@ -25,5 +25,5 @@ private:
 	sf::Vector2f mPos;
 	sf::RectangleShape mRect;
 	bool mMouseOver;
-	std::function<void(sf::Vector2f)> mCallback;
+	std::function<void(Chest&)> mCallback;
 };

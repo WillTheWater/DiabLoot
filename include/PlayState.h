@@ -22,10 +22,10 @@ public:
 	void									DrawParticles();
 	int										GetUniqueParticleId();
 	void									SpawnChests();
-	void									SpawnParticles(sf::Vector2f position);
+	void									SpawnParticles(Chest& chest);
 	void									UpdateParticles();
 	void									RemoveParticle(Particle& particle);
-	void									SpawnItem(sf::Vector2f position, Particle& particle);
+	void									SpawnItem(Particle& particle);
 private:
 	int										mParticleUniqueId;
 	std::vector<std::unique_ptr<Chest>>		mChests;

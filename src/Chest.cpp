@@ -52,7 +52,7 @@ void Chest::OnMouseRelease(sf::Mouse::Button button)
 void Chest::OpenChest()
 {
 	mOpened = true; 
-	mCallback(mPos);
+	mCallback(*this);
 }
 
 sf::Vector2f Chest::GetPosition()
