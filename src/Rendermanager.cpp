@@ -1,4 +1,5 @@
 #include "RenderManager.h"
+#include "Core.h"
 
 RenderManager::RenderManager()
 	: mAssetMgr{}
@@ -15,22 +16,42 @@ sf::RenderWindow& RenderManager::GetWindow()
 void RenderManager::MainMenuRender()
 {
 	Draw(mAssetMgr.GetSprite(SPRITES::MAINMENU));
-	mGUIMgr.AddButton({ 0.f,0.f });
 	DrawButtons();
-}
-
-void RenderManager::PlayRender()
-{
-	Draw(mAssetMgr.GetSprite(SPRITES::MAP_ONE));
 }
 
 void RenderManager::DrawButtons()
 {
+	mGUIMgr.AddButton({ mGameWindow.getSize().x / 2.f - 300.f, mGameWindow.getSize().y / 2.f });
+	mGUIMgr.AddButton({ mGameWindow.getSize().x / 2.f - 300.f, mGameWindow.getSize().y / 2.f + 83.f });
+
+	auto mousePos = sf::Mouse::getPosition(mGameWindow);
+
+	bool isLeftButtonPressed = sf::Mouse::isButtonPressed(sf::Mouse::Left);
+
 	for (const auto& button : mGUIMgr.GetButtons())
 	{
 		auto& buttonSprite = mAssetMgr.GetSprite(SPRITES::BUTTON);
-		buttonSprite.setPosition(button.GetPosition());
-		switch (button.GetButtonState())
+		buttonSprite.setPosition(button->GetPosition());
+
+		const auto bounds = button->GetButtonBounds(button->GetPosition());
+
+		if (bounds.contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+		{
+			if (isLeftButtonPressed)
+			{
+				button->SetButtonState(Button::BUTTON_STATE::CLICK);
+			}
+			else
+			{
+				button->SetButtonState(Button::BUTTON_STATE::HOVER);
+			}
+		}
+		else
+		{
+			button->SetButtonState(Button::BUTTON_STATE::IDLE);
+		}
+
+		switch (button->GetButtonState())
 		{
 		case Button::BUTTON_STATE::HOVER:
 			buttonSprite.setColor(sf::Color{ 200, 200, 200, 255 });
@@ -42,9 +63,11 @@ void RenderManager::DrawButtons()
 			buttonSprite.setColor(sf::Color{ 255, 255, 255, 255 });
 			break;
 		}
+
 		Draw(buttonSprite);
 	}
 }
+
 
 void RenderManager::RenderLevel(Level& level)
 {

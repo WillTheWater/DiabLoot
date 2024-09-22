@@ -4,6 +4,13 @@
 class Button
 {
 public:
+
+	enum class BUTTON_TYPE
+	{
+		WIDE,
+		SQUARE
+	};
+
 	enum class BUTTON_STATE
 	{
 		IDLE,
@@ -13,14 +20,15 @@ public:
 
 	Button(const sf::Vector2f& position);
 
-	void									SetState(BUTTON_STATE newState);
-	void									SetOrigin();
+	void									SetButtonType(BUTTON_TYPE newType);
+	void									SetButtonState(BUTTON_STATE newState);
+	Button::BUTTON_TYPE						GetButtonType() const;
 	Button::BUTTON_STATE					GetButtonState() const;
+	sf::FloatRect							GetButtonBounds(const sf::Vector2f& position) const;
 	sf::Vector2f							GetPosition() const;
-	sf::FloatRect							GetButtonBounds() const;
-	void									UpdateButtonState(const sf::Vector2f& mousePos, bool isClicked);
 
 private:
 	sf::Vector2f							mPosition;
 	BUTTON_STATE							mButtonState;
+	BUTTON_TYPE								mButtonType;
 };
