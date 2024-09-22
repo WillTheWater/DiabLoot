@@ -43,6 +43,9 @@ void RenderManager::DrawButtons()
 			break;
 		}
 		Draw(buttonSprite);
+	}
+}
+
 void RenderManager::RenderLevel(Level& level)
 {
 	Draw(mAssetMgr.GetLevelMap(level.GetLevelId()));
