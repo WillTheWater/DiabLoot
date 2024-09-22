@@ -3,18 +3,15 @@
 #include <vector>
 #include "Button.h"
 
-class RenderManager;
-
 class GUIManager
 {
 public:
-	GUIManager(RenderManager& renderMgr);
+	GUIManager();
 
 	void									AddButton(const sf::Vector2f& position);
 	void									UpdateButtons(const sf::Vector2f& mousePos, bool isClicked);
-	void									RenderButtons();
+	std::vector<Button>&					GetButtons();
 
 private:
 	std::vector<Button>						mButtons;
-	RenderManager&							mRenderMgr;
 };

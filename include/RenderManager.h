@@ -3,21 +3,23 @@
 #include <memory>
 #include <vector>
 #include "AssetManager.h"
+#include "GUIManager.h"
 
 class RenderManager
 {
 public:
-	RenderManager(AssetManager& assetMgr);
+	RenderManager();
 
 	sf::RenderWindow&							GetWindow();
-	AssetManager&								GetAssetManager();
 	void										MainMenuRender();
 	void										PlayRender();
+	void										DrawButtons();
 
 	template <typename T>
 	void										Draw(const T& drawObject) { mGameWindow.draw(drawObject); }
 
 private:
-	AssetManager&								mAssetMgr;
+	AssetManager								mAssetMgr;
+	GUIManager									mGUIMgr;
 	sf::RenderWindow							mGameWindow;
 };

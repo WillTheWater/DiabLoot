@@ -14,6 +14,7 @@ public:
 	Button(const sf::Vector2f& position);
 
 	void									SetState(BUTTON_STATE newState);
+	void									SetOrigin();
 	Button::BUTTON_STATE					GetButtonState() const;
 	sf::Vector2f							GetPosition() const;
 	sf::FloatRect							GetButtonBounds() const;

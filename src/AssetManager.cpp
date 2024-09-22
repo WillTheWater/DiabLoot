@@ -29,6 +29,7 @@ void AssetManager::InitializeTextureSprites()
     
     mSprites[SPRITES::MAINMENU]->setTexture(GetTexture(TEXTURES::MAINMENU));
     mSprites[SPRITES::MAP_ONE]->setTexture(GetTexture(TEXTURES::MAP_ONE));
+    mSprites[SPRITES::BUTTON]->setTexture(GetTexture(TEXTURES::BUTTON));
 }
 
 sf::Texture& AssetManager::GetTexture(TEXTURES::TEXTURE texture)

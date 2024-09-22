@@ -1,6 +1,7 @@
 #include "MainMenuState.h"
 #include "PlayState.h"
 #include "Core.h"
+#include "MathUtilities.h"
 
 MainMenuState::MainMenuState(TimeManager& timeMgr, RenderManager& renderMgr, InputManager& inputMgr, EventManager& eventMgr, ChangeStateCallback changeStateCB)
 	: GameState{timeMgr, renderMgr, inputMgr, eventMgr, changeStateCB}

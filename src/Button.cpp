@@ -1,4 +1,5 @@
 #include "Button.h"
+#include "Button.h"
 
 Button::Button(const sf::Vector2f& position)
 	: mPosition{position}
@@ -9,6 +10,10 @@ Button::Button(const sf::Vector2f& position)
 void Button::SetState(BUTTON_STATE newState)
 {
 	mButtonState = newState;
+}
+
+void Button::SetOrigin()
+{
 }
 
 Button::BUTTON_STATE Button::GetButtonState() const

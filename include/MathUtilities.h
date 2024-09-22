@@ -12,7 +12,7 @@ namespace MathU
 	{
 		static_assert(std::is_arithmetic<T>::value, "Template args must be int or float");
 		std::random_device rd;
-		std::mt19937 gen(rd(), rd(), rd(), rd(), rd());
+		std::mt19937 gen(rd());
 		if constexpr (std::is_integral<T>::value)
 		{
 			std::uniform_int_distribution<T> dis(min, max);
@@ -31,7 +31,7 @@ namespace MathU
 	int DiscreteProbability(const std::vector<float>& probabilities)
 	{
 		std::random_device rd;
-		std::mt19937 gen(rd(), rd(), rd(), rd(), rd());
+		std::mt19937 gen(rd());
 		std::discrete_distribution<> dist(probabilities.begin(), probabilities.end());
 		return dist(gen);
 	}
