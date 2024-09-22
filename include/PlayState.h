@@ -3,11 +3,14 @@
 #include "Particle.h"
 #include "Chest.h"
 #include "MathUtilities.h"
+#include "MainMenuState.h"
+#include "Core.h"
+#include "Level.h"
 
 class PlayState : public GameState, public InputObserver
 {
 public:
-	PlayState(TimeManager& timeMgr, RenderManager& renderMgr, InputManager& inputMgr, EventManager& eventMgr, ChangeStateCallback changeStateCB);
+	PlayState(TimeManager& timeMgr, RenderManager& renderMgr, InputManager& inputMgr, EventManager& eventMgr, ChangeStateCallback changeStateCB, LEVELS::LEVEL level);
 
 	virtual void							Enter() override;
 	virtual void							Exit() override;
@@ -19,15 +22,6 @@ public:
 	void									OnKeyRelease(sf::Keyboard::Key key) override;
 	void									OnMouseClick(sf::Mouse::Button button) override;
 	void									OnMouseRelease(sf::Mouse::Button button) override;
-	void									DrawParticles();
-	int										GetUniqueParticleId();
-	void									SpawnChests();
-	void									SpawnParticles(Chest& chest);
-	void									UpdateParticles();
-	void									RemoveParticle(Particle& particle);
-	void									SpawnItem(Particle& particle);
 private:
-	int										mParticleUniqueId;
-	std::vector<std::unique_ptr<Chest>>		mChests;
-	std::vector<std::unique_ptr<Particle>>	mParticles;
+	std::unique_ptr<Level>					mLevel;
 };

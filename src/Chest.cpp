@@ -2,7 +2,7 @@
 
 Chest::Chest(sf::Vector2f position, bool mirrored, std::function<void(Chest&)> callback)
 	:mPos{position}
-	,mRect{ {30.f,30.f} }
+	,mRect{ {50.f,60.f} }
 	,mMirrored{mirrored}
 	,mOpened{false}
 	,mMouseOver{false}
@@ -14,7 +14,7 @@ Chest::Chest(sf::Vector2f position, bool mirrored, std::function<void(Chest&)> c
 
 void Chest::OnMouseMove(int x, int y)
 {
-	sf::Rect bound = mRect.getLocalBounds();
+	sf::Rect bound = mRect.getGlobalBounds();
 	sf::Vector2f mousePos (x, y);
 	if (bound.contains(mousePos))
 	{

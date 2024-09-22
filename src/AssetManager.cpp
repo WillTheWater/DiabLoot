@@ -1,5 +1,5 @@
 #include "AssetManager.h"
-#include <cassert>
+
 
 AssetManager::AssetManager()
 {
@@ -45,4 +45,12 @@ sf::Sprite& AssetManager::GetSprite(SPRITES::SPRITE sprite)
 {
     assert(sprite < SPRITES::MAX_SPRITES && sprite >= 0 && "Attempted to get sprite that doesn't exist!\n");
     return *mSprites[sprite];
+}
+
+sf::Sprite& AssetManager::GetLevelMap(LEVELS::LEVEL level)
+{
+    switch (level)
+    {
+    case LEVELS::LEVEL_ONE: return *mSprites[SPRITES::MAP_ONE];
+    }
 }

@@ -69,3 +69,12 @@ namespace CHANNELS
 		MAX_CHANNELS
 	};
 }
+
+namespace LEVELS
+{
+	enum LEVEL
+	{
+		LEVEL_ONE,
+		MAX_LEVELS
+	};
+}

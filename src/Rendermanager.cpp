@@ -25,6 +25,13 @@ void RenderManager::PlayRender()
 	Draw(mAssetMgr.GetSprite(SPRITES::MAP_ONE));
 }
 
+void RenderManager::RenderLevel(Level& level)
+{
+	Draw(mAssetMgr.GetLevelMap(level.GetLevelId()));
+	RenderChests(level.GetChests());
+	RenderParticles(level.GetParticles());
+}
+
 void RenderManager::RenderParticles(std::vector<std::unique_ptr<Particle>>& particles)
 {
 	for (auto& p : particles)
@@ -34,7 +41,7 @@ void RenderManager::RenderParticles(std::vector<std::unique_ptr<Particle>>& part
 		sf::Sprite particleSprite = mAssetMgr.GetSprite(SPRITES::PARTICLE);
 		particleSprite.setOrigin(particleSprite.getTextureRect().getSize().x / 2.f, particleSprite.getTextureRect().getSize().y / 2.f);
 		particleSprite.setPosition(pos);
-		mGameWindow.draw(particleSprite);
+		Draw(particleSprite);
 	}
 }
 
@@ -61,9 +68,6 @@ void RenderManager::RenderChests(std::vector<std::unique_ptr<Chest>>& chests)
 			chestSprite.setScale({ -1,1 });
 		}
 
-		mGameWindow.draw(chestSprite);
-
-
-
+		Draw(chestSprite);
 	}
 }
