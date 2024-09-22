@@ -3,6 +3,7 @@
 #include <memory>
 #include <vector>
 #include "AssetManager.h"
+#include "GUIManager.h"
 #include "Level.h"
 
 class RenderManager
@@ -11,17 +12,18 @@ public:
 	RenderManager();
 
 	sf::RenderWindow&							GetWindow();
-	AssetManager&								GetAssetManager();
-	void										MainMenuRender();
-	void										PlayRender();
-	void										RenderLevel(Level& level);
+	void									      	MainMenuRender();
+	void										      PlayRender();
+	void										      DrawButtons();
+	void										      RenderLevel(Level& level);
 
 	template <typename T>
-	void										Draw(const T& drawObject) { mGameWindow.draw(drawObject); }
+	void										      Draw(const T& drawObject) { mGameWindow.draw(drawObject); }
 
 private:
-	AssetManager								mAssetMgr;
+	AssetManager								  mAssetMgr;
+	GUIManager									  mGUIMgr;
 	sf::RenderWindow							mGameWindow;
-	void										RenderParticles(std::vector<std::unique_ptr<Particle>>& particles);
-	void										RenderChests(std::vector<std::unique_ptr<Chest>>& chests);
+	void										      RenderParticles(std::vector<std::unique_ptr<Particle>>& particles);
+	void										      RenderChests(std::vector<std::unique_ptr<Chest>>& chests);
 };
