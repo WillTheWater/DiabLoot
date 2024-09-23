@@ -28,6 +28,9 @@ file(GLOB_RECURSE HEADERS "include/*.h")
 # Add executable and specify source files
 add_executable(${PROJECT_NAME} ${SOURCES})
 
+# Add header files to the target explicitly
+target_sources(${PROJECT_NAME} PRIVATE ${HEADERS})
+
 # Add include directory
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/include)
 
