@@ -3,7 +3,8 @@
 PlayState::PlayState(TimeManager& timeMgr, RenderManager& renderMgr, InputManager& inputMgr, ChangeStateCallback changeStateCB, LEVELS::LEVEL level)
 	: GameState{ timeMgr, renderMgr, inputMgr, changeStateCB }
 {
-	mLevel = std::make_unique<Level>(level, timeMgr, inputMgr);
+	std::function<sf::Text& (ITEMID::ITEM)> itemTextCB = [this](ITEMID::ITEM item)->sf::Text& {return this->mRenderManager.GetTextForItemId(item); };
+	mLevel = std::make_unique<Level>(level, timeMgr, inputMgr, itemTextCB);
 }
 
 void PlayState::Enter()

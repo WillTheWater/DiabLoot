@@ -9,6 +9,12 @@ namespace TEXTURES
 		CHESTCLOSED,
 		CHESTOPENED,
 		MAP_ONE,
+		AMULET,
+		CHARM,
+		REJUV,
+		RING,
+		RUNE1,
+		TPSCROLL,
 		PARTICLE,
 		MAX_TEXTURES
 	};
@@ -23,6 +29,12 @@ namespace SPRITES
 		CHESTCLOSED,
 		CHESTOPENED,
 		MAP_ONE,
+		AMULET,
+		CHARM,
+		REJUV,
+		RING,
+		RUNE1,
+		TPSCROLL,
 		PARTICLE,
 		MAX_SPRITES
 	};
@@ -76,5 +88,32 @@ namespace LEVELS
 	{
 		LEVEL_ONE,
 		MAX_LEVELS
+	};
+}
+
+namespace ITEMID
+{
+	enum ITEM
+	{
+		AMULET,
+		CHARM,
+		REJUV,
+		RING,
+		RUNE1,
+		TPSCROLL,
+		MAX_ITEMS
+	};
+}
+
+namespace ITEMRARITY
+{
+	enum RARITY
+	{
+		NORMAL,			// 0
+		MAGIC,			// 1
+		RARE,			// 2
+		SET,			// 3
+		UNIQUE,			// 4
+		MAX_RARITIES	// 5
 	};
 }
