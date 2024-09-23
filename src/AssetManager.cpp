@@ -34,8 +34,6 @@ void AssetManager::InitializeTextureSprites()
     mTextures[TEXTURES::RUNE1]->loadFromFile("assets/graphics/items/rune1.png");
     mTextures[TEXTURES::TPSCROLL]->loadFromFile("assets/graphics/items/tpscroll.png");
 
-
-
     mSprites[SPRITES::MAINMENU]->setTexture(GetTexture(TEXTURES::MAINMENU));
     mSprites[SPRITES::MAP_ONE]->setTexture(GetTexture(TEXTURES::MAP_ONE));
     mSprites[SPRITES::BUTTON]->setTexture(GetTexture(TEXTURES::BUTTON));
