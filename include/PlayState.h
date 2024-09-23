@@ -10,7 +10,7 @@
 class PlayState : public GameState, public InputObserver
 {
 public:
-	PlayState(TimeManager& timeMgr, RenderManager& renderMgr, InputManager& inputMgr, EventManager& eventMgr, ChangeStateCallback changeStateCB, LEVELS::LEVEL level);
+	PlayState(TimeManager& timeMgr, RenderManager& renderMgr, InputManager& inputMgr, ChangeStateCallback changeStateCB, LEVELS::LEVEL level);
 
 	virtual void							Enter() override;
 	virtual void							Exit() override;

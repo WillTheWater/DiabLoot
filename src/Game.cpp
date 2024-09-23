@@ -3,13 +3,16 @@
 
 Game::Game()
     : mTimeMgr{}
-    , mRenderMgr{}
+    , mGUIMgr{}
+    , mRenderMgr{mGUIMgr}
     , mInputMgr{}
-    , mEventMgr{}
 {
     mRenderMgr.GetWindow().setFramerateLimit(60);
     mChangeStateCB = [this](std::unique_ptr<GameState> newState) {this->ChangeState(std::move(newState)); };
-    ChangeState(std::make_unique<MainMenuState>(mTimeMgr, mRenderMgr, mInputMgr, mEventMgr, mChangeStateCB));
+    mGUIMgr.SetWindowCB([this]()->sf::RenderWindow& {return this->mRenderMgr.GetWindow(); });
+    mGUIMgr.InitButtons();
+    mInputMgr.AddObserver(&mGUIMgr);
+    ChangeState(std::make_unique<MainMenuState>(mTimeMgr, mRenderMgr, mInputMgr, mChangeStateCB));
 }
 
 void Game::Run()
@@ -22,6 +25,7 @@ void Game::Run()
         {
             mInputMgr.ProcessInput(event);
         }
+        mGUIMgr.UpdateButtons();
         if (mCurrentState) { mCurrentState->Update(); }
         mRenderMgr.GetWindow().clear(sf::Color::Black);
         if (mCurrentState) { mCurrentState->Draw(); }

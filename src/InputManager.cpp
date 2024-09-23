@@ -41,7 +41,6 @@ void InputManager::NotifyMouseMove(int x, int y)
 	{
 		observer->OnMouseMove(x, y);
 	}
-	LOG("Mouse moved")
 }
 
 void InputManager::NotifyKeyPress(sf::Keyboard::Key key)
@@ -50,7 +49,6 @@ void InputManager::NotifyKeyPress(sf::Keyboard::Key key)
 	{
 		observer->OnKeyPress(key);
 	}
-	LOG("Key pressed")
 }
 
 void InputManager::NotifyKeyRelease(sf::Keyboard::Key key)
@@ -59,7 +57,6 @@ void InputManager::NotifyKeyRelease(sf::Keyboard::Key key)
 	{
 		observer->OnKeyRelease(key);
 	}
-	LOG("Key released")
 }
 
 void InputManager::NotifyMouseClick(sf::Mouse::Button button)
@@ -68,7 +65,6 @@ void InputManager::NotifyMouseClick(sf::Mouse::Button button)
 	{
 		observer->OnMouseClick(button);
 	}
-	LOG("Mouse clicked")
 }
 
 void InputManager::NotifyMouseRelease(sf::Mouse::Button button)
@@ -77,5 +73,4 @@ void InputManager::NotifyMouseRelease(sf::Mouse::Button button)
 	{
 		observer->OnMouseRelease(button);
 	}
-	LOG("Mouse released")
 }

@@ -4,7 +4,7 @@
 class MainMenuState : public GameState, public InputObserver
 {
 public:
-	MainMenuState(TimeManager& timeMgr, RenderManager& renderMgr, InputManager& inputMgr, EventManager& eventMgr, ChangeStateCallback changeStateCB);
+	MainMenuState(TimeManager& timeMgr, RenderManager& renderMgr, InputManager& inputMgr, ChangeStateCallback changeStateCB);
 
 	virtual void							Enter() override;
 	virtual void							Exit() override;

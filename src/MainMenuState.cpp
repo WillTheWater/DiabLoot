@@ -3,8 +3,8 @@
 #include "Core.h"
 #include "MathUtilities.h"
 
-MainMenuState::MainMenuState(TimeManager& timeMgr, RenderManager& renderMgr, InputManager& inputMgr, EventManager& eventMgr, ChangeStateCallback changeStateCB)
-	: GameState{timeMgr, renderMgr, inputMgr, eventMgr, changeStateCB}
+MainMenuState::MainMenuState(TimeManager& timeMgr, RenderManager& renderMgr, InputManager& inputMgr, ChangeStateCallback changeStateCB)
+	: GameState{timeMgr, renderMgr, inputMgr, changeStateCB}
 {
 
 }
@@ -43,7 +43,7 @@ void MainMenuState::OnKeyRelease(sf::Keyboard::Key key)
 {
 	if (key == sf::Keyboard::P)
 	{ 
-		auto newState = std::make_unique<PlayState>(mTimeManager, mRenderManager, mInputManager, mEventManager, mChangeStateCB, LEVELS::LEVEL_ONE);
+		auto newState = std::make_unique<PlayState>(mTimeManager, mRenderManager, mInputManager, mChangeStateCB, LEVELS::LEVEL_ONE);
 		mChangeStateCB(std::move(newState));
 	}
 }

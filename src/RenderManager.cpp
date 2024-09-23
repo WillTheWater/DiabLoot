@@ -1,12 +1,12 @@
 #include "RenderManager.h"
 #include "Core.h"
 
-RenderManager::RenderManager()
+RenderManager::RenderManager(GUIManager& guiMgr)
 	: mAssetMgr{}
 	, mGameWindow{ sf::VideoMode(1920u, 1080u), "DiabLoot", sf::Style::Close }
-	, mGUIMgr{ [this]()->sf::RenderWindow& {return this->GetWindow(); } }
+	, mGUIMgr{guiMgr}
 {
-	mGUIMgr.InitButtons();
+	
 }
 
 sf::RenderWindow& RenderManager::GetWindow()
@@ -30,24 +30,6 @@ void RenderManager::DrawButtons()
 	{
 		auto& buttonSprite = mAssetMgr.GetSprite(SPRITES::BUTTON);
 		buttonSprite.setPosition(button->GetPosition());
-
-		const auto bounds = button->GetButtonBounds(button->GetPosition());
-
-		if (bounds.contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
-		{
-			if (isLeftButtonPressed)
-			{
-				button->SetButtonState(Button::BUTTON_STATE::CLICK);
-			}
-			else
-			{
-				button->SetButtonState(Button::BUTTON_STATE::HOVER);
-			}
-		}
-		else
-		{
-			button->SetButtonState(Button::BUTTON_STATE::IDLE);
-		}
 
 		switch (button->GetButtonState())
 		{

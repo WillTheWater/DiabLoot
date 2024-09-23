@@ -10,7 +10,7 @@ class GUIManager : public InputObserver
 public:
 	
 
-	GUIManager(std::function<sf::RenderWindow&()> getWindowCB);
+	GUIManager();
 
 	void									OnMouseMove(int x, int y) override;
 	void									OnKeyPress(sf::Keyboard::Key key) override;
@@ -18,13 +18,16 @@ public:
 	void									OnMouseClick(sf::Mouse::Button button) override;
 	void									OnMouseRelease(sf::Mouse::Button button) override;
 
+	void									UpdateButtons();
 	void									InitButtons();
+	void									SetWindowCB(std::function<sf::RenderWindow& ()> getWindowCB);
 	void									AddButton(const sf::Vector2f& position);
 	std::vector<std::unique_ptr<Button>>&	GetButtons();
 	bool									GetButtonCondition() const;
 
 	void									OnButtonUp();
 	void									OnButtonDown();
+
 
 private:
 	bool									IsButtonDown;

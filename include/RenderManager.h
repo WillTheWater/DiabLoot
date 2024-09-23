@@ -10,7 +10,7 @@
 class RenderManager
 {
 public:
-	RenderManager();
+	RenderManager(GUIManager& guiMgr);
 
 	sf::RenderWindow&							GetWindow();
 	void									    MainMenuRender();
@@ -23,7 +23,7 @@ public:
 
 private:
 	AssetManager								mAssetMgr;
-	GUIManager									mGUIMgr;
+	GUIManager&									mGUIMgr;
 	sf::RenderWindow							mGameWindow;
 	void										RenderParticles(std::vector<std::unique_ptr<Particle>>& particles);
 	void										RenderChests(std::vector<std::unique_ptr<Chest>>& chests);

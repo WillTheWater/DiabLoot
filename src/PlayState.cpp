@@ -1,7 +1,7 @@
 #include "PlayState.h"
 
-PlayState::PlayState(TimeManager& timeMgr, RenderManager& renderMgr, InputManager& inputMgr, EventManager& eventMgr, ChangeStateCallback changeStateCB, LEVELS::LEVEL level)
-	: GameState{ timeMgr, renderMgr, inputMgr, eventMgr, changeStateCB }
+PlayState::PlayState(TimeManager& timeMgr, RenderManager& renderMgr, InputManager& inputMgr, ChangeStateCallback changeStateCB, LEVELS::LEVEL level)
+	: GameState{ timeMgr, renderMgr, inputMgr, changeStateCB }
 {
 	std::function<sf::Text& (ITEMID::ITEM)> itemTextCB = [this](ITEMID::ITEM item)->sf::Text& {return this->mRenderManager.GetTextForItemId(item); };
 	mLevel = std::make_unique<Level>(level, timeMgr, inputMgr, itemTextCB);
@@ -43,7 +43,7 @@ void PlayState::OnKeyRelease(sf::Keyboard::Key key)
 {
 	if (key == sf::Keyboard::Escape)
 	{
-		auto newState = std::make_unique<MainMenuState>(mTimeManager, mRenderManager, mInputManager, mEventManager, mChangeStateCB);
+		auto newState = std::make_unique<MainMenuState>(mTimeManager, mRenderManager, mInputManager, mChangeStateCB);
 		mChangeStateCB(std::move(newState));
 	}
 }
