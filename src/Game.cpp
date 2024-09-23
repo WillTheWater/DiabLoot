@@ -1,18 +1,19 @@
 #include "Game.h"
 #include "MainMenuState.h"
+#include "PlayState.h"
 
 Game::Game()
     : mTimeMgr{}
     , mGUIMgr{}
-    , mRenderMgr{mGUIMgr}
+    , mRenderMgr{ mGUIMgr }
     , mInputMgr{}
 {
     mRenderMgr.GetWindow().setFramerateLimit(60);
-    mChangeStateCB = [this](std::unique_ptr<GameState> newState) {this->ChangeState(std::move(newState)); };
-    mGUIMgr.SetWindowCB([this]()->sf::RenderWindow& {return this->mRenderMgr.GetWindow(); });
-    mGUIMgr.InitButtons();
+    mChangeStateCB = [this](std::unique_ptr<GameState> newState) { this->ChangeState(std::move(newState)); };
+    mGUIMgr.SetWindowCB([this]() -> sf::RenderWindow& { return this->mRenderMgr.GetWindow(); });
     mInputMgr.AddObserver(&mGUIMgr);
     ChangeState(std::make_unique<MainMenuState>(mTimeMgr, mRenderMgr, mInputMgr, mChangeStateCB));
+    GUISetup();
 }
 
 void Game::Run()
@@ -33,10 +34,23 @@ void Game::Run()
     }
 }
 
+void Game::GUISetup()
+{
+    mGUIMgr.InitButtons(
+        [this]() { return CreatePlayState(); },
+        mChangeStateCB // Pass the ChangeState callback
+    );
+}
+
 void Game::ChangeState(std::unique_ptr<GameState> newState)
 {
     if (mCurrentState == newState) { return; }
     if (newState) { newState->Enter(); }
     if (mCurrentState) { mCurrentState->Exit(); }
     mCurrentState = std::move(newState);
+}
+
+std::unique_ptr<PlayState> Game::CreatePlayState()
+{
+    return std::make_unique<PlayState>(mTimeMgr, mRenderMgr, mInputMgr, mChangeStateCB, LEVELS::LEVEL_ONE);
 }

@@ -22,7 +22,6 @@ void RenderManager::MainMenuRender()
 
 void RenderManager::DrawButtons()
 {
-	
 	auto mousePos = sf::Mouse::getPosition(mGameWindow);
 	bool isLeftButtonPressed = sf::Mouse::isButtonPressed(sf::Mouse::Left);
 
