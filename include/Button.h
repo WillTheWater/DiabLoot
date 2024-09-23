@@ -19,9 +19,7 @@ public:
 		HOVER,
 		CLICK
 	};
-
-	Button(const sf::Vector2f& position);
-	Button(const sf::Vector2f& position, const std::string& buttonText, const sf::Font& font);
+	Button(const sf::Vector2f& position, const std::string& buttonText);
 
 	void									SetButtonType(BUTTON_TYPE newType);
 	void									SetButtonState(BUTTON_STATE newState);
@@ -36,8 +34,6 @@ public:
 
 private:
 	std::string								mButtonText;
-	sf::Font								mButtonFont;
-	sf::Text								mButtonPrintText;
 	sf::Vector2f							mPosition;
 	bool									mIsHoveringWhenPressed;
 	BUTTON_STATE							mButtonState;

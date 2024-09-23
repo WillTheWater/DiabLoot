@@ -1,24 +1,13 @@
 #include "Button.h"
 #include "Core.h"
 
-Button::Button(const sf::Vector2f& position)
-	: mPosition{ position }
-	, mButtonText{ "" }
-	, mButtonType{ BUTTON_TYPE::WIDE }
-	, mButtonState{ BUTTON_STATE::IDLE }
-	, mIsHoveringWhenPressed{ false }
-{
-}
-
-Button::Button(const sf::Vector2f& position, const std::string& buttonText, const sf::Font& font)
+Button::Button(const sf::Vector2f& position, const std::string& buttonText)
 	: mPosition{position}
 	, mButtonText{buttonText}
 	, mButtonType{BUTTON_TYPE::WIDE}
 	, mButtonState{BUTTON_STATE::IDLE}
 	, mIsHoveringWhenPressed{ false }
 {
-	mButtonPrintText.setFont(font);
-	mButtonPrintText.setString(buttonText);
 }
 
 void Button::SetButtonType(BUTTON_TYPE newType)
