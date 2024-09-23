@@ -5,10 +5,10 @@
 #include "GameState.h"
 
 GUIManager::GUIManager()
-	: mGetWindowCB{nullptr}
-	, IsButtonDown{false}
+    : mGetWindowCB{ nullptr }
+    , IsButtonDown{ false }
 {
-	mButtons.reserve(10);
+    mButtons.reserve(10);
 }
 
 void GUIManager::InitButtons(std::function<std::unique_ptr<PlayState>()> createPlayStateCB, std::function<void(std::unique_ptr<GameState>)> changeStateCB)
@@ -16,7 +16,7 @@ void GUIManager::InitButtons(std::function<std::unique_ptr<PlayState>()> createP
     auto StartButton = AddButton({ mGetWindowCB().getSize().x / 2.f - 300.f, mGetWindowCB().getSize().y / 2.f }, "Start");
     auto ExitButton = AddButton({ mGetWindowCB().getSize().x / 2.f - 300.f, mGetWindowCB().getSize().y / 2.f + 83.f }, "Exit");
 
-    StartButton->SetClickCB([createPlayStateCB, changeStateCB]() {auto newState = createPlayStateCB();changeStateCB(std::move(newState));});
+    StartButton->SetClickCB([createPlayStateCB, changeStateCB]() {auto newState = createPlayStateCB(); changeStateCB(std::move(newState)); });
     ExitButton->SetClickCB([this]() { mGetWindowCB().close(); });
 }
 
@@ -96,31 +96,30 @@ Button* GUIManager::AddButton(const sf::Vector2f& position, const std::string& b
 
 std::vector<std::unique_ptr<Button>>& GUIManager::GetButtons()
 {
-	return mButtons;
+    return mButtons;
 }
 
 bool GUIManager::GetButtonCondition() const
 {
-	return IsButtonDown;
+    return IsButtonDown;
 }
 
 void GUIManager::OnButtonUp()
 {
-	IsButtonDown = false;
+    IsButtonDown = false;
 }
 
 void GUIManager::OnButtonDown()
 {
-	IsButtonDown = true;
+    IsButtonDown = true;
 }
 
 void GUIManager::WasClicked(Button& button)
 {
     button.OnClick();
-    LOG("Button Click!")
 }
 
 void GUIManager::SetWindowCB(std::function<sf::RenderWindow& ()> getWindowCB)
 {
-	mGetWindowCB = getWindowCB;
+    mGetWindowCB = getWindowCB;
 }

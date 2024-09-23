@@ -2,10 +2,10 @@
 #include "Core.h"
 
 Button::Button(const sf::Vector2f& position, const std::string& buttonText)
-	: mPosition{position}
-	, mButtonText{buttonText}
-	, mButtonType{BUTTON_TYPE::WIDE}
-	, mButtonState{BUTTON_STATE::IDLE}
+	: mPosition{ position }
+	, mButtonText{ buttonText }
+	, mButtonType{ BUTTON_TYPE::WIDE }
+	, mButtonState{ BUTTON_STATE::IDLE }
 	, mIsHoveringWhenPressed{ false }
 {
 }
@@ -21,8 +21,8 @@ void Button::SetButtonState(BUTTON_STATE newState)
 }
 
 void Button::SetHoverState(bool hoverState)
-{ 
-	mIsHoveringWhenPressed = hoverState; 
+{
+	mIsHoveringWhenPressed = hoverState;
 }
 
 void Button::SetClickCB(std::function<void()> clickCB)
@@ -30,9 +30,9 @@ void Button::SetClickCB(std::function<void()> clickCB)
 	mClickCB = std::move(clickCB);
 }
 
-bool Button::GetHoverState() const 
+bool Button::GetHoverState() const
 {
-	return mIsHoveringWhenPressed; 
+	return mIsHoveringWhenPressed;
 }
 
 Button::BUTTON_TYPE Button::GetButtonType() const
@@ -60,5 +60,5 @@ sf::Vector2f Button::GetPosition() const
 
 void Button::OnClick()
 {
-	if (mClickCB) { mClickCB();	}
+	if (mClickCB) { mClickCB(); }
 }

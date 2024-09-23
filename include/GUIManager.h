@@ -12,7 +12,6 @@ class GameState;
 class GUIManager : public InputObserver
 {
 public:
-	
 
 	GUIManager();
 
@@ -36,6 +35,6 @@ public:
 
 private:
 	bool									IsButtonDown;
-	std::function<sf::RenderWindow&()>		mGetWindowCB;
+	std::function<sf::RenderWindow& ()>		mGetWindowCB;
 	std::vector<std::unique_ptr<Button>>	mButtons;
 };

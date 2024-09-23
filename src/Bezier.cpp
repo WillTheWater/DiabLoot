@@ -2,15 +2,15 @@
 
 Bezier::Bezier()
 	:mS(0, 0)
-	,mE(0,0)
-	,mA(0,0)
+	, mE(0, 0)
+	, mA(0, 0)
 {
 }
 
 Bezier::Bezier(Vec2 startPos, Vec2 endPos, Vec2 anchorPos)
-	:mS{startPos}
-	,mE{ endPos }
-	,mA{anchorPos}
+	:mS{ startPos }
+	, mE{ endPos }
+	, mA{ anchorPos }
 {
 }
 
@@ -22,13 +22,13 @@ Bezier::Bezier(Vec2 startPos, Vec2 endPos, float height)
 	mA.sety(mA.gety() + height);
 }
 
-Vec2 Bezier::getEndPos()
-{
-	return mS;
-}
-Vec2 Bezier::getStartPos()
+Vec2 Bezier::getEndPos() const
 {
 	return mE;
+}
+Vec2 Bezier::getStartPos() const
+{
+	return mS;
 }
 
 Vec2 Bezier::pointStartToEnd(float t)
@@ -86,7 +86,7 @@ void Bezier::DebugDraw(sf::RenderWindow& window, float t)
 	starttoanchor.setPosition(pointStartToAnchor(t).getAsSFVec2F());
 	endtoanchor.setPosition(pointAnchorToEnd(t).getAsSFVec2F());
 	result.setPosition(resultPoint(t).getAsSFVec2F());
-	
+
 	window.draw(start);
 	window.draw(end);
 	window.draw(anchor);

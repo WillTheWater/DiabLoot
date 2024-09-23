@@ -49,10 +49,8 @@ void PlayState::OnKeyRelease(sf::Keyboard::Key key)
 
 void PlayState::OnMouseClick(sf::Mouse::Button button)
 {
-	LOG("Observer: Mouse clicked")
 }
 void PlayState::OnMouseRelease(sf::Mouse::Button button)
 {
-	LOG("Observer: Mouse released")
 }
 

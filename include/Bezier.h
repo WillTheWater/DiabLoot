@@ -8,12 +8,12 @@ public:
 	Bezier();
 	Bezier(Vec2 startPos, Vec2 endPos, Vec2 anchorPos);
 	Bezier(Vec2 startPos, Vec2 endPos, float height);
-	
+
 	Vec2 resultPoint(float t);
 	void DebugDraw(sf::RenderWindow& window, float t);
 
-	Vec2 getEndPos();
-	Vec2 getStartPos();
+	Vec2 getEndPos() const;
+	Vec2 getStartPos() const;
 
 private:
 	Vec2 mS;	// Start point
