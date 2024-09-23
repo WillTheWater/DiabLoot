@@ -1,10 +1,11 @@
 #include "Level.h"
 
-Level::Level(LEVELS::LEVEL id, TimeManager& timemgr, InputManager& inputmgr)
+Level::Level(LEVELS::LEVEL id, TimeManager& timemgr, InputManager& inputmgr, std::function<sf::Text&(ITEMID::ITEM)> itemTextCB)
 	:mLevelID{id}
 	,mTimeManager{timemgr}
-	,mInputManager{inputmgr}
+	,mInputManager{inputmgr} 
 	,mParticleUniqueId{ 0 }
+	,mItemTextCB(itemTextCB)
 {
 	mChests.reserve(10);
 	mParticles.reserve(20);
@@ -65,7 +66,7 @@ void Level::SpawnChest(sf::Vector2f pos, bool mirrored)
 
 void Level::SpawnParticles(Chest& chest)
 {
-	int numOfParticles = MathU::Random(5, 10);
+	int numOfParticles = MathU::Random(8, 16);
 	// Need to solve the function bind problem below
 	std::function<void(Particle&)> callback = [this](Particle& particle) {this->SpawnItem(particle); };
 	float animStep = 2.0f;
@@ -79,7 +80,8 @@ void Level::SpawnParticles(Chest& chest)
 		endPos = endPos.getRotatedVector(randAngle);
 		endPos = startPos + endPos;
 		int id = GetUniqueParticleId();
-		mParticles.push_back(std::make_unique<Particle>(id, startPos, endPos, randAnchorheight, animStep, callback));
+		std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> itemId = ITEMGEN::getRandomItem();
+		mParticles.push_back(std::make_unique<Particle>(id, startPos, endPos, randAnchorheight, animStep, callback, itemId));
 	}
 	mInputManager.RemoveObserver(&chest);
 }
@@ -115,4 +117,9 @@ void Level::SpawnItem(Particle& particle)
 {
 	sf::Vector2f position = particle.getEndPos();
 	RemoveParticle(particle);
+}
+
+void Level::SortItemsByVerticalSpace()
+{
+
 }

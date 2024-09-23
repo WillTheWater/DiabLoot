@@ -113,3 +113,8 @@ void RenderManager::RenderChests(std::vector<std::unique_ptr<Chest>>& chests)
 		Draw(chestSprite);
 	}
 }
+
+sf::Text& RenderManager::GetTextForItemId(ITEMID::ITEM item)
+{
+	return mAssetMgr.GetTextForItemID(item);
+}

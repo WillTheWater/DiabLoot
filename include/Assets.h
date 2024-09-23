@@ -78,3 +78,25 @@ namespace LEVELS
 		MAX_LEVELS
 	};
 }
+
+namespace ITEMID
+{
+	enum ITEM
+	{
+		GOLD,
+		MAX_ITEMS
+	};
+}
+
+namespace ITEMRARITY
+{
+	enum RARITY
+	{
+		NORMAL,			// 0
+		MAGIC,			// 1
+		RARE,			// 2
+		SET,			// 3
+		UNIQUE,			// 4
+		MAX_RARITIES	// 5
+	};
+}
