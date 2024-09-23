@@ -1,9 +1,13 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include <string>
 #include <functional>
 #include "InputManager.h"
 #include "Button.h"
+
+class PlayState;
+class GameState;
 
 class GUIManager : public InputObserver
 {
@@ -19,14 +23,15 @@ public:
 	void									OnMouseRelease(sf::Mouse::Button button) override;
 
 	void									UpdateButtons();
-	void									InitButtons();
+	void									InitButtons(std::function<std::unique_ptr<PlayState>()> createPlayStateCB, std::function<void(std::unique_ptr<GameState>)> changeStateCB);
 	void									SetWindowCB(std::function<sf::RenderWindow& ()> getWindowCB);
-	void									AddButton(const sf::Vector2f& position);
+	Button*									AddButton(const sf::Vector2f& position, const std::string& buttonText);
 	std::vector<std::unique_ptr<Button>>&	GetButtons();
 	bool									GetButtonCondition() const;
 
 	void									OnButtonUp();
 	void									OnButtonDown();
+	void									WasClicked(Button& button);
 
 
 private:

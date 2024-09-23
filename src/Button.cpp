@@ -1,11 +1,24 @@
 #include "Button.h"
-#include "Button.h"
+#include "Core.h"
 
 Button::Button(const sf::Vector2f& position)
+	: mPosition{ position }
+	, mButtonText{ "" }
+	, mButtonType{ BUTTON_TYPE::WIDE }
+	, mButtonState{ BUTTON_STATE::IDLE }
+	, mIsHoveringWhenPressed{ false }
+{
+}
+
+Button::Button(const sf::Vector2f& position, const std::string& buttonText, const sf::Font& font)
 	: mPosition{position}
+	, mButtonText{buttonText}
 	, mButtonType{BUTTON_TYPE::WIDE}
 	, mButtonState{BUTTON_STATE::IDLE}
+	, mIsHoveringWhenPressed{ false }
 {
+	mButtonPrintText.setFont(font);
+	mButtonPrintText.setString(buttonText);
 }
 
 void Button::SetButtonType(BUTTON_TYPE newType)
@@ -16,6 +29,21 @@ void Button::SetButtonType(BUTTON_TYPE newType)
 void Button::SetButtonState(BUTTON_STATE newState)
 {
 	mButtonState = newState;
+}
+
+void Button::SetHoverState(bool hoverState)
+{ 
+	mIsHoveringWhenPressed = hoverState; 
+}
+
+void Button::SetClickCB(std::function<void()> clickCB)
+{
+	mClickCB = std::move(clickCB);
+}
+
+bool Button::GetHoverState() const 
+{
+	return mIsHoveringWhenPressed; 
 }
 
 Button::BUTTON_TYPE Button::GetButtonType() const
@@ -39,4 +67,9 @@ sf::FloatRect Button::GetButtonBounds(const sf::Vector2f& position) const
 sf::Vector2f Button::GetPosition() const
 {
 	return mPosition;
+}
+
+void Button::OnClick()
+{
+	if (mClickCB) { mClickCB();	}
 }
