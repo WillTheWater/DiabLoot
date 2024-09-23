@@ -6,6 +6,7 @@
 #include "AssetManager.h"
 #include "GUIManager.h"
 #include "Level.h"
+#include "Item.h"
 
 class RenderManager
 {
@@ -27,4 +28,5 @@ private:
 	sf::RenderWindow							mGameWindow;
 	void										RenderParticles(std::vector<std::unique_ptr<Particle>>& particles);
 	void										RenderChests(std::vector<std::unique_ptr<Chest>>& chests);
+	void										RenderItems(std::vector<std::unique_ptr<Item>>& items);
 };

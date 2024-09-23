@@ -14,6 +14,13 @@ public:
 	// Constructors
 	Item(std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> item, sf::Vector2f pos, sf::Text& text, int quantity = 1);
 
+	// Getters
+
+	sf::Vector2f									getPosition();
+	sf::RectangleShape								getTextRect();
+	std::pair<ITEMID::ITEM, ITEMRARITY::RARITY>		getItemID();
+	int												getQuantity();
+
 private:
 	ITEMID::ITEM mId;
 	ITEMRARITY::RARITY mRarity;

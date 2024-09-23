@@ -22,7 +22,7 @@ void Particle::stepParticle(float deltaTime)
 		
 	}
 	mStepProgress += mIncrement * deltaTime;
-	if (mStepProgress >= 1.2)
+	if (mStepProgress >= 1.0)
 	{
 		mStepProgress = 1.0;
 		mFinished = true;
@@ -49,4 +49,9 @@ sf::Vector2f Particle::getEndPos()
 std::pair<ITEMID::ITEM, ITEMRARITY::RARITY>	Particle::getItemID()
 {
 	return mItemID;
+}
+
+float Particle::getProgress()
+{
+	return mStepProgress;
 }

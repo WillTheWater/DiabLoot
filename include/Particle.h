@@ -20,6 +20,7 @@ public:
 	sf::Vector2f									getCurrentPos();
 	sf::Vector2f									getEndPos();
 	std::pair<ITEMID::ITEM, ITEMRARITY::RARITY>		getItemID();
+	float											getProgress();
 
 
 

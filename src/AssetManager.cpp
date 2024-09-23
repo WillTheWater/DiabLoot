@@ -27,6 +27,13 @@ void AssetManager::InitializeTextureSprites()
     mTextures[TEXTURES::CHESTOPENED]->loadFromFile("assets/graphics/chestopened.png");
     mTextures[TEXTURES::MAP_ONE]->loadFromFile("assets/graphics/map1.png");
     mTextures[TEXTURES::PARTICLE]->loadFromFile("assets/graphics/particle.png");
+    mTextures[TEXTURES::AMULET]->loadFromFile("assets/graphics/items/amulet.png");
+    mTextures[TEXTURES::CHARM]->loadFromFile("assets/graphics/items/charm.png");
+    mTextures[TEXTURES::REJUV]->loadFromFile("assets/graphics/items/amulet.png");
+    mTextures[TEXTURES::RING]->loadFromFile("assets/graphics/items/rejuv.png");
+    mTextures[TEXTURES::RUNE1]->loadFromFile("assets/graphics/items/rune1.png");
+    mTextures[TEXTURES::TPSCROLL]->loadFromFile("assets/graphics/items/tpscroll.png");
+    
 
     
     mSprites[SPRITES::MAINMENU]->setTexture(GetTexture(TEXTURES::MAINMENU));
@@ -35,6 +42,12 @@ void AssetManager::InitializeTextureSprites()
     mSprites[SPRITES::CHESTCLOSED]->setTexture(GetTexture(TEXTURES::CHESTCLOSED));
     mSprites[SPRITES::CHESTOPENED]->setTexture(GetTexture(TEXTURES::CHESTOPENED));
     mSprites[SPRITES::PARTICLE]->setTexture(GetTexture(TEXTURES::PARTICLE));
+    mSprites[SPRITES::AMULET]->setTexture(GetTexture(TEXTURES::AMULET));
+    mSprites[SPRITES::CHARM]->setTexture(GetTexture(TEXTURES::CHARM));
+    mSprites[SPRITES::REJUV]->setTexture(GetTexture(TEXTURES::REJUV));
+    mSprites[SPRITES::RING]->setTexture(GetTexture(TEXTURES::RING));
+    mSprites[SPRITES::RUNE1]->setTexture(GetTexture(TEXTURES::RUNE1));
+    mSprites[SPRITES::TPSCROLL]->setTexture(GetTexture(TEXTURES::TPSCROLL));
 }
 
 void AssetManager::InitializeFontsAndTexts()
@@ -52,17 +65,22 @@ void AssetManager::InitializeFontsAndTexts()
     assert(std::ssize(mItemTexts) == ITEMID::MAX_ITEMS && "AssetManager failed to initialize correct number of item texts\n");
 
     // Load fonts
-    mFonts[FONTS::LIGHT]->loadFromFile("assets/fonts/lightdiablo.ttf");
-    mFonts[FONTS::BOLD]->loadFromFile("assets/fonts/bolddiablo.ttf");
+    mFonts[FONTS::LIGHT]->loadFromFile("assets/font/lightdiablo.ttf");
+    mFonts[FONTS::BOLD]->loadFromFile("assets/font/bolddiablo.ttf");
+
+    // Set Up Texts
+    mItemTexts[ITEMID::AMULET]->setString("Amulet");
+    mItemTexts[ITEMID::CHARM]->setString("Charm");
+    mItemTexts[ITEMID::REJUV]->setString("Rejuvenation Potion");
+    mItemTexts[ITEMID::RING]->setString("Ring");
+    mItemTexts[ITEMID::RUNE1]->setString("Rune");
+    mItemTexts[ITEMID::TPSCROLL]->setString("Teleportation Scroll");
 
     for (auto& itemText : mItemTexts)
     {
         itemText->setFont(*mFonts[FONTS::LIGHT]);
-        itemText->setCharacterSize(30);
+        itemText->setCharacterSize(20);
     }
-
-    // Set Up Texts
-    mItemTexts[ITEMID::GOLD]->setString("Gold");
 }
 
 sf::Texture& AssetManager::GetTexture(TEXTURES::TEXTURE texture)
@@ -95,6 +113,11 @@ sf::Sprite& AssetManager::GetSpriteForItem(ITEMID::ITEM item)
     switch (item)
     {
         // FIX THIS
-    case ITEMID::GOLD: return *mSprites[SPRITES::PARTICLE];
+    case ITEMID::AMULET     : return *mSprites[SPRITES::AMULET];
+    case ITEMID::CHARM      : return *mSprites[SPRITES::CHARM];
+    case ITEMID::REJUV      : return *mSprites[SPRITES::REJUV];
+    case ITEMID::RING       : return *mSprites[SPRITES::RING];
+    case ITEMID::RUNE1      : return *mSprites[SPRITES::RUNE1];
+    case ITEMID::TPSCROLL   : return *mSprites[SPRITES::TPSCROLL];
     }
 }

@@ -72,6 +72,7 @@ void RenderManager::RenderLevel(Level& level)
 	Draw(mAssetMgr.GetLevelMap(level.GetLevelId()));
 	RenderChests(level.GetChests());
 	RenderParticles(level.GetParticles());
+	RenderItems(level.GetItems());
 }
 
 void RenderManager::RenderParticles(std::vector<std::unique_ptr<Particle>>& particles)
@@ -80,9 +81,11 @@ void RenderManager::RenderParticles(std::vector<std::unique_ptr<Particle>>& part
 	{
 		sf::Vector2f pos = p->getCurrentPos();
 		// Change this to the correct sprite
-		sf::Sprite particleSprite = mAssetMgr.GetSprite(SPRITES::PARTICLE);
+		sf::Sprite particleSprite = mAssetMgr.GetSpriteForItem(p->getItemID().first);
 		particleSprite.setOrigin(particleSprite.getTextureRect().getSize().x / 2.f, particleSprite.getTextureRect().getSize().y / 2.f);
 		particleSprite.setPosition(pos);
+		float particleScale = p->getProgress() * 0.5;
+		particleSprite.setScale(particleScale, particleScale);
 		Draw(particleSprite);
 	}
 }
@@ -111,6 +114,42 @@ void RenderManager::RenderChests(std::vector<std::unique_ptr<Chest>>& chests)
 		}
 
 		Draw(chestSprite);
+	}
+}
+
+void RenderManager::RenderItems(std::vector<std::unique_ptr<Item>>& items)
+{
+	for (auto& item : items)
+	{
+		sf::Vector2f itemPos = item->getPosition();
+		std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> itemId = item->getItemID();
+		sf::Sprite itemSprite = mAssetMgr.GetSpriteForItem(itemId.first);
+		itemSprite.setScale(0.5, 0.5);
+		itemSprite.setOrigin(itemSprite.getTextureRect().getSize().x / 2.f, itemSprite.getTextureRect().getSize().y / 2.f);
+		itemSprite.setPosition(itemPos);
+	
+
+		mGameWindow.draw(itemSprite);
+	}
+
+	for (auto& item : items)
+	{
+		std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> itemId = item->getItemID();
+		sf::RectangleShape textRect = item->getTextRect();
+		textRect.setFillColor(sf::Color{ 0,0,0,180 });
+		sf::Text text = mAssetMgr.GetTextForItemID(itemId.first);
+		text.setOrigin(text.getGlobalBounds().getSize().x / 2, text.getGlobalBounds().getSize().y / 2);
+		text.setPosition(textRect.getPosition());
+		switch (itemId.second)
+		{
+		case ITEMRARITY::NORMAL:	text.setColor(sf::Color::White);			break;
+		case ITEMRARITY::MAGIC:		text.setColor(sf::Color{ 21, 101, 192 });	break;
+		case ITEMRARITY::RARE:		text.setColor(sf::Color{ 253, 216, 53 });	break;
+		case ITEMRARITY::SET:		text.setColor(sf::Color{ 76, 175, 80 });	break;
+		case ITEMRARITY::UNIQUE:	text.setColor(sf::Color{ 153, 102, 51 });	break;
+		}
+		mGameWindow.draw(textRect);
+		mGameWindow.draw(text);
 	}
 }
 
