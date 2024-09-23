@@ -25,6 +25,11 @@ LEVELS::LEVEL Level::GetLevelId()
 	return mLevelID;
 }
 
+std::vector<std::unique_ptr<Item>>& Level::GetItems()
+{
+	return mItems;
+}
+
 std::vector<std::unique_ptr<Chest>>& Level::GetChests()
 {
 	return mChests;
@@ -116,6 +121,9 @@ void Level::RemoveParticle(Particle& particle)
 void Level::SpawnItem(Particle& particle)
 {
 	sf::Vector2f position = particle.getEndPos();
+	std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> itemId = particle.getItemID();
+	sf::Text& text = mItemTextCB(itemId.first);
+	mItems.push_back(std::make_unique<Item>(itemId, position, text, 1));
 	RemoveParticle(particle);
 }
 

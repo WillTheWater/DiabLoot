@@ -9,6 +9,12 @@ namespace TEXTURES
 		CHESTCLOSED,
 		CHESTOPENED,
 		MAP_ONE,
+		AMULET,
+		CHARM,
+		REJUV,
+		RING,
+		RUNE1,
+		TPSCROLL,
 		PARTICLE,
 		MAX_TEXTURES
 	};
@@ -23,6 +29,12 @@ namespace SPRITES
 		CHESTCLOSED,
 		CHESTOPENED,
 		MAP_ONE,
+		AMULET,
+		CHARM,
+		REJUV,
+		RING,
+		RUNE1,
+		TPSCROLL,
 		PARTICLE,
 		MAX_SPRITES
 	};
@@ -83,7 +95,12 @@ namespace ITEMID
 {
 	enum ITEM
 	{
-		GOLD,
+		AMULET,
+		CHARM,
+		REJUV,
+		RING,
+		RUNE1,
+		TPSCROLL,
 		MAX_ITEMS
 	};
 }

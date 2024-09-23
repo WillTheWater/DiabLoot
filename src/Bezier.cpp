@@ -24,11 +24,11 @@ Bezier::Bezier(Vec2 startPos, Vec2 endPos, float height)
 
 Vec2 Bezier::getEndPos()
 {
-	return mS;
+	return mE;
 }
 Vec2 Bezier::getStartPos()
 {
-	return mE;
+	return mS;
 }
 
 Vec2 Bezier::pointStartToEnd(float t)
