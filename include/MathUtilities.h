@@ -35,4 +35,13 @@ namespace MathU
 		std::discrete_distribution<> dist(probabilities.begin(), probabilities.end());
 		return dist(gen);
 	}
+	/*
+	// Define the probability distribution
+
+	std::vector<float> probabilities = { 0.1, 0.2, 0.4, 0.3 };  // Sum should be 1 but can be any non-negative numbers
+
+	// Use the DiscreteProbability function
+
+	int randomIndex = DiscreteProbability(probabilities);
+	*/
 }

@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <memory>
 #include <vector>
+#include <functional>
 #include "AssetManager.h"
 #include "GUIManager.h"
 #include "Level.h"

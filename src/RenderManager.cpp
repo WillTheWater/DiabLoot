@@ -3,9 +3,10 @@
 
 RenderManager::RenderManager()
 	: mAssetMgr{}
-	, mGUIMgr{}
-	, mGameWindow{ sf::VideoMode(1920u, 1080u), "DiabLoot", sf::Style::Default }
+	, mGameWindow{ sf::VideoMode(1920u, 1080u), "DiabLoot", sf::Style::Close }
+	, mGUIMgr{ [this]()->sf::RenderWindow& {return this->GetWindow(); } }
 {
+	mGUIMgr.InitButtons();
 }
 
 sf::RenderWindow& RenderManager::GetWindow()
@@ -21,9 +22,6 @@ void RenderManager::MainMenuRender()
 
 void RenderManager::DrawButtons()
 {
-	mGUIMgr.AddButton({ mGameWindow.getSize().x / 2.f - 300.f, mGameWindow.getSize().y / 2.f });
-	mGUIMgr.AddButton({ mGameWindow.getSize().x / 2.f - 300.f, mGameWindow.getSize().y / 2.f + 83.f });
-
 	auto mousePos = sf::Mouse::getPosition(mGameWindow);
 
 	bool isLeftButtonPressed = sf::Mouse::isButtonPressed(sf::Mouse::Left);
