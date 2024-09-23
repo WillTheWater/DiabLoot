@@ -52,17 +52,17 @@ void Chest::OpenChest()
 	mCallback(*this);
 }
 
-sf::Vector2f Chest::GetPosition()
+sf::Vector2f Chest::GetPosition() const
 {
 	return mPos;
 }
 
-bool Chest::IsOpened()
+bool Chest::IsOpened() const
 {
 	return mOpened;
 }
 
-bool Chest::IsMirrored()
+bool Chest::IsMirrored() const
 {
 	return mMirrored;
 }

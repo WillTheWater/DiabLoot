@@ -16,15 +16,15 @@ public:
 	void								OnMouseClick(sf::Mouse::Button button) override;
 	void								OnMouseRelease(sf::Mouse::Button button) override;
 	void								OpenChest();
-	sf::Vector2f						GetPosition();
-	bool								IsOpened();
-	bool								IsMirrored();
+	sf::Vector2f						GetPosition() const;
+	bool								IsOpened() const;
+	bool								IsMirrored() const;
 
 private:
-	bool mMirrored;
-	bool mOpened;
-	sf::Vector2f mPos;
-	sf::RectangleShape mRect;
-	bool mMouseOver;
-	std::function<void(Chest&)> mCallback;
+	bool								mMirrored;
+	bool								mOpened;
+	sf::Vector2f						mPos;
+	sf::RectangleShape					mRect;
+	bool								mMouseOver;
+	std::function<void(Chest&)>			mCallback;
 };

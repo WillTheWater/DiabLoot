@@ -17,7 +17,7 @@ void InputManager::ProcessInput(sf::Event& event)
 	{
 	case sf::Event::MouseMoved:
 		NotifyMouseMove(event.mouseMove.x, event.mouseMove.y);
-			break;
+		break;
 	case sf::Event::KeyPressed:
 		NotifyKeyPress(event.key.code);
 		break;

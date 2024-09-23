@@ -33,9 +33,7 @@ void AssetManager::InitializeTextureSprites()
     mTextures[TEXTURES::RING]->loadFromFile("assets/graphics/items/rejuv.png");
     mTextures[TEXTURES::RUNE1]->loadFromFile("assets/graphics/items/rune1.png");
     mTextures[TEXTURES::TPSCROLL]->loadFromFile("assets/graphics/items/tpscroll.png");
-    
 
-    
     mSprites[SPRITES::MAINMENU]->setTexture(GetTexture(TEXTURES::MAINMENU));
     mSprites[SPRITES::MAP_ONE]->setTexture(GetTexture(TEXTURES::MAP_ONE));
     mSprites[SPRITES::BUTTON]->setTexture(GetTexture(TEXTURES::BUTTON));
@@ -115,11 +113,12 @@ sf::Sprite& AssetManager::GetSpriteForItem(ITEMID::ITEM item)
     switch (item)
     {
         // FIX THIS
-    case ITEMID::AMULET     : return *mSprites[SPRITES::AMULET];
-    case ITEMID::CHARM      : return *mSprites[SPRITES::CHARM];
-    case ITEMID::REJUV      : return *mSprites[SPRITES::REJUV];
-    case ITEMID::RING       : return *mSprites[SPRITES::RING];
-    case ITEMID::RUNE1      : return *mSprites[SPRITES::RUNE1];
-    case ITEMID::TPSCROLL   : return *mSprites[SPRITES::TPSCROLL];
+    case ITEMID::AMULET: return *mSprites[SPRITES::AMULET];
+    case ITEMID::CHARM: return *mSprites[SPRITES::CHARM];
+    case ITEMID::REJUV: return *mSprites[SPRITES::REJUV];
+    case ITEMID::RING: return *mSprites[SPRITES::RING];
+    case ITEMID::RUNE1: return *mSprites[SPRITES::RUNE1];
+    case ITEMID::TPSCROLL: return *mSprites[SPRITES::TPSCROLL];
+    default: return *mSprites[SPRITES::TPSCROLL];
     }
 }

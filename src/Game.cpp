@@ -36,10 +36,7 @@ void Game::Run()
 
 void Game::GUISetup()
 {
-    mGUIMgr.InitButtons(
-        [this]() { return CreatePlayState(); },
-        mChangeStateCB // Pass the ChangeState callback
-    );
+    mGUIMgr.InitButtons([this]() { return CreatePlayState(); }, mChangeStateCB);
 }
 
 void Game::ChangeState(std::unique_ptr<GameState> newState)
