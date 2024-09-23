@@ -14,7 +14,7 @@ private:
 	TimeManager									mTimeMgr;
 	RenderManager								mRenderMgr;
 	InputManager								mInputMgr;
-	EventManager								mEventMgr;
+	GUIManager									mGUIMgr;
 	ChangeStateCallback							mChangeStateCB;
 	std::unique_ptr<GameState>					mCurrentState;
 };

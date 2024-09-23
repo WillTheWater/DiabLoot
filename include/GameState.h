@@ -5,7 +5,7 @@
 #include "TimeManager.h"
 #include "RenderManager.h"
 #include "InputManager.h"
-#include "EventManager.h"
+#include "GUIManager.h"
 
 class GameState
 {
@@ -13,11 +13,10 @@ public:
 
 	using ChangeStateCallback = std::function<void(std::unique_ptr<GameState>)>;
 
-	GameState(TimeManager& timeMgr, RenderManager& renderMgr, InputManager& inputMgr, EventManager& eventMgr, ChangeStateCallback changeStateCB)
+	GameState(TimeManager& timeMgr, RenderManager& renderMgr, InputManager& inputMgr, ChangeStateCallback changeStateCB)
 		: mTimeManager{timeMgr}
 		, mRenderManager{renderMgr}
 		, mInputManager{inputMgr}
-		, mEventManager{eventMgr}
 		, mChangeStateCB{std::move(changeStateCB)}
 	{}
 
@@ -33,7 +32,5 @@ protected:
 	TimeManager&							mTimeManager;
 	RenderManager&							mRenderManager;
 	InputManager&							mInputManager;
-	EventManager&							mEventManager;
 	ChangeStateCallback						mChangeStateCB;
-
 };
