@@ -65,7 +65,7 @@ void Level::SpawnChest(sf::Vector2f pos, bool mirrored)
 
 void Level::SpawnParticles(Chest& chest)
 {
-	int numOfParticles = MathU::Random(5, 10);
+	int numOfParticles = MathU::Random(8, 16);
 	// Need to solve the function bind problem below
 	std::function<void(Particle&)> callback = [this](Particle& particle) {this->SpawnItem(particle); };
 	float animStep = 2.0f;
