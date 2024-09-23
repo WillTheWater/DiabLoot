@@ -20,7 +20,7 @@ Level::~Level()
 	}
 }
 
-LEVELS::LEVEL Level::GetLevelId()
+LEVELS::LEVEL Level::GetLevelId() const
 {
 	return mLevelID;
 }

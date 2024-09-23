@@ -21,8 +21,10 @@ public:
 
 	std::vector<std::unique_ptr<Chest>>&	GetChests();
 	std::vector<std::unique_ptr<Particle>>&	GetParticles();
+
 	std::vector<std::unique_ptr<Item>>&		GetItems();
-	LEVELS::LEVEL							GetLevelId();
+	LEVELS::LEVEL							GetLevelId() const;
+
 
 	void									UpdateLevel();
 	void									CreateLevelChests();
