@@ -18,6 +18,7 @@ public:
 
 	template <typename T>
 	void										Draw(const T& drawObject) { mGameWindow.draw(drawObject); }
+	sf::Text&									GetTextForItemId(ITEMID::ITEM item);
 
 private:
 	AssetManager								mAssetMgr;

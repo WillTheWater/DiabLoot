@@ -8,12 +8,15 @@
 #include "InputManager.h"
 #include "Assets.h"
 #include <cassert>
+#include "Item.h"
+#include "ItemGenerator.h"
+#include <utility>
 
 class Level
 {
 public:
 	Level() = delete;
-	Level(LEVELS::LEVEL id, TimeManager& timemgr, InputManager& inputmgr);
+	Level(LEVELS::LEVEL id, TimeManager& timemgr, InputManager& inputmgr, std::function<sf::Text& (ITEMID::ITEM)> itemTextCB);
 	~Level();
 
 	std::vector<std::unique_ptr<Chest>>&	GetChests();
@@ -28,6 +31,7 @@ public:
 	void									UpdateParticles();
 	void									RemoveParticle(Particle& particle);
 	void									SpawnItem(Particle& particle);
+	void									SortItemsByVerticalSpace();
 
 private:
 	LEVELS::LEVEL							mLevelID;
@@ -36,4 +40,6 @@ private:
 	int										mParticleUniqueId;
 	std::vector<std::unique_ptr<Chest>>		mChests;
 	std::vector<std::unique_ptr<Particle>>	mParticles;
+	std::vector<std::unique_ptr<Item>>		mItems;
+	std::function<sf::Text& (ITEMID::ITEM)> mItemTextCB;
 };

@@ -92,12 +92,11 @@ namespace ITEMRARITY
 {
 	enum RARITY
 	{
-		NONE,			// 0
-		NORMAL,			// 1
-		MAGIC,			// 2
-		RARE,			// 3
-		SET,			// 4
-		UNIQUE,			// 5
-		MAX_RARITIES	// 6
+		NORMAL,			// 0
+		MAGIC,			// 1
+		RARE,			// 2
+		SET,			// 3
+		UNIQUE,			// 4
+		MAX_RARITIES	// 5
 	};
 }

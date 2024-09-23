@@ -4,6 +4,7 @@
 AssetManager::AssetManager()
 {
     InitializeTextureSprites();
+    InitializeFontsAndTexts();
 }
 
 void AssetManager::InitializeTextureSprites()
@@ -36,6 +37,34 @@ void AssetManager::InitializeTextureSprites()
     mSprites[SPRITES::PARTICLE]->setTexture(GetTexture(TEXTURES::PARTICLE));
 }
 
+void AssetManager::InitializeFontsAndTexts()
+{
+    for (int i{ 0 }; i < FONTS::MAX_FONTS; i++)
+    {
+        mFonts.push_back(std::make_unique<sf::Font>());
+    }
+    assert(std::ssize(mFonts) == FONTS::MAX_FONTS && "AssetManager failed to initialize correct number of fonts\n");
+
+    for (int i{ 0 }; i < ITEMID::MAX_ITEMS; i++)
+    {
+        mItemTexts.push_back(std::make_unique<sf::Text>());
+    }
+    assert(std::ssize(mItemTexts) == ITEMID::MAX_ITEMS && "AssetManager failed to initialize correct number of item texts\n");
+
+    // Load fonts
+    mFonts[FONTS::LIGHT]->loadFromFile("assets/fonts/lightdiablo.ttf");
+    mFonts[FONTS::BOLD]->loadFromFile("assets/fonts/bolddiablo.ttf");
+
+    for (auto& itemText : mItemTexts)
+    {
+        itemText->setFont(*mFonts[FONTS::LIGHT]);
+        itemText->setCharacterSize(30);
+    }
+
+    // Set Up Texts
+    mItemTexts[ITEMID::GOLD]->setString("Gold");
+}
+
 sf::Texture& AssetManager::GetTexture(TEXTURES::TEXTURE texture)
 {
     assert(texture < TEXTURES::MAX_TEXTURES && texture >= 0 && "Attempted to get texture that doesn't exist!\n");
@@ -53,5 +82,19 @@ sf::Sprite& AssetManager::GetLevelMap(LEVELS::LEVEL level)
     switch (level)
     {
     case LEVELS::LEVEL_ONE: return *mSprites[SPRITES::MAP_ONE];
+    }
+}
+
+sf::Text& AssetManager::GetTextForItemID(ITEMID::ITEM item)
+{
+    return *mItemTexts[item];
+}
+
+sf::Sprite& AssetManager::GetSpriteForItem(ITEMID::ITEM item)
+{
+    switch (item)
+    {
+        // FIX THIS
+    case ITEMID::GOLD: return *mSprites[SPRITES::PARTICLE];
     }
 }
