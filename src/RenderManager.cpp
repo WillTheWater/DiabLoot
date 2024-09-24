@@ -129,6 +129,7 @@ void RenderManager::RenderItems(std::vector<std::unique_ptr<Item>>& items)
 		case ITEMRARITY::RARE:		text.setColor(sf::Color{ 253, 216, 53 });	break;
 		case ITEMRARITY::SET:		text.setColor(sf::Color{ 76, 175, 80 });	break;
 		case ITEMRARITY::UNIQUE:	text.setColor(sf::Color{ 153, 102, 51 });	break;
+		default	:					 text.setColor(sf::Color::White);			break;
 		}
 		mGameWindow.draw(textRect);
 		mGameWindow.draw(text);

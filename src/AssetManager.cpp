@@ -112,7 +112,6 @@ sf::Sprite& AssetManager::GetSpriteForItem(ITEMID::ITEM item)
 {
     switch (item)
     {
-        // FIX THIS
     case ITEMID::AMULET: return *mSprites[SPRITES::AMULET];
     case ITEMID::CHARM: return *mSprites[SPRITES::CHARM];
     case ITEMID::REJUV: return *mSprites[SPRITES::REJUV];

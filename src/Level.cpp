@@ -18,6 +18,10 @@ Level::~Level()
 	{
 		mInputManager.RemoveObserver(chest.get());
 	}
+	for (auto& item : mItems)
+	{
+		mInputManager.RemoveObserver(item.get());
+	}
 }
 
 LEVELS::LEVEL Level::GetLevelId() const
@@ -43,6 +47,16 @@ std::vector<std::unique_ptr<Particle>>& Level::GetParticles()
 void Level::UpdateLevel()
 {
 	UpdateParticles();
+	UpdateItems();
+}
+
+void Level::UpdateItems()
+{
+	if (mItems.size() > 0)
+	{
+		SortItemsByVerticalSpace();
+		StackItemlabels();
+	}
 }
 
 void Level::CreateLevelChests()
@@ -52,6 +66,8 @@ void Level::CreateLevelChests()
 	case LEVELS::LEVEL_ONE : 
 		SpawnChest({ 500.f, 600.f }, true);
 		SpawnChest({ 1000.f, 800.f }, false);
+		break;
+	default: return;
 	}
 }
 
@@ -118,16 +134,62 @@ void Level::RemoveParticle(Particle& particle)
 	assert(success && "PlayState::RemoveParticle failed to remove the particle");
 }
 
+void Level::PickUpItem(Item& item)
+{
+	bool success = false;
+
+	for (int i{ 0 }; i < mItems.size(); i++)
+	{
+		if (mItems[i]->getUniqueId() == item.getUniqueId())
+		{
+			mInputManager.RemoveObserver(mItems[i].get());
+			mItems.erase(mItems.begin() + i);
+			success = true;
+		}
+	}
+	assert(success && "PlayState::RemoveItem failed to remove the item");
+}
+
 void Level::SpawnItem(Particle& particle)
 {
 	sf::Vector2f position = particle.getEndPos();
 	std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> itemId = particle.getItemID();
 	sf::Text& text = mItemTextCB(itemId.first);
-	mItems.push_back(std::make_unique<Item>(itemId, position, text, 1));
+	std::function<void(Item&)> callback = [this](Item& item) {this->PickUpItem(item); };
+	int uniqueId = particle.getId();
+	mItems.push_back(std::make_unique<Item>(itemId, uniqueId, position, text, callback, 1));
+	mInputManager.AddObserver(mItems.back().get());
 	RemoveParticle(particle);
 }
 
 void Level::SortItemsByVerticalSpace()
-{
 
+{	auto sortingLambda = [](std::unique_ptr<Item>& a, std::unique_ptr<Item>& b)
+		{
+			// > than because of y-down coord
+			return a->getPosition().y > b->getPosition().y;
+		};
+	std::sort(mItems.begin(), mItems.end(), sortingLambda);
+}
+
+void Level::StackItemlabels()
+{
+	std::vector<sf::RectangleShape> placedRects;
+	for (auto& item : mItems)
+	{
+		sf::RectangleShape textBox = item->getTextRect();
+		textBox.setPosition(item->getPosition() + sf::Vector2f{ 0.f, -30.f });
+		if (placedRects.size() != 0)
+		{
+			for (auto& rect : placedRects)
+			{
+				if (rect.getGlobalBounds().intersects(textBox.getGlobalBounds()))
+				{
+					textBox.setPosition(textBox.getPosition().x, rect.getGlobalBounds().top - textBox.getLocalBounds().getSize().y /2 - 8.0f);
+				}
+			}
+		}
+		placedRects.push_back(textBox);
+		item->setTextRect(textBox);
+	}
 }
