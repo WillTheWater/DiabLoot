@@ -68,7 +68,7 @@ void AssetManager::InitializeFontsAndTexts()
 
     // Set Up Texts
     mItemTexts[ITEMID::AMULET]->setString("Amulet");
-    mItemTexts[ITEMID::CHARM]->setString("Charm");
+    mItemTexts[ITEMID::CHARM]->setString("Small Charm");
     mItemTexts[ITEMID::REJUV]->setString("Rejuvenation Potion");
     mItemTexts[ITEMID::RING]->setString("Ring");
     mItemTexts[ITEMID::RUNE1]->setString("Rune");

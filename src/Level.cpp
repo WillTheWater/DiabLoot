@@ -185,7 +185,7 @@ void Level::StackItemlabels()
 			{
 				if (rect.getGlobalBounds().intersects(textBox.getGlobalBounds()))
 				{
-					textBox.setPosition(textBox.getPosition().x, rect.getGlobalBounds().top - textBox.getLocalBounds().getSize().y /2 - 8.0f);
+					textBox.setPosition(textBox.getPosition().x, rect.getGlobalBounds().top - textBox.getLocalBounds().getSize().y /2 - 5.f );
 				}
 			}
 		}

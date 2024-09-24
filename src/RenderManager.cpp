@@ -6,7 +6,6 @@ RenderManager::RenderManager(GUIManager& guiMgr)
 	, mGameWindow{ sf::VideoMode(1920u, 1080u), "DiabLoot", sf::Style::Close }
 	, mGUIMgr{guiMgr}
 {
-	
 }
 
 sf::RenderWindow& RenderManager::GetWindow()
@@ -118,18 +117,19 @@ void RenderManager::RenderItems(std::vector<std::unique_ptr<Item>>& items)
 	{
 		std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> itemId = item->getItemID();
 		sf::RectangleShape textRect = item->getTextRect();
-		textRect.setFillColor(sf::Color{ 0,0,0,180 });
+		textRect.setFillColor(sf::Color{ 0,0,0,200 });
 		sf::Text text = mAssetMgr.GetTextForItemID(itemId.first);
 		text.setOrigin(text.getGlobalBounds().getSize().x / 2, text.getGlobalBounds().getSize().y / 2);
 		text.setPosition(textRect.getPosition());
 		switch (itemId.second)
 		{
 		case ITEMRARITY::NORMAL:	text.setColor(sf::Color::White);			break;
-		case ITEMRARITY::MAGIC:		text.setColor(sf::Color{ 21, 101, 192 });	break;
+		case ITEMRARITY::MAGIC:		text.setColor(sf::Color{ 82, 075, 143 });	break;
 		case ITEMRARITY::RARE:		text.setColor(sf::Color{ 253, 216, 53 });	break;
-		case ITEMRARITY::SET:		text.setColor(sf::Color{ 76, 175, 80 });	break;
+		case ITEMRARITY::SET:		text.setColor(sf::Color{ 44, 190, 52 });	break;
 		case ITEMRARITY::UNIQUE:	text.setColor(sf::Color{ 153, 102, 51 });	break;
-		default	:					 text.setColor(sf::Color::White);			break;
+		case ITEMRARITY::RUNE:		text.setColor(sf::Color{ 198, 140, 89 });	break;
+		default	:					text.setColor(sf::Color::White);			break;
 		}
 		mGameWindow.draw(textRect);
 		mGameWindow.draw(text);
@@ -139,4 +139,35 @@ void RenderManager::RenderItems(std::vector<std::unique_ptr<Item>>& items)
 sf::Text& RenderManager::GetTextForItemId(ITEMID::ITEM item)
 {
 	return mAssetMgr.GetTextForItemID(item);
+}
+
+void RenderManager::RenderInventory(Inventory& inventory)
+{
+	auto& slots = inventory.getItemSlots();
+	auto& rects = inventory.getSlotRects();
+
+	for (int i{ 0 }; i < slots.size(); i++)
+	{
+		if (slots[i].isEmpty())
+		{
+			continue;
+		}
+
+		sf::Sprite itemSprite = mAssetMgr.GetSpriteForItem(slots[i].getItemId().first);
+		itemSprite.setOrigin({ itemSprite.getLocalBounds().getSize().x / 2.f, itemSprite.getLocalBounds().getSize().y / 2.f });
+		itemSprite.setPosition(rects[i].getPosition());
+
+		mGameWindow.draw(itemSprite);
+	}
+
+	if (inventory.isMouseOverSlot())
+	{
+		int index = inventory.getMouseOverSlotIndex();
+		sf::Text hoverText = mAssetMgr.GetTextForItemID(slots[index].getItemId().first);
+		hoverText.setString(hoverText.getString() + std::to_string(slots[index].getQuantity()));
+		hoverText.setOrigin(0.f, -hoverText.getLocalBounds().getSize().y);
+		hoverText.setPosition(inventory.getLastMousePos());
+		mGameWindow.draw(hoverText);
+	}
+
 }
