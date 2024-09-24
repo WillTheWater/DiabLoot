@@ -114,6 +114,7 @@ namespace ITEMRARITY
 		RARE,			// 2
 		SET,			// 3
 		UNIQUE,			// 4
-		MAX_RARITIES	// 5
+		RUNE,			// 5
+		MAX_RARITIES	// 6
 	};
 }

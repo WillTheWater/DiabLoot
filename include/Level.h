@@ -11,6 +11,7 @@
 #include "Item.h"
 #include "ItemGenerator.h"
 #include <utility>
+#include <algorithm>
 
 class Level
 {
@@ -27,14 +28,17 @@ public:
 
 
 	void									UpdateLevel();
+	void									UpdateParticles();
+	void									UpdateItems();
 	void									CreateLevelChests();
 	int										GetUniqueParticleId();
 	void									SpawnChest(sf::Vector2f pos, bool mirrored);
 	void									SpawnParticles(Chest& chest);
-	void									UpdateParticles();
 	void									RemoveParticle(Particle& particle);
+	void									PickUpItem(Item& item);
 	void									SpawnItem(Particle& particle);
 	void									SortItemsByVerticalSpace();
+	void									StackItemlabels();
 
 private:
 	LEVELS::LEVEL							mLevelID;

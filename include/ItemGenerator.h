@@ -6,7 +6,7 @@
 
 namespace ITEMGEN
 {
-	static const std::vector<float> RarityProbabilities = { 0.800, 0.150, 0.025, 0.015, 0.010 };
+	static const std::vector<float> RarityProbabilities = { 0.700, 0.150, 0.025, 0.015, 0.010, 0.100 };
 
 	static const std::array<ITEMID::ITEM, 2> RarityNormalItems
 	{
@@ -14,12 +14,11 @@ namespace ITEMGEN
 		ITEMID::TPSCROLL
 	};
 
-	static const std::array<ITEMID::ITEM, 4> RarityMagicItems
+	static const std::array<ITEMID::ITEM, 3> RarityMagicItems
 	{
 		ITEMID::AMULET,
 		ITEMID::RING,
-		ITEMID::CHARM,
-		ITEMID::RUNE1
+		ITEMID::CHARM
 	};
 
 	static const std::array<ITEMID::ITEM, 2> RarityRareItems
@@ -38,6 +37,11 @@ namespace ITEMGEN
 	{
 		ITEMID::AMULET,
 		ITEMID::RING
+	};
+
+	static const std::array<ITEMID::ITEM, 1> RarityRuneItems
+	{
+		ITEMID::RUNE1
 	};
 
 	static ITEMID::ITEM getItemOfRarity(ITEMRARITY::RARITY rarity)
@@ -64,6 +68,15 @@ namespace ITEMGEN
 		case ITEMRARITY::UNIQUE :
 			randomIndex = MathU::Random(0, (int)RarityUniqueItems.size() - 1);
 			return RarityUniqueItems[randomIndex];
+
+		case ITEMRARITY::RUNE   :
+			randomIndex = MathU::Random(0, (int)RarityRuneItems.size() - 1);
+			return RarityRuneItems[randomIndex];
+
+		default : 
+			randomIndex = MathU::Random(0, (int)RarityNormalItems.size() - 1);
+			return RarityNormalItems[randomIndex];
+
 		}
 	}
 

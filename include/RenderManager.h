@@ -7,6 +7,7 @@
 #include "GUIManager.h"
 #include "Level.h"
 #include "Item.h"
+#include "Inventory.h"
 
 class RenderManager
 {
@@ -17,6 +18,7 @@ public:
 	void									    MainMenuRender();
 	void										DrawButtons();
 	void										RenderLevel(Level& level);
+	void										RenderInventory(Inventory& inventory);
 
 	template <typename T>
 	void										Draw(const T& drawObject) { mGameWindow.draw(drawObject); }

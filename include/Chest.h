@@ -15,6 +15,7 @@ public:
 	void								OnKeyRelease(sf::Keyboard::Key key) override;
 	void								OnMouseClick(sf::Mouse::Button button) override;
 	void								OnMouseRelease(sf::Mouse::Button button) override;
+	// Functions
 	void								OpenChest();
 	sf::Vector2f						GetPosition() const;
 	bool								IsOpened() const;

@@ -68,7 +68,7 @@ void AssetManager::InitializeFontsAndTexts()
 
     // Set Up Texts
     mItemTexts[ITEMID::AMULET]->setString("Amulet");
-    mItemTexts[ITEMID::CHARM]->setString("Charm");
+    mItemTexts[ITEMID::CHARM]->setString("Small Charm");
     mItemTexts[ITEMID::REJUV]->setString("Rejuvenation Potion");
     mItemTexts[ITEMID::RING]->setString("Ring");
     mItemTexts[ITEMID::RUNE1]->setString("Rune");
@@ -112,7 +112,6 @@ sf::Sprite& AssetManager::GetSpriteForItem(ITEMID::ITEM item)
 {
     switch (item)
     {
-        // FIX THIS
     case ITEMID::AMULET: return *mSprites[SPRITES::AMULET];
     case ITEMID::CHARM: return *mSprites[SPRITES::CHARM];
     case ITEMID::REJUV: return *mSprites[SPRITES::REJUV];
