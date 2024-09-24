@@ -24,7 +24,8 @@ void Game::Run()
         sf::Event event;
         while (mRenderMgr.GetWindow().pollEvent(event))
         {
-            mInputMgr.ProcessInput(event);
+            if (event.type == sf::Event::Closed) { mRenderMgr.GetWindow().close(); }
+             mInputMgr.ProcessInput(event);
         }
         mGUIMgr.UpdateButtons();
         if (mCurrentState) { mCurrentState->Update(); }
