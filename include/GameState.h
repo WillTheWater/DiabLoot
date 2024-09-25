@@ -1,23 +1,13 @@
 #pragma once
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
-#include <functional>
-#include "TimeManager.h"
-#include "RenderManager.h"
-#include "InputManager.h"
-#include "GUIManager.h"
+#include "SystemManager.h"
 
 class GameState
 {
 public:
 
-	using ChangeStateCallback = std::function<void(std::unique_ptr<GameState>)>;
-
-	GameState(TimeManager& timeMgr, RenderManager& renderMgr, InputManager& inputMgr, ChangeStateCallback changeStateCB)
-		: mTimeManager{timeMgr}
-		, mRenderManager{renderMgr}
-		, mInputManager{inputMgr}
-		, mChangeStateCB{std::move(changeStateCB)}
+	GameState(System& system, ChangeStateCallback changeStateCB)
+		:mSystem{ system }
+		, mChangeStateCB{ changeStateCB }
 	{}
 
 	virtual									~GameState() = default;
@@ -27,10 +17,7 @@ public:
 	virtual void							Update() = 0;
 	virtual void							Draw() = 0;
 
-
 protected:
-	TimeManager&							mTimeManager;
-	RenderManager&							mRenderManager;
-	InputManager&							mInputManager;
+	System& mSystem;
 	ChangeStateCallback						mChangeStateCB;
 };

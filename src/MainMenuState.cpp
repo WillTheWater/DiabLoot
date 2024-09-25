@@ -1,57 +1,54 @@
 #include "MainMenuState.h"
 #include "PlayState.h"
 #include "Core.h"
-#include "MathUtilities.h"
 
-MainMenuState::MainMenuState(TimeManager& timeMgr, RenderManager& renderMgr, InputManager& inputMgr, ChangeStateCallback changeStateCB)
-	: GameState{timeMgr, renderMgr, inputMgr, changeStateCB}
+MainMenuState::MainMenuState(System& system, ChangeStateCallback changeStateCB)
+	:GameState{ system, changeStateCB }
 {
-
 }
 
 void MainMenuState::Enter()
 {
-	mInputManager.AddObserver(this);
+	mSystem.InputMgr.AddObserver(this);
 }
 
 void MainMenuState::Exit()
 {
-	mInputManager.RemoveObserver(this);
+	mSystem.InputMgr.RemoveObserver(this);
 }
 
 void MainMenuState::Update()
 {
-	float dt = mTimeManager.GetDeltaTime();
 
 }
 
 void MainMenuState::Draw()
 {
-	mRenderManager.MainMenuRender();
+	mSystem.RenderMgr.MainMenuRender();
 }
 
 void MainMenuState::OnMouseMove(int x, int y)
 {
-	
 }
 
 void MainMenuState::OnKeyPress(sf::Keyboard::Key key)
 {
-	if (key == sf::Keyboard::Escape) { mRenderManager.GetWindow().close(); }
-}
-void MainMenuState::OnKeyRelease(sf::Keyboard::Key key)
-{
+	if (key == sf::Keyboard::Escape) { mSystem.RenderMgr.GetWindow().close(); }
 	if (key == sf::Keyboard::P)
-	{ 
-		auto newState = std::make_unique<PlayState>(mTimeManager, mRenderManager, mInputManager, mChangeStateCB, LEVELS::LEVEL_ONE);
+	{
+		auto newState = std::make_unique<PlayState>(mSystem, mChangeStateCB);
 		mChangeStateCB(std::move(newState));
 	}
 }
+
+void MainMenuState::OnKeyRelease(sf::Keyboard::Key key)
+{
+}
+
 void MainMenuState::OnMouseClick(sf::Mouse::Button button)
 {
-	
 }
+
 void MainMenuState::OnMouseRelease(sf::Mouse::Button button)
 {
-	
 }

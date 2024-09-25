@@ -1,19 +1,15 @@
 #include "Game.h"
 #include "MainMenuState.h"
-#include "PlayState.h"
+#include "Core.h"
 
 Game::Game()
-    : mTimeMgr{}
-    , mGUIMgr{}
-    , mRenderMgr{ mGUIMgr }
-    , mInputMgr{}
+    : mSystem{ mTimeMgr, mRenderMgr, mAssetMgr, mGUIMgr, mInputMgr, mInventoryMgr }
+    , mRenderMgr{ mSystem }
+    , mGUIMgr{ mSystem }
 {
     mRenderMgr.GetWindow().setFramerateLimit(60);
     mChangeStateCB = [this](std::unique_ptr<GameState> newState) { this->ChangeState(std::move(newState)); };
-    mGUIMgr.SetWindowCB([this]() -> sf::RenderWindow& { return this->mRenderMgr.GetWindow(); });
-    mInputMgr.AddObserver(&mGUIMgr);
-    ChangeState(std::make_unique<MainMenuState>(mTimeMgr, mRenderMgr, mInputMgr, mChangeStateCB));
-    GUISetup();
+    ChangeState(std::make_unique<MainMenuState>(mSystem, mChangeStateCB));
 }
 
 void Game::Run()
@@ -25,19 +21,13 @@ void Game::Run()
         while (mRenderMgr.GetWindow().pollEvent(event))
         {
             if (event.type == sf::Event::Closed) { mRenderMgr.GetWindow().close(); }
-             mInputMgr.ProcessInput(event);
+            mInputMgr.ProcessInput(event);
         }
-        mGUIMgr.UpdateButtons();
         if (mCurrentState) { mCurrentState->Update(); }
         mRenderMgr.GetWindow().clear(sf::Color::Black);
         if (mCurrentState) { mCurrentState->Draw(); }
         mRenderMgr.GetWindow().display();
     }
-}
-
-void Game::GUISetup()
-{
-    mGUIMgr.InitButtons([this]() { return CreatePlayState(); }, mChangeStateCB);
 }
 
 void Game::ChangeState(std::unique_ptr<GameState> newState)
@@ -46,9 +36,4 @@ void Game::ChangeState(std::unique_ptr<GameState> newState)
     if (newState) { newState->Enter(); }
     if (mCurrentState) { mCurrentState->Exit(); }
     mCurrentState = std::move(newState);
-}
-
-std::unique_ptr<PlayState> Game::CreatePlayState()
-{
-    return std::make_unique<PlayState>(mTimeMgr, mRenderMgr, mInputMgr, mChangeStateCB, LEVELS::LEVEL_ONE);
 }
