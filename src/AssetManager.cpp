@@ -5,6 +5,7 @@ AssetManager::AssetManager()
 {
     InitializeTextureSprites();
     InitializeFontsAndTexts();
+    InitializeImages();
 }
 
 void AssetManager::InitializeTextureSprites()
@@ -22,7 +23,8 @@ void AssetManager::InitializeTextureSprites()
     assert(std::ssize(mSprites) == SPRITES::MAX_SPRITES && "AssetManager failed to initialize correct number of sprites\n");
 
     mTextures[TEXTURES::MAINMENU]->loadFromFile("assets/graphics/mainmenu.png");
-    mTextures[TEXTURES::BUTTON]->loadFromFile("assets/graphics/button.png");
+    mTextures[TEXTURES::WIDE_BUTTON]->loadFromFile("assets/graphics/button.png");
+    mTextures[TEXTURES::SQUARE_BUTTON]->loadFromFile("assets/graphics/inventorybutton.png");
     mTextures[TEXTURES::CHESTCLOSED]->loadFromFile("assets/graphics/chestclosed.png");
     mTextures[TEXTURES::CHESTOPENED]->loadFromFile("assets/graphics/chestopened.png");
     mTextures[TEXTURES::MAP_ONE]->loadFromFile("assets/graphics/map1.png");
@@ -36,7 +38,8 @@ void AssetManager::InitializeTextureSprites()
 
     mSprites[SPRITES::MAINMENU]->setTexture(GetTexture(TEXTURES::MAINMENU));
     mSprites[SPRITES::MAP_ONE]->setTexture(GetTexture(TEXTURES::MAP_ONE));
-    mSprites[SPRITES::BUTTON]->setTexture(GetTexture(TEXTURES::BUTTON));
+    mSprites[SPRITES::WIDE_BUTTON]->setTexture(GetTexture(TEXTURES::WIDE_BUTTON));
+    mSprites[SPRITES::SQUARE_BUTTON]->setTexture(GetTexture(TEXTURES::SQUARE_BUTTON));
     mSprites[SPRITES::CHESTCLOSED]->setTexture(GetTexture(TEXTURES::CHESTCLOSED));
     mSprites[SPRITES::CHESTOPENED]->setTexture(GetTexture(TEXTURES::CHESTOPENED));
     mSprites[SPRITES::PARTICLE]->setTexture(GetTexture(TEXTURES::PARTICLE));
@@ -62,9 +65,20 @@ void AssetManager::InitializeFontsAndTexts()
     }
     assert(std::ssize(mItemTexts) == ITEMID::MAX_ITEMS && "AssetManager failed to initialize correct number of item texts\n");
 
+    for (int i{ 0 }; i < BUTTONS::MAX_BUTTONS; i++)
+    {
+        mButtonTexts.push_back(std::make_unique<sf::Text>());
+    }
+    assert(std::ssize(mButtonTexts) == BUTTONS::MAX_BUTTONS && "AssetManager failed to initialize correct number of button texts\n");
+
+
     // Load fonts
     mFonts[FONTS::LIGHT]->loadFromFile("assets/font/lightdiablo.ttf");
     mFonts[FONTS::BOLD]->loadFromFile("assets/font/bolddiablo.ttf");
+
+    mButtonTexts[BUTTONS::START]->setString("Start");
+    mButtonTexts[BUTTONS::EXIT]->setString("Exit");
+    mButtonTexts[BUTTONS::NEXT_LEVEL]->setString("Next Level");
 
     // Set Up Texts
     mItemTexts[ITEMID::AMULET]->setString("Amulet");
@@ -79,6 +93,25 @@ void AssetManager::InitializeFontsAndTexts()
         itemText->setFont(*mFonts[FONTS::LIGHT]);
         itemText->setCharacterSize(20);
     }
+    for (auto& button : mButtonTexts)
+    {
+        button->setFont(*mFonts[FONTS::BOLD]);
+        button->setCharacterSize(35);
+    }
+}
+
+void AssetManager::InitializeImages()
+{
+    for (int i{ 0 }; i < IMAGES::MAX_IMAGES; i++)
+    {
+        mImages.push_back(std::make_unique<sf::Image>());
+    }
+    assert(std::ssize(mImages) == IMAGES::MAX_IMAGES && "AssetManager failed to initialize correct number of images\n");
+
+    // Load Images
+    mImages[IMAGES::DEFAULT_CURSOR]->loadFromFile("assets/graphics/cursoropen.png");
+    mImages[IMAGES::CLOSED_CURSOR]->loadFromFile("assets/graphics/cursorclosed.png");
+    mImages[IMAGES::ICON]->loadFromFile("assets/graphics/icon.png");
 }
 
 sf::Texture& AssetManager::GetTexture(TEXTURES::TEXTURE texture)
@@ -91,6 +124,12 @@ sf::Sprite& AssetManager::GetSprite(SPRITES::SPRITE sprite)
 {
     assert(sprite < SPRITES::MAX_SPRITES && sprite >= 0 && "Attempted to get sprite that doesn't exist!\n");
     return *mSprites[sprite];
+}
+
+sf::Image& AssetManager::GetImage(IMAGES::IMAGE image)
+{
+    assert(image < IMAGES::MAX_IMAGES && image >= 0 && "Attempted to get image that doesn't exist!\n");
+    return *mImages[image];
 }
 
 sf::Sprite& AssetManager::GetLevelMap(LEVELS::LEVEL level)

@@ -5,7 +5,8 @@ namespace TEXTURES
 	enum TEXTURE
 	{
 		MAINMENU,
-		BUTTON,
+		WIDE_BUTTON,
+		SQUARE_BUTTON,
 		CHESTCLOSED,
 		CHESTOPENED,
 		MAP_ONE,
@@ -25,7 +26,8 @@ namespace SPRITES
 	enum SPRITE
 	{
 		MAINMENU,
-		BUTTON,
+		WIDE_BUTTON,
+		SQUARE_BUTTON,
 		CHESTCLOSED,
 		CHESTOPENED,
 		MAP_ONE,
@@ -79,6 +81,17 @@ namespace CHANNELS
 		MUSIC,
 		AMBIENT,
 		MAX_CHANNELS
+	};
+}
+
+namespace BUTTONS
+{
+	enum BUTTON_TEXT
+	{
+		START,
+		EXIT,
+		NEXT_LEVEL,
+		MAX_BUTTONS
 	};
 }
 

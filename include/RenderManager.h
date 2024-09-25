@@ -8,7 +8,10 @@ class RenderManager
 public:
 	RenderManager(System& system);
 
-	sf::RenderWindow& GetWindow();
+	sf::RenderWindow&							GetWindow();
+	sf::Cursor&									GetDefaultCursor();
+	sf::Cursor&									GetClosedCursor();
+	void										CustomizeGameWindow();
 
 	void										MainMenuRender();
 
@@ -17,5 +20,7 @@ public:
 
 private:
 	sf::RenderWindow							mGameWindow;
+	sf::Cursor									mCursorOpen;
+	sf::Cursor									mCursorClosed;
 	System& mSystem;
 };
