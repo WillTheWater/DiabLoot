@@ -25,6 +25,7 @@ void AssetManager::InitializeTextureSprites()
     mTextures[TEXTURES::MAINMENU]->loadFromFile("assets/graphics/mainmenu.png");
     mTextures[TEXTURES::WIDE_BUTTON]->loadFromFile("assets/graphics/button.png");
     mTextures[TEXTURES::SQUARE_BUTTON]->loadFromFile("assets/graphics/inventorybutton.png");
+    mTextures[TEXTURES::INVENTORY]->loadFromFile("assets/graphics/inventory.png");
     mTextures[TEXTURES::CHESTCLOSED]->loadFromFile("assets/graphics/chestclosed.png");
     mTextures[TEXTURES::CHESTOPENED]->loadFromFile("assets/graphics/chestopened.png");
     mTextures[TEXTURES::MAP_ONE]->loadFromFile("assets/graphics/map1.png");
@@ -40,6 +41,7 @@ void AssetManager::InitializeTextureSprites()
     mSprites[SPRITES::MAP_ONE]->setTexture(GetTexture(TEXTURES::MAP_ONE));
     mSprites[SPRITES::WIDE_BUTTON]->setTexture(GetTexture(TEXTURES::WIDE_BUTTON));
     mSprites[SPRITES::SQUARE_BUTTON]->setTexture(GetTexture(TEXTURES::SQUARE_BUTTON));
+    mSprites[SPRITES::INVENTORY]->setTexture(GetTexture(TEXTURES::INVENTORY));
     mSprites[SPRITES::CHESTCLOSED]->setTexture(GetTexture(TEXTURES::CHESTCLOSED));
     mSprites[SPRITES::CHESTOPENED]->setTexture(GetTexture(TEXTURES::CHESTOPENED));
     mSprites[SPRITES::PARTICLE]->setTexture(GetTexture(TEXTURES::PARTICLE));
@@ -96,7 +98,8 @@ void AssetManager::InitializeFontsAndTexts()
     for (auto& button : mButtonTexts)
     {
         button->setFont(*mFonts[FONTS::BOLD]);
-        button->setCharacterSize(35);
+        button->setFillColor(sf::Color::Black);
+        button->setCharacterSize(45);
     }
 }
 
@@ -147,6 +150,11 @@ sf::Text& AssetManager::GetTextForItemID(ITEMID::ITEM item)
     return *mItemTexts[item];
 }
 
+sf::Text& AssetManager::GetTextForButtons(BUTTONS::BUTTON_TEXT text)
+{
+    return *mButtonTexts[text];
+}
+
 sf::Sprite& AssetManager::GetSpriteForItem(ITEMID::ITEM item)
 {
     switch (item)
@@ -158,5 +166,14 @@ sf::Sprite& AssetManager::GetSpriteForItem(ITEMID::ITEM item)
     case ITEMID::RUNE1: return *mSprites[SPRITES::RUNE1];
     case ITEMID::TPSCROLL: return *mSprites[SPRITES::TPSCROLL];
     default: return *mSprites[SPRITES::TPSCROLL];
+    }
+}
+
+sf::Sprite& AssetManager::GetSpriteForButton(BUTTONS::BUTTON_TYPE button)
+{
+    switch (button)
+    {
+    case BUTTONS::WIDE: return *mSprites[SPRITES::WIDE_BUTTON];
+    default: return *mSprites[SPRITES::SQUARE_BUTTON];
     }
 }

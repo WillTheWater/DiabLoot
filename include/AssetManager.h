@@ -16,7 +16,9 @@ public:
 	sf::Image&									GetImage(IMAGES::IMAGE image);
 	sf::Sprite&									GetLevelMap(LEVELS::LEVEL level);
 	sf::Text&									GetTextForItemID(ITEMID::ITEM item);
+	sf::Text&									GetTextForButtons(BUTTONS::BUTTON_TEXT text);
 	sf::Sprite&									GetSpriteForItem(ITEMID::ITEM item);
+	sf::Sprite&									GetSpriteForButton(BUTTONS::BUTTON_TYPE button);
 
 private:
 	void										InitializeTextureSprites();
