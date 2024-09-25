@@ -1,31 +1,28 @@
 #include "PlayState.h"
+#include "MainMenuState.h"
+#include "Core.h"
 
-PlayState::PlayState(TimeManager& timeMgr, RenderManager& renderMgr, InputManager& inputMgr, ChangeStateCallback changeStateCB, LEVELS::LEVEL level)
-	: GameState{ timeMgr, renderMgr, inputMgr, changeStateCB }
+PlayState::PlayState(System& system, ChangeStateCallback changeStateCB)
+	:GameState{ system, changeStateCB }
 {
-	std::function<sf::Text& (ITEMID::ITEM)> itemTextCB = [this](ITEMID::ITEM item)->sf::Text& {return this->mRenderManager.GetTextForItemId(item); };
-	mLevel = std::make_unique<Level>(level, timeMgr, inputMgr, itemTextCB);
 }
 
 void PlayState::Enter()
 {
-	mInputManager.AddObserver(this);
+	mSystem.InputMgr.AddObserver(this);
 }
 
 void PlayState::Exit()
 {
-	mInputManager.RemoveObserver(this);
+	mSystem.InputMgr.RemoveObserver(this);
 }
 
 void PlayState::Update()
 {
-	float dt = mTimeManager.GetDeltaTime();
-	mLevel->UpdateLevel();
 }
 
 void PlayState::Draw()
 {
-	mRenderManager.RenderLevel(*mLevel);
 }
 
 void PlayState::OnMouseMove(int x, int y)
@@ -34,24 +31,21 @@ void PlayState::OnMouseMove(int x, int y)
 
 void PlayState::OnKeyPress(sf::Keyboard::Key key)
 {
-	if (key == sf::Keyboard::I)
-	{
-		LOG("Open Inventory")
-	}
-}
-void PlayState::OnKeyRelease(sf::Keyboard::Key key)
-{
 	if (key == sf::Keyboard::Escape)
 	{
-		auto newState = std::make_unique<MainMenuState>(mTimeManager, mRenderManager, mInputManager, mChangeStateCB);
+		auto newState = std::make_unique<MainMenuState>(mSystem, mChangeStateCB);
 		mChangeStateCB(std::move(newState));
 	}
+}
+
+void PlayState::OnKeyRelease(sf::Keyboard::Key key)
+{
 }
 
 void PlayState::OnMouseClick(sf::Mouse::Button button)
 {
 }
+
 void PlayState::OnMouseRelease(sf::Mouse::Button button)
 {
 }
-

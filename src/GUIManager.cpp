@@ -3,9 +3,11 @@
 #include "Core.h"
 #include "PlayState.h"
 #include "GameState.h"
+#include "SystemManager.h"
 
-GUIManager::GUIManager()
-    : mGetWindowCB{ nullptr }
+GUIManager::GUIManager(System& system)
+    : mSystem{ system }
+    , mGetWindowCB{ nullptr }
     , IsButtonDown{ false }
 {
     mButtons.reserve(10);
@@ -18,26 +20,6 @@ void GUIManager::InitButtons(std::function<std::unique_ptr<PlayState>()> createP
 
     StartButton->SetClickCB([createPlayStateCB, changeStateCB]() {auto newState = createPlayStateCB(); changeStateCB(std::move(newState)); });
     ExitButton->SetClickCB([this]() { mGetWindowCB().close(); });
-}
-
-void GUIManager::OnMouseMove(int x, int y)
-{
-}
-
-void GUIManager::OnKeyPress(sf::Keyboard::Key key)
-{
-}
-
-void GUIManager::OnKeyRelease(sf::Keyboard::Key key)
-{
-}
-
-void GUIManager::OnMouseClick(sf::Mouse::Button button)
-{
-}
-
-void GUIManager::OnMouseRelease(sf::Mouse::Button button)
-{
 }
 
 void GUIManager::UpdateButtons()
