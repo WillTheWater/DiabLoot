@@ -98,6 +98,7 @@ sf::Sprite& AssetManager::GetLevelMap(LEVELS::LEVEL level)
     switch (level)
     {
     case LEVELS::LEVEL_ONE: return *mSprites[SPRITES::MAP_ONE];
+    case LEVELS::LEVEL_TWO: return *mSprites[SPRITES::MAP_ONE];
     default:
         return *mSprites[SPRITES::MAP_ONE];
     }

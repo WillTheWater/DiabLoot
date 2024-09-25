@@ -87,6 +87,7 @@ namespace LEVELS
 	enum LEVEL
 	{
 		LEVEL_ONE,
+		LEVEL_TWO,
 		MAX_LEVELS
 	};
 }

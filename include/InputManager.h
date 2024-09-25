@@ -15,6 +15,7 @@ public:
 class InputManager
 {
 public:
+	InputManager();
 	void									AddObserver(InputObserver* observer);
 	void									RemoveObserver(InputObserver* observer);
 	void									ProcessInput(sf::Event& event);

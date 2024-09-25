@@ -3,9 +3,10 @@
 #include "Core.h"
 
 Game::Game()
-    : mSystem{ mTimeMgr, mRenderMgr, mAssetMgr, mGUIMgr, mInputMgr, mInventoryMgr }
+    : mSystem{ mTimeMgr, mRenderMgr, mAssetMgr, mGUIMgr, mInputMgr, mInventoryMgr, mLevelManager }
     , mRenderMgr{ mSystem }
     , mGUIMgr{ mSystem }
+    , mLevelManager{mSystem}
 {
     mRenderMgr.GetWindow().setFramerateLimit(60);
     mChangeStateCB = [this](std::unique_ptr<GameState> newState) { this->ChangeState(std::move(newState)); };

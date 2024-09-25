@@ -46,6 +46,11 @@ void Chest::OnMouseRelease(sf::Mouse::Button button)
 {
 }
 
+void Chest::ResetChest()
+{
+	mOpened = false;
+}
+
 void Chest::OpenChest()
 {
 	mOpened = true; 

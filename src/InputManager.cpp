@@ -1,9 +1,20 @@
 #include "InputManager.h"
 #include "Core.h"
 
+InputManager::InputManager()
+{
+	mObservers.reserve(100);
+}
+
 void InputManager::AddObserver(InputObserver* observer)
 {
+	if (std::find(mObservers.begin(), mObservers.end(), observer) != mObservers.end())
+	{
+		return;
+	}
+
 	mObservers.push_back(observer);
+	
 }
 
 void InputManager::RemoveObserver(InputObserver* observer)

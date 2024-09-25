@@ -13,24 +13,24 @@
 #include <utility>
 #include <algorithm>
 
+class System;
+
 class Level
 {
 public:
 	Level() = delete;
-	Level(LEVELS::LEVEL id, TimeManager& timemgr, InputManager& inputmgr, std::function<sf::Text& (ITEMID::ITEM)> itemTextCB);
+	Level(LEVELS::LEVEL id, System& system);
 	~Level();
 
 	std::vector<std::unique_ptr<Chest>>&	GetChests();
 	std::vector<std::unique_ptr<Particle>>&	GetParticles();
-
 	std::vector<std::unique_ptr<Item>>&		GetItems();
 	LEVELS::LEVEL							GetLevelId() const;
-
-
+	void									EnterLevel();
+	void									ExitLevel();
 	void									UpdateLevel();
 	void									UpdateParticles();
 	void									UpdateItems();
-	void									CreateLevelChests();
 	int										GetUniqueParticleId();
 	void									SpawnChest(sf::Vector2f pos, bool mirrored);
 	void									SpawnParticles(Chest& chest);
@@ -42,11 +42,9 @@ public:
 
 private:
 	LEVELS::LEVEL							mLevelID;
-	TimeManager&							mTimeManager;
-	InputManager&							mInputManager;
-	int										mParticleUniqueId;
 	std::vector<std::unique_ptr<Chest>>		mChests;
 	std::vector<std::unique_ptr<Particle>>	mParticles;
 	std::vector<std::unique_ptr<Item>>		mItems;
-	std::function<sf::Text& (ITEMID::ITEM)> mItemTextCB;
+	System&									mSystem;
+	int										mParticleUniqueId;
 };
