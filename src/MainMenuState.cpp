@@ -20,7 +20,7 @@ void MainMenuState::Exit()
 
 void MainMenuState::Update()
 {
-	//mSystem.GUIMgr.UpdateButtons();
+	mSystem.GUIMgr.MainMenuUpdate(mMousePosition, mMouseIsClicked);
 }
 
 void MainMenuState::Draw()
@@ -30,6 +30,7 @@ void MainMenuState::Draw()
 
 void MainMenuState::OnMouseMove(int x, int y)
 {
+	mMousePosition = sf::Vector2f{ (float)x, (float)y };
 }
 
 void MainMenuState::OnKeyPress(sf::Keyboard::Key key)
@@ -48,10 +49,10 @@ void MainMenuState::OnKeyRelease(sf::Keyboard::Key key)
 
 void MainMenuState::OnMouseClick(sf::Mouse::Button button)
 {
-	if (button == sf::Mouse::Left) { mMouseIsClicked = true; }
+	if (button == sf::Mouse::Left) { mMouseIsClicked = true; LOG("mouse click") }
 }
 
 void MainMenuState::OnMouseRelease(sf::Mouse::Button button)
 {
-	if (button == sf::Mouse::Left) { mMouseIsClicked = false; }
+	if (button == sf::Mouse::Left) { mMouseIsClicked = false; LOG("mouse released")	}
 }

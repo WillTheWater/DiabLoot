@@ -19,4 +19,5 @@ public:
 
 private:
 	bool mMouseIsClicked;
+	sf::Vector2f mMousePosition;
 };

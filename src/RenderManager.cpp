@@ -43,40 +43,10 @@ void RenderManager::MainMenuRender()
 {
 	Draw(mSystem.AssetMgr.GetSprite(SPRITES::MAINMENU));
 
-	// Create buttons
-	auto startButton = mSystem.GUIMgr.MakeButton(BUTTONS::WIDE, BUTTONS::START, mWindowCenter);
-	auto exitButton = mSystem.GUIMgr.MakeButton(BUTTONS::WIDE, BUTTONS::EXIT, mWindowCenter + sf::Vector2f{ 0.f, 83.f });
-
-	// Get mouse position in window
-	sf::Vector2i mousePosition = sf::Mouse::getPosition(mGameWindow);
-	sf::Vector2f mousePositionFloat(static_cast<float>(mousePosition.x), static_cast<float>(mousePosition.y));
-	bool isMouseClicked = sf::Mouse::isButtonPressed(sf::Mouse::Left);
-
-
-	startButton->UpdateButtonState(mousePositionFloat, isMouseClicked);
-	exitButton->UpdateButtonState(mousePositionFloat, isMouseClicked);
-
-	std::array<Button*, 2> buttons = { startButton.get(), exitButton.get() };
-
-	for (auto& button : buttons)
-	{
-		sf::Sprite& buttonSprite = button->GetSprite();
-
-		switch (button->GetButtonState())
-		{
-		case BUTTONS::BUTTON_STATE::HOVER:
-			buttonSprite.setColor(sf::Color{ 200, 200, 200, 255 });  // Set color for hover
-			break;
-		case BUTTONS::BUTTON_STATE::CLICK:
-			buttonSprite.setColor(sf::Color{ 100, 100, 100, 255 });  // Set color for click
-			break;
-		default:
-			buttonSprite.setColor(sf::Color{ 255, 255, 255, 255 });  // Set color for idle
-			break;
-		}
-		Draw(buttonSprite);
-		Draw(button->GetText());
-	}
+	Draw(mSystem.GUIMgr.GetButton(BUTTONS::START_ID).GetSprite());
+	Draw(mSystem.GUIMgr.GetButton(BUTTONS::EXIT_ID).GetSprite());
+	Draw(mSystem.GUIMgr.GetButton(BUTTONS::START_ID).GetText());
+	Draw(mSystem.GUIMgr.GetButton(BUTTONS::EXIT_ID).GetText());
 }
 
 void RenderManager::PlayStateRender()
