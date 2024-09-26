@@ -10,8 +10,8 @@ Item::Item(std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> item, int unique, sf::Vec
 	,mRect{ {100.f,100.f} }
 	,mCallback{callback}
 {
-	mRect.setSize({ mText.getGlobalBounds().getSize().x + 8.f, mText.getGlobalBounds().getSize().y + 8.f});
-	mRect.setOrigin(mRect.getGlobalBounds().width / 2, mRect.getGlobalBounds().height / 2 - 5.f);
+	mRect.setSize({ mText.getGlobalBounds().getSize().x + FONTS::PADDING, mText.getGlobalBounds().getSize().y + FONTS::PADDING });
+	mRect.setOrigin(mRect.getGlobalBounds().width / 2, mRect.getGlobalBounds().height / 2 + FONTS::ORIGIN_YOFFSET);
 	mRect.setPosition(pos);
 }
 

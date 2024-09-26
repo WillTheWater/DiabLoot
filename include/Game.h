@@ -20,4 +20,5 @@ private:
 	Inventory									mInventoryMgr;
 	std::unique_ptr<GameState>					mCurrentState;
 	ChangeStateCallback							mChangeStateCB;
+	LevelManager								mLevelManager;
 };

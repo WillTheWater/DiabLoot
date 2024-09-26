@@ -11,6 +11,8 @@ namespace TEXTURES
 		CHESTCLOSED,
 		CHESTOPENED,
 		MAP_ONE,
+		MAP_TWO,
+		MAP_THREE,
 		AMULET,
 		CHARM,
 		REJUV,
@@ -33,6 +35,8 @@ namespace SPRITES
 		CHESTCLOSED,
 		CHESTOPENED,
 		MAP_ONE,
+		MAP_TWO,
+		MAP_THREE,
 		AMULET,
 		CHARM,
 		REJUV,
@@ -53,6 +57,9 @@ namespace FONTS
 		LIGHT,
 		MAX_FONTS
 	};
+
+	inline float PADDING = 8.f;
+	inline float ORIGIN_YOFFSET = -5.f;
 }
 
 namespace IMAGES
@@ -116,6 +123,8 @@ namespace LEVELS
 	enum LEVEL
 	{
 		LEVEL_ONE,
+		LEVEL_TWO,
+		LEVEL_THREE,
 		MAX_LEVELS
 	};
 }

@@ -18,6 +18,8 @@ public:
 	sf::Text&									GetTextForItemID(ITEMID::ITEM item);
 	sf::Text&									GetTextForButtons(BUTTONS::BUTTON_TEXT text);
 	sf::Sprite&									GetSpriteForItem(ITEMID::ITEM item);
+	sf::Color									GetColorForRarity(ITEMRARITY::RARITY rarity);
+	sf::Color									GetTextboxColor();
 	sf::Sprite&									GetSpriteForButton(BUTTONS::BUTTON_TYPE button);
 
 private:
@@ -29,5 +31,6 @@ private:
 	std::vector<std::unique_ptr<sf::Image>>		mImages;
 	std::vector<std::unique_ptr<sf::Font>>		mFonts;
 	std::vector<std::unique_ptr<sf::Text>>		mItemTexts;
+	sf::Color									mTextboxColor;
 	std::vector<std::unique_ptr<sf::Text>>		mButtonTexts;
 };

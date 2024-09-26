@@ -2,6 +2,7 @@
 
 
 AssetManager::AssetManager()
+    :mTextboxColor{ sf::Color({ 0, 0, 0, 200 }) }
 {
     InitializeTextureSprites();
     InitializeFontsAndTexts();
@@ -29,16 +30,20 @@ void AssetManager::InitializeTextureSprites()
     mTextures[TEXTURES::CHESTCLOSED]->loadFromFile("assets/graphics/chestclosed.png");
     mTextures[TEXTURES::CHESTOPENED]->loadFromFile("assets/graphics/chestopened.png");
     mTextures[TEXTURES::MAP_ONE]->loadFromFile("assets/graphics/map1.png");
+    mTextures[TEXTURES::MAP_TWO]->loadFromFile("assets/graphics/map2.png");
+    mTextures[TEXTURES::MAP_THREE]->loadFromFile("assets/graphics/map3.png");
     mTextures[TEXTURES::PARTICLE]->loadFromFile("assets/graphics/particle.png");
     mTextures[TEXTURES::AMULET]->loadFromFile("assets/graphics/items/amulet.png");
     mTextures[TEXTURES::CHARM]->loadFromFile("assets/graphics/items/charm.png");
-    mTextures[TEXTURES::REJUV]->loadFromFile("assets/graphics/items/amulet.png");
-    mTextures[TEXTURES::RING]->loadFromFile("assets/graphics/items/rejuv.png");
+    mTextures[TEXTURES::REJUV]->loadFromFile("assets/graphics/items/rejuv.png");
+    mTextures[TEXTURES::RING]->loadFromFile("assets/graphics/items/ring.png");
     mTextures[TEXTURES::RUNE1]->loadFromFile("assets/graphics/items/rune1.png");
     mTextures[TEXTURES::TPSCROLL]->loadFromFile("assets/graphics/items/tpscroll.png");
 
     mSprites[SPRITES::MAINMENU]->setTexture(GetTexture(TEXTURES::MAINMENU));
     mSprites[SPRITES::MAP_ONE]->setTexture(GetTexture(TEXTURES::MAP_ONE));
+    mSprites[SPRITES::MAP_TWO]->setTexture(GetTexture(TEXTURES::MAP_TWO));
+    mSprites[SPRITES::MAP_THREE]->setTexture(GetTexture(TEXTURES::MAP_THREE));
     mSprites[SPRITES::WIDE_BUTTON]->setTexture(GetTexture(TEXTURES::WIDE_BUTTON));
     mSprites[SPRITES::SQUARE_BUTTON]->setTexture(GetTexture(TEXTURES::SQUARE_BUTTON));
     mSprites[SPRITES::INVENTORY]->setTexture(GetTexture(TEXTURES::INVENTORY));
@@ -140,6 +145,8 @@ sf::Sprite& AssetManager::GetLevelMap(LEVELS::LEVEL level)
     switch (level)
     {
     case LEVELS::LEVEL_ONE: return *mSprites[SPRITES::MAP_ONE];
+    case LEVELS::LEVEL_TWO: return *mSprites[SPRITES::MAP_TWO];
+    case LEVELS::LEVEL_THREE: return *mSprites[SPRITES::MAP_THREE];
     default:
         return *mSprites[SPRITES::MAP_ONE];
     }
@@ -167,6 +174,25 @@ sf::Sprite& AssetManager::GetSpriteForItem(ITEMID::ITEM item)
     case ITEMID::TPSCROLL: return *mSprites[SPRITES::TPSCROLL];
     default: return *mSprites[SPRITES::TPSCROLL];
     }
+}
+
+sf::Color AssetManager::GetColorForRarity(ITEMRARITY::RARITY rarity)
+{
+    switch (rarity)
+    {
+    case ITEMRARITY::NORMAL:	return sf::Color::White;
+    case ITEMRARITY::MAGIC:		return sf::Color{ 82 , 075, 143 };	break;
+    case ITEMRARITY::RARE:		return sf::Color{ 253, 216, 53 };	break;
+    case ITEMRARITY::SET:		return sf::Color{ 44 , 190, 52 };	break;
+    case ITEMRARITY::UNIQUE:	return sf::Color{ 153, 102, 51 };	break;
+    case ITEMRARITY::RUNE:		return sf::Color{ 198, 140, 89 };	break;
+    default:					return sf::Color::White;			break;
+    }                         
+}
+
+sf::Color AssetManager::GetTextboxColor()
+{
+    return mTextboxColor;
 }
 
 sf::Sprite& AssetManager::GetSpriteForButton(BUTTONS::BUTTON_TYPE button)

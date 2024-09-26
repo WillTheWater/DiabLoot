@@ -1,32 +1,45 @@
 #include "Level.h"
+#include "SystemManager.h"
 
-Level::Level(LEVELS::LEVEL id, TimeManager& timemgr, InputManager& inputmgr, std::function<sf::Text&(ITEMID::ITEM)> itemTextCB)
+Level::Level(LEVELS::LEVEL id, System& system)
 	:mLevelID{id}
-	,mTimeManager{timemgr}
-	,mInputManager{inputmgr} 
-	,mParticleUniqueId{ 0 }
-	,mItemTextCB(itemTextCB)
+	,mSystem{system}
+	,mParticleUniqueId{0}
 {
 	mChests.reserve(10);
-	mParticles.reserve(20);
-	CreateLevelChests();
 }
 
 Level::~Level()
 {
-	for (auto& chest : mChests)
-	{
-		mInputManager.RemoveObserver(chest.get());
-	}
-	for (auto& item : mItems)
-	{
-		mInputManager.RemoveObserver(item.get());
-	}
+	ExitLevel();
 }
 
 LEVELS::LEVEL Level::GetLevelId() const
 {
 	return mLevelID;
+}
+
+void Level::EnterLevel()
+{
+	for (auto& chest : mChests)
+	{
+		mSystem.InputMgr.AddObserver(chest.get());
+		chest->ResetChest();
+	}
+}
+
+void Level::ExitLevel()
+{
+	for (auto& chest : mChests)
+	{
+		mSystem.InputMgr.RemoveObserver(chest.get());
+	}
+	for (auto& item : mItems)
+	{
+		mSystem.InputMgr.RemoveObserver(item.get());
+	}
+	mItems.clear();
+	mParticles.clear();
 }
 
 std::vector<std::unique_ptr<Item>>& Level::GetItems()
@@ -59,18 +72,6 @@ void Level::UpdateItems()
 	}
 }
 
-void Level::CreateLevelChests()
-{
-	switch (mLevelID)
-	{
-	case LEVELS::LEVEL_ONE : 
-		SpawnChest({ 500.f, 600.f }, true);
-		SpawnChest({ 1000.f, 800.f }, false);
-		break;
-	default: return;
-	}
-}
-
 int Level::GetUniqueParticleId()
 {
 	mParticleUniqueId++;
@@ -82,7 +83,7 @@ void Level::SpawnChest(sf::Vector2f pos, bool mirrored)
 	// Update this to have actual chest positions
 	std::function<void(Chest&)> callback = [this](Chest& chest) {this->SpawnParticles(chest); };
 	mChests.push_back(std::make_unique<Chest>(pos, mirrored, callback));
-	mInputManager.AddObserver(mChests.back().get());
+	//mSystem.InputMgr.AddObserver(mChests.back().get());
 }
 
 void Level::SpawnParticles(Chest& chest)
@@ -104,7 +105,7 @@ void Level::SpawnParticles(Chest& chest)
 		std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> itemId = ITEMGEN::getRandomItem();
 		mParticles.push_back(std::make_unique<Particle>(id, startPos, endPos, randAnchorheight, animStep, callback, itemId));
 	}
-	mInputManager.RemoveObserver(&chest);
+	mSystem.InputMgr.RemoveObserver(&chest);
 }
 
 void Level::UpdateParticles()
@@ -115,7 +116,7 @@ void Level::UpdateParticles()
 		{
 			continue;
 		}
-		particle->stepParticle(mTimeManager.GetDeltaTime());
+		particle->stepParticle(mSystem.TimeMgr.GetDeltaTime());
 	}
 }
 
@@ -136,29 +137,39 @@ void Level::RemoveParticle(Particle& particle)
 
 void Level::PickUpItem(Item& item)
 {
-	bool success = false;
-
-	for (int i{ 0 }; i < mItems.size(); i++)
+	if (mSystem.InventoryMgr.addItem(item))
 	{
-		if (mItems[i]->getUniqueId() == item.getUniqueId())
+		bool success = false;
+		for (int i{ 0 }; i < mItems.size(); i++)
 		{
-			mInputManager.RemoveObserver(mItems[i].get());
-			mItems.erase(mItems.begin() + i);
-			success = true;
+			if (mItems[i]->getUniqueId() == item.getUniqueId())
+			{
+				RemoveAllObservers();
+				mItems.erase(mItems.begin() + i);
+				AddAllObservers();
+				success = true;
+			}
 		}
+
+		assert(success && "PlayState::RemoveItem failed to remove the item");
 	}
-	assert(success && "PlayState::RemoveItem failed to remove the item");
+	else
+	{
+		// Error message of some kind for no space in inventory
+	}
+	
 }
 
 void Level::SpawnItem(Particle& particle)
 {
 	sf::Vector2f position = particle.getEndPos();
 	std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> itemId = particle.getItemID();
-	sf::Text& text = mItemTextCB(itemId.first);
+	sf::Text& text = mSystem.AssetMgr.GetTextForItemID(itemId.first);
 	std::function<void(Item&)> callback = [this](Item& item) {this->PickUpItem(item); };
 	int uniqueId = particle.getId();
+	RemoveAllObservers();	// TESTING
 	mItems.push_back(std::make_unique<Item>(itemId, uniqueId, position, text, callback, 1));
-	mInputManager.AddObserver(mItems.back().get());
+	AddAllObservers();		// TESTING
 	RemoveParticle(particle);
 }
 
@@ -191,5 +202,21 @@ void Level::StackItemlabels()
 		}
 		placedRects.push_back(textBox);
 		item->setTextRect(textBox);
+	}
+}
+
+void Level::RemoveAllObservers()
+{
+	for (auto& item : mItems)
+	{
+		mSystem.InputMgr.RemoveObserver(item.get());
+	}
+}
+
+void Level::AddAllObservers()
+{
+	for (auto& item : mItems)
+	{
+		mSystem.InputMgr.AddObserver(item.get());
 	}
 }

@@ -36,7 +36,7 @@ void MainMenuState::OnKeyPress(sf::Keyboard::Key key)
 	if (key == sf::Keyboard::Escape) { mSystem.RenderMgr.GetWindow().close(); }
 	if (key == sf::Keyboard::P)
 	{
-		auto newState = std::make_unique<PlayState>(mSystem, mChangeStateCB);
+		auto newState = std::make_unique<PlayState>(mSystem, mChangeStateCB, mSystem.LevelMgr.GetNextLevel());
 		mChangeStateCB(std::move(newState));
 	}
 }

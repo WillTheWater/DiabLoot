@@ -4,7 +4,7 @@
 class PlayState : public GameState, public InputObserver
 {
 public:
-	PlayState(System& system, ChangeStateCallback changeStateCB);
+	PlayState(System& system, ChangeStateCallback changeStateCB, Level& level);
 
 	virtual void							Enter() override;
 	virtual void							Exit() override;
@@ -16,8 +16,8 @@ public:
 	void									OnKeyRelease(sf::Keyboard::Key key) override;
 	void									OnMouseClick(sf::Mouse::Button button) override;
 	void									OnMouseRelease(sf::Mouse::Button button) override;
-
 private:
+	Level&									mLevel;
 	void									OpenInventory();
 	bool									mIsInventoryOpen;
 };

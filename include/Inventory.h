@@ -6,7 +6,7 @@
 class Inventory : public InputObserver
 {
 public:
-	Inventory() = default;
+	Inventory();
 
 	// Observer overrides
 	void									OnMouseMove(int x, int y) override;
@@ -15,7 +15,8 @@ public:
 	void									OnMouseClick(sf::Mouse::Button button) override;
 	void									OnMouseRelease(sf::Mouse::Button button) override;
 
-
+	void									ToggleInventory();
+	bool									isOpen();
 	std::array<ItemSlot, 150>&				getItemSlots();
 	std::array<sf::RectangleShape, 150>&	getSlotRects();
 	bool									isMouseOverSlot();
@@ -37,4 +38,5 @@ private:
 	bool									mMouseOver;
 	int										mMouseOverSlotIndex;
 	void									initialzeSlotRects();
+	bool									mVisible = false;
 };
