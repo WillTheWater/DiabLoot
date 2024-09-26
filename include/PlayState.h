@@ -18,4 +18,6 @@ public:
 	void									OnMouseRelease(sf::Mouse::Button button) override;
 private:
 	Level&									mLevel;
+	void									OpenInventory();
+	bool									mIsInventoryOpen;
 };

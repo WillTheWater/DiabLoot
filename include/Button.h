@@ -7,36 +7,25 @@ class Button
 {
 public:
 
-	enum class BUTTON_TYPE
-	{
-		WIDE,
-		SQUARE
-	};
+	
+	Button(const sf::Sprite& sprite, const sf::Text& text, const sf::Vector2f& position);
+	Button(const sf::Sprite& sprite, const sf::Vector2f& position);
 
-	enum class BUTTON_STATE
-	{
-		IDLE,
-		HOVER,
-		CLICK
-	};
-	Button(const sf::Vector2f& position, const std::string& buttonText);
-
-	void									SetButtonType(BUTTON_TYPE newType);
-	void									SetButtonState(BUTTON_STATE newState);
 	void									SetHoverState(bool hoverState);
 	void									SetClickCB(std::function<void()> clickCB);
 	bool									GetHoverState() const;
-	Button::BUTTON_TYPE						GetButtonType() const;
-	Button::BUTTON_STATE					GetButtonState() const;
-	sf::FloatRect							GetButtonBounds(const sf::Vector2f& position) const;
 	sf::Vector2f							GetPosition() const;
+	sf::Sprite&								GetSprite();
+	sf::Text&								GetText();
 	void									OnClick();
+	void									CenterOrigin();
+
+
 
 private:
-	std::string								mButtonText;
+	sf::Sprite								mButtonSprite;
+	sf::Text								mButtonText;
 	sf::Vector2f							mPosition;
 	bool									mIsHoveringWhenPressed;
-	BUTTON_STATE							mButtonState;
-	BUTTON_TYPE								mButtonType;
 	std::function<void()>					mClickCB;
 };

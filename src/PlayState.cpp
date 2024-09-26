@@ -5,6 +5,8 @@
 PlayState::PlayState(System& system, ChangeStateCallback changeStateCB, Level& level)
 	:GameState{ system, changeStateCB }
 	,mLevel{level}
+	, mIsInventoryOpen{false}
+
 {
 }
 
@@ -42,8 +44,16 @@ void PlayState::OnKeyPress(sf::Keyboard::Key key)
 {
 	if (key == sf::Keyboard::Escape)
 	{
-		auto newState = std::make_unique<MainMenuState>(mSystem, mChangeStateCB);
-		mChangeStateCB(std::move(newState));
+		if (mIsInventoryOpen) { OpenInventory(); }
+		else
+		{
+			auto newState = std::make_unique<MainMenuState>(mSystem, mChangeStateCB);
+			mChangeStateCB(std::move(newState));
+		}
+	}
+	if (key == sf::Keyboard::I)
+	{
+		OpenInventory();
 	}
 	
 }
@@ -67,4 +77,9 @@ void PlayState::OnMouseClick(sf::Mouse::Button button)
 
 void PlayState::OnMouseRelease(sf::Mouse::Button button)
 {
+}
+
+void PlayState::OpenInventory()
+{
+	mIsInventoryOpen = !mIsInventoryOpen;
 }

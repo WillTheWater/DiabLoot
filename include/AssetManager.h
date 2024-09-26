@@ -13,18 +13,24 @@ public:
 
 	sf::Texture&								GetTexture(TEXTURES::TEXTURE texture);
 	sf::Sprite&									GetSprite(SPRITES::SPRITE sprite);
+	sf::Image&									GetImage(IMAGES::IMAGE image);
 	sf::Sprite&									GetLevelMap(LEVELS::LEVEL level);
 	sf::Text&									GetTextForItemID(ITEMID::ITEM item);
+	sf::Text&									GetTextForButtons(BUTTONS::BUTTON_TEXT text);
 	sf::Sprite&									GetSpriteForItem(ITEMID::ITEM item);
 	sf::Color									GetColorForRarity(ITEMRARITY::RARITY rarity);
 	sf::Color									GetTextboxColor();
+	sf::Sprite&									GetSpriteForButton(BUTTONS::BUTTON_TYPE button);
 
 private:
 	void										InitializeTextureSprites();
 	void										InitializeFontsAndTexts();
+	void										InitializeImages();
 	std::vector<std::unique_ptr<sf::Texture>>	mTextures;
 	std::vector<std::unique_ptr<sf::Sprite>>	mSprites;
+	std::vector<std::unique_ptr<sf::Image>>		mImages;
 	std::vector<std::unique_ptr<sf::Font>>		mFonts;
 	std::vector<std::unique_ptr<sf::Text>>		mItemTexts;
 	sf::Color									mTextboxColor;
+	std::vector<std::unique_ptr<sf::Text>>		mButtonTexts;
 };

@@ -8,6 +8,7 @@ public:
 
 	void										Run();
 	void										ChangeState(std::unique_ptr<GameState> newState);
+	void										ChangeCursor();
 
 private:
 	System										mSystem;
