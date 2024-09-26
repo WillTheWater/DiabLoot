@@ -19,6 +19,7 @@ public:
 	void									MainMenuHUD();
 	std::unique_ptr<Button>					MakeButton(const BUTTONS::BUTTON_TYPE& type, const BUTTONS::BUTTON_TEXT& text, const sf::Vector2f& position);
 	std::unique_ptr<Button>					MakeInventoryButton(const BUTTONS::BUTTON_TYPE& type, const sf::Vector2f& position);
+	void									UpdateButtons(const sf::Vector2f& mousePos, bool isClicked);
 	std::vector<std::unique_ptr<Button>>&	GetButtons();
 
 private:

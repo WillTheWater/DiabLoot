@@ -4,6 +4,7 @@
 
 MainMenuState::MainMenuState(System& system, ChangeStateCallback changeStateCB)
 	:GameState{ system, changeStateCB }
+	, mMouseIsClicked{false}
 {
 }
 
@@ -19,7 +20,7 @@ void MainMenuState::Exit()
 
 void MainMenuState::Update()
 {
-
+	//mSystem.GUIMgr.UpdateButtons();
 }
 
 void MainMenuState::Draw()
@@ -47,8 +48,10 @@ void MainMenuState::OnKeyRelease(sf::Keyboard::Key key)
 
 void MainMenuState::OnMouseClick(sf::Mouse::Button button)
 {
+	if (button == sf::Mouse::Left) { mMouseIsClicked = true; }
 }
 
 void MainMenuState::OnMouseRelease(sf::Mouse::Button button)
 {
+	if (button == sf::Mouse::Left) { mMouseIsClicked = false; }
 }
