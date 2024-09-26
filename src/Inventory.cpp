@@ -188,7 +188,7 @@ size_t Inventory::getFirstOpenIndex()
 void Inventory::initialzeSlotRects()
 {
 	// Needs testing
-	sf::RectangleShape slotTemplate{ {42.f, 42.f} };
+	sf::RectangleShape slotTemplate{ {52.f, 52.f} };
 	slotTemplate.setOrigin(slotTemplate.getSize().x / 2, slotTemplate.getSize().y / 2);
 	slotTemplate.setPosition({ 1248.f, 145.f }); // Position for the top left slot
 	for (int i{ 0 }; i < 150; i++)

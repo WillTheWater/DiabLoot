@@ -89,7 +89,7 @@ void RenderManager::PlayStateRender()
 
 void RenderManager::InventoryRender()
 {
-	
+
 	if (!mSystem.InventoryMgr.isOpen())
 	{
 		return;
@@ -105,15 +105,26 @@ void RenderManager::InventoryRender()
 
 	for (int i{ 0 }; i < slots.size(); i++)
 	{
-		//For Debug Purposes
-		/*rects[i].setFillColor(sf::Color::Magenta);
-		mGameWindow.draw(rects[i]);*/
-
-		//End debug
 		if (slots[i].isEmpty())
 		{
 			continue;
 		}
+
+		rects[i].setFillColor({ 82 , 075, 143 , 200 });
+
+		if (mSystem.InventoryMgr.isMouseOverSlot())
+		{
+			if (mSystem.InventoryMgr.getMouseOverSlotIndex() == i)
+			{
+				rects[i].setFillColor({ 44 , 190, 52, 200 });
+			}
+			else
+			{
+				rects[i].setFillColor({ 82 , 075, 143 , 200 });
+			}
+		}
+
+		mGameWindow.draw(rects[i]);
 
 		sf::Sprite itemSprite = mSystem.AssetMgr.GetSpriteForItem(slots[i].getItemId().first);
 		itemSprite.setOrigin({ itemSprite.getLocalBounds().getSize().x / 2.f, itemSprite.getLocalBounds().getSize().y / 2.f });
@@ -128,21 +139,20 @@ void RenderManager::InventoryRender()
 		sf::Text hoverText = mSystem.AssetMgr.GetTextForItemID(slots[index].getItemId().first);
 		if (slots[index].getQuantity() > 1)
 		{
-			hoverText.setString(hoverText.getString() + " x " + std::to_string(slots[index].getQuantity()));
+			hoverText.setString(hoverText.getString() + '\n' + "Quantity: " + std::to_string(slots[index].getQuantity()));
 		}
-		hoverText.setOrigin(0.f, -hoverText.getLocalBounds().getSize().y);
+		hoverText.setOrigin(hoverText.getLocalBounds().getSize().x, hoverText.getLocalBounds().getSize().y / 2);
 		hoverText.setPosition(mSystem.InventoryMgr.getLastMousePos());
 		hoverText.setColor(mSystem.AssetMgr.GetColorForRarity(slots[index].getItemId().second));
 		// Text box to got under text
 		sf::RectangleShape textBox{ sf::Vector2f{hoverText.getGlobalBounds().getSize().x + FONTS::PADDING, hoverText.getGlobalBounds().getSize().y + FONTS::PADDING} };
-		textBox.setOrigin(0, -textBox.getLocalBounds().getSize().y - FONTS::ORIGIN_YOFFSET);
+		textBox.setOrigin(textBox.getLocalBounds().getSize().x + FONTS::ORIGIN_YOFFSET, (textBox.getLocalBounds().getSize().y / 2) + FONTS::ORIGIN_YOFFSET);
 		textBox.setFillColor(mSystem.AssetMgr.GetTextboxColor());
 		textBox.setPosition(hoverText.getPosition());
 		mGameWindow.draw(textBox);
 		mGameWindow.draw(hoverText);
 	}
 }
-
 
 void RenderManager::RenderLevel(Level& level)
 {
