@@ -55,6 +55,10 @@ void PlayState::OnKeyRelease(sf::Keyboard::Key key)
 		auto newState = std::make_unique<PlayState>(mSystem, mChangeStateCB, mSystem.LevelMgr.GetNextLevel());
 		mChangeStateCB(std::move(newState));
 	}
+	if (key == sf::Keyboard::I)
+	{
+		mSystem.InventoryMgr.ToggleInventory();
+	}
 }
 
 void PlayState::OnMouseClick(sf::Mouse::Button button)

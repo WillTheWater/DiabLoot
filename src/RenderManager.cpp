@@ -101,14 +101,21 @@ void RenderManager::RenderItems(std::vector<std::unique_ptr<Item>>& items)
 
 void RenderManager::RenderInventory()
 {
+	if (!mSystem.InventoryMgr.isOpen())
+	{
+		return;
+	}
+
+	mGameWindow.draw(mSystem.AssetMgr.GetSprite(SPRITES::INVENTORY));
+
 	auto& slots = mSystem.InventoryMgr.getItemSlots();
 	auto& rects = mSystem.InventoryMgr.getSlotRects();
 
 	for (int i{ 0 }; i < slots.size(); i++)
 	{
 		//For Debug Purposes
-		rects[i].setFillColor(sf::Color::Magenta);
-		mGameWindow.draw(rects[i]);
+		/*rects[i].setFillColor(sf::Color::Magenta);
+		mGameWindow.draw(rects[i]);*/
 
 		//End debug
 		if (slots[i].isEmpty())

@@ -24,9 +24,12 @@ void AssetManager::InitializeTextureSprites()
 
     mTextures[TEXTURES::MAINMENU]->loadFromFile("assets/graphics/mainmenu.png");
     mTextures[TEXTURES::BUTTON]->loadFromFile("assets/graphics/button.png");
+    mTextures[TEXTURES::INVENTORY]->loadFromFile("assets/graphics/inventory.png");
     mTextures[TEXTURES::CHESTCLOSED]->loadFromFile("assets/graphics/chestclosed.png");
     mTextures[TEXTURES::CHESTOPENED]->loadFromFile("assets/graphics/chestopened.png");
     mTextures[TEXTURES::MAP_ONE]->loadFromFile("assets/graphics/map1.png");
+    mTextures[TEXTURES::MAP_TWO]->loadFromFile("assets/graphics/map2.png");
+    mTextures[TEXTURES::MAP_THREE]->loadFromFile("assets/graphics/map3.png");
     mTextures[TEXTURES::PARTICLE]->loadFromFile("assets/graphics/particle.png");
     mTextures[TEXTURES::AMULET]->loadFromFile("assets/graphics/items/amulet.png");
     mTextures[TEXTURES::CHARM]->loadFromFile("assets/graphics/items/charm.png");
@@ -37,7 +40,10 @@ void AssetManager::InitializeTextureSprites()
 
     mSprites[SPRITES::MAINMENU]->setTexture(GetTexture(TEXTURES::MAINMENU));
     mSprites[SPRITES::MAP_ONE]->setTexture(GetTexture(TEXTURES::MAP_ONE));
+    mSprites[SPRITES::MAP_TWO]->setTexture(GetTexture(TEXTURES::MAP_TWO));
+    mSprites[SPRITES::MAP_THREE]->setTexture(GetTexture(TEXTURES::MAP_THREE));
     mSprites[SPRITES::BUTTON]->setTexture(GetTexture(TEXTURES::BUTTON));
+    mSprites[SPRITES::INVENTORY]->setTexture(GetTexture(TEXTURES::INVENTORY));
     mSprites[SPRITES::CHESTCLOSED]->setTexture(GetTexture(TEXTURES::CHESTCLOSED));
     mSprites[SPRITES::CHESTOPENED]->setTexture(GetTexture(TEXTURES::CHESTOPENED));
     mSprites[SPRITES::PARTICLE]->setTexture(GetTexture(TEXTURES::PARTICLE));
@@ -99,7 +105,8 @@ sf::Sprite& AssetManager::GetLevelMap(LEVELS::LEVEL level)
     switch (level)
     {
     case LEVELS::LEVEL_ONE: return *mSprites[SPRITES::MAP_ONE];
-    case LEVELS::LEVEL_TWO: return *mSprites[SPRITES::MAP_ONE];
+    case LEVELS::LEVEL_TWO: return *mSprites[SPRITES::MAP_TWO];
+    case LEVELS::LEVEL_THREE: return *mSprites[SPRITES::MAP_THREE];
     default:
         return *mSprites[SPRITES::MAP_ONE];
     }

@@ -22,6 +22,7 @@ public:
 
 private:
 	std::vector<InputObserver*>				mObservers;
+	std::vector<InputObserver*>				mToBeRemoved;
 	void									NotifyMouseMove(int x, int y);
 	void									NotifyKeyPress(sf::Keyboard::Key key);
 	void									NotifyKeyRelease(sf::Keyboard::Key key);

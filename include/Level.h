@@ -39,6 +39,8 @@ public:
 	void									SpawnItem(Particle& particle);
 	void									SortItemsByVerticalSpace();
 	void									StackItemlabels();
+	void									RemoveAllObservers();
+	void									AddAllObservers();
 
 private:
 	LEVELS::LEVEL							mLevelID;

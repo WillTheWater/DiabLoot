@@ -6,6 +6,7 @@ Level::Level(LEVELS::LEVEL id, System& system)
 	,mSystem{system}
 	,mParticleUniqueId{0}
 {
+	mChests.reserve(10);
 }
 
 Level::~Level()
@@ -136,19 +137,27 @@ void Level::RemoveParticle(Particle& particle)
 
 void Level::PickUpItem(Item& item)
 {
-	mSystem.InventoryMgr.addItem(item);
-	bool success = false;
-	for (int i{ 0 }; i < mItems.size(); i++)
+	if (mSystem.InventoryMgr.addItem(item))
 	{
-		if (mItems[i]->getUniqueId() == item.getUniqueId())
+		bool success = false;
+		for (int i{ 0 }; i < mItems.size(); i++)
 		{
-			mSystem.InputMgr.RemoveObserver(mItems[i].get());
-			mItems.erase(mItems.begin() + i);
-			success = true;
+			if (mItems[i]->getUniqueId() == item.getUniqueId())
+			{
+				RemoveAllObservers();
+				mItems.erase(mItems.begin() + i);
+				AddAllObservers();
+				success = true;
+			}
 		}
+
+		assert(success && "PlayState::RemoveItem failed to remove the item");
+	}
+	else
+	{
+		// Error message of some kind for no space in inventory
 	}
 	
-	assert(success && "PlayState::RemoveItem failed to remove the item");
 }
 
 void Level::SpawnItem(Particle& particle)
@@ -158,8 +167,9 @@ void Level::SpawnItem(Particle& particle)
 	sf::Text& text = mSystem.AssetMgr.GetTextForItemID(itemId.first);
 	std::function<void(Item&)> callback = [this](Item& item) {this->PickUpItem(item); };
 	int uniqueId = particle.getId();
+	RemoveAllObservers();	// TESTING
 	mItems.push_back(std::make_unique<Item>(itemId, uniqueId, position, text, callback, 1));
-	mSystem.InputMgr.AddObserver(mItems.back().get());
+	AddAllObservers();		// TESTING
 	RemoveParticle(particle);
 }
 
@@ -192,5 +202,21 @@ void Level::StackItemlabels()
 		}
 		placedRects.push_back(textBox);
 		item->setTextRect(textBox);
+	}
+}
+
+void Level::RemoveAllObservers()
+{
+	for (auto& item : mItems)
+	{
+		mSystem.InputMgr.RemoveObserver(item.get());
+	}
+}
+
+void Level::AddAllObservers()
+{
+	for (auto& item : mItems)
+	{
+		mSystem.InputMgr.AddObserver(item.get());
 	}
 }

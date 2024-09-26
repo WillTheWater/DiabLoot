@@ -22,6 +22,7 @@ void InputManager::RemoveObserver(InputObserver* observer)
 	mObservers.erase(std::remove(mObservers.begin(), mObservers.end(), observer), mObservers.end());
 }
 
+
 void InputManager::ProcessInput(sf::Event& event)
 {
 	switch (event.type)
