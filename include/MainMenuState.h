@@ -18,6 +18,6 @@ public:
 	void									OnMouseRelease(sf::Mouse::Button button) override;
 
 private:
-	bool mMouseIsClicked;
-	sf::Vector2f mMousePosition;
+	bool									mMouseIsClicked;
+	sf::Vector2f							mMousePosition;
 };

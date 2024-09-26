@@ -44,16 +44,16 @@ void RenderManager::MainMenuRender()
 	Draw(mSystem.AssetMgr.GetSprite(SPRITES::MAINMENU));
 
 	Draw(mSystem.GUIMgr.GetButton(BUTTONS::START_ID).GetSprite());
-	Draw(mSystem.GUIMgr.GetButton(BUTTONS::EXIT_ID).GetSprite());
 	Draw(mSystem.GUIMgr.GetButton(BUTTONS::START_ID).GetText());
+
+	Draw(mSystem.GUIMgr.GetButton(BUTTONS::EXIT_ID).GetSprite());
 	Draw(mSystem.GUIMgr.GetButton(BUTTONS::EXIT_ID).GetText());
 }
 
 void RenderManager::PlayStateRender()
 {
-	auto nextLevelButton = mSystem.GUIMgr.MakeButton(BUTTONS::WIDE, BUTTONS::NEXT_LEVEL, mWindowCenter + sf::Vector2f{ 0.f, 500.f });
-	Draw(nextLevelButton->GetSprite());
-	Draw(nextLevelButton->GetText());
+	Draw(mSystem.GUIMgr.GetButton(BUTTONS::NEXT_LEVEL_ID).GetSprite());
+	Draw(mSystem.GUIMgr.GetButton(BUTTONS::NEXT_LEVEL_ID).GetText());
 	InventoryRender();
 }
 
@@ -67,8 +67,7 @@ void RenderManager::InventoryRender()
 
 	Draw(mSystem.AssetMgr.GetSprite(SPRITES::INVENTORY));
 	// Inventory button
-	auto inventoryButton = mSystem.GUIMgr.MakeInventoryButton(BUTTONS::SQUARE, { 1263.f, 940.f });
-	Draw(inventoryButton->GetSprite());
+	Draw(mSystem.GUIMgr.GetButton(BUTTONS::INVENTORY_ID).GetSprite());
 
 	auto& slots = mSystem.InventoryMgr.getItemSlots();
 	auto& rects = mSystem.InventoryMgr.getSlotRects();

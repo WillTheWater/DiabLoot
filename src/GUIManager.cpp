@@ -30,15 +30,6 @@ std::unique_ptr<Button> GUIManager::MakeInventoryButton(const BUTTONS::BUTTON_TY
     return std::move(mButtons.back());
 }
 
-void GUIManager::UpdateButtons(sf::Vector2f mousePos, bool isClicked)
-{
-    for (auto& button : mButtons) 
-    { 
-        if (button == nullptr) { LOG("No Buttons") continue; }
-        button->UpdateButtonState(mousePos, isClicked); 
-    }
-}
-
 std::vector<std::unique_ptr<Button>>& GUIManager::GetButtons()
 {
     return mButtons;
@@ -51,7 +42,10 @@ void GUIManager::ButtonInit()
         mButtons.push_back(nullptr);
     }
     mButtons[BUTTONS::START_ID] = MakeButton(BUTTONS::WIDE, BUTTONS::START, mWindowCenter);
+    mButtons[BUTTONS::START_ID]->SetClickCB([this]() {LOG("Start Clicked");});
     mButtons[BUTTONS::EXIT_ID] = MakeButton(BUTTONS::WIDE, BUTTONS::EXIT, mWindowCenter + sf::Vector2f{ 0.f, 83.f });
+    mButtons[BUTTONS::NEXT_LEVEL_ID] = MakeButton(BUTTONS::WIDE, BUTTONS::NEXT_LEVEL, mWindowCenter + sf::Vector2f{ 0.f, 500.f });
+    mButtons[BUTTONS::INVENTORY_ID] = MakeInventoryButton(BUTTONS::SQUARE, { 1263.f, 940.f });
 }
 
 Button& GUIManager::GetButton(BUTTONS::BUTTON_ID buttonID)
@@ -61,6 +55,12 @@ Button& GUIManager::GetButton(BUTTONS::BUTTON_ID buttonID)
 
 void GUIManager::MainMenuUpdate(sf::Vector2f mousePos, bool isClicked)
 {
-    mButtons[BUTTONS::START_ID]->UpdateButtonState(mousePos, isClicked);
-    mButtons[BUTTONS::EXIT_ID]->UpdateButtonState(mousePos, isClicked);
+    mButtons[BUTTONS::START_ID]->HandleEvent(mousePos, isClicked);
+    mButtons[BUTTONS::EXIT_ID]->HandleEvent(mousePos, isClicked);
+}
+
+void GUIManager::PlayStateUpdate(sf::Vector2f mousePos, bool isClicked)
+{
+    mButtons[BUTTONS::NEXT_LEVEL_ID]->HandleEvent(mousePos, isClicked);
+    mButtons[BUTTONS::INVENTORY_ID]->HandleEvent(mousePos, isClicked);
 }

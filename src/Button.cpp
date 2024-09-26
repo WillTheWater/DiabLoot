@@ -6,6 +6,7 @@ Button::Button(const sf::Sprite& sprite, const sf::Text& text, const sf::Vector2
 	, mButtonText{ text }
 	, mPosition{ position }
 	, mButtonState{ BUTTONS::IDLE }
+	, IsButtonDown{false}
 {
 	mButtonSprite.setPosition(mPosition);
 	CenterOrigin();
@@ -15,24 +16,15 @@ Button::Button(const sf::Sprite& sprite, const sf::Vector2f& position)
 	: mButtonSprite{sprite}
 	, mPosition{position}
 	, mButtonState{ BUTTONS::IDLE }
+	, IsButtonDown{ false }
 {
 	mButtonSprite.setPosition(mPosition);
 	CenterOrigin();
 }
 
-void Button::SetHoverState(bool hoverState)
-{
-	mIsHoveringWhenPressed = hoverState;
-}
-
 void Button::SetClickCB(std::function<void()> clickCB)
 {
 	mClickCB = std::move(clickCB);
-}
-
-bool Button::GetHoverState() const
-{
-	return mIsHoveringWhenPressed;
 }
 
 sf::Vector2f Button::GetPosition() const
@@ -64,14 +56,38 @@ void Button::CenterOrigin()
 	mButtonText.setPosition(mButtonSprite.getPosition());
 }
 
-
-// New Button functions
-
-void Button::UpdateButtonState(sf::Vector2f mousePos, bool isClicked)
+void Button::SetState(BUTTONS::BUTTON_STATE state)
 {
-	if (mButtonSprite.getGlobalBounds().contains(mousePos))
+	mButtonState = state;
+}
+
+BUTTONS::BUTTON_STATE& Button::GetButtonState()
+{
+	return mButtonState;
+}
+
+void Button::OnButtonUp()
+{
+	IsButtonDown = false;
+	mButtonSprite.setColor(sf::Color{ 200, 200, 200, 255 });
+}
+
+void Button::OnButtonDown()
+{
+	IsButtonDown = true;
+}
+
+void Button::OnButtonHover()
+{
+	mButtonSprite.setColor(sf::Color{ 200, 200, 200, 255 });
+}
+
+void Button::HandleEvent(sf::Vector2f mousePos, bool isClicked)
+{
+	bool isHovering = mButtonSprite.getGlobalBounds().contains(mousePos);
+	if (isHovering)
 	{
-		if (isClicked) { SetState(BUTTONS::CLICK); }
+		if (isClicked) { SetState(BUTTONS::CLICK); OnButtonDown(); }
 		else { SetState(BUTTONS::HOVER); }
 	}
 	else { SetState(BUTTONS::IDLE); }
@@ -87,14 +103,6 @@ void Button::UpdateButtonState(sf::Vector2f mousePos, bool isClicked)
 		mButtonSprite.setColor(sf::Color{ 255, 255, 255, 255 });  // Set color for idle
 		break;
 	}
-}
-
-void Button::SetState(BUTTONS::BUTTON_STATE state)
-{
-	mButtonState = state;
-}
-
-BUTTONS::BUTTON_STATE& Button::GetButtonState()
-{
-	return mButtonState;
+	if (IsButtonDown && !isHovering) { OnButtonUp(); }
+	if (isHovering && IsButtonDown && !isClicked) { OnClick(); OnButtonUp(); }
 }

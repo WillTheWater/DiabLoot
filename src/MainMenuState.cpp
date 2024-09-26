@@ -6,6 +6,11 @@ MainMenuState::MainMenuState(System& system, ChangeStateCallback changeStateCB)
 	:GameState{ system, changeStateCB }
 	, mMouseIsClicked{false}
 {
+	mSystem.GUIMgr.GetButton(BUTTONS::START_ID).SetClickCB([this]() {
+		auto newState = std::make_unique<PlayState>(mSystem, mChangeStateCB, mSystem.LevelMgr.GetNextLevel());
+		mChangeStateCB(std::move(newState));
+		});
+	mSystem.GUIMgr.GetButton(BUTTONS::EXIT_ID).SetClickCB([this]() {mSystem.RenderMgr.GetWindow().close(); });
 }
 
 void MainMenuState::Enter()
@@ -49,7 +54,8 @@ void MainMenuState::OnKeyRelease(sf::Keyboard::Key key)
 
 void MainMenuState::OnMouseClick(sf::Mouse::Button button)
 {
-	if (button == sf::Mouse::Left) { mMouseIsClicked = true; LOG("mouse click") }
+	if (button == sf::Mouse::Left) { mMouseIsClicked = true; LOG("mouse clicked") }
+	
 }
 
 void MainMenuState::OnMouseRelease(sf::Mouse::Button button)
