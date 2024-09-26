@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include <functional>
+#include "Assets.h"
 #include "Button.h"
 
 class PlayState;
@@ -15,20 +16,13 @@ public:
 
 	GUIManager(System& system);
 
-	void									UpdateButtons();
-	void									InitButtons(std::function<std::unique_ptr<PlayState>()> createPlayStateCB, std::function<void(std::unique_ptr<GameState>)> changeStateCB);
-	void									SetWindowCB(std::function<sf::RenderWindow& ()> getWindowCB);
-	Button* AddButton(const sf::Vector2f& position, const std::string& buttonText);
-	std::vector<std::unique_ptr<Button>>& GetButtons();
-	bool									GetButtonCondition() const;
-
-	void									OnButtonUp();
-	void									OnButtonDown();
-	void									WasClicked(Button& button);
+	void									MainMenuHUD();
+	std::unique_ptr<Button>					MakeButton(const BUTTONS::BUTTON_TYPE& type, const BUTTONS::BUTTON_TEXT& text, const sf::Vector2f& position);
+	std::unique_ptr<Button>					MakeInventoryButton(const BUTTONS::BUTTON_TYPE& type, const sf::Vector2f& position);
+	std::vector<std::unique_ptr<Button>>&	GetButtons();
 
 private:
-	bool									IsButtonDown;
-	std::function<sf::RenderWindow& ()>		mGetWindowCB;
+	sf::Vector2f							mWindowCenter;
 	std::vector<std::unique_ptr<Button>>	mButtons;
 	System& mSystem;
 };
