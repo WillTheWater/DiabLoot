@@ -116,6 +116,15 @@ namespace BUTTONS
 		CLICK,
 		MAX_STATES
 	};
+
+	enum BUTTON_ID
+	{
+		START_ID,
+		EXIT_ID,
+		NEXT_LEVEL_ID,
+		INVENTORY_ID,
+		MAX_BUTTONS_ID
+	};
 }
 
 namespace LEVELS

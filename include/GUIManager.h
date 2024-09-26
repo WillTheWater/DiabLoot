@@ -16,11 +16,13 @@ public:
 
 	GUIManager(System& system);
 
-	void									MainMenuHUD();
 	std::unique_ptr<Button>					MakeButton(const BUTTONS::BUTTON_TYPE& type, const BUTTONS::BUTTON_TEXT& text, const sf::Vector2f& position);
 	std::unique_ptr<Button>					MakeInventoryButton(const BUTTONS::BUTTON_TYPE& type, const sf::Vector2f& position);
-	void									UpdateButtons(const sf::Vector2f& mousePos, bool isClicked);
+	void									UpdateButtons(sf::Vector2f mousePos, bool isClicked);
 	std::vector<std::unique_ptr<Button>>&	GetButtons();
+	void ButtonInit();
+	Button& GetButton(BUTTONS::BUTTON_ID buttonID);
+	void MainMenuUpdate(sf::Vector2f mousePos, bool isClicked);
 
 private:
 	sf::Vector2f							mWindowCenter;

@@ -22,7 +22,7 @@ public:
 	void									CenterOrigin();
 
 	// New Functions
-	void UpdateButtonState(const sf::Vector2f& mousePos, bool isClicked);
+	void UpdateButtonState(sf::Vector2f mousePos, bool isClicked);
 	void SetState(BUTTONS::BUTTON_STATE state);
 	BUTTONS::BUTTON_STATE& GetButtonState();
 

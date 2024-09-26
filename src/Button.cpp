@@ -67,14 +67,26 @@ void Button::CenterOrigin()
 
 // New Button functions
 
-void Button::UpdateButtonState(const sf::Vector2f& mousePos, bool isClicked)
+void Button::UpdateButtonState(sf::Vector2f mousePos, bool isClicked)
 {
-	if (mButtonSprite.getLocalBounds().contains(mousePos))
+	if (mButtonSprite.getGlobalBounds().contains(mousePos))
 	{
 		if (isClicked) { SetState(BUTTONS::CLICK); }
 		else { SetState(BUTTONS::HOVER); }
 	}
 	else { SetState(BUTTONS::IDLE); }
+	switch (mButtonState)
+	{
+	case BUTTONS::BUTTON_STATE::HOVER:
+		mButtonSprite.setColor(sf::Color{ 200, 200, 200, 255 });  // Set color for hover
+		break;
+	case BUTTONS::BUTTON_STATE::CLICK:
+		mButtonSprite.setColor(sf::Color{ 100, 100, 100, 255 });  // Set color for click
+		break;
+	default:
+		mButtonSprite.setColor(sf::Color{ 255, 255, 255, 255 });  // Set color for idle
+		break;
+	}
 }
 
 void Button::SetState(BUTTONS::BUTTON_STATE state)
