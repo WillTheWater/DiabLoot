@@ -42,27 +42,105 @@ void RenderManager::CustomizeGameWindow()
 void RenderManager::MainMenuRender()
 {
 	Draw(mSystem.AssetMgr.GetSprite(SPRITES::MAINMENU));
+
+	// Create buttons
 	auto startButton = mSystem.GUIMgr.MakeButton(BUTTONS::WIDE, BUTTONS::START, mWindowCenter);
-	auto exitButton = mSystem.GUIMgr.MakeButton(BUTTONS::WIDE, BUTTONS::EXIT, mWindowCenter + sf::Vector2f{0.f, 83.f});
-	Draw(startButton->GetSprite());
-	Draw(startButton->GetText());
-	Draw(exitButton->GetSprite());
-	Draw(exitButton->GetText());
+	auto exitButton = mSystem.GUIMgr.MakeButton(BUTTONS::WIDE, BUTTONS::EXIT, mWindowCenter + sf::Vector2f{ 0.f, 83.f });
+
+	// Get mouse position in window
+	sf::Vector2i mousePosition = sf::Mouse::getPosition(mGameWindow);
+	sf::Vector2f mousePositionFloat(static_cast<float>(mousePosition.x), static_cast<float>(mousePosition.y));
+	bool isMouseClicked = sf::Mouse::isButtonPressed(sf::Mouse::Left);
+
+
+	startButton->UpdateButtonState(mousePositionFloat, isMouseClicked);
+	exitButton->UpdateButtonState(mousePositionFloat, isMouseClicked);
+
+	std::array<Button*, 2> buttons = { startButton.get(), exitButton.get() };
+
+	for (auto& button : buttons)
+	{
+		sf::Sprite& buttonSprite = button->GetSprite();
+
+		switch (button->GetButtonState())
+		{
+		case BUTTONS::BUTTON_STATE::HOVER:
+			buttonSprite.setColor(sf::Color{ 200, 200, 200, 255 });  // Set color for hover
+			break;
+		case BUTTONS::BUTTON_STATE::CLICK:
+			buttonSprite.setColor(sf::Color{ 100, 100, 100, 255 });  // Set color for click
+			break;
+		default:
+			buttonSprite.setColor(sf::Color{ 255, 255, 255, 255 });  // Set color for idle
+			break;
+		}
+		Draw(buttonSprite);
+		Draw(button->GetText());
+	}
 }
 
 void RenderManager::PlayStateRender()
 {
-	Draw(mSystem.AssetMgr.GetSprite(SPRITES::MAP_ONE));
 	auto nextLevelButton = mSystem.GUIMgr.MakeButton(BUTTONS::WIDE, BUTTONS::NEXT_LEVEL, mWindowCenter + sf::Vector2f{ 0.f, 500.f });
 	Draw(nextLevelButton->GetSprite());
 	Draw(nextLevelButton->GetText());
+	InventoryRender();
 }
 
 void RenderManager::InventoryRender()
 {
+	
+	if (!mSystem.InventoryMgr.isOpen())
+	{
+		return;
+	}
+
 	Draw(mSystem.AssetMgr.GetSprite(SPRITES::INVENTORY));
+	// Inventory button
 	auto inventoryButton = mSystem.GUIMgr.MakeInventoryButton(BUTTONS::SQUARE, { 1263.f, 940.f });
 	Draw(inventoryButton->GetSprite());
+
+	auto& slots = mSystem.InventoryMgr.getItemSlots();
+	auto& rects = mSystem.InventoryMgr.getSlotRects();
+
+	for (int i{ 0 }; i < slots.size(); i++)
+	{
+		//For Debug Purposes
+		/*rects[i].setFillColor(sf::Color::Magenta);
+		mGameWindow.draw(rects[i]);*/
+
+		//End debug
+		if (slots[i].isEmpty())
+		{
+			continue;
+		}
+
+		sf::Sprite itemSprite = mSystem.AssetMgr.GetSpriteForItem(slots[i].getItemId().first);
+		itemSprite.setOrigin({ itemSprite.getLocalBounds().getSize().x / 2.f, itemSprite.getLocalBounds().getSize().y / 2.f });
+		itemSprite.setPosition(rects[i].getPosition());
+
+		mGameWindow.draw(itemSprite);
+	}
+	// If mouse is over a valid slot, render item name and text box
+	if (mSystem.InventoryMgr.isMouseOverSlot())
+	{
+		int index = mSystem.InventoryMgr.getMouseOverSlotIndex();
+		sf::Text hoverText = mSystem.AssetMgr.GetTextForItemID(slots[index].getItemId().first);
+		if (slots[index].getQuantity() > 1)
+		{
+			hoverText.setString(hoverText.getString() + " x " + std::to_string(slots[index].getQuantity()));
+		}
+		hoverText.setOrigin(0.f, -hoverText.getLocalBounds().getSize().y);
+		hoverText.setPosition(mSystem.InventoryMgr.getLastMousePos());
+		hoverText.setColor(mSystem.AssetMgr.GetColorForRarity(slots[index].getItemId().second));
+		// Text box to got under text
+		sf::RectangleShape textBox{ sf::Vector2f{hoverText.getGlobalBounds().getSize().x + FONTS::PADDING, hoverText.getGlobalBounds().getSize().y + FONTS::PADDING} };
+		textBox.setOrigin(0, -textBox.getLocalBounds().getSize().y - FONTS::ORIGIN_YOFFSET);
+		textBox.setFillColor(mSystem.AssetMgr.GetTextboxColor());
+		textBox.setPosition(hoverText.getPosition());
+		mGameWindow.draw(textBox);
+		mGameWindow.draw(hoverText);
+	}
 }
 
 
@@ -143,58 +221,4 @@ void RenderManager::RenderItems(std::vector<std::unique_ptr<Item>>& items)
 		mGameWindow.draw(textRect);
 		mGameWindow.draw(text);
 	}
-}
-
-
-void RenderManager::RenderInventory()
-{
-	if (!mSystem.InventoryMgr.isOpen())
-	{
-		return;
-	}
-
-	mGameWindow.draw(mSystem.AssetMgr.GetSprite(SPRITES::INVENTORY));
-
-	auto& slots = mSystem.InventoryMgr.getItemSlots();
-	auto& rects = mSystem.InventoryMgr.getSlotRects();
-
-	for (int i{ 0 }; i < slots.size(); i++)
-	{
-		//For Debug Purposes
-		/*rects[i].setFillColor(sf::Color::Magenta);
-		mGameWindow.draw(rects[i]);*/
-
-		//End debug
-		if (slots[i].isEmpty())
-		{
-			continue;
-		}
-		
-		sf::Sprite itemSprite = mSystem.AssetMgr.GetSpriteForItem(slots[i].getItemId().first);
-		itemSprite.setOrigin({ itemSprite.getLocalBounds().getSize().x / 2.f, itemSprite.getLocalBounds().getSize().y / 2.f });
-		itemSprite.setPosition(rects[i].getPosition());
-
-		mGameWindow.draw(itemSprite);
-	}
-	// If mouse is over a valid slot, render item name and text box
-	if (mSystem.InventoryMgr.isMouseOverSlot())
-	{
-		int index = mSystem.InventoryMgr.getMouseOverSlotIndex();
-		sf::Text hoverText = mSystem.AssetMgr.GetTextForItemID(slots[index].getItemId().first);
-		if (slots[index].getQuantity() > 1)
-		{
-			hoverText.setString(hoverText.getString() + " x " + std::to_string(slots[index].getQuantity()));
-		}
-		hoverText.setOrigin(0.f, -hoverText.getLocalBounds().getSize().y);
-		hoverText.setPosition(mSystem.InventoryMgr.getLastMousePos());
-		hoverText.setColor(mSystem.AssetMgr.GetColorForRarity(slots[index].getItemId().second));
-		// Text box to got under text
-		sf::RectangleShape textBox{ sf::Vector2f{hoverText.getGlobalBounds().getSize().x + FONTS::PADDING, hoverText.getGlobalBounds().getSize().y + FONTS::PADDING} };
-		textBox.setOrigin(0, -textBox.getLocalBounds().getSize().y - FONTS::ORIGIN_YOFFSET);
-		textBox.setFillColor(mSystem.AssetMgr.GetTextboxColor());
-		textBox.setPosition(hoverText.getPosition());
-		mGameWindow.draw(textBox);
-		mGameWindow.draw(hoverText);
-	}
-
 }

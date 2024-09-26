@@ -33,6 +33,11 @@ std::unique_ptr<Button> GUIManager::MakeInventoryButton(const BUTTONS::BUTTON_TY
     return std::move(mButtons.back());
 }
 
+void GUIManager::UpdateButtons(const sf::Vector2f& mousePos, bool isClicked)
+{
+    for (auto& button : mButtons) { button->UpdateButtonState(mousePos, isClicked); }
+}
+
 std::vector<std::unique_ptr<Button>>& GUIManager::GetButtons()
 {
     return mButtons;

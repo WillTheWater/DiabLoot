@@ -2,6 +2,7 @@
 #include <string>
 #include <functional>
 #include <SFML/Graphics.hpp>
+#include "Assets.h"
 
 class Button
 {
@@ -20,6 +21,10 @@ public:
 	void									OnClick();
 	void									CenterOrigin();
 
+	// New Functions
+	void UpdateButtonState(const sf::Vector2f& mousePos, bool isClicked);
+	void SetState(BUTTONS::BUTTON_STATE state);
+	BUTTONS::BUTTON_STATE& GetButtonState();
 
 
 private:
@@ -28,4 +33,8 @@ private:
 	sf::Vector2f							mPosition;
 	bool									mIsHoveringWhenPressed;
 	std::function<void()>					mClickCB;
+
+
+	// New button Functions
+	BUTTONS::BUTTON_STATE					mButtonState;
 };

@@ -5,7 +5,6 @@
 PlayState::PlayState(System& system, ChangeStateCallback changeStateCB, Level& level)
 	:GameState{ system, changeStateCB }
 	,mLevel{level}
-	, mIsInventoryOpen{false}
 
 {
 }
@@ -33,7 +32,7 @@ void PlayState::Update()
 void PlayState::Draw()
 {
 	mSystem.RenderMgr.RenderLevel(mLevel);
-	mSystem.RenderMgr.RenderInventory();
+	mSystem.RenderMgr.PlayStateRender();
 }
 
 void PlayState::OnMouseMove(int x, int y)
@@ -42,19 +41,6 @@ void PlayState::OnMouseMove(int x, int y)
 
 void PlayState::OnKeyPress(sf::Keyboard::Key key)
 {
-	if (key == sf::Keyboard::Escape)
-	{
-		if (mIsInventoryOpen) { OpenInventory(); }
-		else
-		{
-			auto newState = std::make_unique<MainMenuState>(mSystem, mChangeStateCB);
-			mChangeStateCB(std::move(newState));
-		}
-	}
-	if (key == sf::Keyboard::I)
-	{
-		OpenInventory();
-	}
 	
 }
 
@@ -64,6 +50,15 @@ void PlayState::OnKeyRelease(sf::Keyboard::Key key)
 	{
 		auto newState = std::make_unique<PlayState>(mSystem, mChangeStateCB, mSystem.LevelMgr.GetNextLevel());
 		mChangeStateCB(std::move(newState));
+	}
+	if (key == sf::Keyboard::Escape)
+	{
+		if (mSystem.InventoryMgr.isOpen()) { mSystem.InventoryMgr.ToggleInventory(); }
+		else
+		{
+			auto newState = std::make_unique<MainMenuState>(mSystem, mChangeStateCB);
+			mChangeStateCB(std::move(newState));
+		}
 	}
 	if (key == sf::Keyboard::I)
 	{
@@ -77,9 +72,4 @@ void PlayState::OnMouseClick(sf::Mouse::Button button)
 
 void PlayState::OnMouseRelease(sf::Mouse::Button button)
 {
-}
-
-void PlayState::OpenInventory()
-{
-	mIsInventoryOpen = !mIsInventoryOpen;
 }
