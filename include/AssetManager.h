@@ -16,6 +16,8 @@ public:
 	sf::Sprite&									GetLevelMap(LEVELS::LEVEL level);
 	sf::Text&									GetTextForItemID(ITEMID::ITEM item);
 	sf::Sprite&									GetSpriteForItem(ITEMID::ITEM item);
+	sf::Color									GetColorForRarity(ITEMRARITY::RARITY rarity);
+	sf::Color									GetTextboxColor();
 
 private:
 	void										InitializeTextureSprites();
@@ -24,4 +26,5 @@ private:
 	std::vector<std::unique_ptr<sf::Sprite>>	mSprites;
 	std::vector<std::unique_ptr<sf::Font>>		mFonts;
 	std::vector<std::unique_ptr<sf::Text>>		mItemTexts;
+	sf::Color									mTextboxColor;
 };

@@ -1,5 +1,10 @@
 #include "Inventory.h"
 
+Inventory::Inventory()
+{
+	initialzeSlotRects();
+}
+
 void Inventory::OnMouseMove(int x, int y)
 {
 	mLastMousePos = sf::Vector2f{(float)x, (float)y };
@@ -8,6 +13,7 @@ void Inventory::OnMouseMove(int x, int y)
 	{
 		if (mSlotRects[i].getGlobalBounds().contains(mLastMousePos))
 		{
+			if(!mItemSlots[i].isEmpty())
 			mMouseOver = true;
 			mMouseOverSlotIndex = i;
 		}
@@ -30,9 +36,18 @@ void Inventory::OnMouseRelease(sf::Mouse::Button button)
 {
 }
 
+void Inventory::ToggleInventory()
+{
+	mVisible = !mVisible;
+}
+
+bool Inventory::isOpen()
+{
+	return mVisible;
+}
+
 std::array<ItemSlot, 150>& Inventory::getItemSlots()
 {
-	initialzeSlotRects();
 	return mItemSlots;
 }
 
@@ -60,18 +75,17 @@ void Inventory::sortInventory()
 {
 	auto sortLamda = [](ItemSlot& a, ItemSlot& b)
 		{
-			if (a.isEmpty() && !b.isEmpty())
+			if (a.isEmpty())
 			{
-				return true;
+				return false;
 			}
-
-			if (a.getItemId().first == a.getItemId().first)
+			else if (a.getItemId().first == b.getItemId().first)
 			{
-				return(a.getItemId().second > b.getItemId().second);
+				return(a.getItemId().second < b.getItemId().second);
 			}
 			else
 			{
-				return(a.getItemId().first > a.getItemId().first);
+				return(a.getItemId().first < b.getItemId().first);
 			}
 		};
 
@@ -103,6 +117,7 @@ bool Inventory::doesItemAlreadyHaveASlot(Item& item)
 size_t Inventory::getSlotForExistingItem(Item& item)
 {
 	std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> itemId = item.getItemID();
+	size_t index = -1;
 	for (int i{ 0 }; i < mItemSlots.size(); i++)
 	{
 		if (mItemSlots[i].isEmpty())
@@ -112,21 +127,21 @@ size_t Inventory::getSlotForExistingItem(Item& item)
 		std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> slotId = mItemSlots[i].getItemId();
 		if (itemId.first == slotId.first && itemId.second == slotId.second)
 		{
-			return (size_t)i;
+			index = (size_t)i;
+			return index;
 		}
 	}
-	return -1; 
+	return index;
 }
 
 bool Inventory::addItem(Item& item)
 {
-
 	size_t index = getSlotForExistingItem(item);
 	// If the item already exists in the inventory, add to it's quantity
 	if (index != -1)
 	{
 		mItemSlots[index].incrementQuantity(item.getQuantity());
-		true;
+		return true;
 	}
 	// Otherwise, check if there is any slot available
 	if (!availabeSlot())
@@ -136,17 +151,21 @@ bool Inventory::addItem(Item& item)
 	// If there is, add it to that slot
 	size_t emptySlot = getFirstOpenIndex();
 	mItemSlots[emptySlot].setContainedItem(item.getItemID(), item.getQuantity());
+
+	sortInventory();
+
 	return true;
 }
 
 bool Inventory::availabeSlot()
 {
-	bool available = true;
+	bool available = false;
 	for (auto& slot : mItemSlots)
 	{
-		if (!slot.isEmpty())
+		if (slot.isEmpty())
 		{
-			available = false;
+			available = true;
+			return available;
 		}
 	}
 	return available;
@@ -154,15 +173,16 @@ bool Inventory::availabeSlot()
 
 size_t Inventory::getFirstOpenIndex()
 {
-	sortInventory();
+	int index = -1;
 	for (int i{ 0 }; i < mItemSlots.size(); i++)
 	{
 		if (mItemSlots[i].isEmpty())
 		{
-			return (size_t)i;
+			index = (size_t)i;
+			return index;
 		}
 	}
-	return 250;
+	return index;
 }
 
 void Inventory::initialzeSlotRects()
@@ -171,12 +191,11 @@ void Inventory::initialzeSlotRects()
 	sf::RectangleShape slotTemplate{ {42.f, 42.f} };
 	slotTemplate.setOrigin(slotTemplate.getSize().x / 2, slotTemplate.getSize().y / 2);
 	slotTemplate.setPosition({ 1248.f, 145.f }); // Position for the top left slot
-	for (int i{ 0 }; i < 10; i++)
+	for (int i{ 0 }; i < 150; i++)
 	{
-		for (int j{ 0 }; j < 15; j++)
-		{
-			mSlotRects[i + j] = slotTemplate;
-			mSlotRects[i + j].move(i * 52, j * -52);
-		}
+		
+		mSlotRects[(int)i] = slotTemplate;
+		mSlotRects[(int)i].move(i % 10 * 52, i / 10 * 52);
+		
 	}
 }

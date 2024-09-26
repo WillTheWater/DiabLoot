@@ -2,6 +2,7 @@
 
 
 AssetManager::AssetManager()
+    :mTextboxColor{ sf::Color({ 0, 0, 0, 200 }) }
 {
     InitializeTextureSprites();
     InitializeFontsAndTexts();
@@ -29,8 +30,8 @@ void AssetManager::InitializeTextureSprites()
     mTextures[TEXTURES::PARTICLE]->loadFromFile("assets/graphics/particle.png");
     mTextures[TEXTURES::AMULET]->loadFromFile("assets/graphics/items/amulet.png");
     mTextures[TEXTURES::CHARM]->loadFromFile("assets/graphics/items/charm.png");
-    mTextures[TEXTURES::REJUV]->loadFromFile("assets/graphics/items/amulet.png");
-    mTextures[TEXTURES::RING]->loadFromFile("assets/graphics/items/rejuv.png");
+    mTextures[TEXTURES::REJUV]->loadFromFile("assets/graphics/items/rejuv.png");
+    mTextures[TEXTURES::RING]->loadFromFile("assets/graphics/items/ring.png");
     mTextures[TEXTURES::RUNE1]->loadFromFile("assets/graphics/items/rune1.png");
     mTextures[TEXTURES::TPSCROLL]->loadFromFile("assets/graphics/items/tpscroll.png");
 
@@ -121,4 +122,23 @@ sf::Sprite& AssetManager::GetSpriteForItem(ITEMID::ITEM item)
     case ITEMID::TPSCROLL: return *mSprites[SPRITES::TPSCROLL];
     default: return *mSprites[SPRITES::TPSCROLL];
     }
+}
+
+sf::Color AssetManager::GetColorForRarity(ITEMRARITY::RARITY rarity)
+{
+    switch (rarity)
+    {
+    case ITEMRARITY::NORMAL:	return sf::Color::White;
+    case ITEMRARITY::MAGIC:		return sf::Color{ 82 , 075, 143 };	break;
+    case ITEMRARITY::RARE:		return sf::Color{ 253, 216, 53 };	break;
+    case ITEMRARITY::SET:		return sf::Color{ 44 , 190, 52 };	break;
+    case ITEMRARITY::UNIQUE:	return sf::Color{ 153, 102, 51 };	break;
+    case ITEMRARITY::RUNE:		return sf::Color{ 198, 140, 89 };	break;
+    default:					return sf::Color::White;			break;
+    }                         
+}
+
+sf::Color AssetManager::GetTextboxColor()
+{
+    return mTextboxColor;
 }

@@ -88,52 +88,58 @@ void RenderManager::RenderItems(std::vector<std::unique_ptr<Item>>& items)
 	{
 		std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> itemId = item->getItemID();
 		sf::RectangleShape textRect = item->getTextRect();
-		textRect.setFillColor(sf::Color{ 0,0,0,200 });
+		textRect.setFillColor(mSystem.AssetMgr.GetTextboxColor());
 		sf::Text text = mSystem.AssetMgr.GetTextForItemID(itemId.first);
 		text.setOrigin(text.getGlobalBounds().getSize().x / 2, text.getGlobalBounds().getSize().y / 2);
 		text.setPosition(textRect.getPosition());
-		switch (itemId.second)
-		{
-		case ITEMRARITY::NORMAL:	text.setColor(sf::Color::White);			break;
-		case ITEMRARITY::MAGIC:		text.setColor(sf::Color{ 82, 075, 143 });	break;
-		case ITEMRARITY::RARE:		text.setColor(sf::Color{ 253, 216, 53 });	break;
-		case ITEMRARITY::SET:		text.setColor(sf::Color{ 44, 190, 52 });	break;
-		case ITEMRARITY::UNIQUE:	text.setColor(sf::Color{ 153, 102, 51 });	break;
-		case ITEMRARITY::RUNE:		text.setColor(sf::Color{ 198, 140, 89 });	break;
-		default:					text.setColor(sf::Color::White);			break;
-		}
+		text.setColor(mSystem.AssetMgr.GetColorForRarity(itemId.second));
 		mGameWindow.draw(textRect);
 		mGameWindow.draw(text);
 	}
 }
 
 
-void RenderManager::RenderInventory(Inventory& inventory)
+void RenderManager::RenderInventory()
 {
-	auto& slots = inventory.getItemSlots();
-	auto& rects = inventory.getSlotRects();
+	auto& slots = mSystem.InventoryMgr.getItemSlots();
+	auto& rects = mSystem.InventoryMgr.getSlotRects();
 
 	for (int i{ 0 }; i < slots.size(); i++)
 	{
+		//For Debug Purposes
+		rects[i].setFillColor(sf::Color::Magenta);
+		mGameWindow.draw(rects[i]);
+
+		//End debug
 		if (slots[i].isEmpty())
 		{
 			continue;
 		}
-
+		
 		sf::Sprite itemSprite = mSystem.AssetMgr.GetSpriteForItem(slots[i].getItemId().first);
 		itemSprite.setOrigin({ itemSprite.getLocalBounds().getSize().x / 2.f, itemSprite.getLocalBounds().getSize().y / 2.f });
 		itemSprite.setPosition(rects[i].getPosition());
 
 		mGameWindow.draw(itemSprite);
 	}
-
-	if (inventory.isMouseOverSlot())
+	// If mouse is over a valid slot, render item name and text box
+	if (mSystem.InventoryMgr.isMouseOverSlot())
 	{
-		int index = inventory.getMouseOverSlotIndex();
+		int index = mSystem.InventoryMgr.getMouseOverSlotIndex();
 		sf::Text hoverText = mSystem.AssetMgr.GetTextForItemID(slots[index].getItemId().first);
-		hoverText.setString(hoverText.getString() + std::to_string(slots[index].getQuantity()));
+		if (slots[index].getQuantity() > 1)
+		{
+			hoverText.setString(hoverText.getString() + " x " + std::to_string(slots[index].getQuantity()));
+		}
 		hoverText.setOrigin(0.f, -hoverText.getLocalBounds().getSize().y);
-		hoverText.setPosition(inventory.getLastMousePos());
+		hoverText.setPosition(mSystem.InventoryMgr.getLastMousePos());
+		hoverText.setColor(mSystem.AssetMgr.GetColorForRarity(slots[index].getItemId().second));
+		// Text box to got under text
+		sf::RectangleShape textBox{ sf::Vector2f{hoverText.getGlobalBounds().getSize().x + FONTS::PADDING, hoverText.getGlobalBounds().getSize().y + FONTS::PADDING} };
+		textBox.setOrigin(0, -textBox.getLocalBounds().getSize().y - FONTS::ORIGIN_YOFFSET);
+		textBox.setFillColor(mSystem.AssetMgr.GetTextboxColor());
+		textBox.setPosition(hoverText.getPosition());
+		mGameWindow.draw(textBox);
 		mGameWindow.draw(hoverText);
 	}
 

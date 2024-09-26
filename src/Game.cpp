@@ -11,6 +11,7 @@ Game::Game()
     mRenderMgr.GetWindow().setFramerateLimit(60);
     mChangeStateCB = [this](std::unique_ptr<GameState> newState) { this->ChangeState(std::move(newState)); };
     ChangeState(std::make_unique<MainMenuState>(mSystem, mChangeStateCB));
+    mInputMgr.AddObserver(&mInventoryMgr);
 }
 
 void Game::Run()

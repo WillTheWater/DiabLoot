@@ -49,6 +49,9 @@ namespace FONTS
 		LIGHT,
 		MAX_FONTS
 	};
+
+	inline float PADDING = 8.f;
+	inline float ORIGIN_YOFFSET = -5.f;
 }
 
 namespace IMAGES

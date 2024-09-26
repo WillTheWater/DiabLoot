@@ -17,7 +17,7 @@ public:
 	template <typename T>
 	void										Draw(const T& drawObject) { mGameWindow.draw(drawObject); }
 	void										RenderLevel(Level& level);
-	void										RenderInventory(Inventory& inventory);
+	void										RenderInventory();
 
 private:
 	sf::RenderWindow							mGameWindow;

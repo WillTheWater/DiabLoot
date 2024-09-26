@@ -26,12 +26,12 @@ void PlayState::Exit()
 void PlayState::Update()
 {
 	mLevel.UpdateLevel();
-	
 }
 
 void PlayState::Draw()
 {
 	mSystem.RenderMgr.RenderLevel(mLevel);
+	mSystem.RenderMgr.RenderInventory();
 }
 
 void PlayState::OnMouseMove(int x, int y)
