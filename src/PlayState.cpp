@@ -75,10 +75,10 @@ void PlayState::OnKeyRelease(sf::Keyboard::Key key)
 
 void PlayState::OnMouseClick(sf::Mouse::Button button)
 {
-	if (button == sf::Mouse::Left) { mMouseIsClicked = true; LOG("mouse click") }
+	if (button == sf::Mouse::Left) { mMouseIsClicked = true; }
 }
 
 void PlayState::OnMouseRelease(sf::Mouse::Button button)
 {
-	if (button == sf::Mouse::Left) { mMouseIsClicked = false; LOG("mouse released") }
+	if (button == sf::Mouse::Left) { mMouseIsClicked = false; }
 }
