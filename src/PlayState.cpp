@@ -1,5 +1,6 @@
 #include "PlayState.h"
 #include "MainMenuState.h"
+#include "SoundManager.h"
 #include "Core.h"
 
 PlayState::PlayState(System& system, ChangeStateCallback changeStateCB, Level& level)
@@ -19,6 +20,7 @@ void PlayState::Enter()
 {
 	mSystem.InputMgr.AddObserver(this);
 	mLevel.EnterLevel();
+	
 }
 
 void PlayState::Exit()

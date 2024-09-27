@@ -1,4 +1,5 @@
 #include "Button.h"
+#include "SoundManager.h"
 #include "Core.h"
 
 Button::Button(const sf::Sprite& sprite, const sf::Text& text, const sf::Vector2f& position)
@@ -45,6 +46,7 @@ sf::Text& Button::GetText()
 void Button::OnClick()
 {
 	if (mClickCB) { mClickCB(); }
+	SoundManager::GetInstance().PlaySound(PLAYSOUND::BUTTON_DOWN);
 }
 
 void Button::CenterOrigin()
