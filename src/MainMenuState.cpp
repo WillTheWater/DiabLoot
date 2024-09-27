@@ -54,11 +54,11 @@ void MainMenuState::OnKeyRelease(sf::Keyboard::Key key)
 
 void MainMenuState::OnMouseClick(sf::Mouse::Button button)
 {
-	if (button == sf::Mouse::Left) { mMouseIsClicked = true; LOG("mouse clicked") }
+	if (button == sf::Mouse::Left) { mMouseIsClicked = true; }
 	
 }
 
 void MainMenuState::OnMouseRelease(sf::Mouse::Button button)
 {
-	if (button == sf::Mouse::Left) { mMouseIsClicked = false; LOG("mouse released")	}
+	if (button == sf::Mouse::Left) { mMouseIsClicked = false;	}
 }
