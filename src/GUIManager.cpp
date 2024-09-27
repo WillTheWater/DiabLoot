@@ -42,10 +42,11 @@ void GUIManager::ButtonInit()
         mButtons.push_back(nullptr);
     }
     mButtons[BUTTONS::START_ID] = MakeButton(BUTTONS::WIDE, BUTTONS::START, mWindowCenter);
-    mButtons[BUTTONS::START_ID]->SetClickCB([this]() {LOG("Start Clicked");});
     mButtons[BUTTONS::EXIT_ID] = MakeButton(BUTTONS::WIDE, BUTTONS::EXIT, mWindowCenter + sf::Vector2f{ 0.f, 83.f });
+    mButtons[BUTTONS::EXIT_PLAY_ID] = MakeButton(BUTTONS::WIDE, BUTTONS::EXIT_PLAY, sf::Vector2f{ 300.f, 1040.f });
     mButtons[BUTTONS::NEXT_LEVEL_ID] = MakeButton(BUTTONS::WIDE, BUTTONS::NEXT_LEVEL, mWindowCenter + sf::Vector2f{ 0.f, 500.f });
     mButtons[BUTTONS::INVENTORY_ID] = MakeInventoryButton(BUTTONS::SQUARE, { 1263.f, 940.f });
+    mButtons[BUTTONS::OPEN_INVENTORY_ID] = MakeButton(BUTTONS::WIDE, BUTTONS::OPEN_INVENTORY, mWindowCenter + sf::Vector2f{ 660.f, 500.f });
 }
 
 Button& GUIManager::GetButton(BUTTONS::BUTTON_ID buttonID)
@@ -63,4 +64,6 @@ void GUIManager::PlayStateUpdate(sf::Vector2f mousePos, bool isClicked)
 {
     mButtons[BUTTONS::NEXT_LEVEL_ID]->HandleEvent(mousePos, isClicked);
     mButtons[BUTTONS::INVENTORY_ID]->HandleEvent(mousePos, isClicked);
+    mButtons[BUTTONS::OPEN_INVENTORY_ID]->HandleEvent(mousePos, isClicked);
+    mButtons[BUTTONS::EXIT_PLAY_ID]->HandleEvent(mousePos, isClicked);
 }

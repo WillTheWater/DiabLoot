@@ -9,17 +9,15 @@ PlayState::PlayState(System& system, ChangeStateCallback changeStateCB, Level& l
 	, mIsInventoryOpen{false}
 
 {
-	mSystem.GUIMgr.GetButton(BUTTONS::NEXT_LEVEL_ID).SetClickCB([this]() {auto newState = std::make_unique<PlayState>(mSystem, mChangeStateCB, mSystem.LevelMgr.GetNextLevel());
-	mChangeStateCB(std::move(newState)); });
+	mSystem.GUIMgr.GetButton(BUTTONS::NEXT_LEVEL_ID).SetClickCB([this]() {auto newState = std::make_unique<PlayState>(mSystem, mChangeStateCB, mSystem.LevelMgr.GetNextLevel()); mChangeStateCB(std::move(newState)); });
+	mSystem.GUIMgr.GetButton(BUTTONS::EXIT_PLAY_ID).SetClickCB([this]() {auto newState = std::make_unique<MainMenuState>(mSystem, mChangeStateCB); mChangeStateCB(std::move(newState)); });
 	mSystem.GUIMgr.GetButton(BUTTONS::INVENTORY_ID).SetClickCB([this]() {if (mSystem.InventoryMgr.isOpen()) {mSystem.InventoryMgr.ToggleInventory();} });
+	mSystem.GUIMgr.GetButton(BUTTONS::OPEN_INVENTORY_ID).SetClickCB([this]() {{mSystem.InventoryMgr.ToggleInventory();} });
 }
 
 void PlayState::Enter()
 {
 	mSystem.InputMgr.AddObserver(this);
-	// WHY DOES THIS FIX THE PROBLEM!!!!!
-	//mLevel.EnterLevel();
-	//mLevel.ExitLevel();
 	mLevel.EnterLevel();
 }
 
