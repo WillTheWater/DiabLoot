@@ -45,6 +45,24 @@ namespace ITEMGEN
 		ITEMID::RUNE1
 	};
 
+	inline const std::array<int, ITEMID::MAX_ITEMS> ItemBaseValues
+	{
+		1,//GOLD,
+		1000,//AMULET,
+		2500,//CHARM,
+		200,//REJUV,
+		3000,//RING,
+		5000,//RUNE1,
+		300//TPSCROLL
+	};
+
+	static int getValueForItem(std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> item)
+	{
+		int baseValue = ItemBaseValues[item.first];
+		int multiplier = item.second + 1;
+		return baseValue * multiplier;
+	}
+
 	static ITEMID::ITEM getItemOfRarity(ITEMRARITY::RARITY rarity)
 	{
 		int randomIndex;
