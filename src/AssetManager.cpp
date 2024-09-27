@@ -39,6 +39,9 @@ void AssetManager::InitializeTextureSprites()
     mTextures[TEXTURES::RING]->loadFromFile("assets/graphics/items/ring.png");
     mTextures[TEXTURES::RUNE1]->loadFromFile("assets/graphics/items/rune1.png");
     mTextures[TEXTURES::TPSCROLL]->loadFromFile("assets/graphics/items/tpscroll.png");
+    mTextures[TEXTURES::GOLD_SMALL]->loadFromFile("assets/graphics/items/gold_large.png");
+    mTextures[TEXTURES::GOLD_MEDIUM]->loadFromFile("assets/graphics/items/gold_large.png");
+    mTextures[TEXTURES::GOLD_LARGE]->loadFromFile("assets/graphics/items/gold_large.png");
 
     mSprites[SPRITES::MAINMENU]->setTexture(GetTexture(TEXTURES::MAINMENU));
     mSprites[SPRITES::MAP_ONE]->setTexture(GetTexture(TEXTURES::MAP_ONE));
@@ -56,6 +59,9 @@ void AssetManager::InitializeTextureSprites()
     mSprites[SPRITES::RING]->setTexture(GetTexture(TEXTURES::RING));
     mSprites[SPRITES::RUNE1]->setTexture(GetTexture(TEXTURES::RUNE1));
     mSprites[SPRITES::TPSCROLL]->setTexture(GetTexture(TEXTURES::TPSCROLL));
+    mSprites[SPRITES::GOLD_SMALL]->setTexture(GetTexture(TEXTURES::GOLD_LARGE));
+    mSprites[SPRITES::GOLD_MEDIUM]->setTexture(GetTexture(TEXTURES::GOLD_LARGE));
+    mSprites[SPRITES::GOLD_LARGE]->setTexture(GetTexture(TEXTURES::GOLD_LARGE));
 }
 
 void AssetManager::InitializeFontsAndTexts()
@@ -88,6 +94,7 @@ void AssetManager::InitializeFontsAndTexts()
     mButtonTexts[BUTTONS::NEXT_LEVEL]->setString("Next Level");
 
     // Set Up Texts
+    mItemTexts[ITEMID::GOLD]->setString("Gold");
     mItemTexts[ITEMID::AMULET]->setString("Amulet");
     mItemTexts[ITEMID::CHARM]->setString("Small Charm");
     mItemTexts[ITEMID::REJUV]->setString("Rejuvenation Potion");
@@ -166,6 +173,7 @@ sf::Sprite& AssetManager::GetSpriteForItem(ITEMID::ITEM item)
 {
     switch (item)
     {
+    case ITEMID::GOLD: return *mSprites[SPRITES::GOLD_LARGE];
     case ITEMID::AMULET: return *mSprites[SPRITES::AMULET];
     case ITEMID::CHARM: return *mSprites[SPRITES::CHARM];
     case ITEMID::REJUV: return *mSprites[SPRITES::REJUV];
@@ -201,5 +209,21 @@ sf::Sprite& AssetManager::GetSpriteForButton(BUTTONS::BUTTON_TYPE button)
     {
     case BUTTONS::WIDE: return *mSprites[SPRITES::WIDE_BUTTON];
     default: return *mSprites[SPRITES::SQUARE_BUTTON];
+    }
+}
+
+sf::Sprite& AssetManager::GetSpriteForGoldQuantity(int quantity)
+{
+    if (quantity < 100)
+    {
+        return *mSprites[SPRITES::GOLD_SMALL];
+    }
+    else if (quantity < 500)
+    {
+        return *mSprites[SPRITES::GOLD_MEDIUM];
+    }
+    else
+    {
+        return *mSprites[SPRITES::GOLD_LARGE];
     }
 }

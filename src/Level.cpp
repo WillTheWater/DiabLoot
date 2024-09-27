@@ -91,7 +91,7 @@ void Level::SpawnParticles(Chest& chest)
 	int numOfParticles = MathU::Random(8, 16);
 	// Need to solve the function bind problem below
 	std::function<void(Particle&)> callback = [this](Particle& particle) {this->SpawnItem(particle); };
-	float animStep = 2.0f;
+	float animStep = PARTICLE::ANIMSTEP;
 	for (int i{ 0 }; i < numOfParticles; i++)
 	{
 		float randDist = MathU::Random(30.f, 60.f);
@@ -106,6 +106,18 @@ void Level::SpawnParticles(Chest& chest)
 		mParticles.push_back(std::make_unique<Particle>(id, startPos, endPos, randAnchorheight, animStep, callback, itemId));
 	}
 	mSystem.InputMgr.RemoveObserver(&chest);
+}
+
+void Level::CreateBounceParticle(Item& item)
+{
+	std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> itemId = item.getItemID();
+	Vec2 startPos = item.getPosition();
+	Vec2 endPos = startPos;
+	int id = GetUniqueParticleId();
+	float randAnchorheight = MathU::Random(60.f, 120.f) * -1;
+	float animStep = PARTICLE::ANIMSTEP;
+	std::function<void(Particle&)> callback = [this](Particle& particle) {this->SpawnItem(particle); };
+	mParticles.push_back(std::make_unique<Particle>(id, startPos, endPos, randAnchorheight, animStep, callback, itemId));
 }
 
 void Level::UpdateParticles()
@@ -137,26 +149,26 @@ void Level::RemoveParticle(Particle& particle)
 
 void Level::PickUpItem(Item& item)
 {
-	if (mSystem.InventoryMgr.addItem(item))
+	bool couldAdd = mSystem.InventoryMgr.addItem(item);
+	
+	bool success = false;
+	for (int i{ 0 }; i < mItems.size(); i++)
 	{
-		bool success = false;
-		for (int i{ 0 }; i < mItems.size(); i++)
+		if (mItems[i]->getUniqueId() == item.getUniqueId())
 		{
-			if (mItems[i]->getUniqueId() == item.getUniqueId())
+			if (!couldAdd)
 			{
-				RemoveAllObservers();
-				mItems.erase(mItems.begin() + i);
-				AddAllObservers();
-				success = true;
+				CreateBounceParticle(item);
 			}
+			RemoveAllObservers();
+			mItems.erase(mItems.begin() + i);
+			AddAllObservers();
+			success = true;
 		}
+	}
 
-		assert(success && "PlayState::RemoveItem failed to remove the item");
-	}
-	else
-	{
-		// Error message of some kind for no space in inventory
-	}
+	assert(success && "PlayState::RemoveItem failed to remove the item");
+	
 	
 }
 
@@ -168,7 +180,12 @@ void Level::SpawnItem(Particle& particle)
 	std::function<void(Item&)> callback = [this](Item& item) {this->PickUpItem(item); };
 	int uniqueId = particle.getId();
 	RemoveAllObservers();	// TESTING
-	mItems.push_back(std::make_unique<Item>(itemId, uniqueId, position, text, callback, 1));
+	int quantity = 1;
+	if (itemId.first == ITEMID::GOLD)
+	{
+		quantity = MathU::Random(1, 500);
+	}
+	mItems.push_back(std::make_unique<Item>(itemId, uniqueId, position, text, callback, quantity));
 	AddAllObservers();		// TESTING
 	RemoveParticle(particle);
 }

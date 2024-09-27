@@ -20,6 +20,9 @@ namespace TEXTURES
 		RUNE1,
 		TPSCROLL,
 		PARTICLE,
+		GOLD_SMALL,
+		GOLD_MEDIUM,
+		GOLD_LARGE,
 		MAX_TEXTURES
 	};
 }
@@ -44,6 +47,9 @@ namespace SPRITES
 		RUNE1,
 		TPSCROLL,
 		PARTICLE,
+		GOLD_SMALL,
+		GOLD_MEDIUM,
+		GOLD_LARGE,
 		MAX_SPRITES
 	};
 
@@ -142,6 +148,7 @@ namespace ITEMID
 {
 	enum ITEM
 	{
+		GOLD,
 		AMULET,
 		CHARM,
 		REJUV,
@@ -164,4 +171,9 @@ namespace ITEMRARITY
 		RUNE,			// 5
 		MAX_RARITIES	// 6
 	};
+}
+
+namespace PARTICLE
+{
+	inline float ANIMSTEP = 2.0f;
 }

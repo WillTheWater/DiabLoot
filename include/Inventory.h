@@ -25,6 +25,8 @@ public:
 
 	void									sortInventory();
 	bool									addItem(Item& item);	// Returns false if there is no where to add the item to
+	void									addGold(int quantity);
+	int										getGold();
 	bool									doesItemAlreadyHaveASlot(Item& item);
 	size_t									getSlotForExistingItem(Item& item);
 	bool									availabeSlot();
@@ -39,4 +41,5 @@ private:
 	int										mMouseOverSlotIndex;
 	void									initialzeSlotRects();
 	bool									mVisible = false;
+	int										mGold;
 };

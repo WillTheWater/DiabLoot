@@ -8,8 +8,9 @@ namespace ITEMGEN
 {
 	static const std::vector<float> RarityProbabilities = { 0.700, 0.150, 0.025, 0.015, 0.010, 0.100 };
 
-	static const std::array<ITEMID::ITEM, 2> RarityNormalItems
+	static const std::array<ITEMID::ITEM, 3> RarityNormalItems
 	{
+		ITEMID::GOLD,
 		ITEMID::REJUV,
 		ITEMID::TPSCROLL
 	};
