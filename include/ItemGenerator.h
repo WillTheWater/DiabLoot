@@ -8,36 +8,70 @@ namespace ITEMGEN
 {
 	static const std::vector<float> RarityProbabilities = { 0.700, 0.150, 0.025, 0.015, 0.010, 0.100 };
 
-	static const std::array<ITEMID::ITEM, 3> RarityNormalItems
+	static const std::array<ITEMID::ITEM, 11> RarityNormalItems
 	{
 		ITEMID::GOLD,
-		ITEMID::REJUV,
-		ITEMID::TPSCROLL
+		ITEMID::REJUV_POTION,
+		ITEMID::FULL_REJUV_POTION,
+		ITEMID::OIL_POTION,
+		ITEMID::STAMINA_POTION,
+		ITEMID::SUPER_HEALING_POTION,
+		ITEMID::SUPER_MANA_POTION,
+		ITEMID::THAWING_POTION,
+		ITEMID::RANCIDGAS_POTION,
+		ITEMID::TPSCROLL,
+		ITEMID::IDSCROLL,
 	};
 
-	static const std::array<ITEMID::ITEM, 3> RarityMagicItems
+	static const std::array<ITEMID::ITEM, 9> RarityMagicItems
 	{
-		ITEMID::AMULET,
-		ITEMID::RING,
-		ITEMID::CHARM
+		ITEMID::AMULET1,
+		ITEMID::AMULET2,
+		ITEMID::AMULET3,
+		ITEMID::RING1,
+		ITEMID::RING2,
+		ITEMID::RING3,
+		ITEMID::CHARM1,
+		ITEMID::CHARM2,
+		ITEMID::CHARM3,
 	};
 
-	static const std::array<ITEMID::ITEM, 2> RarityRareItems
+	static const std::array<ITEMID::ITEM, 13> RarityRareItems
 	{
-		ITEMID::AMULET,
-		ITEMID::RING
+		ITEMID::AMULET1,
+		ITEMID::AMULET2,
+		ITEMID::AMULET3,
+		ITEMID::RING1,
+		ITEMID::RING2,
+		ITEMID::RING3,
+		ITEMID::AMETHYST_P,
+		ITEMID::DIAMOND_P,
+		ITEMID::EMERALD_P,
+		ITEMID::RUBY_P,
+		ITEMID::SAPPHIRE_P,
+		ITEMID::TOPAZ_P,
+		ITEMID::SKULL_P
+
 	};
 
-	static const std::array<ITEMID::ITEM, 2> RaritySetItems
+	static const std::array<ITEMID::ITEM, 6> RaritySetItems
 	{
-		ITEMID::AMULET,
-		ITEMID::RING
+		ITEMID::AMULET1,
+		ITEMID::AMULET2,
+		ITEMID::AMULET3,
+		ITEMID::RING1,
+		ITEMID::RING2,
+		ITEMID::RING3
 	};
 
-	static const std::array<ITEMID::ITEM, 2> RarityUniqueItems
+	static const std::array<ITEMID::ITEM, 6> RarityUniqueItems
 	{
-		ITEMID::AMULET,
-		ITEMID::RING
+		ITEMID::AMULET1,
+		ITEMID::AMULET2,
+		ITEMID::AMULET3,
+		ITEMID::RING1,
+		ITEMID::RING2,
+		ITEMID::RING3
 	};
 
 	static const std::array<ITEMID::ITEM, 33> RarityRuneItems
