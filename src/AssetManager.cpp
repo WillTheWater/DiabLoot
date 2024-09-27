@@ -231,8 +231,10 @@ void AssetManager::InitializeFontsAndTexts()
     mFonts[FONTS::BOLD]->loadFromFile("assets/font/bolddiablo.ttf");
 
     mButtonTexts[BUTTONS::START]->setString("Start");
-    mButtonTexts[BUTTONS::EXIT]->setString("Exit");
+    mButtonTexts[BUTTONS::EXIT]->setString("Exit Game");
     mButtonTexts[BUTTONS::NEXT_LEVEL]->setString("Next Level");
+    mButtonTexts[BUTTONS::OPEN_INVENTORY]->setString("Inventory");
+    mButtonTexts[BUTTONS::EXIT_PLAY]->setString("Main Menu");
 
     // Set Up Texts
     mItemTexts[ITEMID::GOLD]->setString("Gold");
