@@ -35,6 +35,13 @@ void AssetManager::InitializeTextureSprites()
     mTextures[TEXTURES::MAP_ONE]->loadFromFile("assets/graphics/map1.png");
     mTextures[TEXTURES::MAP_TWO]->loadFromFile("assets/graphics/map2.png");
     mTextures[TEXTURES::MAP_THREE]->loadFromFile("assets/graphics/map3.png");
+    mTextures[TEXTURES::MAP_FOUR]->loadFromFile("assets/graphics/map4.png");
+    mTextures[TEXTURES::MAP_FIVE]->loadFromFile("assets/graphics/map5.png");
+    mTextures[TEXTURES::MAP_SIX]->loadFromFile("assets/graphics/map6.png");
+    mTextures[TEXTURES::MAP_SEVEN]->loadFromFile("assets/graphics/map7.png");
+    mTextures[TEXTURES::MAP_EIGHT]->loadFromFile("assets/graphics/map8.png");
+    mTextures[TEXTURES::MAP_NINE]->loadFromFile("assets/graphics/map9.png");
+    mTextures[TEXTURES::MAP_TEN]->loadFromFile("assets/graphics/map10.png");
     // INVENTORY
     mTextures[TEXTURES::INVENTORY]->loadFromFile("assets/graphics/inventory.png");
     // PARTICLE
@@ -113,6 +120,13 @@ void AssetManager::InitializeTextureSprites()
     mSprites[SPRITES::MAP_ONE]->setTexture(GetTexture(TEXTURES::MAP_ONE));
     mSprites[SPRITES::MAP_TWO]->setTexture(GetTexture(TEXTURES::MAP_TWO));
     mSprites[SPRITES::MAP_THREE]->setTexture(GetTexture(TEXTURES::MAP_THREE));
+    mSprites[SPRITES::MAP_FOUR]->setTexture(GetTexture(TEXTURES::MAP_FOUR));
+    mSprites[SPRITES::MAP_FIVE]->setTexture(GetTexture(TEXTURES::MAP_FIVE));
+    mSprites[SPRITES::MAP_SIX]->setTexture(GetTexture(TEXTURES::MAP_SIX));
+    mSprites[SPRITES::MAP_SEVEN]->setTexture(GetTexture(TEXTURES::MAP_SEVEN));
+    mSprites[SPRITES::MAP_EIGHT]->setTexture(GetTexture(TEXTURES::MAP_EIGHT));
+    mSprites[SPRITES::MAP_NINE]->setTexture(GetTexture(TEXTURES::MAP_NINE));
+    mSprites[SPRITES::MAP_TEN]->setTexture(GetTexture(TEXTURES::MAP_TEN));
     // BUTTONS
     mSprites[SPRITES::WIDE_BUTTON]->setTexture(GetTexture(TEXTURES::WIDE_BUTTON));
     mSprites[SPRITES::SQUARE_BUTTON]->setTexture(GetTexture(TEXTURES::SQUARE_BUTTON));
@@ -337,6 +351,13 @@ sf::Sprite& AssetManager::GetLevelMap(LEVELS::LEVEL level)
     case LEVELS::LEVEL_ONE: return *mSprites[SPRITES::MAP_ONE];
     case LEVELS::LEVEL_TWO: return *mSprites[SPRITES::MAP_TWO];
     case LEVELS::LEVEL_THREE: return *mSprites[SPRITES::MAP_THREE];
+    case LEVELS::LEVEL_FOUR: return *mSprites[SPRITES::MAP_FOUR];
+    case LEVELS::LEVEL_FIVE: return *mSprites[SPRITES::MAP_FIVE];
+    case LEVELS::LEVEL_SIX: return *mSprites[SPRITES::MAP_SIX];
+    case LEVELS::LEVEL_SEVEN: return *mSprites[SPRITES::MAP_SEVEN];
+    case LEVELS::LEVEL_EIGHT: return *mSprites[SPRITES::MAP_EIGHT];
+    case LEVELS::LEVEL_NINE: return *mSprites[SPRITES::MAP_NINE];
+    case LEVELS::LEVEL_TEN: return *mSprites[SPRITES::MAP_TEN];
     default:
         return *mSprites[SPRITES::MAP_ONE];
     }
