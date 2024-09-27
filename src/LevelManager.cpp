@@ -17,6 +17,7 @@ LevelManager::LevelManager(System& system)
 	mLevels.push_back(std::make_unique<Level>(LEVELS::LEVEL_EIGHT, mSystem));
 	mLevels.push_back(std::make_unique<Level>(LEVELS::LEVEL_NINE, mSystem));
 	mLevels.push_back(std::make_unique<Level>(LEVELS::LEVEL_TEN, mSystem));
+
 	mLevels[LEVELS::LEVEL_ONE]->SpawnChest({ 555.f, 250.f }, true);
 	mLevels[LEVELS::LEVEL_ONE]->SpawnChest({ 1400.f, 725.f }, false);
 	mLevels[LEVELS::LEVEL_TWO]->SpawnChest({ 530.f, 700.f }, true);
@@ -31,9 +32,7 @@ LevelManager::LevelManager(System& system)
 	mLevels[LEVELS::LEVEL_SIX]->SpawnChest({ 1650.f, 980.f }, true);
 	mLevels[LEVELS::LEVEL_SEVEN]->SpawnChest({ 1000.f, 180.f }, true);
 	mLevels[LEVELS::LEVEL_SEVEN]->SpawnChest({ 600.f, 800.f }, false);
-
-	mLevels[LEVELS::LEVEL_EIGHT]->SpawnChest({ 800.f, 400.f }, false); // Fix this one later
-	
+	mLevels[LEVELS::LEVEL_EIGHT]->SpawnChest({ 1330.f, 340.f }, false); // Fix this one later
 	mLevels[LEVELS::LEVEL_NINE]->SpawnChest({ 340.f, 330.f }, true);
 	mLevels[LEVELS::LEVEL_NINE]->SpawnChest({ 1450.f, 320.f }, false);
 	mLevels[LEVELS::LEVEL_TEN]->SpawnChest({ 1180.f, 480.f }, false);

@@ -85,18 +85,20 @@ void RenderManager::InventoryRender()
 		{
 			continue;
 		}
+		sf::Color blue({ 82 , 075, 143 , 100 });
+		sf::Color green({ 44 , 190, 52, 100 });
 
-		rects[i].setFillColor({ 82 , 075, 143 , 200 });
+		rects[i].setFillColor(blue);
 
 		if (mSystem.InventoryMgr.isMouseOverSlot())
 		{
 			if (mSystem.InventoryMgr.getMouseOverSlotIndex() == i)
 			{
-				rects[i].setFillColor({ 44 , 190, 52, 200 });
+				rects[i].setFillColor(green);
 			}
 			else
 			{
-				rects[i].setFillColor({ 82 , 075, 143 , 200 });
+				rects[i].setFillColor(blue);
 			}
 		}
 
@@ -117,12 +119,12 @@ void RenderManager::InventoryRender()
 		{
 			hoverText.setString(hoverText.getString() + '\n' + "Quantity: " + std::to_string(slots[index].getQuantity()));
 		}
-		hoverText.setOrigin(hoverText.getLocalBounds().getSize().x, hoverText.getLocalBounds().getSize().y / 2);
-		hoverText.setPosition(mSystem.InventoryMgr.getLastMousePos());
+		hoverText.setOrigin(hoverText.getLocalBounds().getSize().x /2, hoverText.getLocalBounds().getSize().y / 2);
+		hoverText.setPosition(mSystem.InventoryMgr.getLastMousePos().x, mSystem.InventoryMgr.getLastMousePos().y - 20);
 		hoverText.setColor(mSystem.AssetMgr.GetColorForRarity(slots[index].getItemId().second));
 		// Text box to got under text
 		sf::RectangleShape textBox{ sf::Vector2f{hoverText.getGlobalBounds().getSize().x + FONTS::PADDING, hoverText.getGlobalBounds().getSize().y + FONTS::PADDING} };
-		textBox.setOrigin(textBox.getLocalBounds().getSize().x + FONTS::ORIGIN_YOFFSET, (textBox.getLocalBounds().getSize().y / 2) + FONTS::ORIGIN_YOFFSET);
+		textBox.setOrigin(textBox.getLocalBounds().getSize().x / 2 + FONTS::ORIGIN_YOFFSET, (textBox.getLocalBounds().getSize().y / 2) + FONTS::ORIGIN_YOFFSET);
 		textBox.setFillColor(mSystem.AssetMgr.GetTextboxColor());
 		textBox.setPosition(hoverText.getPosition());
 		mGameWindow.draw(textBox);
