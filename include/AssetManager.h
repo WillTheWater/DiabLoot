@@ -21,6 +21,7 @@ public:
 	sf::Color									GetColorForRarity(ITEMRARITY::RARITY rarity);
 	sf::Color									GetTextboxColor();
 	sf::Sprite&									GetSpriteForButton(BUTTONS::BUTTON_TYPE button);
+	sf::Sprite&									GetSpriteForGoldQuantity(int quantity);
 
 private:
 	void										InitializeTextureSprites();

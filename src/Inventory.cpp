@@ -1,6 +1,7 @@
 #include "Inventory.h"
 
 Inventory::Inventory()
+	:mGold{0}
 {
 	initialzeSlotRects();
 }
@@ -136,6 +137,11 @@ size_t Inventory::getSlotForExistingItem(Item& item)
 
 bool Inventory::addItem(Item& item)
 {
+	if (item.getItemID().first == ITEMID::GOLD)
+	{
+		addGold(item.getQuantity());
+		return true;
+	}
 	size_t index = getSlotForExistingItem(item);
 	// If the item already exists in the inventory, add to it's quantity
 	if (index != -1)
@@ -155,6 +161,23 @@ bool Inventory::addItem(Item& item)
 	sortInventory();
 
 	return true;
+}
+
+void Inventory::addGold(int quantity)
+{
+	if (std::numeric_limits<int>::max() - quantity <= mGold)
+	{
+		mGold = std::numeric_limits<int>::max();
+	}
+	else
+	{
+		mGold += quantity;
+	}
+}
+
+int Inventory::getGold()
+{
+	return mGold;
 }
 
 bool Inventory::availabeSlot()

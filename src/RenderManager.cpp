@@ -100,6 +100,13 @@ void RenderManager::InventoryRender()
 	auto inventoryButton = mSystem.GUIMgr.MakeInventoryButton(BUTTONS::SQUARE, { 1263.f, 940.f });
 	Draw(inventoryButton->GetSprite());
 
+	// Render the amount of gold
+	sf::Text goldText = mSystem.AssetMgr.GetTextForItemID(ITEMID::GOLD);
+	goldText.setString(std::to_string(mSystem.InventoryMgr.getGold()));
+	goldText.setOrigin(-8.f, goldText.getLocalBounds().getSize().y + 2.f);
+	goldText.setPosition({ 1365, 922 });
+	mGameWindow.draw(goldText);
+
 	auto& slots = mSystem.InventoryMgr.getItemSlots();
 	auto& rects = mSystem.InventoryMgr.getSlotRects();
 
@@ -210,7 +217,15 @@ void RenderManager::RenderItems(std::vector<std::unique_ptr<Item>>& items)
 	{
 		sf::Vector2f itemPos = item->getPosition();
 		std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> itemId = item->getItemID();
-		sf::Sprite itemSprite = mSystem.AssetMgr.GetSpriteForItem(itemId.first);
+		sf::Sprite itemSprite;
+		if (item->getItemID().first == ITEMID::GOLD)
+		{
+			itemSprite = mSystem.AssetMgr.GetSpriteForGoldQuantity(item->getQuantity());
+		}
+		else
+		{
+			itemSprite = mSystem.AssetMgr.GetSpriteForItem(itemId.first);
+		}
 		itemSprite.setScale(0.5, 0.5);
 		itemSprite.setOrigin(itemSprite.getTextureRect().getSize().x / 2.f, itemSprite.getTextureRect().getSize().y / 2.f);
 		itemSprite.setPosition(itemPos);
@@ -224,7 +239,7 @@ void RenderManager::RenderItems(std::vector<std::unique_ptr<Item>>& items)
 		std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> itemId = item->getItemID();
 		sf::RectangleShape textRect = item->getTextRect();
 		textRect.setFillColor(mSystem.AssetMgr.GetTextboxColor());
-		sf::Text text = mSystem.AssetMgr.GetTextForItemID(itemId.first);
+		sf::Text text = item->getItemText();
 		text.setOrigin(text.getGlobalBounds().getSize().x / 2, text.getGlobalBounds().getSize().y / 2);
 		text.setPosition(textRect.getPosition());
 		text.setColor(mSystem.AssetMgr.GetColorForRarity(itemId.second));

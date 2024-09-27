@@ -34,6 +34,7 @@ public:
 	int										GetUniqueParticleId();
 	void									SpawnChest(sf::Vector2f pos, bool mirrored);
 	void									SpawnParticles(Chest& chest);
+	void									CreateBounceParticle(Item& item);
 	void									RemoveParticle(Particle& particle);
 	void									PickUpItem(Item& item);
 	void									SpawnItem(Particle& particle);

@@ -30,6 +30,7 @@ public:
 	std::pair<ITEMID::ITEM, ITEMRARITY::RARITY>		getItemID();
 	int												getQuantity();
 	int												getUniqueId();
+	sf::Text&										getItemText();
 	// Setters
 	void											setTextRect(sf::RectangleShape& rect);
 
@@ -40,7 +41,7 @@ private:
 	sf::RectangleShape mRect;
 	int mQuantity;
 	sf::Vector2f mPos;
-	sf::Text& mText;
+	sf::Text mText;
 	std::function<void(Item&)> mCallback;
 	sf::Vector2f mMouseLastPos;
 };
