@@ -447,7 +447,7 @@ sf::Color AssetManager::GetColorForRarity(ITEMRARITY::RARITY rarity)
     switch (rarity)
     {
     case ITEMRARITY::NORMAL:	return sf::Color::White;
-    case ITEMRARITY::MAGIC:		return sf::Color{ 82 , 075, 143 };	break;
+    case ITEMRARITY::MAGIC:		return sf::Color{  51, 102, 255 };	break;
     case ITEMRARITY::RARE:		return sf::Color{ 253, 216, 53 };	break;
     case ITEMRARITY::SET:		return sf::Color{ 44 , 190, 52 };	break;
     case ITEMRARITY::UNIQUE:	return sf::Color{ 153, 102, 51 };	break;
