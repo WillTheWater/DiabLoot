@@ -202,12 +202,33 @@ namespace IMAGES
 	};
 }
 
-namespace SOUNDS
+namespace SOUNDBUFFERS
 {
-	enum SOUND
+	enum SOUNDBUFFER
 	{
-		BUTTON,
+		BUTTON_DOWN_SB,
+		CHEST_OPEN_SB,
+		MAX_SOUNDSBUFFERS
+	};
+}
+
+namespace PLAYSOUND
+{
+	enum PLAYSOUND
+	{
+		BUTTON_DOWN,
+		OPEN_CHEST,
 		MAX_SOUNDS
+	};
+}
+
+namespace MUSIC
+{
+	enum PLAYMUSIC
+	{
+		INTRO,
+		TRISTRAM,
+		MAX_MUSIC_FILES
 	};
 }
 

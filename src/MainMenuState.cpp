@@ -1,5 +1,6 @@
 #include "MainMenuState.h"
 #include "PlayState.h"
+#include "SoundManager.h"
 #include "Core.h"
 
 MainMenuState::MainMenuState(System& system, ChangeStateCallback changeStateCB)
@@ -16,11 +17,14 @@ MainMenuState::MainMenuState(System& system, ChangeStateCallback changeStateCB)
 void MainMenuState::Enter()
 {
 	mSystem.InputMgr.AddObserver(this);
+	SoundManager::GetInstance().PlayMusic(MUSIC::INTRO);
+	SoundManager::GetInstance().StopMusic(MUSIC::TRISTRAM); 
 }
 
 void MainMenuState::Exit()
 {
 	mSystem.InputMgr.RemoveObserver(this);
+	SoundManager::GetInstance().StopMusic(MUSIC::INTRO);
 }
 
 void MainMenuState::Update()

@@ -1,4 +1,5 @@
 #include "AssetManager.h"
+#include "MathUtilities.h"
 
 
 AssetManager::AssetManager()
@@ -6,6 +7,8 @@ AssetManager::AssetManager()
 {
     InitializeTextureSprites();
     InitializeFontsAndTexts();
+    InitializeSounds();
+    InitializeMusic();
     InitializeImages();
 }
 
@@ -314,6 +317,46 @@ void AssetManager::InitializeFontsAndTexts()
     }
 }
 
+void AssetManager::InitializeSounds()
+{
+    for (int i{ 0 }; i < SOUNDBUFFERS::MAX_SOUNDSBUFFERS; i++)
+    {
+        mSoundBuffers.push_back(std::make_unique<sf::SoundBuffer>());
+    }
+    assert(std::ssize(mSoundBuffers) == SOUNDBUFFERS::MAX_SOUNDSBUFFERS && "AssetManager failed to initialize correct number of soundbuffers\n");
+
+    for (int i{ 0 }; i < PLAYSOUND::MAX_SOUNDS; i++)
+    {
+        mSounds.push_back(std::make_unique<sf::Sound>());
+
+    }
+    assert(std::ssize(mSounds) == PLAYSOUND::MAX_SOUNDS && "AssetManager failed to initialize correct number of sounds\n");
+
+    // Load Soundbuffers
+    mSoundBuffers[SOUNDBUFFERS::BUTTON_DOWN_SB]->loadFromFile("assets/audio/SFX/buttondown.wav");
+    mSoundBuffers[SOUNDBUFFERS::CHEST_OPEN_SB]->loadFromFile("assets/audio/SFX/chestopen.wav");
+
+    // Set Sound
+    mSounds[PLAYSOUND::BUTTON_DOWN]->setBuffer(GetSoundBuffer(SOUNDBUFFERS::BUTTON_DOWN_SB));
+    mSounds[PLAYSOUND::OPEN_CHEST]->setBuffer(GetSoundBuffer(SOUNDBUFFERS::CHEST_OPEN_SB));
+
+    // Volume Setter
+    mSounds[PLAYSOUND::OPEN_CHEST]->setVolume(100.f); // <--- Example
+
+}
+
+void AssetManager::InitializeMusic()
+{
+    for (int i{ 0 }; i < MUSIC::MAX_MUSIC_FILES; i++)
+    {
+        mMusic.push_back(std::make_unique<sf::Music>());
+    }
+    assert(std::ssize(mMusic) == MUSIC::MAX_MUSIC_FILES && "AssetManager failed to initialize correct number of music files\n");
+
+    mMusic[MUSIC::INTRO]->openFromFile("assets/audio/music/intro.wav");
+    mMusic[MUSIC::TRISTRAM]->openFromFile("assets/audio/music/Tristram.wav");
+}
+
 void AssetManager::InitializeImages()
 {
     for (int i{ 0 }; i < IMAGES::MAX_IMAGES; i++)
@@ -344,6 +387,24 @@ sf::Image& AssetManager::GetImage(IMAGES::IMAGE image)
 {
     assert(image < IMAGES::MAX_IMAGES && image >= 0 && "Attempted to get image that doesn't exist!\n");
     return *mImages[image];
+}
+
+sf::SoundBuffer& AssetManager::GetSoundBuffer(SOUNDBUFFERS::SOUNDBUFFER soundbuffer)
+{
+    assert(soundbuffer < SOUNDBUFFERS::MAX_SOUNDSBUFFERS && soundbuffer >= 0 && "Attempted to get soundbuffer that doesn't exist!\n");
+    return *mSoundBuffers[soundbuffer];
+}
+
+sf::Sound& AssetManager::GetSound(PLAYSOUND::PLAYSOUND sound)
+{
+    assert(sound < PLAYSOUND::MAX_SOUNDS && sound >= 0 && "Attempted to get sound that doesn't exist!\n");
+    return *mSounds[sound];
+}
+
+sf::Music& AssetManager::GetMusic(MUSIC::PLAYMUSIC music)
+{
+    assert(music < MUSIC::MAX_MUSIC_FILES && music >= 0 && "Attempted to get music that doesn't exist!\n");
+    return *mMusic[music];
 }
 
 sf::Sprite& AssetManager::GetLevelMap(LEVELS::LEVEL level)

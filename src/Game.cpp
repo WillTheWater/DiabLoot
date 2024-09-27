@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "SoundManager.h"
 #include "MainMenuState.h"
 #include "Core.h"
 
@@ -8,6 +9,7 @@ Game::Game()
     , mGUIMgr{ mSystem }
     , mLevelManager{mSystem}
 {
+    SoundManager::GetInstance().SetAssetMgr(&mAssetMgr);
     mRenderMgr.CustomizeGameWindow();
     mChangeStateCB = [this](std::unique_ptr<GameState> newState) { this->ChangeState(std::move(newState)); };
     ChangeState(std::make_unique<MainMenuState>(mSystem, mChangeStateCB));

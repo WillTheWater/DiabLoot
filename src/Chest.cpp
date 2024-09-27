@@ -1,4 +1,6 @@
 #include "Chest.h"
+#include "SoundManager.h"
+#include "MathUtilities.h"
 
 Chest::Chest(sf::Vector2f position, bool mirrored, std::function<void(Chest&)> callback)
 	:mPos{position}
@@ -55,6 +57,9 @@ void Chest::OpenChest()
 {
 	mOpened = true; 
 	mCallback(*this);
+	auto pitchShifter = MathU::Random(0.8f, 1.2f);
+	auto modulator = MathU::Random(20.f, 40.f);
+	SoundManager::GetInstance().PlaySound(PLAYSOUND::OPEN_CHEST, modulator, pitchShifter);
 }
 
 sf::Vector2f Chest::GetPosition() const
