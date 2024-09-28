@@ -71,6 +71,18 @@ void PlayState::OnKeyRelease(sf::Keyboard::Key key)
 	{
 		mSystem.InventoryMgr.ToggleInventory();
 	}
+	if (key == sf::Keyboard::S)
+	{
+		mSystem.InventoryMgr.saveInventory();
+	}
+	if (key == sf::Keyboard::L)
+	{
+		mSystem.InventoryMgr.loadInventory();
+	}
+	if (key == sf::Keyboard::O)
+	{
+		mSystem.InventoryMgr.sortInventory();
+	}
 }
 
 void PlayState::OnMouseClick(sf::Mouse::Button button)

@@ -2,6 +2,11 @@
 #include "ItemSlot.h"
 #include <array>
 #include "Item.h"
+#include <fstream>
+#include <iostream>
+#include <sstream>
+#include <cassert>
+#include "ItemGenerator.h"
 
 class Inventory : public InputObserver
 {
@@ -14,6 +19,11 @@ public:
 	void									OnKeyRelease(sf::Keyboard::Key key) override;
 	void									OnMouseClick(sf::Mouse::Button button) override;
 	void									OnMouseRelease(sf::Mouse::Button button) override;
+	void									swapSlots(int a, int b);
+	size_t									getFirstOpenIndex();
+	int										getClickedDownIndex();
+	bool									isItemSlotClicked();
+	ITEMID::ITEM							getItemIdOfSlotClicked();
 
 	void									ToggleInventory();
 	bool									isOpen();
@@ -22,15 +32,18 @@ public:
 	bool									isMouseOverSlot();
 	int										getMouseOverSlotIndex();
 	sf::Vector2f							getLastMousePos();
-
-	void									sortInventory();
 	bool									addItem(Item& item);	// Returns false if there is no where to add the item to
 	void									addGold(int quantity);
 	int										getGold();
 	bool									doesItemAlreadyHaveASlot(Item& item);
 	size_t									getSlotForExistingItem(Item& item);
 	bool									availabeSlot();
-	size_t									getFirstOpenIndex();
+
+	void									sortInventory();
+	void									loadInventory();
+	void									saveInventory();
+	void									deleteInventory();
+	bool									hasOneOfEverything();	// Returns true if win condition is met
 
 
 private:
@@ -42,4 +55,6 @@ private:
 	void									initialzeSlotRects();
 	bool									mVisible = false;
 	int										mGold;
+	int										mClickedDownIndex;
+	int										mClickedReleaseIndex;
 };

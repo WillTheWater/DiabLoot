@@ -19,6 +19,7 @@ private:
 	SoundManager(const SoundManager&) = delete;
 	SoundManager& operator = (const SoundManager&) = delete;
 
+	MUSIC::PLAYMUSIC mCurrentlyPlaying = MUSIC::MAX_MUSIC_FILES;
 	AssetManager* mAssetMgr = nullptr;
 	std::vector<std::pair<sf::Sound*, float>> mActiveSounds;
 	std::vector<std::pair<sf::Music*, float>> mActiveMusic;

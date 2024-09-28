@@ -7,8 +7,12 @@ class ItemSlot
 public:
 	ItemSlot();
 	ItemSlot(std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> item, int quantity);
+	ItemSlot(int id, int rartity, int quantity);
 
 	std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> getItemId();
+
+	bool operator== (const ItemSlot& other);
+
 	bool										isEmpty();
 	int											getQuantity();
 	void										incrementQuantity(int amount = 1);

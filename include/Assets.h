@@ -374,13 +374,14 @@ namespace ITEMRARITY
 {
 	enum RARITY
 	{
-		NORMAL,			// 0
-		MAGIC,			// 1
-		RARE,			// 2
-		SET,			// 3
-		UNIQUE,			// 4
-		RUNE,			// 5
-		MAX_RARITIES	// 6
+		GOLD,			// 0
+		NORMAL,			// 1
+		MAGIC,			// 2
+		RARE,			// 3
+		SET,			// 4
+		UNIQUE,			// 5
+		RUNE,			// 6
+		MAX_RARITIES	// 7
 	};
 }
 

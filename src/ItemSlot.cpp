@@ -14,9 +14,31 @@ ItemSlot::ItemSlot(std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> item, int quantit
 {
 }
 
+ItemSlot::ItemSlot(int id, int rarity, int quantity)
+	:ItemSlot::ItemSlot(std::pair<ITEMID::ITEM, ITEMRARITY::RARITY>{(ITEMID::ITEM)id, (ITEMRARITY::RARITY)rarity}, quantity)
+{
+	if (mItemId.first == ITEMID::MAX_ITEMS)
+	{
+		mEmpty = true;
+	}
+}
+
 std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> ItemSlot::getItemId()
 {
 	return mItemId;
+}
+
+bool ItemSlot::operator==(const ItemSlot& other)
+{
+	return (
+		this->mItemId.first == other.mItemId.first
+		&&
+		this->mItemId.second == other.mItemId.second
+		&&
+		this->mQuantity == other.mQuantity
+		&&
+		this->mEmpty == other.mEmpty
+		);
 }
 
 bool ItemSlot::isEmpty()
