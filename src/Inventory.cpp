@@ -200,8 +200,9 @@ bool Inventory::addItem(Item& item)
 	// If the item already exists in the inventory, add to it's quantity
 	if (index != -1)
 	{
-		mItemSlots[index].incrementQuantity(item.getQuantity());
-		return true;
+		return false; 
+		//mItemSlots[index].incrementQuantity(item.getQuantity());
+		//return true;
 	}
 	// Otherwise, check if there is any slot available
 	if (!availabeSlot())
@@ -226,6 +227,18 @@ void Inventory::addGold(int quantity)
 	else
 	{
 		mGold += quantity;
+	}
+}
+
+void Inventory::removeGold(int quantity)
+{
+	if ((mGold - quantity) < 0)
+	{
+		mGold = 0;
+	}
+	else
+	{
+		mGold -= quantity;
 	}
 }
 
@@ -297,13 +310,13 @@ void Inventory::loadInventory()
 			while (index < mItemSlots.size())
 			{
 				std::getline(inData, line);
-				std::cout << index << ": " << line << ' ';
+				//std::cout << index << ": " << line << ' '; // debug
 				int id = std::stoi(line);
 				std::getline(inData, line);
-				std::cout << line << ' ';
+				// std::cout << line << ' '; // debug
 				int rarity = std::stoi(line);
 				std::getline(inData, line);
-				std::cout << line << '\n';
+				// std::cout << line << '\n'; // debug
 				int quantity = std::stoi(line);
 				mItemSlots[index] = ItemSlot{ id, rarity, quantity };
 				index++;

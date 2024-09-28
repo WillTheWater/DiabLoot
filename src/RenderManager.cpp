@@ -184,6 +184,10 @@ void RenderManager::RenderChests(std::vector<std::unique_ptr<Chest>>& chests)
 {
 	for (auto& chest : chests)
 	{
+		if (!chest->isActive())
+		{
+			continue;
+		}
 		sf::Vector2f position = chest->GetPosition();
 		sf::Sprite chestSprite;
 		// Get the opened or closed sprite

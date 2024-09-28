@@ -38,10 +38,18 @@ public:
 	void									RemoveParticle(Particle& particle);
 	void									PickUpItem(Item& item);
 	void									SpawnItem(Particle& particle);
+	void									TurnItemToGold(Particle& particle);
 	void									SortItemsByVerticalSpace();
 	void									StackItemlabels();
-	void									RemoveAllObservers();
-	void									AddAllObservers();
+	void									RemoveAllItemObservers();
+	void									AddAllItemObservers();
+	void									RemoveAllChestObservers();
+
+	void									UpgradeLevel();
+	LEVELS::UPGRADE							GetUpgradeLevel();
+	void									SetUpgradeLevel(LEVELS::UPGRADE upgrade); // Only used for loading
+	void									ActivateChests(); //Turns on the relevant chests for upgrade level and also adds them as observers;
+	void									DeactiveChests();
 
 private:
 	LEVELS::LEVEL							mLevelID;
@@ -50,4 +58,5 @@ private:
 	std::vector<std::unique_ptr<Item>>		mItems;
 	System&									mSystem;
 	int										mParticleUniqueId;
+	LEVELS::UPGRADE							mUpgradeLevel;
 };

@@ -299,6 +299,15 @@ namespace LEVELS
 		LEVEL_TEN,
 		MAX_LEVELS
 	};
+
+	enum UPGRADE
+	{
+		ONE_CHEST,
+		TWO_CHEST,
+		THREE_CHEST,
+		FOUR_CHEST,
+		MAX_UPGRADES
+	};
 }
 
 namespace ITEMID

@@ -73,15 +73,27 @@ void PlayState::OnKeyRelease(sf::Keyboard::Key key)
 	}
 	if (key == sf::Keyboard::S)
 	{
+		mSystem.LevelMgr.SaveLevels();
 		mSystem.InventoryMgr.saveInventory();
 	}
 	if (key == sf::Keyboard::L)
 	{
+		mSystem.LevelMgr.LoadLevels();
+		mLevel.DeactiveChests();	// This is just to simulate loading the level
+		mLevel.ActivateChests();    // This is just to simulate loading the level
 		mSystem.InventoryMgr.loadInventory();
 	}
 	if (key == sf::Keyboard::O)
 	{
 		mSystem.InventoryMgr.sortInventory();
+	}
+	if (key == sf::Keyboard::D)
+	{
+		mSystem.InventoryMgr.deleteInventory();
+	}
+	if (key == sf::Keyboard::U)
+	{
+		mLevel.UpgradeLevel();
 	}
 }
 

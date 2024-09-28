@@ -12,6 +12,8 @@ public:
 	LevelManager(System& system);
 
 	Level& GetNextLevel();
+	void	SaveLevels();
+	void	LoadLevels();
 
 
 
