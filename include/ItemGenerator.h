@@ -200,7 +200,7 @@ namespace ITEMGEN
 		}
 	}
 
-	inline int TOTAL_UNIQUE_ITEMS = {
+	inline const int TOTAL_UNIQUE_ITEMS = {
 		RarityNormalItems.size() + RarityMagicItems.size() + RarityRareItems.size()
 		+ RaritySetItems.size() + RarityUniqueItems.size() + RarityRuneItems.size()
 	};

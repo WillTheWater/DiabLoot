@@ -21,6 +21,8 @@ public:
 	sf::Vector2f						GetPosition() const;
 	bool								IsOpened() const;
 	bool								IsMirrored() const;
+	void								setActive(bool active);
+	bool								isActive();
 
 private:
 	bool								mMirrored;
@@ -29,4 +31,5 @@ private:
 	sf::RectangleShape					mRect;
 	bool								mMouseOver;
 	std::function<void(Chest&)>			mCallback;
+	bool								mActive;
 };

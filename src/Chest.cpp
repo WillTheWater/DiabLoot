@@ -9,6 +9,7 @@ Chest::Chest(sf::Vector2f position, bool mirrored, std::function<void(Chest&)> c
 	,mOpened{false}
 	,mMouseOver{false}
 	,mCallback{callback}
+	,mActive{false}
 {
 	mRect.setOrigin(mRect.getSize().x / 2.f, mRect.getSize().y / 2.f);
 	mRect.setPosition(mPos);
@@ -75,6 +76,16 @@ bool Chest::IsOpened() const
 bool Chest::IsMirrored() const
 {
 	return mMirrored;
+}
+
+void Chest::setActive(bool active)
+{
+	mActive = active;
+}
+
+bool Chest::isActive()
+{
+	return mActive;
 }
 
 
