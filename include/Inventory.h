@@ -34,6 +34,7 @@ public:
 	sf::Vector2f							getLastMousePos();
 	bool									addItem(Item& item);	// Returns false if there is no where to add the item to
 	void									addGold(int quantity);
+	void									removeGold(int quantity);
 	int										getGold();
 	bool									doesItemAlreadyHaveASlot(Item& item);
 	size_t									getSlotForExistingItem(Item& item);

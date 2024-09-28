@@ -230,6 +230,18 @@ void Inventory::addGold(int quantity)
 	}
 }
 
+void Inventory::removeGold(int quantity)
+{
+	if ((mGold - quantity) < 0)
+	{
+		mGold = 0;
+	}
+	else
+	{
+		mGold -= quantity;
+	}
+}
+
 int Inventory::getGold()
 {
 	return mGold;
