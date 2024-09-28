@@ -58,7 +58,7 @@ namespace ITEMGEN
 		ITEMID::IDSCROLL,
 	};
 
-	static const std::array<ITEMID::ITEM, 9> RarityMagicItems
+	static const std::array<ITEMID::ITEM, 15> RarityMagicItems
 	{
 		ITEMID::AMULET1,
 		ITEMID::AMULET2,
@@ -69,9 +69,15 @@ namespace ITEMGEN
 		ITEMID::CHARM1,
 		ITEMID::CHARM2,
 		ITEMID::CHARM3,
+		ITEMID::JEWEL_1,
+		ITEMID::JEWEL_2,
+		ITEMID::JEWEL_3,
+		ITEMID::JEWEL_4,
+		ITEMID::JEWEL_5,
+		ITEMID::JEWEL_6,
 	};
 
-	static const std::array<ITEMID::ITEM, 13> RarityRareItems
+	static const std::array<ITEMID::ITEM, 26> RarityRareItems
 	{
 		ITEMID::AMULET1,
 		ITEMID::AMULET2,
@@ -80,12 +86,25 @@ namespace ITEMGEN
 		ITEMID::RING2,
 		ITEMID::RING3,
 		ITEMID::AMETHYST_P,
+		ITEMID::AMETHYST_F,
 		ITEMID::DIAMOND_P,
+		ITEMID::DIAMOND_F,
 		ITEMID::EMERALD_P,
+		ITEMID::EMERALD_F,
 		ITEMID::RUBY_P,
+		ITEMID::RUBY_F,
 		ITEMID::SAPPHIRE_P,
+		ITEMID::SAPPHIRE_F,
 		ITEMID::TOPAZ_P,
-		ITEMID::SKULL_P
+		ITEMID::TOPAZ_F,
+		ITEMID::SKULL_P,
+		ITEMID::SKULL_F,
+		ITEMID::JEWEL_1,
+		ITEMID::JEWEL_2,
+		ITEMID::JEWEL_3,
+		ITEMID::JEWEL_4,
+		ITEMID::JEWEL_5,
+		ITEMID::JEWEL_6,
 
 	};
 
@@ -99,14 +118,20 @@ namespace ITEMGEN
 		ITEMID::RING3
 	};
 
-	static const std::array<ITEMID::ITEM, 6> RarityUniqueItems
+	static const std::array<ITEMID::ITEM, 12> RarityUniqueItems
 	{
 		ITEMID::AMULET1,
 		ITEMID::AMULET2,
 		ITEMID::AMULET3,
 		ITEMID::RING1,
 		ITEMID::RING2,
-		ITEMID::RING3
+		ITEMID::RING3,
+		ITEMID::JEWEL_1,
+		ITEMID::JEWEL_2,
+		ITEMID::JEWEL_3,
+		ITEMID::JEWEL_4,
+		ITEMID::JEWEL_5,
+		ITEMID::JEWEL_6,
 	};
 
 	static const std::array<ITEMID::ITEM, 33> RarityRuneItems
