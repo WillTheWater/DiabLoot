@@ -1,4 +1,6 @@
 #include "Item.h"
+#include "MathUtilities.h"
+#include "SoundManager.h"
 
 Item::Item(std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> item, int unique, sf::Vector2f pos, sf::Text& text, std::function<void(Item&)> callback, int quantity)
 	:mItemId{item.first}
@@ -41,6 +43,9 @@ void Item::OnMouseClick(sf::Mouse::Button button)
 	if (mRect.getGlobalBounds().contains(mMouseLastPos))
 	{
 		mCallback(*this);
+		auto pitchShifter = MathU::Random(0.9f, 1.1f);
+		auto modulator = MathU::Random(10.f, 30.f);
+		SoundManager::GetInstance().PlaySound(PLAYSOUND::ITEM_PICKUP, modulator, pitchShifter);
 	}
 }	 
 	 

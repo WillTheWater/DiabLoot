@@ -22,6 +22,8 @@ public:
 	template <typename T>
 	void										Draw(const T& drawObject) { mGameWindow.draw(drawObject); }
 	void										RenderLevel(Level& level);
+	void										DrawToolTip(sf::Vector2f mousePos);
+	void										DrawToolTipWarning(sf::Vector2f mousePos);
 
 private:
 	sf::RenderWindow							mGameWindow;

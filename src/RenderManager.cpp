@@ -3,7 +3,7 @@
 #include "Core.h"
 
 RenderManager::RenderManager(System& system)
-	: mGameWindow{ sf::VideoMode(1920u, 1080u), "DiabLoot", sf::Style::Close }
+	: mGameWindow{ sf::VideoMode(1920u, 1080u), "DiabLoot", sf::Style::None }
 	, mSystem{ system }
 	, mWindowCenter{ mGameWindow.getSize().x / 2.f, mGameWindow.getSize().y / 2.f }
 {
@@ -51,6 +51,8 @@ void RenderManager::MainMenuRender()
 
 	Draw(mSystem.GUIMgr.GetButton(BUTTONS::EXIT_ID).GetSprite());
 	Draw(mSystem.GUIMgr.GetButton(BUTTONS::EXIT_ID).GetText());
+
+	Draw(mSystem.GUIMgr.GetButton(BUTTONS::MUTE_BUTTON_ID).GetSprite());
 }
 
 void RenderManager::PlayStateRender()
@@ -62,6 +64,9 @@ void RenderManager::PlayStateRender()
 	Draw(mSystem.GUIMgr.GetButton(BUTTONS::NEXT_LEVEL_ID).GetText());
 	Draw(mSystem.GUIMgr.GetButton(BUTTONS::OPEN_INVENTORY_ID).GetText());
 	Draw(mSystem.GUIMgr.GetButton(BUTTONS::EXIT_PLAY_ID).GetText());
+
+	Draw(mSystem.GUIMgr.GetButton(BUTTONS::MUTE_BUTTON_ID).GetSprite());
+	Draw(mSystem.GUIMgr.GetButton(BUTTONS::UPGRADE_BUTTON_ID).GetSprite());
 
 	InventoryRender();
 }
@@ -75,8 +80,10 @@ void RenderManager::InventoryRender()
 	}
 
 	Draw(mSystem.AssetMgr.GetSprite(SPRITES::INVENTORY));
-	// Inventory button
+
+	// Inventory buttons
 	Draw(mSystem.GUIMgr.GetButton(BUTTONS::INVENTORY_ID).GetSprite());
+	Draw(mSystem.GUIMgr.GetButton(BUTTONS::SORT_BUTTON_ID).GetSprite());
 
 	// Render the amount of gold
 	sf::Text goldText = mSystem.AssetMgr.GetTextForItemID(ITEMID::GOLD);
@@ -163,6 +170,89 @@ void RenderManager::RenderLevel(Level& level)
 	RenderChests(level.GetChests());
 	RenderParticles(level.GetParticles());
 	RenderItems(level.GetItems());
+}
+
+void RenderManager::DrawToolTip(sf::Vector2f mousePos)
+{
+	if (mSystem.GUIMgr.GetButton(BUTTONS::UPGRADE_BUTTON_ID).GetSprite().getGlobalBounds().contains(mousePos))
+	{
+		sf::Text tooltipText;
+		tooltipText.setFont(mSystem.AssetMgr.GetFont(FONTS::LIGHT));
+		tooltipText.setString("    Upgrade Level:\nAdd Chest to Level");
+		tooltipText.setCharacterSize(25);
+		tooltipText.setFillColor(sf::Color::White);
+
+		sf::FloatRect textBounds = tooltipText.getLocalBounds();
+		float textWidth = textBounds.width;
+		float textHeight = textBounds.height;
+
+		sf::RectangleShape backgroundRect;
+		backgroundRect.setSize(sf::Vector2f(textWidth + 20.f, textHeight + 20.f));
+		backgroundRect.setFillColor(sf::Color(0, 0, 0, 160));
+
+		float xPos = mousePos.x - (backgroundRect.getSize().x / 2.f);
+		float yPos = mousePos.y - backgroundRect.getSize().y - 10.f;
+		backgroundRect.setPosition(xPos, yPos);
+
+		tooltipText.setPosition(xPos + 10.f, yPos + 5.f);
+
+		mSystem.RenderMgr.Draw(backgroundRect);
+		mSystem.RenderMgr.Draw(tooltipText);
+	}
+	if (mSystem.GUIMgr.GetButton(BUTTONS::SORT_BUTTON_ID).GetSprite().getGlobalBounds().contains(mousePos))
+	{
+		sf::Text tooltipText;
+		tooltipText.setFont(mSystem.AssetMgr.GetFont(FONTS::LIGHT));
+		tooltipText.setString("Auto Sort Inventory");
+		tooltipText.setCharacterSize(25);
+		tooltipText.setFillColor(sf::Color::White);
+
+		sf::FloatRect textBounds = tooltipText.getLocalBounds();
+		float textWidth = textBounds.width;
+		float textHeight = textBounds.height;
+
+		sf::RectangleShape backgroundRect;
+		backgroundRect.setSize(sf::Vector2f(textWidth + 20.f, textHeight + 20.f));
+		backgroundRect.setFillColor(sf::Color(0, 0, 0, 160));
+
+		float xPos = mousePos.x - (backgroundRect.getSize().x / 2.f);
+		float yPos = mousePos.y - backgroundRect.getSize().y - 10.f;
+		backgroundRect.setPosition(xPos, yPos);
+
+		tooltipText.setPosition(xPos + 10.f, yPos + 5.f);
+
+		mSystem.RenderMgr.Draw(backgroundRect);
+		mSystem.RenderMgr.Draw(tooltipText);
+	}
+}
+
+void RenderManager::DrawToolTipWarning(sf::Vector2f mousePos)
+{
+	if (mSystem.GUIMgr.GetButton(BUTTONS::START_ID).GetSprite().getGlobalBounds().contains(mousePos))
+	{
+		sf::Text tooltipText;
+		tooltipText.setFont(mSystem.AssetMgr.GetFont(FONTS::LIGHT));
+		tooltipText.setString("       WARNING!\nA New Game Erases\n  Your Progress.");
+		tooltipText.setCharacterSize(25);
+		tooltipText.setFillColor(sf::Color::White);
+
+		sf::FloatRect textBounds = tooltipText.getLocalBounds();
+		float textWidth = textBounds.width;
+		float textHeight = textBounds.height;
+
+		sf::RectangleShape backgroundRect;
+		backgroundRect.setSize(sf::Vector2f(textWidth + 20.f, textHeight + 20.f));
+		backgroundRect.setFillColor(sf::Color(0, 0, 0, 160));
+
+		float xPos = mousePos.x - (backgroundRect.getSize().x / 2.f);
+		float yPos = mousePos.y - backgroundRect.getSize().y - 10.f;
+		backgroundRect.setPosition(xPos, yPos);
+
+		tooltipText.setPosition(xPos + 10.f, yPos + 5.f);
+
+		mSystem.RenderMgr.Draw(backgroundRect);
+		mSystem.RenderMgr.Draw(tooltipText);
+	}
 }
 
 void RenderManager::RenderParticles(std::vector<std::unique_ptr<Particle>>& particles)

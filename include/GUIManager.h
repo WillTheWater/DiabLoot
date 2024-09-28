@@ -17,7 +17,7 @@ public:
 	GUIManager(System& system);
 
 	std::unique_ptr<Button>					MakeButton(const BUTTONS::BUTTON_TYPE& type, const BUTTONS::BUTTON_TEXT& text, const sf::Vector2f& position);
-	std::unique_ptr<Button>					MakeInventoryButton(const BUTTONS::BUTTON_TYPE& type, const sf::Vector2f& position);
+	std::unique_ptr<Button>					MakeSquareButton(const BUTTONS::BUTTON_TYPE& type, const sf::Vector2f& position);
 	std::vector<std::unique_ptr<Button>>&	GetButtons();
 	void									ButtonInit();
 	Button&									GetButton(BUTTONS::BUTTON_ID buttonID);
