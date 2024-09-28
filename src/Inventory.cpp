@@ -2,6 +2,8 @@
 
 Inventory::Inventory()
 	:mGold{0}
+	, mClickedDownIndex{-1}
+	, mClickedReleaseIndex{-1}
 {
 	initialzeSlotRects();
 }
@@ -31,10 +33,58 @@ void Inventory::OnKeyRelease(sf::Keyboard::Key key)
 
 void Inventory::OnMouseClick(sf::Mouse::Button button)
 {
+	bool validSlot = false;
+	for (int i{ 0 }; i < mSlotRects.size(); i++)
+	{
+		if (mSlotRects[i].getGlobalBounds().contains(mLastMousePos))
+		{
+			if (!mItemSlots[i].isEmpty())
+			{
+				mClickedDownIndex = i;
+				validSlot = true;
+			}
+		}
+	}
+	if (!validSlot)
+	{
+		mClickedDownIndex = -1;
+	}
 }
 
 void Inventory::OnMouseRelease(sf::Mouse::Button button)
 {
+	if (mClickedDownIndex == -1)
+	{
+		return;
+	}
+	bool validSlot = false;
+	for (int i{ 0 }; i < mSlotRects.size(); i++)
+	{
+		if (mSlotRects[i].getGlobalBounds().contains(mLastMousePos) && (i != mClickedDownIndex))
+		{
+			//if (!mItemSlots[i].isEmpty())
+			{
+				mClickedReleaseIndex = i;
+				validSlot = true;
+			}
+		}
+	}
+	if (!validSlot)
+	{
+		mClickedReleaseIndex = -1;
+		mClickedDownIndex = -1;
+	}
+	else
+	{
+		swapSlots(mClickedReleaseIndex, mClickedDownIndex);
+	}
+}
+
+void Inventory::swapSlots(int a, int b)
+{
+	std::swap(mItemSlots[a], mItemSlots[b]);
+	mClickedDownIndex = -1;
+	mClickedReleaseIndex = -1;
 }
 
 void Inventory::ToggleInventory()
@@ -80,13 +130,17 @@ void Inventory::sortInventory()
 			{
 				return false;
 			}
+			else if (b.isEmpty())
+			{
+				return(a.getItemId().first < b.getItemId().first);
+			}
 			else if (a.getItemId().first == b.getItemId().first)
 			{
-				return(a.getItemId().second < b.getItemId().second);
+				return(a.getItemId().second > b.getItemId().second);
 			}
 			else
 			{
-				return(a.getItemId().first < b.getItemId().first);
+				return(a.getItemId().first > b.getItemId().first);
 			}
 		};
 
@@ -158,7 +212,7 @@ bool Inventory::addItem(Item& item)
 	size_t emptySlot = getFirstOpenIndex();
 	mItemSlots[emptySlot].setContainedItem(item.getItemID(), item.getQuantity());
 
-	sortInventory();
+	//sortInventory();
 
 	return true;
 }
@@ -206,6 +260,93 @@ size_t Inventory::getFirstOpenIndex()
 		}
 	}
 	return index;
+}
+
+int Inventory::getClickedDownIndex()
+{
+	return mClickedDownIndex;
+}
+
+bool Inventory::isItemSlotClicked()
+{
+	return (mClickedDownIndex != -1);
+}
+
+ITEMID::ITEM Inventory::getItemIdOfSlotClicked()
+{
+	return mItemSlots[mClickedDownIndex].getItemId().first;
+}
+
+void Inventory::loadInventory()
+{
+	std::ifstream inData("inventoryData.inv");
+	assert(inData && "InventoryManager::loadInventory failed to open inventoryData.inv file");
+	std::string line;
+	while (std::getline(inData, line))
+	{
+		if (line == "#GOLD")
+		{
+			std::getline(inData, line);
+			std::cout << line << '\n';
+			mGold = std::stoi(line);
+
+		}
+		if (line == "#SLOTS")
+		{
+			int index = 0;
+			while (index < mItemSlots.size())
+			{
+				std::getline(inData, line);
+				std::cout << index << ": " << line << ' ';
+				int id = std::stoi(line);
+				std::getline(inData, line);
+				std::cout << line << ' ';
+				int rarity = std::stoi(line);
+				std::getline(inData, line);
+				std::cout << line << '\n';
+				int quantity = std::stoi(line);
+				mItemSlots[index] = ItemSlot{ id, rarity, quantity };
+				index++;
+			}
+			break;
+		}
+	}
+}
+
+void Inventory::saveInventory()
+{
+	std::ofstream outData;
+	outData.open("inventoryData.inv");
+	assert(outData && "InventoryManager::saveInventory failed to open inventoryData.inv file");
+	int gold = mGold;
+	outData << "#GOLD\n" << gold << '\n';
+	outData << "#SLOTS\n";
+	for (int i{ 0 }; i < mItemSlots.size(); i++)
+	{
+		outData << mItemSlots[i].getItemId().first << '\n' << mItemSlots[i].getItemId().second << '\n' << mItemSlots[i].getQuantity() << '\n';
+	}
+	outData.close();
+}
+
+void Inventory::deleteInventory()
+{
+	for (auto& slot : mItemSlots)
+	{
+		slot = ItemSlot();
+	}
+}
+
+bool Inventory::hasOneOfEverything()
+{
+	int uniqueItems = 0;
+	for (auto& slot : mItemSlots)
+	{
+		if (!slot.isEmpty())
+		{
+			uniqueItems++;
+		}
+	}
+	return uniqueItems == ITEMGEN::TOTAL_UNIQUE_ITEMS;
 }
 
 void Inventory::initialzeSlotRects()

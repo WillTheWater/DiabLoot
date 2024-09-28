@@ -85,8 +85,14 @@ void RenderManager::InventoryRender()
 	auto& slots = mSystem.InventoryMgr.getItemSlots();
 	auto& rects = mSystem.InventoryMgr.getSlotRects();
 
+	int clickedDownIndex = mSystem.InventoryMgr.getClickedDownIndex();
+
 	for (int i{ 0 }; i < slots.size(); i++)
 	{
+		if (i == clickedDownIndex)
+		{
+			continue;
+		}
 		if (slots[i].isEmpty())
 		{
 			continue;
@@ -125,7 +131,7 @@ void RenderManager::InventoryRender()
 		{
 			hoverText.setString(hoverText.getString() + '\n' + "Quantity: " + std::to_string(slots[index].getQuantity()));
 		}
-		hoverText.setOrigin(hoverText.getLocalBounds().getSize().x /2, hoverText.getLocalBounds().getSize().y / 2);
+		hoverText.setOrigin(hoverText.getLocalBounds().getSize().x / 2, hoverText.getLocalBounds().getSize().y / 2);
 		hoverText.setPosition(mSystem.InventoryMgr.getLastMousePos().x, mSystem.InventoryMgr.getLastMousePos().y - 20);
 		hoverText.setColor(mSystem.AssetMgr.GetColorForRarity(slots[index].getItemId().second));
 		// Text box to got under text
@@ -135,6 +141,16 @@ void RenderManager::InventoryRender()
 		textBox.setPosition(hoverText.getPosition());
 		mGameWindow.draw(textBox);
 		mGameWindow.draw(hoverText);
+	}
+	// Render the currently clicked item for swapping
+	if (mSystem.InventoryMgr.isItemSlotClicked())
+	{
+		ITEMID::ITEM clickedItem = mSystem.InventoryMgr.getItemIdOfSlotClicked();
+		sf::Sprite clickedSprite = mSystem.AssetMgr.GetSpriteForItem(clickedItem);
+		clickedSprite.setOrigin(clickedSprite.getLocalBounds().getSize().x / 2.f, clickedSprite.getLocalBounds().getSize().y / 2.f);
+		clickedSprite.setColor({ 255, 255, 255, 150 });
+		clickedSprite.setPosition(mSystem.InventoryMgr.getLastMousePos().x, mSystem.InventoryMgr.getLastMousePos().y);
+		Draw(clickedSprite);
 	}
 }
 

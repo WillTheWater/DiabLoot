@@ -183,7 +183,7 @@ void Level::SpawnItem(Particle& particle)
 	int quantity = 1;
 	if (itemId.first == ITEMID::GOLD)
 	{
-		quantity = MathU::Random(1, 500);
+		quantity = ITEMGEN::getRandomGoldAmount();
 	}
 	mItems.push_back(std::make_unique<Item>(itemId, uniqueId, position, text, callback, quantity));
 	AddAllObservers();		// TESTING
