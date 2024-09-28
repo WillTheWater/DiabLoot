@@ -248,6 +248,7 @@ namespace BUTTONS
 	enum BUTTON_TEXT
 	{
 		START,
+		LOAD_GAME,
 		EXIT,
 		NEXT_LEVEL,
 		OPEN_INVENTORY,
@@ -272,6 +273,7 @@ namespace BUTTONS
 	enum BUTTON_ID
 	{
 		START_ID,
+		LOAD_GAME_ID,
 		EXIT_ID,
 		NEXT_LEVEL_ID,
 		INVENTORY_ID,
