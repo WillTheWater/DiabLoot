@@ -11,7 +11,7 @@ MainMenuState::MainMenuState(System& system, ChangeStateCallback changeStateCB)
 		auto newState = std::make_unique<PlayState>(mSystem, mChangeStateCB, mSystem.LevelMgr.GetNextLevel());
 		mChangeStateCB(std::move(newState));
 		});
-	mSystem.GUIMgr.GetButton(BUTTONS::EXIT_ID).SetClickCB([this]() {SoundManager::GetInstance().MuteAudio();  }); //mSystem.RenderMgr.GetWindow().close();
+	mSystem.GUIMgr.GetButton(BUTTONS::EXIT_ID).SetClickCB([this]() { mSystem.RenderMgr.GetWindow().close(); });
 }
 
 void MainMenuState::Enter()
