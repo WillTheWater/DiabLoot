@@ -46,6 +46,9 @@ void RenderManager::MainMenuRender()
 	Draw(mSystem.GUIMgr.GetButton(BUTTONS::START_ID).GetSprite());
 	Draw(mSystem.GUIMgr.GetButton(BUTTONS::START_ID).GetText());
 
+	Draw(mSystem.GUIMgr.GetButton(BUTTONS::LOAD_GAME_ID).GetSprite());
+	Draw(mSystem.GUIMgr.GetButton(BUTTONS::LOAD_GAME_ID).GetText());
+
 	Draw(mSystem.GUIMgr.GetButton(BUTTONS::EXIT_ID).GetSprite());
 	Draw(mSystem.GUIMgr.GetButton(BUTTONS::EXIT_ID).GetText());
 }
