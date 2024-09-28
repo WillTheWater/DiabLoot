@@ -7,27 +7,26 @@ MainMenuState::MainMenuState(System& system, ChangeStateCallback changeStateCB)
 	:GameState{ system, changeStateCB }
 	, mMouseIsClicked{false}
 {
-	mSystem.GUIMgr.GetButton(BUTTONS::START_ID).SetClickCB([this]() {
-		auto newState = std::make_unique<PlayState>(mSystem, mChangeStateCB, mSystem.LevelMgr.GetNextLevel());
-		mChangeStateCB(std::move(newState));
-		});
+	mSystem.GUIMgr.GetButton(BUTTONS::START_ID).SetClickCB([this]() { auto newState = std::make_unique<PlayState>(mSystem, mChangeStateCB, mSystem.LevelMgr.GetNextLevel()); mChangeStateCB(std::move(newState));});
 	mSystem.GUIMgr.GetButton(BUTTONS::EXIT_ID).SetClickCB([this]() { mSystem.RenderMgr.GetWindow().close(); });
 	mSystem.GUIMgr.GetButton(BUTTONS::LOAD_GAME_ID).SetClickCB([this]() { mSystem.InventoryMgr.loadInventory();  
 	auto newState = std::make_unique<PlayState>(mSystem, mChangeStateCB, mSystem.LevelMgr.GetNextLevel());
 	mChangeStateCB(std::move(newState)); });
+	mSystem.GUIMgr.GetButton(BUTTONS::MUTE_BUTTON_ID).SetClickCB([this]() { SoundManager::GetInstance().MuteToggle(); });
 }
 
 void MainMenuState::Enter()
 {
 	mSystem.InputMgr.AddObserver(this);
-	SoundManager::GetInstance().PlayMusic(MUSIC::INTRO);
-	SoundManager::GetInstance().StopMusic(MUSIC::TRISTRAM); 
+	SoundManager::GetInstance().PlayMusic(MUSIC::INTRO, 10.f);
+
 }
 
 void MainMenuState::Exit()
 {
 	mSystem.InputMgr.RemoveObserver(this);
 	SoundManager::GetInstance().StopMusic(MUSIC::INTRO);
+	SoundManager::GetInstance().StartMusicSequence();
 }
 
 void MainMenuState::Update()
@@ -38,6 +37,7 @@ void MainMenuState::Update()
 void MainMenuState::Draw()
 {
 	mSystem.RenderMgr.MainMenuRender();
+	mSystem.RenderMgr.DrawToolTipWarning(mMousePosition);
 }
 
 void MainMenuState::OnMouseMove(int x, int y)
@@ -53,10 +53,12 @@ void MainMenuState::OnKeyPress(sf::Keyboard::Key key)
 		auto newState = std::make_unique<PlayState>(mSystem, mChangeStateCB, mSystem.LevelMgr.GetNextLevel());
 		mChangeStateCB(std::move(newState));
 	}
+	
 }
 
 void MainMenuState::OnKeyRelease(sf::Keyboard::Key key)
 {
+	if (key == sf::Keyboard::M) { SoundManager::GetInstance().MuteToggle(); }
 }
 
 void MainMenuState::OnMouseClick(sf::Mouse::Button button)

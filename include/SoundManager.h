@@ -1,6 +1,12 @@
 #pragma once
 #include "AssetManager.h"
-#include "Assets.h"
+#include <queue>
+#include <random> 
+#include <memory>
+#include <vector> 
+#include <utility> 
+#include <cassert> 
+#include <iostream>
 
 class SoundManager
 {
@@ -12,7 +18,10 @@ public:
 	void PlayMusic(MUSIC::PLAYMUSIC music, float volume = 100.f, bool loop = true);
 	void StopMusic(MUSIC::PLAYMUSIC music);
 
-	void MuteAudio();
+	void AudioControl();
+	void MuteToggle();
+	void FillMusicQueue();
+	void StartMusicSequence();
 
 private:
 	SoundManager() = default;
@@ -24,4 +33,6 @@ private:
 	std::vector<std::pair<sf::Sound*, float>> mActiveSounds;
 	std::vector<std::pair<sf::Music*, float>> mActiveMusic;
 	bool mIsMuted = false;
+	std::queue<MUSIC::PLAYMUSIC> mMusicQueue;
+	float mDefaultVolume = 10.f;
 };

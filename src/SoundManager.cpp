@@ -8,25 +8,44 @@ SoundManager& SoundManager::GetInstance()
 
 void SoundManager::PlaySound(PLAYSOUND::PLAYSOUND sound, float volume, float pitch)
 {
-	auto& soundToPlay = mAssetMgr->GetSound(sound);
-	mActiveSounds.push_back(std::make_pair(&soundToPlay, volume));
-	soundToPlay.setVolume(volume);
-	soundToPlay.setPitch(pitch);
-	soundToPlay.play();
+    float finalVolume = mIsMuted ? 0 : volume;
+    auto& soundToPlay = mAssetMgr->GetSound(sound);
+
+    if (std::find_if(mActiveSounds.begin(), mActiveSounds.end(),
+        [&soundToPlay](const std::pair<sf::Sound*, float>& activeSound) { return activeSound.first == &soundToPlay; }) == mActiveSounds.end())
+    {
+        mActiveSounds.push_back(std::make_pair(&soundToPlay, volume));
+    }
+
+    soundToPlay.setVolume(finalVolume);
+    soundToPlay.setPitch(pitch);
+    soundToPlay.play();
 }
 
 void SoundManager::PlayMusic(MUSIC::PLAYMUSIC music, float volume, bool loop)
 {
-	
-	auto& musicToPlay = mAssetMgr->GetMusic(music);
-	mActiveMusic.push_back(std::make_pair(&musicToPlay, volume));
-	musicToPlay.setVolume(volume);
-	musicToPlay.setLoop(loop);
-	if (music != mCurrentlyPlaying)
-	{
-		musicToPlay.play();
-	}
-	mCurrentlyPlaying = music;
+    if (music == mCurrentlyPlaying && mAssetMgr->GetMusic(mCurrentlyPlaying).getStatus() == sf::SoundSource::Playing)
+        return;
+
+    auto& musicToPlay = mAssetMgr->GetMusic(music);
+    float finalVolume = mIsMuted ? 0 : volume;
+
+    if (mCurrentlyPlaying != MUSIC::MAX_MUSIC_FILES)
+    {
+        mAssetMgr->GetMusic(mCurrentlyPlaying).stop();
+    }
+
+    if (std::find_if(mActiveMusic.begin(), mActiveMusic.end(),
+        [&musicToPlay](const std::pair<sf::Music*, float>& activeMusic) { return activeMusic.first == &musicToPlay; }) == mActiveMusic.end())
+    {
+        mActiveMusic.push_back(std::make_pair(&musicToPlay, volume));
+    }
+
+    musicToPlay.setVolume(finalVolume);
+    musicToPlay.setLoop(loop);
+    musicToPlay.play();
+
+    mCurrentlyPlaying = music;
 }
 
 void SoundManager::StopMusic(MUSIC::PLAYMUSIC music)
@@ -36,10 +55,8 @@ void SoundManager::StopMusic(MUSIC::PLAYMUSIC music)
 	mCurrentlyPlaying = MUSIC::MAX_MUSIC_FILES;
 }
 
-void SoundManager::MuteAudio()
+void SoundManager::AudioControl()
 {
-    mIsMuted = !mIsMuted;
-
     if (mIsMuted)
     {
         for (auto& soundPair : mActiveSounds)
@@ -61,5 +78,34 @@ void SoundManager::MuteAudio()
         {
             musicPair.first->setVolume(musicPair.second);
         }
+    }
+}
+
+void SoundManager::MuteToggle()
+{
+    mIsMuted = !mIsMuted;
+}
+
+void SoundManager::FillMusicQueue()
+{
+    std::queue<MUSIC::PLAYMUSIC> empty;
+    std::swap(mMusicQueue, empty);
+
+    std::vector<MUSIC::PLAYMUSIC> songs = { MUSIC::TRISTRAM, MUSIC::CRYPT, MUSIC::DIABLO, MUSIC::KURAST };
+    
+    std::shuffle(songs.begin(), songs.end(), std::default_random_engine(static_cast<unsigned>(std::time(nullptr))));
+
+    for (const auto& song : songs) {
+        mMusicQueue.push(song);
+    }
+}
+
+void SoundManager::StartMusicSequence()
+{
+    FillMusicQueue();
+
+    if (!mMusicQueue.empty()) {
+        mCurrentlyPlaying = mMusicQueue.front();
+        PlayMusic(mCurrentlyPlaying, mDefaultVolume, true);
     }
 }

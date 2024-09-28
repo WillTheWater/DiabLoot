@@ -11,16 +11,16 @@ PlayState::PlayState(System& system, ChangeStateCallback changeStateCB, Level& l
 
 {
 	mSystem.GUIMgr.GetButton(BUTTONS::NEXT_LEVEL_ID).SetClickCB([this]() {auto newState = std::make_unique<PlayState>(mSystem, mChangeStateCB, mSystem.LevelMgr.GetNextLevel()); mChangeStateCB(std::move(newState)); });
-	mSystem.GUIMgr.GetButton(BUTTONS::EXIT_PLAY_ID).SetClickCB([this]() {auto newState = std::make_unique<MainMenuState>(mSystem, mChangeStateCB); mChangeStateCB(std::move(newState)); });
+	mSystem.GUIMgr.GetButton(BUTTONS::EXIT_PLAY_ID).SetClickCB([this]() {mSystem.LevelMgr.SaveLevels(); mSystem.InventoryMgr.saveInventory(); auto newState = std::make_unique<MainMenuState>(mSystem, mChangeStateCB); mChangeStateCB(std::move(newState)); });
 	mSystem.GUIMgr.GetButton(BUTTONS::INVENTORY_ID).SetClickCB([this]() {if (mSystem.InventoryMgr.isOpen()) {mSystem.InventoryMgr.ToggleInventory();} });
-	mSystem.GUIMgr.GetButton(BUTTONS::OPEN_INVENTORY_ID).SetClickCB([this]() {{mSystem.InventoryMgr.ToggleInventory();} });
+	mSystem.GUIMgr.GetButton(BUTTONS::OPEN_INVENTORY_ID).SetClickCB([this]() {mSystem.InventoryMgr.ToggleInventory();});
+	mSystem.GUIMgr.GetButton(BUTTONS::SORT_BUTTON_ID).SetClickCB([this]() { mSystem.InventoryMgr.sortInventory(); });
 }
 
 void PlayState::Enter()
 {
 	mSystem.InputMgr.AddObserver(this);
 	mLevel.EnterLevel();
-	
 }
 
 void PlayState::Exit()
@@ -39,6 +39,7 @@ void PlayState::Draw()
 {
 	mSystem.RenderMgr.RenderLevel(mLevel);
 	mSystem.RenderMgr.PlayStateRender();
+	mSystem.RenderMgr.DrawToolTip(mMousePosition);
 }
 
 void PlayState::OnMouseMove(int x, int y)
@@ -95,6 +96,7 @@ void PlayState::OnKeyRelease(sf::Keyboard::Key key)
 	{
 		mLevel.UpgradeLevel();
 	}
+	if (key == sf::Keyboard::M) { SoundManager::GetInstance().MuteToggle(); }
 }
 
 void PlayState::OnMouseClick(sf::Mouse::Button button)

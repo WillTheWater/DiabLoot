@@ -25,6 +25,7 @@ public:
 	sf::Color										GetTextboxColor();
 	sf::Sprite&										GetSpriteForButton(BUTTONS::BUTTON_TYPE button);
 	sf::Sprite&										GetSpriteForGoldQuantity(int quantity);
+	sf::Font& GetFont(FONTS::FONT font);
 
 private:
 	void											InitializeTextureSprites();

@@ -31,7 +31,10 @@ void AssetManager::InitializeTextureSprites()
     mTextures[TEXTURES::MAINMENU]->loadFromFile("assets/graphics/mainmenu.png");
     // TEXTURES
     mTextures[TEXTURES::WIDE_BUTTON]->loadFromFile("assets/graphics/button.png");
-    mTextures[TEXTURES::SQUARE_BUTTON]->loadFromFile("assets/graphics/inventorybutton.png");
+    mTextures[TEXTURES::INVENTORY_BUTTON]->loadFromFile("assets/graphics/inventorybutton.png");
+    mTextures[TEXTURES::MUTE_BUTTON]->loadFromFile("assets/graphics/mutebutton.png");
+    mTextures[TEXTURES::UPGRADE_BUTTON]->loadFromFile("assets/graphics/upgradebutton.png");
+    mTextures[TEXTURES::SORT_BUTTON]->loadFromFile("assets/graphics/sortbutton.png");
     mTextures[TEXTURES::CHESTCLOSED]->loadFromFile("assets/graphics/chestclosed.png");
     mTextures[TEXTURES::CHESTOPENED]->loadFromFile("assets/graphics/chestopened.png");
     // MAPS
@@ -132,7 +135,10 @@ void AssetManager::InitializeTextureSprites()
     mSprites[SPRITES::MAP_TEN]->setTexture(GetTexture(TEXTURES::MAP_TEN));
     // BUTTONS
     mSprites[SPRITES::WIDE_BUTTON]->setTexture(GetTexture(TEXTURES::WIDE_BUTTON));
-    mSprites[SPRITES::SQUARE_BUTTON]->setTexture(GetTexture(TEXTURES::SQUARE_BUTTON));
+    mSprites[SPRITES::INVENTORY_BUTTON]->setTexture(GetTexture(TEXTURES::INVENTORY_BUTTON));
+    mSprites[SPRITES::MUTE_BUTTON]->setTexture(GetTexture(TEXTURES::MUTE_BUTTON));
+    mSprites[SPRITES::UPGRADE_BUTTON]->setTexture(GetTexture(TEXTURES::UPGRADE_BUTTON));
+    mSprites[SPRITES::SORT_BUTTON]->setTexture(GetTexture(TEXTURES::SORT_BUTTON));
     // INVENTORY
     mSprites[SPRITES::INVENTORY]->setTexture(GetTexture(TEXTURES::INVENTORY));
     // PARTICLE
@@ -234,7 +240,7 @@ void AssetManager::InitializeFontsAndTexts()
     mFonts[FONTS::BOLD]->loadFromFile("assets/font/bolddiablo.ttf");
 
     mButtonTexts[BUTTONS::START]->setString("New Game");
-    mButtonTexts[BUTTONS::LOAD_GAME]->setString("Continue Game");
+    mButtonTexts[BUTTONS::LOAD_GAME]->setString("Continue");
     mButtonTexts[BUTTONS::EXIT]->setString("Exit Game");
     mButtonTexts[BUTTONS::NEXT_LEVEL]->setString("Next Level");
     mButtonTexts[BUTTONS::OPEN_INVENTORY]->setString("Inventory");
@@ -336,13 +342,34 @@ void AssetManager::InitializeSounds()
     // Load Soundbuffers
     mSoundBuffers[SOUNDBUFFERS::BUTTON_DOWN_SB]->loadFromFile("assets/audio/SFX/buttondown.wav");
     mSoundBuffers[SOUNDBUFFERS::CHEST_OPEN_SB]->loadFromFile("assets/audio/SFX/chestopen.wav");
+    mSoundBuffers[SOUNDBUFFERS::ITEM_PICKUP_SB]->loadFromFile("assets/audio/SFX/itempickup.wav");
+    mSoundBuffers[SOUNDBUFFERS::ITEM_FLIP_SB]->loadFromFile("assets/audio/SFX/inventoryfull.wav");
+    mSoundBuffers[SOUNDBUFFERS::AMULET_DROP_SB]->loadFromFile("assets/audio/SFX/amuletdrop.wav");
+    mSoundBuffers[SOUNDBUFFERS::CHARM_DROP_SB]->loadFromFile("assets/audio/SFX/charmdrop.wav");
+    mSoundBuffers[SOUNDBUFFERS::GEM_DROP_SB]->loadFromFile("assets/audio/SFX/gemdrop.wav");
+    mSoundBuffers[SOUNDBUFFERS::SKULL_DROP_SB]->loadFromFile("assets/audio/SFX/skulldrop.wav");
+    mSoundBuffers[SOUNDBUFFERS::GOLD_DROP_SB]->loadFromFile("assets/audio/SFX/golddrop.wav");
+    mSoundBuffers[SOUNDBUFFERS::JEWEL_DROP_SB]->loadFromFile("assets/audio/SFX/jeweldrop.wav");
+    mSoundBuffers[SOUNDBUFFERS::KEY_DROP_SB]->loadFromFile("assets/audio/SFX/keydrop.wav");
+    mSoundBuffers[SOUNDBUFFERS::RING_DROP_SB]->loadFromFile("assets/audio/SFX/ringdrop.wav");
+    mSoundBuffers[SOUNDBUFFERS::RUNE_DROP_SB]->loadFromFile("assets/audio/SFX/runedrop.wav");
+    mSoundBuffers[SOUNDBUFFERS::SCROLL_DROP_SB]->loadFromFile("assets/audio/SFX/scrolldrop.wav");
 
     // Set Sound
     mSounds[PLAYSOUND::BUTTON_DOWN]->setBuffer(GetSoundBuffer(SOUNDBUFFERS::BUTTON_DOWN_SB));
     mSounds[PLAYSOUND::OPEN_CHEST]->setBuffer(GetSoundBuffer(SOUNDBUFFERS::CHEST_OPEN_SB));
-
-    // Volume Setter
-    mSounds[PLAYSOUND::OPEN_CHEST]->setVolume(100.f); // <--- Example
+    mSounds[PLAYSOUND::ITEM_PICKUP]->setBuffer(GetSoundBuffer(SOUNDBUFFERS::ITEM_PICKUP_SB));
+    mSounds[PLAYSOUND::ITEM_FLIP]->setBuffer(GetSoundBuffer(SOUNDBUFFERS::ITEM_FLIP_SB));
+    mSounds[PLAYSOUND::AMULET_DROP]->setBuffer(GetSoundBuffer(SOUNDBUFFERS::AMULET_DROP_SB));
+    mSounds[PLAYSOUND::CHARM_DROP]->setBuffer(GetSoundBuffer(SOUNDBUFFERS::CHARM_DROP_SB));
+    mSounds[PLAYSOUND::GEM_DROP]->setBuffer(GetSoundBuffer(SOUNDBUFFERS::GEM_DROP_SB));
+    mSounds[PLAYSOUND::SKULL_DROP]->setBuffer(GetSoundBuffer(SOUNDBUFFERS::SKULL_DROP_SB));
+    mSounds[PLAYSOUND::GOLD_DROP]->setBuffer(GetSoundBuffer(SOUNDBUFFERS::GOLD_DROP_SB));
+    mSounds[PLAYSOUND::JEWEL_DROP]->setBuffer(GetSoundBuffer(SOUNDBUFFERS::JEWEL_DROP_SB));
+    mSounds[PLAYSOUND::KEY_DROP]->setBuffer(GetSoundBuffer(SOUNDBUFFERS::KEY_DROP_SB));
+    mSounds[PLAYSOUND::RING_DROP]->setBuffer(GetSoundBuffer(SOUNDBUFFERS::RING_DROP_SB));
+    mSounds[PLAYSOUND::RUNE_DROP]->setBuffer(GetSoundBuffer(SOUNDBUFFERS::RUNE_DROP_SB));
+    mSounds[PLAYSOUND::SCROLL_DROP]->setBuffer(GetSoundBuffer(SOUNDBUFFERS::SCROLL_DROP_SB));
 
 }
 
@@ -356,6 +383,9 @@ void AssetManager::InitializeMusic()
 
     mMusic[MUSIC::INTRO]->openFromFile("assets/audio/music/intro.wav");
     mMusic[MUSIC::TRISTRAM]->openFromFile("assets/audio/music/Tristram.wav");
+    mMusic[MUSIC::CRYPT]->openFromFile("assets/audio/music/Crypt.wav");
+    mMusic[MUSIC::DIABLO]->openFromFile("assets/audio/music/Diablo.wav");
+    mMusic[MUSIC::KURAST]->openFromFile("assets/audio/music/Kurast.wav");
 }
 
 void AssetManager::InitializeImages()
@@ -530,7 +560,10 @@ sf::Sprite& AssetManager::GetSpriteForButton(BUTTONS::BUTTON_TYPE button)
     switch (button)
     {
     case BUTTONS::WIDE: return *mSprites[SPRITES::WIDE_BUTTON];
-    default: return *mSprites[SPRITES::SQUARE_BUTTON];
+    case BUTTONS::MUTE: return *mSprites[SPRITES::MUTE_BUTTON];
+    case BUTTONS::UPGRADE: return *mSprites[SPRITES::UPGRADE_BUTTON];
+    case BUTTONS::SORT: return *mSprites[SPRITES::SORT_BUTTON];
+    default: return *mSprites[SPRITES::INVENTORY_BUTTON];
     }
 }
 
@@ -548,4 +581,9 @@ sf::Sprite& AssetManager::GetSpriteForGoldQuantity(int quantity)
     {
         return *mSprites[SPRITES::GOLD_LARGE];
     }
+}
+
+sf::Font& AssetManager::GetFont(FONTS::FONT font)
+{
+    return *mFonts[font];
 }

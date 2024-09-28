@@ -21,6 +21,7 @@ void Game::Run()
     while (mRenderMgr.GetWindow().isOpen())
     {
         mTimeMgr.Tick();
+        SoundManager::GetInstance().AudioControl();
         sf::Event event;
         while (mRenderMgr.GetWindow().pollEvent(event))
         {
