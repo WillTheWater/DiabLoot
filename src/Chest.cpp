@@ -51,6 +51,7 @@ void Chest::OnMouseRelease(sf::Mouse::Button button)
 
 void Chest::ResetChest()
 {
+	mMouseOver = false;
 	mOpened = false;
 }
 
@@ -85,6 +86,7 @@ void Chest::setActive(bool active)
 
 bool Chest::isActive()
 {
+	mMouseOver = false;
 	return mActive;
 }
 

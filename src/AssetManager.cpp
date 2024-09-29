@@ -284,9 +284,9 @@ void AssetManager::InitializeFontsAndTexts()
     mItemTexts[ITEMID::KEY]->setString("Key");
     mItemTexts[ITEMID::AMULET2]->setString("Water Amulet");
     mItemTexts[ITEMID::AMULET3]->setString("Fire Amulet");
-    mItemTexts[ITEMID::CHARM1]->setString("Small Charm");
-    mItemTexts[ITEMID::CHARM2]->setString("Large Charm");
-    mItemTexts[ITEMID::CHARM3]->setString("Grand Charm");
+    mItemTexts[ITEMID::CHARM1]->setString("Small Charm of Dexterity");
+    mItemTexts[ITEMID::CHARM2]->setString("Small Charm of Luck");
+    mItemTexts[ITEMID::CHARM3]->setString("Small Charm of Strength");
 
     mItemTexts[ITEMID::REJUV_POTION]->setString("Rejuvenation Potion");
     mItemTexts[ITEMID::FULL_REJUV_POTION]->setString("Full Rejuvenation Potion");
@@ -324,7 +324,7 @@ void AssetManager::InitializeFontsAndTexts()
     mItemTexts[ITEMID::TPSCROLL]->setString("Scroll of Town Portal");
     mItemTexts[ITEMID::IDSCROLL]->setString("Scroll of Identification");
     mItemTexts[ITEMID::ANNIHILUS]->setString("Annihilus");
-    mItemTexts[ITEMID::WORLDSTONE_SHARD]->setString("World Stone Shard");
+    mItemTexts[ITEMID::WORLDSTONE_SHARD]->setString("Worldstone Shard");
     mItemTexts[ITEMID::ELRUNE]->setString("El Rune");
     mItemTexts[ITEMID::ELDRUNE]->setString("Eld Rune");
     mItemTexts[ITEMID::TIRRUNE]->setString("Tir Rune");
@@ -342,7 +342,7 @@ void AssetManager::InitializeFontsAndTexts()
     mItemTexts[ITEMID::HELRUNE]->setString("Hel Rune");
     mItemTexts[ITEMID::IORUNE]->setString("Io Rune");
     mItemTexts[ITEMID::LUMRUNE]->setString("Lum Rune");
-    mItemTexts[ITEMID::KORUNE]->setString("Kor Rune");
+    mItemTexts[ITEMID::KORUNE]->setString("Ko Rune");
     mItemTexts[ITEMID::FALRUNE]->setString("Fal Rune");
     mItemTexts[ITEMID::LEMRUNE]->setString("Lem Rune");
     mItemTexts[ITEMID::PULRUNE]->setString("Pul Rune");
