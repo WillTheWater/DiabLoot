@@ -49,6 +49,12 @@ void Button::OnClick()
 	SoundManager::GetInstance().PlaySound(PLAYSOUND::BUTTON_DOWN);
 }
 
+void Button::SetScale(float scale)
+{
+	mButtonSprite.setScale(scale, scale);
+	mButtonText.setScale(scale, scale);
+}
+
 void Button::CenterOrigin()
 {
 	sf::FloatRect spriteBounds = mButtonSprite.getLocalBounds();
