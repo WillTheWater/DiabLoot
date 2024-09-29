@@ -53,6 +53,7 @@ void AssetManager::InitializeTextureSprites()
     // PARTICLE
     mTextures[TEXTURES::PARTICLE]->loadFromFile("assets/graphics/particle.png");
     // ITEMS
+    mTextures[TEXTURES::KEY]->loadFromFile("assets/graphics/items/key.png");
     mTextures[TEXTURES::AMULET1]->loadFromFile("assets/graphics/items/amulet1.png");
     mTextures[TEXTURES::AMULET2]->loadFromFile("assets/graphics/items/amulet2.png");
     mTextures[TEXTURES::AMULET3]->loadFromFile("assets/graphics/items/amulet3.png");
@@ -70,17 +71,32 @@ void AssetManager::InitializeTextureSprites()
     mTextures[TEXTURES::RANCIDGAS_POTION]->loadFromFile("assets/graphics/items/rancidgaspotion.png");
 
     mTextures[TEXTURES::AMETHYST_P]->loadFromFile("assets/graphics/items/perfectamethyst.png");
+    mTextures[TEXTURES::AMETHYST_F]->loadFromFile("assets/graphics/items/flawlessamethyst.png");
     mTextures[TEXTURES::DIAMOND_P]->loadFromFile("assets/graphics/items/perfectdiamond.png");
+    mTextures[TEXTURES::DIAMOND_F]->loadFromFile("assets/graphics/items/flawlessdiamond.png");
     mTextures[TEXTURES::EMERALD_P]->loadFromFile("assets/graphics/items/perfectemerald.png");
+    mTextures[TEXTURES::EMERALD_F]->loadFromFile("assets/graphics/items/flawlessemerald.png");
     mTextures[TEXTURES::RUBY_P]->loadFromFile("assets/graphics/items/perfectruby.png");
+    mTextures[TEXTURES::RUBY_F]->loadFromFile("assets/graphics/items/flawlessruby.png");
     mTextures[TEXTURES::SAPPHIRE_P]->loadFromFile("assets/graphics/items/perfectsapphire.png");
+    mTextures[TEXTURES::SAPPHIRE_F]->loadFromFile("assets/graphics/items/flawlesssapphire.png");
     mTextures[TEXTURES::TOPAZ_P]->loadFromFile("assets/graphics/items/perfecttopaz.png");
+    mTextures[TEXTURES::TOPAZ_F]->loadFromFile("assets/graphics/items/flawlesstopaz.png");
     mTextures[TEXTURES::SKULL_P]->loadFromFile("assets/graphics/items/perfectskull.png");
+    mTextures[TEXTURES::SKULL_F]->loadFromFile("assets/graphics/items/flawlessskull.png");
+    mTextures[TEXTURES::JEWEL_1]->loadFromFile("assets/graphics/items/jewel1.png");
+    mTextures[TEXTURES::JEWEL_2]->loadFromFile("assets/graphics/items/jewel2.png");
+    mTextures[TEXTURES::JEWEL_3]->loadFromFile("assets/graphics/items/jewel3.png");
+    mTextures[TEXTURES::JEWEL_4]->loadFromFile("assets/graphics/items/jewel4.png");
+    mTextures[TEXTURES::JEWEL_5]->loadFromFile("assets/graphics/items/jewel5.png");
+    mTextures[TEXTURES::JEWEL_6]->loadFromFile("assets/graphics/items/jewel6.png");
     mTextures[TEXTURES::RING1]->loadFromFile("assets/graphics/items/ring1.png");
     mTextures[TEXTURES::RING2]->loadFromFile("assets/graphics/items/ring2.png");
     mTextures[TEXTURES::RING3]->loadFromFile("assets/graphics/items/ring3.png");
     mTextures[TEXTURES::TPSCROLL]->loadFromFile("assets/graphics/items/scrolloftownportal.png");
     mTextures[TEXTURES::IDSCROLL]->loadFromFile("assets/graphics/items/scrollofidentify.png");
+    mTextures[TEXTURES::ANNIHILUS]->loadFromFile("assets/graphics/items/annihilus.png");
+    mTextures[TEXTURES::WORLDSTONE_SHARD]->loadFromFile("assets/graphics/items/worldstoneshard.png");
     mTextures[TEXTURES::ELRUNE]->loadFromFile("assets/graphics/runes/Elrune1.png");
     mTextures[TEXTURES::ELDRUNE]->loadFromFile("assets/graphics/runes/Eldrune2.png");
     mTextures[TEXTURES::TIRRUNE]->loadFromFile("assets/graphics/runes/Tirrune3.png");
@@ -147,6 +163,7 @@ void AssetManager::InitializeTextureSprites()
     mSprites[SPRITES::CHESTCLOSED]->setTexture(GetTexture(TEXTURES::CHESTCLOSED));
     mSprites[SPRITES::CHESTOPENED]->setTexture(GetTexture(TEXTURES::CHESTOPENED));
     // ITEMS
+    mSprites[SPRITES::KEY]->setTexture(GetTexture(TEXTURES::KEY));
     mSprites[SPRITES::AMULET1]->setTexture(GetTexture(TEXTURES::AMULET1));
     mSprites[SPRITES::AMULET2]->setTexture(GetTexture(TEXTURES::AMULET2));
     mSprites[SPRITES::AMULET3]->setTexture(GetTexture(TEXTURES::AMULET3));
@@ -163,17 +180,32 @@ void AssetManager::InitializeTextureSprites()
     mSprites[SPRITES::THAWING_POTION]->setTexture(GetTexture(TEXTURES::THAWING_POTION));
     mSprites[SPRITES::RANCIDGAS_POTION]->setTexture(GetTexture(TEXTURES::RANCIDGAS_POTION));
     mSprites[SPRITES::AMETHYST_P]->setTexture(GetTexture(TEXTURES::AMETHYST_P));
+    mSprites[SPRITES::AMETHYST_F]->setTexture(GetTexture(TEXTURES::AMETHYST_F));
     mSprites[SPRITES::DIAMOND_P]->setTexture(GetTexture(TEXTURES::DIAMOND_P));
+    mSprites[SPRITES::DIAMOND_F]->setTexture(GetTexture(TEXTURES::DIAMOND_F));
     mSprites[SPRITES::EMERALD_P]->setTexture(GetTexture(TEXTURES::EMERALD_P));
+    mSprites[SPRITES::EMERALD_F]->setTexture(GetTexture(TEXTURES::EMERALD_F));
     mSprites[SPRITES::RUBY_P]->setTexture(GetTexture(TEXTURES::RUBY_P));
+    mSprites[SPRITES::RUBY_F]->setTexture(GetTexture(TEXTURES::RUBY_F));
     mSprites[SPRITES::SAPPHIRE_P]->setTexture(GetTexture(TEXTURES::SAPPHIRE_P));
+    mSprites[SPRITES::SAPPHIRE_F]->setTexture(GetTexture(TEXTURES::SAPPHIRE_F));
     mSprites[SPRITES::TOPAZ_P]->setTexture(GetTexture(TEXTURES::TOPAZ_P));
+    mSprites[SPRITES::TOPAZ_F]->setTexture(GetTexture(TEXTURES::TOPAZ_F));
     mSprites[SPRITES::SKULL_P]->setTexture(GetTexture(TEXTURES::SKULL_P));
+    mSprites[SPRITES::SKULL_F]->setTexture(GetTexture(TEXTURES::SKULL_F));
+    mSprites[SPRITES::JEWEL_1]->setTexture(GetTexture(TEXTURES::JEWEL_1));
+    mSprites[SPRITES::JEWEL_2]->setTexture(GetTexture(TEXTURES::JEWEL_2));
+    mSprites[SPRITES::JEWEL_3]->setTexture(GetTexture(TEXTURES::JEWEL_3));
+    mSprites[SPRITES::JEWEL_4]->setTexture(GetTexture(TEXTURES::JEWEL_4));
+    mSprites[SPRITES::JEWEL_5]->setTexture(GetTexture(TEXTURES::JEWEL_5));
+    mSprites[SPRITES::JEWEL_6]->setTexture(GetTexture(TEXTURES::JEWEL_6));
     mSprites[SPRITES::RING1]->setTexture(GetTexture(TEXTURES::RING1));
     mSprites[SPRITES::RING2]->setTexture(GetTexture(TEXTURES::RING2));
     mSprites[SPRITES::RING3]->setTexture(GetTexture(TEXTURES::RING3));
     mSprites[SPRITES::TPSCROLL]->setTexture(GetTexture(TEXTURES::TPSCROLL));
     mSprites[SPRITES::IDSCROLL]->setTexture(GetTexture(TEXTURES::IDSCROLL));
+    mSprites[SPRITES::ANNIHILUS]->setTexture(GetTexture(TEXTURES::ANNIHILUS));
+    mSprites[SPRITES::WORLDSTONE_SHARD]->setTexture(GetTexture(TEXTURES::WORLDSTONE_SHARD));
     // RUNES
     mSprites[SPRITES::ELRUNE]->setTexture(GetTexture(TEXTURES::ELRUNE));
     mSprites[SPRITES::ELDRUNE]->setTexture(GetTexture(TEXTURES::ELDRUNE));
@@ -249,6 +281,7 @@ void AssetManager::InitializeFontsAndTexts()
     // Set Up Texts
     mItemTexts[ITEMID::GOLD]->setString("Gold");
     mItemTexts[ITEMID::AMULET1]->setString("Amulet");
+    mItemTexts[ITEMID::KEY]->setString("Key");
     mItemTexts[ITEMID::AMULET2]->setString("Water Amulet");
     mItemTexts[ITEMID::AMULET3]->setString("Fire Amulet");
     mItemTexts[ITEMID::CHARM1]->setString("Small Charm");
@@ -266,17 +299,32 @@ void AssetManager::InitializeFontsAndTexts()
     mItemTexts[ITEMID::RANCIDGAS_POTION]->setString("Rancid Gas Potion");
 
     mItemTexts[ITEMID::AMETHYST_P]->setString("Perfect Amethyst");
+    mItemTexts[ITEMID::AMETHYST_F]->setString("Flawless Amethyst");
     mItemTexts[ITEMID::DIAMOND_P]->setString("Perfect Diamond");
+    mItemTexts[ITEMID::DIAMOND_F]->setString("Flawless Diamond");
     mItemTexts[ITEMID::EMERALD_P]->setString("Perfect Emerald");
+    mItemTexts[ITEMID::EMERALD_F]->setString("Flawless Emerald");
     mItemTexts[ITEMID::RUBY_P]->setString("Perfect Ruby");
+    mItemTexts[ITEMID::RUBY_F]->setString("Flawless Ruby");
     mItemTexts[ITEMID::SAPPHIRE_P]->setString("Perfect Sapphire");
+    mItemTexts[ITEMID::SAPPHIRE_F]->setString("Flawless Sapphire");
     mItemTexts[ITEMID::TOPAZ_P]->setString("Perfect Topaz");
+    mItemTexts[ITEMID::TOPAZ_F]->setString("Flawless Topaz");
     mItemTexts[ITEMID::SKULL_P]->setString("Perfect Skull");
+    mItemTexts[ITEMID::SKULL_F]->setString("Flawless Skull");
+    mItemTexts[ITEMID::JEWEL_1]->setString("Diamond Jewel");
+    mItemTexts[ITEMID::JEWEL_2]->setString("Ruby Jewel");
+    mItemTexts[ITEMID::JEWEL_3]->setString("Emerald Jewel");
+    mItemTexts[ITEMID::JEWEL_4]->setString("Opal Jewel");
+    mItemTexts[ITEMID::JEWEL_5]->setString("Sapphire Jewel");
+    mItemTexts[ITEMID::JEWEL_6]->setString("Amethyst Jewel");
     mItemTexts[ITEMID::RING1]->setString("Ring");
     mItemTexts[ITEMID::RING2]->setString("Ring of Water");
     mItemTexts[ITEMID::RING3]->setString("Ring of Chloranthy");
     mItemTexts[ITEMID::TPSCROLL]->setString("Scroll of Town Portal");
     mItemTexts[ITEMID::IDSCROLL]->setString("Scroll of Identification");
+    mItemTexts[ITEMID::ANNIHILUS]->setString("Annihilus");
+    mItemTexts[ITEMID::WORLDSTONE_SHARD]->setString("World Stone Shard");
     mItemTexts[ITEMID::ELRUNE]->setString("El Rune");
     mItemTexts[ITEMID::ELDRUNE]->setString("Eld Rune");
     mItemTexts[ITEMID::TIRRUNE]->setString("Tir Rune");
@@ -473,6 +521,7 @@ sf::Sprite& AssetManager::GetSpriteForItem(ITEMID::ITEM item)
     {
     case ITEMID::GOLD: return *mSprites[SPRITES::GOLD_LARGE];
     case ITEMID::AMULET1: return *mSprites[SPRITES::AMULET1];
+    case ITEMID::KEY: return *mSprites[SPRITES::KEY];
     case ITEMID::AMULET2: return *mSprites[SPRITES::AMULET2];
     case ITEMID::AMULET3: return *mSprites[SPRITES::AMULET3];
     case ITEMID::CHARM1: return *mSprites[SPRITES::CHARM1];
@@ -488,17 +537,32 @@ sf::Sprite& AssetManager::GetSpriteForItem(ITEMID::ITEM item)
     case ITEMID::THAWING_POTION: return *mSprites[SPRITES::THAWING_POTION];
     case ITEMID::RANCIDGAS_POTION: return *mSprites[SPRITES::RANCIDGAS_POTION];
     case ITEMID::AMETHYST_P: return *mSprites[SPRITES::AMETHYST_P];
+    case ITEMID::AMETHYST_F: return *mSprites[SPRITES::AMETHYST_F];
     case ITEMID::DIAMOND_P: return *mSprites[SPRITES::DIAMOND_P];
+    case ITEMID::DIAMOND_F: return *mSprites[SPRITES::DIAMOND_F];
     case ITEMID::EMERALD_P: return *mSprites[SPRITES::EMERALD_P];
+    case ITEMID::EMERALD_F: return *mSprites[SPRITES::EMERALD_F];
     case ITEMID::RUBY_P: return *mSprites[SPRITES::RUBY_P];
+    case ITEMID::RUBY_F: return *mSprites[SPRITES::RUBY_F];
     case ITEMID::SAPPHIRE_P: return *mSprites[SPRITES::SAPPHIRE_P];
+    case ITEMID::SAPPHIRE_F: return *mSprites[SPRITES::SAPPHIRE_F];
     case ITEMID::TOPAZ_P: return *mSprites[SPRITES::TOPAZ_P];
+    case ITEMID::TOPAZ_F: return *mSprites[SPRITES::TOPAZ_F];
     case ITEMID::SKULL_P: return *mSprites[SPRITES::SKULL_P];
+    case ITEMID::SKULL_F: return *mSprites[SPRITES::SKULL_F];
+    case ITEMID::JEWEL_1: return *mSprites[SPRITES::JEWEL_1];
+    case ITEMID::JEWEL_2: return *mSprites[SPRITES::JEWEL_2];
+    case ITEMID::JEWEL_3: return *mSprites[SPRITES::JEWEL_3];
+    case ITEMID::JEWEL_4: return *mSprites[SPRITES::JEWEL_4];
+    case ITEMID::JEWEL_5: return *mSprites[SPRITES::JEWEL_5];
+    case ITEMID::JEWEL_6: return *mSprites[SPRITES::JEWEL_6];
     case ITEMID::RING1: return *mSprites[SPRITES::RING1];
     case ITEMID::RING2: return *mSprites[SPRITES::RING2];
     case ITEMID::RING3: return *mSprites[SPRITES::RING3];
     case ITEMID::TPSCROLL: return *mSprites[SPRITES::TPSCROLL];
     case ITEMID::IDSCROLL: return *mSprites[SPRITES::IDSCROLL];
+    case ITEMID::ANNIHILUS: return *mSprites[SPRITES::ANNIHILUS];
+    case ITEMID::WORLDSTONE_SHARD: return *mSprites[SPRITES::WORLDSTONE_SHARD];
     case ITEMID::ELRUNE: return *mSprites[SPRITES::ELRUNE];
     case ITEMID::ELDRUNE: return *mSprites[SPRITES::ELDRUNE];
     case ITEMID::TIRRUNE: return *mSprites[SPRITES::TIRRUNE];
@@ -536,9 +600,13 @@ sf::Sprite& AssetManager::GetSpriteForItem(ITEMID::ITEM item)
     }
 }
 
-sf::Color AssetManager::GetColorForRarity(ITEMRARITY::RARITY rarity)
+sf::Color AssetManager::GetColorForItemText(std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> item)
 {
-    switch (rarity)
+    if (item.first == ITEMID::WORLDSTONE_SHARD)
+    {
+        return sf::Color{ sf::Color::Red };
+    }
+    switch (item.second)
     {
     case ITEMRARITY::NORMAL:	return sf::Color::White;
     case ITEMRARITY::MAGIC:		return sf::Color{  51, 102, 255 };	break;
