@@ -81,12 +81,12 @@ bool Chest::IsMirrored() const
 
 void Chest::setActive(bool active)
 {
+	mMouseOver = false;
 	mActive = active;
 }
 
 bool Chest::isActive()
 {
-	mMouseOver = false;
 	return mActive;
 }
 
