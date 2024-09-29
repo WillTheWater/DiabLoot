@@ -18,6 +18,7 @@ PlayState::PlayState(System& system, ChangeStateCallback changeStateCB, Level& l
 	mSystem.GUIMgr.GetButton(BUTTONS::SORT_BUTTON_ID).SetClickCB([this]() { mSystem.InventoryMgr.sortInventory(); });
 	mSystem.GUIMgr.GetButton(BUTTONS::CLOSE_BUTTON_ID).SetClickCB([this]() { mSystem.RenderMgr.GetWindow().close(); });
 	mSystem.GUIMgr.GetButton(BUTTONS::MINI_BUTTON_ID).SetClickCB([this]() {HWND hwnd = mSystem.RenderMgr.GetWindow().getSystemHandle();	ShowWindow(hwnd, SW_MINIMIZE); });
+	mSystem.GUIMgr.GetButton(BUTTONS::UPGRADE_BUTTON_ID).SetClickCB([this]() {this->UpgradeLevel(); });
 }
 
 void PlayState::Enter()
@@ -110,4 +111,19 @@ void PlayState::OnMouseClick(sf::Mouse::Button button)
 void PlayState::OnMouseRelease(sf::Mouse::Button button)
 {
 	if (button == sf::Mouse::Left) { mMouseIsClicked = false; }
+}
+
+void PlayState::UpgradeLevel()
+{
+	if (mLevel.GetUpgradeLevel() == LEVELS::MAX_UPGRADES - 1)
+	{
+		return;
+	}
+	int cost = mSystem.AssetMgr.GetCostForNextLevelUpgrade(mLevel.GetUpgradeLevel());
+	if (mSystem.InventoryMgr.getGold() < cost)
+	{
+		return;
+	}
+	mSystem.InventoryMgr.removeGold(cost);
+	mLevel.UpgradeLevel();
 }

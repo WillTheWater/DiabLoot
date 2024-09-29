@@ -748,3 +748,15 @@ PLAYSOUND::PLAYSOUND AssetManager::GetSoundForItem(std::pair<ITEMID::ITEM, ITEMR
     default:                        return PLAYSOUND::BUTTON_DOWN;
     }
 }
+
+int AssetManager::GetCostForNextLevelUpgrade(LEVELS::UPGRADE levelUpgrade)
+{
+    switch (levelUpgrade)
+    {
+    case LEVELS::ONE_CHEST: return 10000;
+    case LEVELS::TWO_CHEST: return 20000;
+    case LEVELS::THREE_CHEST: return 50000;
+    case LEVELS::FOUR_CHEST: return 0;
+    default: return 0;
+    }
+}
