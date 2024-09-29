@@ -3,7 +3,7 @@
 #include "Core.h"
 
 RenderManager::RenderManager(System& system)
-	: mGameWindow{ sf::VideoMode(1920u, 1080u), "DiabLoot", sf::Style::None }
+	: mGameWindow{ sf::VideoMode(1920u, 1080u), "DiabLoot", sf::Style::None, sf::ContextSettings(0,0,8)}
 	, mSystem{ system }
 	, mWindowCenter{ mGameWindow.getSize().x / 2.f, mGameWindow.getSize().y / 2.f }
 {
@@ -342,8 +342,17 @@ void RenderManager::RenderItems(std::vector<std::unique_ptr<Item>>& items)
 void RenderManager::RenderItemCollectionProgress()
 {
 	// Get the string with the appropriate numbers
-	std::string string{ "Item Collection: " };
-	string += std::to_string(mSystem.InventoryMgr.getNumberOfUniqueItems());
+	std::string string{ "Items Found: " };
+	int uniqueItems = mSystem.InventoryMgr.getNumberOfUniqueItems();
+	if (uniqueItems < 100)
+	{
+		string += ' ';
+	}
+	if (uniqueItems < 10)
+	{
+		string += ' ';
+	}
+	string += std::to_string(uniqueItems);
 	string += " / ";
 	string += std::to_string(ITEMGEN::TOTAL_UNIQUE_ITEMS);
 
@@ -353,18 +362,12 @@ void RenderManager::RenderItemCollectionProgress()
 	text.setFont(mSystem.AssetMgr.GetFont(FONTS::LIGHT));
 	text.setCharacterSize(FONTS::CHARACTER_SIZE_NORMAL);
 	text.setOrigin(text.getLocalBounds().getSize().x / 2.f, text.getLocalBounds().getSize().y / 2.f);
-	sf::RectangleShape textRect;
-	textRect.setSize({ text.getLocalBounds().getSize().x + FONTS::PADDING, text.getLocalBounds().getSize().y + FONTS::PADDING });
-	textRect.setOrigin(textRect.getLocalBounds().getSize().x / 2.f + FONTS::ORIGIN_YOFFSET, textRect.getLocalBounds().getSize().y / 2.f + FONTS::ORIGIN_YOFFSET);
-	textRect.setFillColor(mSystem.AssetMgr.GetTextboxColor());
 	
 	//Set positions
-	sf::Vector2f position{mGameWindow.getSize().x /2.f, 50.f};
-	textRect.setPosition(position);
+	sf::Vector2f position{ 1483.f, 953.f };
 	text.setPosition(position);
 	
 	//Draw
-	Draw(textRect);
 	Draw(text);
 
 }

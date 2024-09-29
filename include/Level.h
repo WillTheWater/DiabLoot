@@ -10,6 +10,7 @@
 #include <cassert>
 #include "Item.h"
 #include "ItemGenerator.h"
+#include "SoundManager.h"
 #include <utility>
 #include <algorithm>
 

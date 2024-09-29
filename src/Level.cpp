@@ -81,7 +81,7 @@ void Level::SpawnParticles(Chest& chest)
 	int numOfParticles = MathU::Random(8, 16);
 	// Need to solve the function bind problem below
 	std::function<void(Particle&)> callback = [this](Particle& particle) {this->SpawnItem(particle); };
-	float animStep = PARTICLE::ANIMSTEP;
+	float animStep = MathU::Random(PARTICLE::ANIMSTEP - 0.08f, PARTICLE::ANIMSTEP + 0.08f);
 	for (int i{ 0 }; i < numOfParticles; i++)
 	{
 		float randDist = MathU::Random(30.f, 60.f);
@@ -149,6 +149,9 @@ void Level::PickUpItem(Item& item)
 			if (!couldAdd)
 			{
 				CreateBounceParticle(item);
+				auto pitchShifter = MathU::Random(0.8f, 1.2f);
+				auto modulator = MathU::Random(20.f, 40.f);
+				SoundManager::GetInstance().PlaySound(PLAYSOUND::ITEM_FLIP, modulator, pitchShifter);
 			}
 			RemoveAllItemObservers();
 			mItems.erase(mItems.begin() + i);
@@ -178,6 +181,11 @@ void Level::SpawnItem(Particle& particle)
 	mItems.push_back(std::make_unique<Item>(itemId, uniqueId, position, text, callback, quantity));
 	AddAllItemObservers();		// TESTING
 	RemoveParticle(particle);
+	// Play the sounds 
+	PLAYSOUND::PLAYSOUND sound = mSystem.AssetMgr.GetSoundForItem(itemId);
+	auto pitchShifter = MathU::Random(0.8f, 1.2f);
+	auto modulator = MathU::Random(20.f, 40.f);
+	SoundManager::GetInstance().PlaySound(sound, modulator, pitchShifter);
 }
 
 void Level::TurnItemToGold(Particle& particle)
@@ -190,8 +198,11 @@ void Level::TurnItemToGold(Particle& particle)
 	RemoveAllItemObservers();
 	int quantity = 100;		// Goes here when it's ready - > ITEMGEN::getValueForItem()
 	mItems.push_back(std::make_unique<Item>(itemId, uniqueId, position, text, callback, quantity));
-	AddAllItemObservers();		// TESTING
+	AddAllItemObservers();
 	RemoveParticle(particle);
+	auto pitchShifter = MathU::Random(0.8f, 1.2f);
+	auto modulator = MathU::Random(20.f, 40.f);
+	SoundManager::GetInstance().PlaySound(PLAYSOUND::GOLD_DROP, modulator, pitchShifter);
 }
 
 void Level::SortItemsByVerticalSpace()
