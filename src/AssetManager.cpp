@@ -419,6 +419,7 @@ void AssetManager::InitializeSounds()
     mSounds[PLAYSOUND::RUNE_DROP]->setBuffer(GetSoundBuffer(SOUNDBUFFERS::RUNE_DROP_SB));
     mSounds[PLAYSOUND::SCROLL_DROP]->setBuffer(GetSoundBuffer(SOUNDBUFFERS::SCROLL_DROP_SB));
 
+
 }
 
 void AssetManager::InitializeMusic()
@@ -661,81 +662,83 @@ PLAYSOUND::PLAYSOUND AssetManager::GetSoundForItem(std::pair<ITEMID::ITEM, ITEMR
     switch (item.first)
     {
         //Gold
-    case ITEMID::GOLD:          return PLAYSOUND::GOLD_DROP;
+    case ITEMID::GOLD:              return PLAYSOUND::GOLD_DROP;
         //Scrolls
-    case ITEMID::TPSCROLL:      return PLAYSOUND::SCROLL_DROP;
-    case ITEMID::IDSCROLL:      return PLAYSOUND::SCROLL_DROP;
+    case ITEMID::TPSCROLL:          return PLAYSOUND::SCROLL_DROP;
+    case ITEMID::IDSCROLL:          return PLAYSOUND::SCROLL_DROP;
         //Amulets
-    case ITEMID::AMULET1:       return PLAYSOUND::AMULET_DROP;
-    case ITEMID::AMULET2:       return PLAYSOUND::AMULET_DROP;
-    case ITEMID::AMULET3:       return PLAYSOUND::AMULET_DROP;
+    case ITEMID::AMULET1:           return PLAYSOUND::AMULET_DROP;
+    case ITEMID::AMULET2:           return PLAYSOUND::AMULET_DROP;
+    case ITEMID::AMULET3:           return PLAYSOUND::AMULET_DROP;
         //Charms
-    case ITEMID::CHARM1:        return PLAYSOUND::CHARM_DROP;
-    case ITEMID::CHARM2:        return PLAYSOUND::CHARM_DROP;
-    case ITEMID::CHARM3:        return PLAYSOUND::CHARM_DROP;
+    case ITEMID::CHARM1:            return PLAYSOUND::CHARM_DROP;
+    case ITEMID::CHARM2:            return PLAYSOUND::CHARM_DROP;
+    case ITEMID::CHARM3:            return PLAYSOUND::CHARM_DROP;
+    case ITEMID::ANNIHILUS:         return PLAYSOUND::CHARM_DROP;
         //Gems
-    case ITEMID::AMETHYST_F:    return PLAYSOUND::GEM_DROP;
-    case ITEMID::AMETHYST_P:    return PLAYSOUND::GEM_DROP;
-    case ITEMID::DIAMOND_F:     return PLAYSOUND::GEM_DROP;
-    case ITEMID::DIAMOND_P:     return PLAYSOUND::GEM_DROP;
-    case ITEMID::EMERALD_F:     return PLAYSOUND::GEM_DROP;
-    case ITEMID::EMERALD_P:     return PLAYSOUND::GEM_DROP;
-    case ITEMID::RUBY_F:        return PLAYSOUND::GEM_DROP;
-    case ITEMID::RUBY_P:        return PLAYSOUND::GEM_DROP;
-    case ITEMID::SAPPHIRE_F:    return PLAYSOUND::GEM_DROP;
-    case ITEMID::SAPPHIRE_P:    return PLAYSOUND::GEM_DROP;
-    case ITEMID::TOPAZ_F:       return PLAYSOUND::GEM_DROP;
-    case ITEMID::TOPAZ_P:       return PLAYSOUND::GEM_DROP;
+    case ITEMID::AMETHYST_F:        return PLAYSOUND::GEM_DROP;
+    case ITEMID::AMETHYST_P:        return PLAYSOUND::GEM_DROP;
+    case ITEMID::DIAMOND_F:         return PLAYSOUND::GEM_DROP;
+    case ITEMID::DIAMOND_P:         return PLAYSOUND::GEM_DROP;
+    case ITEMID::EMERALD_F:         return PLAYSOUND::GEM_DROP;
+    case ITEMID::EMERALD_P:         return PLAYSOUND::GEM_DROP;
+    case ITEMID::RUBY_F:            return PLAYSOUND::GEM_DROP;
+    case ITEMID::RUBY_P:            return PLAYSOUND::GEM_DROP;
+    case ITEMID::SAPPHIRE_F:        return PLAYSOUND::GEM_DROP;
+    case ITEMID::SAPPHIRE_P:        return PLAYSOUND::GEM_DROP;
+    case ITEMID::TOPAZ_F:           return PLAYSOUND::GEM_DROP;
+    case ITEMID::TOPAZ_P:           return PLAYSOUND::GEM_DROP;
         //Skulls
-    case ITEMID::SKULL_F:       return PLAYSOUND::SKULL_DROP;
-    case ITEMID::SKULL_P:       return PLAYSOUND::SKULL_DROP;
+    case ITEMID::SKULL_F:           return PLAYSOUND::SKULL_DROP;
+    case ITEMID::SKULL_P:           return PLAYSOUND::SKULL_DROP;
         //Jewels
-    case ITEMID::JEWEL_1:       return PLAYSOUND::JEWEL_DROP;
-    case ITEMID::JEWEL_2:       return PLAYSOUND::JEWEL_DROP;
-    case ITEMID::JEWEL_3:       return PLAYSOUND::JEWEL_DROP;
-    case ITEMID::JEWEL_4:       return PLAYSOUND::JEWEL_DROP;
-    case ITEMID::JEWEL_5:       return PLAYSOUND::JEWEL_DROP;
-    case ITEMID::JEWEL_6:       return PLAYSOUND::JEWEL_DROP;
+    case ITEMID::JEWEL_1:           return PLAYSOUND::JEWEL_DROP;
+    case ITEMID::JEWEL_2:           return PLAYSOUND::JEWEL_DROP;
+    case ITEMID::JEWEL_3:           return PLAYSOUND::JEWEL_DROP;
+    case ITEMID::JEWEL_4:           return PLAYSOUND::JEWEL_DROP;
+    case ITEMID::JEWEL_5:           return PLAYSOUND::JEWEL_DROP;
+    case ITEMID::JEWEL_6:           return PLAYSOUND::JEWEL_DROP;
+    case ITEMID::WORLDSTONE_SHARD:  return PLAYSOUND::JEWEL_DROP;
         //Key
-    case ITEMID::KEY:           return PLAYSOUND::KEY_DROP;
+    case ITEMID::KEY:               return PLAYSOUND::KEY_DROP;
         //Rings
-    case ITEMID::RING1:         return PLAYSOUND::RING_DROP;
-    case ITEMID::RING2:         return PLAYSOUND::RING_DROP;
-    case ITEMID::RING3:         return PLAYSOUND::RING_DROP;
+    case ITEMID::RING1:             return PLAYSOUND::RING_DROP;
+    case ITEMID::RING2:             return PLAYSOUND::RING_DROP;
+    case ITEMID::RING3:             return PLAYSOUND::RING_DROP;
         //Runes
-    case ITEMID::ELRUNE:        return PLAYSOUND::RUNE_DROP;
-    case ITEMID::ELDRUNE:       return PLAYSOUND::RUNE_DROP;
-    case ITEMID::TIRRUNE:       return PLAYSOUND::RUNE_DROP;
-    case ITEMID::NEFRUNE:       return PLAYSOUND::RUNE_DROP;
-    case ITEMID::ETHRUNE:       return PLAYSOUND::RUNE_DROP;
-    case ITEMID::ITHRUNE:       return PLAYSOUND::RUNE_DROP;
-    case ITEMID::TALRUNE:       return PLAYSOUND::RUNE_DROP;
-    case ITEMID::RALRUNE:       return PLAYSOUND::RUNE_DROP;
-    case ITEMID::ORTRUNE:       return PLAYSOUND::RUNE_DROP;
-    case ITEMID::THULRUNE:      return PLAYSOUND::RUNE_DROP;
-    case ITEMID::AMNRUNE:       return PLAYSOUND::RUNE_DROP;
-    case ITEMID::SOLRUNE:       return PLAYSOUND::RUNE_DROP;
-    case ITEMID::SHAELRUNE:     return PLAYSOUND::RUNE_DROP;
-    case ITEMID::DOLRUNE:       return PLAYSOUND::RUNE_DROP;
-    case ITEMID::HELRUNE:       return PLAYSOUND::RUNE_DROP;
-    case ITEMID::IORUNE:        return PLAYSOUND::RUNE_DROP;
-    case ITEMID::LUMRUNE:       return PLAYSOUND::RUNE_DROP;
-    case ITEMID::KORUNE:        return PLAYSOUND::RUNE_DROP;
-    case ITEMID::FALRUNE:       return PLAYSOUND::RUNE_DROP;
-    case ITEMID::LEMRUNE:       return PLAYSOUND::RUNE_DROP;
-    case ITEMID::PULRUNE:       return PLAYSOUND::RUNE_DROP;
-    case ITEMID::UMRUNE:        return PLAYSOUND::RUNE_DROP;
-    case ITEMID::MALRUNE:       return PLAYSOUND::RUNE_DROP;
-    case ITEMID::ISTRUNE:       return PLAYSOUND::RUNE_DROP;
-    case ITEMID::GULRUNE:       return PLAYSOUND::RUNE_DROP;
-    case ITEMID::VEXRUNE:       return PLAYSOUND::RUNE_DROP;
-    case ITEMID::OHMRUNE:       return PLAYSOUND::RUNE_DROP;
-    case ITEMID::LORUNE:        return PLAYSOUND::RUNE_DROP;
-    case ITEMID::SURRUNE:       return PLAYSOUND::RUNE_DROP;
-    case ITEMID::BERRUNE:       return PLAYSOUND::RUNE_DROP;
-    case ITEMID::JAHRUNE:       return PLAYSOUND::RUNE_DROP;
-    case ITEMID::CHAMRUNE:      return PLAYSOUND::RUNE_DROP;
-    case ITEMID::ZODRUNE:       return PLAYSOUND::RUNE_DROP;
-    default:                    return PLAYSOUND::BUTTON_DOWN;
+    case ITEMID::ELRUNE:            return PLAYSOUND::RUNE_DROP;
+    case ITEMID::ELDRUNE:           return PLAYSOUND::RUNE_DROP;
+    case ITEMID::TIRRUNE:           return PLAYSOUND::RUNE_DROP;
+    case ITEMID::NEFRUNE:           return PLAYSOUND::RUNE_DROP;
+    case ITEMID::ETHRUNE:           return PLAYSOUND::RUNE_DROP;
+    case ITEMID::ITHRUNE:           return PLAYSOUND::RUNE_DROP;
+    case ITEMID::TALRUNE:           return PLAYSOUND::RUNE_DROP;
+    case ITEMID::RALRUNE:           return PLAYSOUND::RUNE_DROP;
+    case ITEMID::ORTRUNE:           return PLAYSOUND::RUNE_DROP;
+    case ITEMID::THULRUNE:          return PLAYSOUND::RUNE_DROP;
+    case ITEMID::AMNRUNE:           return PLAYSOUND::RUNE_DROP;
+    case ITEMID::SOLRUNE:           return PLAYSOUND::RUNE_DROP;
+    case ITEMID::SHAELRUNE:         return PLAYSOUND::RUNE_DROP;
+    case ITEMID::DOLRUNE:           return PLAYSOUND::RUNE_DROP;
+    case ITEMID::HELRUNE:           return PLAYSOUND::RUNE_DROP;
+    case ITEMID::IORUNE:            return PLAYSOUND::RUNE_DROP;
+    case ITEMID::LUMRUNE:           return PLAYSOUND::RUNE_DROP;
+    case ITEMID::KORUNE:            return PLAYSOUND::RUNE_DROP;
+    case ITEMID::FALRUNE:           return PLAYSOUND::RUNE_DROP;
+    case ITEMID::LEMRUNE:           return PLAYSOUND::RUNE_DROP;
+    case ITEMID::PULRUNE:           return PLAYSOUND::RUNE_DROP;
+    case ITEMID::UMRUNE:            return PLAYSOUND::RUNE_DROP;
+    case ITEMID::MALRUNE:           return PLAYSOUND::RUNE_DROP;
+    case ITEMID::ISTRUNE:           return PLAYSOUND::RUNE_DROP;
+    case ITEMID::GULRUNE:           return PLAYSOUND::RUNE_DROP;
+    case ITEMID::VEXRUNE:           return PLAYSOUND::RUNE_DROP;
+    case ITEMID::OHMRUNE:           return PLAYSOUND::RUNE_DROP;
+    case ITEMID::LORUNE:            return PLAYSOUND::RUNE_DROP;
+    case ITEMID::SURRUNE:           return PLAYSOUND::RUNE_DROP;
+    case ITEMID::BERRUNE:           return PLAYSOUND::RUNE_DROP;
+    case ITEMID::JAHRUNE:           return PLAYSOUND::RUNE_DROP;
+    case ITEMID::CHAMRUNE:          return PLAYSOUND::RUNE_DROP;
+    case ITEMID::ZODRUNE:           return PLAYSOUND::RUNE_DROP;
+    default:                        return PLAYSOUND::BUTTON_DOWN;
     }
 }
