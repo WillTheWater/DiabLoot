@@ -50,6 +50,7 @@ void AssetManager::InitializeTextureSprites()
     // PARTICLE
     mTextures[TEXTURES::PARTICLE]->loadFromFile("assets/graphics/particle.png");
     // ITEMS
+    mTextures[TEXTURES::KEY]->loadFromFile("assets/graphics/items/key.png");
     mTextures[TEXTURES::AMULET1]->loadFromFile("assets/graphics/items/amulet1.png");
     mTextures[TEXTURES::AMULET2]->loadFromFile("assets/graphics/items/amulet2.png");
     mTextures[TEXTURES::AMULET3]->loadFromFile("assets/graphics/items/amulet3.png");
@@ -91,6 +92,8 @@ void AssetManager::InitializeTextureSprites()
     mTextures[TEXTURES::RING3]->loadFromFile("assets/graphics/items/ring3.png");
     mTextures[TEXTURES::TPSCROLL]->loadFromFile("assets/graphics/items/scrolloftownportal.png");
     mTextures[TEXTURES::IDSCROLL]->loadFromFile("assets/graphics/items/scrollofidentify.png");
+    mTextures[TEXTURES::ANNIHILUS]->loadFromFile("assets/graphics/items/annihilus.png");
+    mTextures[TEXTURES::WORLDSTONE_SHARD]->loadFromFile("assets/graphics/items/worldstoneshard.png");
     mTextures[TEXTURES::ELRUNE]->loadFromFile("assets/graphics/runes/Elrune1.png");
     mTextures[TEXTURES::ELDRUNE]->loadFromFile("assets/graphics/runes/Eldrune2.png");
     mTextures[TEXTURES::TIRRUNE]->loadFromFile("assets/graphics/runes/Tirrune3.png");
@@ -154,6 +157,7 @@ void AssetManager::InitializeTextureSprites()
     mSprites[SPRITES::CHESTCLOSED]->setTexture(GetTexture(TEXTURES::CHESTCLOSED));
     mSprites[SPRITES::CHESTOPENED]->setTexture(GetTexture(TEXTURES::CHESTOPENED));
     // ITEMS
+    mSprites[SPRITES::KEY]->setTexture(GetTexture(TEXTURES::KEY));
     mSprites[SPRITES::AMULET1]->setTexture(GetTexture(TEXTURES::AMULET1));
     mSprites[SPRITES::AMULET2]->setTexture(GetTexture(TEXTURES::AMULET2));
     mSprites[SPRITES::AMULET3]->setTexture(GetTexture(TEXTURES::AMULET3));
@@ -194,6 +198,8 @@ void AssetManager::InitializeTextureSprites()
     mSprites[SPRITES::RING3]->setTexture(GetTexture(TEXTURES::RING3));
     mSprites[SPRITES::TPSCROLL]->setTexture(GetTexture(TEXTURES::TPSCROLL));
     mSprites[SPRITES::IDSCROLL]->setTexture(GetTexture(TEXTURES::IDSCROLL));
+    mSprites[SPRITES::ANNIHILUS]->setTexture(GetTexture(TEXTURES::ANNIHILUS));
+    mSprites[SPRITES::WORLDSTONE_SHARD]->setTexture(GetTexture(TEXTURES::WORLDSTONE_SHARD));
     // RUNES
     mSprites[SPRITES::ELRUNE]->setTexture(GetTexture(TEXTURES::ELRUNE));
     mSprites[SPRITES::ELDRUNE]->setTexture(GetTexture(TEXTURES::ELDRUNE));
@@ -269,6 +275,7 @@ void AssetManager::InitializeFontsAndTexts()
     // Set Up Texts
     mItemTexts[ITEMID::GOLD]->setString("Gold");
     mItemTexts[ITEMID::AMULET1]->setString("Amulet");
+    mItemTexts[ITEMID::KEY]->setString("Key");
     mItemTexts[ITEMID::AMULET2]->setString("Water Amulet");
     mItemTexts[ITEMID::AMULET3]->setString("Fire Amulet");
     mItemTexts[ITEMID::CHARM1]->setString("Small Charm");
@@ -310,6 +317,8 @@ void AssetManager::InitializeFontsAndTexts()
     mItemTexts[ITEMID::RING3]->setString("Ring of Chloranthy");
     mItemTexts[ITEMID::TPSCROLL]->setString("Scroll of Town Portal");
     mItemTexts[ITEMID::IDSCROLL]->setString("Scroll of Identification");
+    mItemTexts[ITEMID::ANNIHILUS]->setString("Annihilus");
+    mItemTexts[ITEMID::WORLDSTONE_SHARD]->setString("World Stone Shard");
     mItemTexts[ITEMID::ELRUNE]->setString("El Rune");
     mItemTexts[ITEMID::ELDRUNE]->setString("Eld Rune");
     mItemTexts[ITEMID::TIRRUNE]->setString("Tir Rune");
@@ -482,6 +491,7 @@ sf::Sprite& AssetManager::GetSpriteForItem(ITEMID::ITEM item)
     {
     case ITEMID::GOLD: return *mSprites[SPRITES::GOLD_LARGE];
     case ITEMID::AMULET1: return *mSprites[SPRITES::AMULET1];
+    case ITEMID::KEY: return *mSprites[SPRITES::KEY];
     case ITEMID::AMULET2: return *mSprites[SPRITES::AMULET2];
     case ITEMID::AMULET3: return *mSprites[SPRITES::AMULET3];
     case ITEMID::CHARM1: return *mSprites[SPRITES::CHARM1];
@@ -521,6 +531,8 @@ sf::Sprite& AssetManager::GetSpriteForItem(ITEMID::ITEM item)
     case ITEMID::RING3: return *mSprites[SPRITES::RING3];
     case ITEMID::TPSCROLL: return *mSprites[SPRITES::TPSCROLL];
     case ITEMID::IDSCROLL: return *mSprites[SPRITES::IDSCROLL];
+    case ITEMID::ANNIHILUS: return *mSprites[SPRITES::ANNIHILUS];
+    case ITEMID::WORLDSTONE_SHARD: return *mSprites[SPRITES::WORLDSTONE_SHARD];
     case ITEMID::ELRUNE: return *mSprites[SPRITES::ELRUNE];
     case ITEMID::ELDRUNE: return *mSprites[SPRITES::ELDRUNE];
     case ITEMID::TIRRUNE: return *mSprites[SPRITES::TIRRUNE];
@@ -558,9 +570,13 @@ sf::Sprite& AssetManager::GetSpriteForItem(ITEMID::ITEM item)
     }
 }
 
-sf::Color AssetManager::GetColorForRarity(ITEMRARITY::RARITY rarity)
+sf::Color AssetManager::GetColorForItemText(std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> item)
 {
-    switch (rarity)
+    if (item.first == ITEMID::WORLDSTONE_SHARD)
+    {
+        return sf::Color{ sf::Color::Red };
+    }
+    switch (item.second)
     {
     case ITEMRARITY::NORMAL:	return sf::Color::White;
     case ITEMRARITY::MAGIC:		return sf::Color{  51, 102, 255 };	break;

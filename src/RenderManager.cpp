@@ -136,7 +136,7 @@ void RenderManager::InventoryRender()
 		}
 		hoverText.setOrigin(hoverText.getLocalBounds().getSize().x / 2, hoverText.getLocalBounds().getSize().y / 2);
 		hoverText.setPosition(mSystem.InventoryMgr.getLastMousePos().x, mSystem.InventoryMgr.getLastMousePos().y - 20);
-		hoverText.setColor(mSystem.AssetMgr.GetColorForRarity(slots[index].getItemId().second));
+		hoverText.setColor(mSystem.AssetMgr.GetColorForItemText(slots[index].getItemId()));
 		// Text box to got under text
 		sf::RectangleShape textBox{ sf::Vector2f{hoverText.getGlobalBounds().getSize().x + FONTS::PADDING, hoverText.getGlobalBounds().getSize().y + FONTS::PADDING} };
 		textBox.setOrigin(textBox.getLocalBounds().getSize().x / 2 + FONTS::ORIGIN_YOFFSET, (textBox.getLocalBounds().getSize().y / 2) + FONTS::ORIGIN_YOFFSET);
@@ -242,7 +242,7 @@ void RenderManager::RenderItems(std::vector<std::unique_ptr<Item>>& items)
 		sf::Text text = item->getItemText();
 		text.setOrigin(text.getGlobalBounds().getSize().x / 2, text.getGlobalBounds().getSize().y / 2);
 		text.setPosition(textRect.getPosition());
-		text.setColor(mSystem.AssetMgr.GetColorForRarity(itemId.second));
+		text.setColor(mSystem.AssetMgr.GetColorForItemText(itemId));
 		mGameWindow.draw(textRect);
 		mGameWindow.draw(text);
 	}

@@ -44,8 +44,9 @@ namespace ITEMGEN
 		0.030, // 33: ZODRUNE
 	};
 
-	static const std::array<ITEMID::ITEM, 11> RarityNormalItems
+	static const std::array<ITEMID::ITEM, 12> RarityNormalItems
 	{
+		ITEMID::KEY,
 		ITEMID::REJUV_POTION,
 		ITEMID::FULL_REJUV_POTION,
 		ITEMID::OIL_POTION,
@@ -118,7 +119,7 @@ namespace ITEMGEN
 		ITEMID::RING3
 	};
 
-	static const std::array<ITEMID::ITEM, 12> RarityUniqueItems
+	static const std::array<ITEMID::ITEM, 14> RarityUniqueItems
 	{
 		ITEMID::AMULET1,
 		ITEMID::AMULET2,
@@ -132,6 +133,8 @@ namespace ITEMGEN
 		ITEMID::JEWEL_4,
 		ITEMID::JEWEL_5,
 		ITEMID::JEWEL_6,
+		ITEMID::ANNIHILUS,
+		ITEMID::WORLDSTONE_SHARD
 	};
 
 	static const std::array<ITEMID::ITEM, 33> RarityRuneItems

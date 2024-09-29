@@ -21,7 +21,7 @@ public:
 	sf::Text&										GetTextForItemID(ITEMID::ITEM item);
 	sf::Text&										GetTextForButtons(BUTTONS::BUTTON_TEXT text);
 	sf::Sprite&										GetSpriteForItem(ITEMID::ITEM item);
-	sf::Color										GetColorForRarity(ITEMRARITY::RARITY rarity);
+	sf::Color										GetColorForItemText(std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> item);
 	sf::Color										GetTextboxColor();
 	sf::Sprite&										GetSpriteForButton(BUTTONS::BUTTON_TYPE button);
 	sf::Sprite&										GetSpriteForGoldQuantity(int quantity);
