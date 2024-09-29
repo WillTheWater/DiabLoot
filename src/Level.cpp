@@ -100,7 +100,7 @@ void Level::SpawnParticles(Chest& chest)
 
 void Level::CreateBounceParticle(Item& item)
 {
-	std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> itemId = { ITEMID::GOLD, ITEMRARITY::GOLD };
+	std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> itemId = { ITEMID::GOLD, item.getItemID().second};
 	Vec2 startPos = item.getPosition();
 	Vec2 endPos = startPos;
 	int id = GetUniqueParticleId();
@@ -196,8 +196,8 @@ void Level::TurnItemToGold(Particle& particle)
 	std::function<void(Item&)> callback = [this](Item& item) {this->PickUpItem(item); };
 	int uniqueId = particle.getId();
 	RemoveAllItemObservers();
-	int quantity = 100;		// Goes here when it's ready - > ITEMGEN::getValueForItem()
-	mItems.push_back(std::make_unique<Item>(itemId, uniqueId, position, text, callback, quantity));
+	int quantity = ITEMGEN::getValueForItem(itemId);
+	mItems.push_back(std::make_unique<Item>(std::pair{ itemId.first, ITEMRARITY::GOLD }, uniqueId, position, text, callback, quantity));
 	AddAllItemObservers();
 	RemoveParticle(particle);
 	auto pitchShifter = MathU::Random(0.8f, 1.2f);

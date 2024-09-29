@@ -6,10 +6,10 @@
 
 namespace ITEMGEN
 {
-	static const std::vector<float> RarityProbabilities = { 0.500, 0.200, 0.150, 0.025, 0.015, 0.010, 0.100 };
+	static const std::vector<float> RarityProbabilities = { 0.500, 0.200, 0.150, 0.025, 0.015, 0.010, 0.100 }; // Gold, normal, magic, rare, set, unique, rune
 	static const std::vector<float> RuneProbabilities =
 	{
-		0.031, // 1 : ELRUNE
+		0.030, // 1 : ELRUNE
 		0.030, // 2 : ELDRUNE
 		0.030, // 3 : TIRRUNE
 		0.030, // 4 : NEFRUNE
@@ -19,29 +19,29 @@ namespace ITEMGEN
 		0.030, // 8 : RALRUNE
 		0.030, // 9 : ORTRUNE
 		0.030, // 10: THULRUNE
-		0.030, // 11: AMNRUNE
-		0.030, // 12: SOLRUNE
-		0.030, // 13: SHAELRUNE
-		0.030, // 14: DOLRUNE
-		0.030, // 15: HELRUNE
-		0.030, // 16: IORUNE
-		0.030, // 17: LUMRUNE
-		0.030, // 18: KORUNE
-		0.030, // 19: FALRUNE
-		0.030, // 20: LEMRUNE
-		0.030, // 21: PULRUNE
-		0.030, // 22: UMRUNE
-		0.030, // 23: MALRUNE
-		0.030, // 24: ISTRUNE
-		0.030, // 25: GULRUNE
-		0.030, // 26: VEXRUNE
-		0.030, // 27: OHMRUNE
-		0.030, // 28: LORUNE
-		0.030, // 29: SURRUNE
-		0.030, // 30: BERRUNE
-		0.030, // 31: JAHRUNE
-		0.030, // 32: CHAMRUNE
-		0.030, // 33: ZODRUNE
+		0.025, // 11: AMNRUNE
+		0.022, // 12: SOLRUNE
+		0.019, // 13: SHAELRUNE
+		0.017, // 14: DOLRUNE
+		0.015, // 15: HELRUNE
+		0.013, // 16: IORUNE
+		0.011, // 17: LUMRUNE
+		0.009, // 18: KORUNE
+		0.008, // 19: FALRUNE
+		0.007, // 20: LEMRUNE
+		0.006, // 21: PULRUNE
+		0.0055, // 22: UMRUNE
+		0.0050, // 23: MALRUNE
+		0.0045, // 24: ISTRUNE
+		0.0040, // 25: GULRUNE
+		0.0035, // 26: VEXRUNE
+		0.0030, // 27: OHMRUNE
+		0.0027, // 28: LORUNE
+		0.0024, // 29: SURRUNE
+		0.0021, // 30: BERRUNE
+		0.0019, // 31: JAHRUNE
+		0.0017, // 32: CHAMRUNE
+		0.0015, // 33: ZODRUNE
 	};
 
 	static const std::array<ITEMID::ITEM, 12> RarityNormalItems
@@ -107,7 +107,6 @@ namespace ITEMGEN
 		ITEMID::JEWEL_4,
 		ITEMID::JEWEL_5,
 		ITEMID::JEWEL_6,
-
 	};
 
 	static const std::array<ITEMID::ITEM, 6> RaritySetItems
@@ -175,22 +174,11 @@ namespace ITEMGEN
 		ITEMID::ZODRUNE
 	};
 
-	inline const std::array<int, ITEMID::MAX_ITEMS> ItemBaseValues
-	{
-		1,//GOLD,
-		1000,//AMULET,
-		2500,//CHARM,
-		200,//REJUV,
-		3000,//RING,
-		5000,//RUNE1,
-		300//TPSCROLL
-	};
-
 	static int getValueForItem(std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> item)
 	{
-		int baseValue = ItemBaseValues[item.first];
-		int multiplier = item.second + 1;
-		return baseValue * multiplier;
+		int baseValue = 100;
+		int multiplier = (int)item.second;
+		return (baseValue * multiplier);
 	}
 
 	static ITEMID::ITEM getItemOfRarity(ITEMRARITY::RARITY rarity)

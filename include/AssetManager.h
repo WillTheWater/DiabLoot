@@ -27,6 +27,7 @@ public:
 	sf::Sprite&										GetSpriteForGoldQuantity(int quantity);
 	sf::Font& GetFont(FONTS::FONT font);
 	PLAYSOUND::PLAYSOUND							GetSoundForItem(std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> item);
+	int												GetCostForNextLevelUpgrade(LEVELS::UPGRADE levelUpgrade);
 
 private:
 	void											InitializeTextureSprites();
