@@ -205,7 +205,7 @@ void RenderManager::DrawToolTip(sf::Vector2f mousePos)
 		mSystem.RenderMgr.Draw(backgroundRect);
 		mSystem.RenderMgr.Draw(tooltipText);
 	}
-	if (mSystem.GUIMgr.GetButton(BUTTONS::SORT_BUTTON_ID).GetSprite().getGlobalBounds().contains(mousePos))
+	if (mSystem.GUIMgr.GetButton(BUTTONS::SORT_BUTTON_ID).GetSprite().getGlobalBounds().contains(mousePos) && mSystem.InventoryMgr.isOpen())
 	{
 		sf::Text tooltipText;
 		tooltipText.setFont(mSystem.AssetMgr.GetFont(FONTS::LIGHT));

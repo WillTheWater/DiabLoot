@@ -8,7 +8,9 @@ MainMenuState::MainMenuState(System& system, ChangeStateCallback changeStateCB)
 	:GameState{ system, changeStateCB }
 	, mMouseIsClicked{false}
 {
-	mSystem.GUIMgr.GetButton(BUTTONS::START_ID).SetClickCB([this]() { auto newState = std::make_unique<PlayState>(mSystem, mChangeStateCB, mSystem.LevelMgr.GetNextLevel()); mChangeStateCB(std::move(newState));});
+	// New Game Button || Enter game, clear inventory and level upgrades
+	mSystem.GUIMgr.GetButton(BUTTONS::START_ID).SetClickCB([this]() { mSystem.InventoryMgr.deleteInventory(); auto newState = std::make_unique<PlayState>(mSystem, mChangeStateCB, mSystem.LevelMgr.GetNextLevel()); mChangeStateCB(std::move(newState)); });
+
 	mSystem.GUIMgr.GetButton(BUTTONS::EXIT_ID).SetClickCB([this]() { mSystem.RenderMgr.GetWindow().close(); });
 	mSystem.GUIMgr.GetButton(BUTTONS::CLOSE_BUTTON_ID).SetClickCB([this]() { mSystem.RenderMgr.GetWindow().close(); });
 	mSystem.GUIMgr.GetButton(BUTTONS::MINI_BUTTON_ID).SetClickCB([this]() {HWND hwnd = mSystem.RenderMgr.GetWindow().getSystemHandle();	ShowWindow(hwnd, SW_MINIMIZE);});
@@ -23,7 +25,6 @@ void MainMenuState::Enter()
 {
 	mSystem.InputMgr.AddObserver(this);
 	SoundManager::GetInstance().PlayMusic(MUSIC::INTRO, 10.f);
-
 }
 
 void MainMenuState::Exit()
@@ -52,12 +53,6 @@ void MainMenuState::OnMouseMove(int x, int y)
 void MainMenuState::OnKeyPress(sf::Keyboard::Key key)
 {
 	if (key == sf::Keyboard::Escape) { mSystem.RenderMgr.GetWindow().close(); }
-	if (key == sf::Keyboard::P)
-	{
-		auto newState = std::make_unique<PlayState>(mSystem, mChangeStateCB, mSystem.LevelMgr.GetNextLevel());
-		mChangeStateCB(std::move(newState));
-	}
-	
 }
 
 void MainMenuState::OnKeyRelease(sf::Keyboard::Key key)
