@@ -223,7 +223,8 @@ namespace FONTS
 		LIGHT,
 		MAX_FONTS
 	};
-
+	inline int CHARACTER_SIZE_NORMAL = 20;
+	inline int CHARACTER_SIZE_BUTTONS = 45;
 	inline float PADDING = 8.f;
 	inline float ORIGIN_YOFFSET = -5.f;
 }

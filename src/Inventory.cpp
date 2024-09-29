@@ -349,7 +349,7 @@ void Inventory::deleteInventory()
 	}
 }
 
-bool Inventory::hasOneOfEverything()
+int Inventory::getNumberOfUniqueItems()
 {
 	int uniqueItems = 0;
 	for (auto& slot : mItemSlots)
@@ -359,7 +359,12 @@ bool Inventory::hasOneOfEverything()
 			uniqueItems++;
 		}
 	}
-	return uniqueItems == ITEMGEN::TOTAL_UNIQUE_ITEMS;
+	return uniqueItems;
+}
+
+bool Inventory::hasOneOfEverything()
+{
+	return getNumberOfUniqueItems() == ITEMGEN::TOTAL_UNIQUE_ITEMS;
 }
 
 void Inventory::initialzeSlotRects()

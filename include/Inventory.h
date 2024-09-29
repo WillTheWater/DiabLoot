@@ -44,6 +44,7 @@ public:
 	void									loadInventory();
 	void									saveInventory();
 	void									deleteInventory();
+	int										getNumberOfUniqueItems();
 	bool									hasOneOfEverything();	// Returns true if win condition is met
 
 
