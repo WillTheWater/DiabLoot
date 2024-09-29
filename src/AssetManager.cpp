@@ -29,12 +29,14 @@ void AssetManager::InitializeTextureSprites()
     // TEXTURES
     // MENU
     mTextures[TEXTURES::MAINMENU]->loadFromFile("assets/graphics/mainmenu.png");
-    // TEXTURES
+    // BUTTON TEXTURES
     mTextures[TEXTURES::WIDE_BUTTON]->loadFromFile("assets/graphics/button.png");
     mTextures[TEXTURES::INVENTORY_BUTTON]->loadFromFile("assets/graphics/inventorybutton.png");
     mTextures[TEXTURES::MUTE_BUTTON]->loadFromFile("assets/graphics/mutebutton.png");
     mTextures[TEXTURES::UPGRADE_BUTTON]->loadFromFile("assets/graphics/upgradebutton.png");
     mTextures[TEXTURES::SORT_BUTTON]->loadFromFile("assets/graphics/sortbutton.png");
+    mTextures[TEXTURES::CLOSE_BUTTON]->loadFromFile("assets/graphics/closebutton.png");
+    mTextures[TEXTURES::MINI_BUTTON]->loadFromFile("assets/graphics/minibutton.png");
     mTextures[TEXTURES::CHESTCLOSED]->loadFromFile("assets/graphics/chestclosed.png");
     mTextures[TEXTURES::CHESTOPENED]->loadFromFile("assets/graphics/chestopened.png");
     // MAPS
@@ -155,6 +157,8 @@ void AssetManager::InitializeTextureSprites()
     mSprites[SPRITES::MUTE_BUTTON]->setTexture(GetTexture(TEXTURES::MUTE_BUTTON));
     mSprites[SPRITES::UPGRADE_BUTTON]->setTexture(GetTexture(TEXTURES::UPGRADE_BUTTON));
     mSprites[SPRITES::SORT_BUTTON]->setTexture(GetTexture(TEXTURES::SORT_BUTTON));
+    mSprites[SPRITES::CLOSE_BUTTON]->setTexture(GetTexture(TEXTURES::CLOSE_BUTTON));
+    mSprites[SPRITES::MINI_BUTTON]->setTexture(GetTexture(TEXTURES::MINI_BUTTON));
     // INVENTORY
     mSprites[SPRITES::INVENTORY]->setTexture(GetTexture(TEXTURES::INVENTORY));
     // PARTICLE
@@ -631,6 +635,8 @@ sf::Sprite& AssetManager::GetSpriteForButton(BUTTONS::BUTTON_TYPE button)
     case BUTTONS::MUTE: return *mSprites[SPRITES::MUTE_BUTTON];
     case BUTTONS::UPGRADE: return *mSprites[SPRITES::UPGRADE_BUTTON];
     case BUTTONS::SORT: return *mSprites[SPRITES::SORT_BUTTON];
+    case BUTTONS::CLOSE: return *mSprites[SPRITES::CLOSE_BUTTON];
+    case BUTTONS::MINI: return *mSprites[SPRITES::MINI_BUTTON];
     default: return *mSprites[SPRITES::INVENTORY_BUTTON];
     }
 }

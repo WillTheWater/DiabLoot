@@ -53,6 +53,8 @@ void RenderManager::MainMenuRender()
 	Draw(mSystem.GUIMgr.GetButton(BUTTONS::EXIT_ID).GetText());
 
 	Draw(mSystem.GUIMgr.GetButton(BUTTONS::MUTE_BUTTON_ID).GetSprite());
+	Draw(mSystem.GUIMgr.GetButton(BUTTONS::CLOSE_BUTTON_ID).GetSprite());
+	Draw(mSystem.GUIMgr.GetButton(BUTTONS::MINI_BUTTON_ID).GetSprite());
 }
 
 void RenderManager::PlayStateRender()
@@ -67,6 +69,9 @@ void RenderManager::PlayStateRender()
 
 	Draw(mSystem.GUIMgr.GetButton(BUTTONS::MUTE_BUTTON_ID).GetSprite());
 	Draw(mSystem.GUIMgr.GetButton(BUTTONS::UPGRADE_BUTTON_ID).GetSprite());
+
+	Draw(mSystem.GUIMgr.GetButton(BUTTONS::CLOSE_BUTTON_ID).GetSprite());
+	Draw(mSystem.GUIMgr.GetButton(BUTTONS::MINI_BUTTON_ID).GetSprite());
 
 	InventoryRender();
 	RenderItemCollectionProgress();
