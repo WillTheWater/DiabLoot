@@ -362,13 +362,13 @@ void AssetManager::InitializeFontsAndTexts()
     for (auto& itemText : mItemTexts)
     {
         itemText->setFont(*mFonts[FONTS::LIGHT]);
-        itemText->setCharacterSize(20);
+        itemText->setCharacterSize(FONTS::CHARACTER_SIZE_NORMAL);
     }
     for (auto& button : mButtonTexts)
     {
         button->setFont(*mFonts[FONTS::BOLD]);
         button->setFillColor(sf::Color::Black);
-        button->setCharacterSize(45);
+        button->setCharacterSize(FONTS::CHARACTER_SIZE_BUTTONS);
     }
 }
 

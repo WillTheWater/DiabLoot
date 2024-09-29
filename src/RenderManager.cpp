@@ -69,6 +69,7 @@ void RenderManager::PlayStateRender()
 	Draw(mSystem.GUIMgr.GetButton(BUTTONS::UPGRADE_BUTTON_ID).GetSprite());
 
 	InventoryRender();
+	RenderItemCollectionProgress();
 }
 
 void RenderManager::InventoryRender()
@@ -336,4 +337,34 @@ void RenderManager::RenderItems(std::vector<std::unique_ptr<Item>>& items)
 		mGameWindow.draw(textRect);
 		mGameWindow.draw(text);
 	}
+}
+
+void RenderManager::RenderItemCollectionProgress()
+{
+	// Get the string with the appropriate numbers
+	std::string string{ "Item Collection: " };
+	string += std::to_string(mSystem.InventoryMgr.getNumberOfUniqueItems());
+	string += " / ";
+	string += std::to_string(ITEMGEN::TOTAL_UNIQUE_ITEMS);
+
+	// Create the SF::Text and TextRect
+	sf::Text text;
+	text.setString(string);
+	text.setFont(mSystem.AssetMgr.GetFont(FONTS::LIGHT));
+	text.setCharacterSize(FONTS::CHARACTER_SIZE_NORMAL);
+	text.setOrigin(text.getLocalBounds().getSize().x / 2.f, text.getLocalBounds().getSize().y / 2.f);
+	sf::RectangleShape textRect;
+	textRect.setSize({ text.getLocalBounds().getSize().x + FONTS::PADDING, text.getLocalBounds().getSize().y + FONTS::PADDING });
+	textRect.setOrigin(textRect.getLocalBounds().getSize().x / 2.f + FONTS::ORIGIN_YOFFSET, textRect.getLocalBounds().getSize().y / 2.f + FONTS::ORIGIN_YOFFSET);
+	textRect.setFillColor(mSystem.AssetMgr.GetTextboxColor());
+	
+	//Set positions
+	sf::Vector2f position{mGameWindow.getSize().x /2.f, 50.f};
+	textRect.setPosition(position);
+	text.setPosition(position);
+	
+	//Draw
+	Draw(textRect);
+	Draw(text);
+
 }
