@@ -1,6 +1,7 @@
 #include "PlayState.h"
 #include "MainMenuState.h"
 #include "SoundManager.h"
+#include <windows.h>
 #include "Core.h"
 
 PlayState::PlayState(System& system, ChangeStateCallback changeStateCB, Level& level)
@@ -15,6 +16,8 @@ PlayState::PlayState(System& system, ChangeStateCallback changeStateCB, Level& l
 	mSystem.GUIMgr.GetButton(BUTTONS::INVENTORY_ID).SetClickCB([this]() {if (mSystem.InventoryMgr.isOpen()) {mSystem.InventoryMgr.ToggleInventory();} });
 	mSystem.GUIMgr.GetButton(BUTTONS::OPEN_INVENTORY_ID).SetClickCB([this]() {mSystem.InventoryMgr.ToggleInventory();});
 	mSystem.GUIMgr.GetButton(BUTTONS::SORT_BUTTON_ID).SetClickCB([this]() { mSystem.InventoryMgr.sortInventory(); });
+	mSystem.GUIMgr.GetButton(BUTTONS::CLOSE_BUTTON_ID).SetClickCB([this]() { mSystem.RenderMgr.GetWindow().close(); });
+	mSystem.GUIMgr.GetButton(BUTTONS::MINI_BUTTON_ID).SetClickCB([this]() {HWND hwnd = mSystem.RenderMgr.GetWindow().getSystemHandle();	ShowWindow(hwnd, SW_MINIMIZE); });
 }
 
 void PlayState::Enter()
