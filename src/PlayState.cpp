@@ -21,7 +21,7 @@ PlayState::PlayState(System& system, ChangeStateCallback changeStateCB, Level& l
 
 	mSystem.GUIMgr.GetButton(BUTTONS::MINI_BUTTON_ID).SetClickCB([this]() {HWND hwnd = mSystem.RenderMgr.GetWindow().getSystemHandle();	ShowWindow(hwnd, SW_MINIMIZE); });
 	mSystem.GUIMgr.GetButton(BUTTONS::UPGRADE_BUTTON_ID).SetClickCB([this]() {this->UpgradeLevel(); });
-	mSystem.GUIMgr.GetButton(BUTTONS::NEW_GAME_ID).SetClickCB([this]() {auto newState = std::make_unique<PlayState>(mSystem, mChangeStateCB, mSystem.LevelMgr.GetNextLevel()); mChangeStateCB(std::move(newState)); });
+	mSystem.GUIMgr.GetButton(BUTTONS::NEW_GAME_ID).SetClickCB([this]() { auto newState = std::make_unique<MainMenuState>(mSystem, mChangeStateCB); mChangeStateCB(std::move(newState)); });
 }
 
 void PlayState::Enter()
