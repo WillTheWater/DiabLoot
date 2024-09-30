@@ -143,3 +143,8 @@ void LevelManager::ResetLevelLoop()
 {
 	mCurrentLevel = (LEVELS::LEVEL)(LEVELS::MAX_LEVELS - 1);
 }
+
+Level& LevelManager::GetCurrentLevel()
+{
+	return *mLevels[(size_t)mCurrentLevel];
+}
