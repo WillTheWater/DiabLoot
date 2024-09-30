@@ -170,6 +170,32 @@ void RenderManager::InventoryRender()
 	}
 }
 
+void RenderManager::SpeedRunTimeRender()
+{
+	int totalMilliseconds = mSystem.TimeMgr.GetSpeedRunTime();
+	int hours = totalMilliseconds / (1000 * 60 * 60);
+	totalMilliseconds %= (1000 * 60 * 60);
+	int minutes = totalMilliseconds / (1000 * 60);
+	totalMilliseconds %= (1000 * 60);
+	int seconds = totalMilliseconds / 1000;
+	int milliseconds = totalMilliseconds % 1000;
+	std::stringstream timeStream;
+	timeStream << "Completed in: \n " << std::setfill('0') << std::setw(2) << hours << ":"
+		<< std::setw(2) << minutes << ":"
+		<< std::setw(2) << seconds << "::"
+		<< std::setw(3) << milliseconds << std::endl;
+	std::string timeString = timeStream.str();
+	sf::Text timeText;
+	timeText.setFont(mSystem.AssetMgr.GetFont(FONTS::BOLD));
+	timeText.setCharacterSize(FONTS::CHARACTER_SIZE_NORMAL);
+	timeText.setString(timeString);
+	timeText.setOrigin(timeText.getLocalBounds().getSize().x / 2, timeText.getLocalBounds().getSize().y / 2);
+	timeText.setPosition(mWindowCenter - sf::Vector2f{0.f, 100.f});
+	timeText.setOutlineThickness(1.f);
+	timeText.setOutlineColor(sf::Color::Black);
+	Draw(timeText);
+}
+
 void RenderManager::LevelRender(Level& level)
 {
 	Draw(mSystem.AssetMgr.GetLevelMap(level.GetLevelId()));

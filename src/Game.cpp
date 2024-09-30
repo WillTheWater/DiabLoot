@@ -33,6 +33,7 @@ void Game::Run()
         mRenderMgr.GetWindow().clear(sf::Color::Black);
         if (mCurrentState) { mCurrentState->Draw(); }
         mRenderMgr.GetWindow().display();
+       
     }
 }
 
