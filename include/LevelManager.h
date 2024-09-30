@@ -14,6 +14,7 @@ public:
 	Level& GetNextLevel();
 	void	SaveLevels();
 	void	LoadLevels();
+	void	ResetLevelUpgrades();
 
 
 

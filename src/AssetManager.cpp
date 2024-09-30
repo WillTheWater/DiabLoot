@@ -634,7 +634,7 @@ sf::Color AssetManager::GetColorForItemText(std::pair<ITEMID::ITEM, ITEMRARITY::
     }
     switch (item.second)
     {
-    case ITEMRARITY::NORMAL:	    return sf::Color::White;
+    case ITEMRARITY::NORMAL:	    return sf::Color::White;            break;
     case ITEMRARITY::MAGIC:		    return sf::Color{  51, 102, 255 };	break;
     case ITEMRARITY::RARE:		    return sf::Color{ 253, 216, 53 };	break;
     case ITEMRARITY::SET:		    return sf::Color{ 44 , 190, 52 };	break;

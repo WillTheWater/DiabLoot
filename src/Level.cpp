@@ -340,3 +340,8 @@ void Level::DeactiveChests()
 		chest->SetActive(false);
 	}
 }
+
+void Level::ResetLevelUpgrades()
+{
+	mUpgradeLevel = LEVELS::UPGRADE::ONE_CHEST;
+}
