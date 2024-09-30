@@ -9,7 +9,14 @@ MainMenuState::MainMenuState(System& system, ChangeStateCallback changeStateCB)
 	, mMouseIsClicked{false}
 {
 	// New Game Button || Enter game, clear inventory and level upgrades
-	mSystem.GUIMgr.GetButton(BUTTONS::START_ID).SetClickCB([this]() { mSystem.InventoryMgr.DeleteInventory(); auto newState = std::make_unique<PlayState>(mSystem, mChangeStateCB, mSystem.LevelMgr.GetNextLevel()); mChangeStateCB(std::move(newState)); });
+	mSystem.GUIMgr.GetButton(BUTTONS::START_ID).SetClickCB([this]() { 
+		mSystem.LevelMgr.ResetLevelLoop();
+		mSystem.LevelMgr.ResetLevelUpgrades();
+		mSystem.InventoryMgr.DeleteInventory();
+		mSystem.TimeMgr.StartSpeedRunclock();
+		auto newState = std::make_unique<PlayState>(mSystem, mChangeStateCB, mSystem.LevelMgr.GetNextLevel());
+		mChangeStateCB(std::move(newState));
+		});
 
 	mSystem.GUIMgr.GetButton(BUTTONS::EXIT_ID).SetClickCB([this]() { mSystem.RenderMgr.GetWindow().close(); });
 	mSystem.GUIMgr.GetButton(BUTTONS::CLOSE_BUTTON_ID).SetClickCB([this]() { mSystem.RenderMgr.GetWindow().close(); });

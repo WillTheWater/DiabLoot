@@ -21,70 +21,70 @@ LevelManager::LevelManager(System& system)
 	mLevels.push_back(std::make_unique<Level>(LEVELS::LEVEL_TWELVE, mSystem));
 	mLevels.push_back(std::make_unique<Level>(LEVELS::LEVEL_THIRTEEN, mSystem));
 	// Level One Chests
-	mLevels[LEVELS::LEVEL_ONE]->SpawnChest({ 555.f, 250.f }, true);
-	mLevels[LEVELS::LEVEL_ONE]->SpawnChest({ 1400.f, 725.f }, false);
-	mLevels[LEVELS::LEVEL_ONE]->SpawnChest({ 750.f, 365.f }, false);	
-	mLevels[LEVELS::LEVEL_ONE]->SpawnChest({ 900.f, 525.f }, false);
+	mLevels[LEVELS::LEVEL_ONE]->SpawnChest({ 1136.f, 270.f }, true);
+	mLevels[LEVELS::LEVEL_ONE]->SpawnChest({ 660.f, 236.f }, true);
+	mLevels[LEVELS::LEVEL_ONE]->SpawnChest({ 432.f, 640.f }, false);	
+	mLevels[LEVELS::LEVEL_ONE]->SpawnChest({ 1734.f, 654.f }, false);
 	// Level Two Chests
-	mLevels[LEVELS::LEVEL_TWO]->SpawnChest({ 530.f, 700.f }, true);
-	mLevels[LEVELS::LEVEL_TWO]->SpawnChest({ 1250.f, 300.f }, false);
-	mLevels[LEVELS::LEVEL_TWO]->SpawnChest({ 1050.f, 400.f }, false);	
-	mLevels[LEVELS::LEVEL_TWO]->SpawnChest({ 850.f, 200.f }, false);
+	mLevels[LEVELS::LEVEL_TWO]->SpawnChest({ 1158.f, 428.f }, false);
+	mLevels[LEVELS::LEVEL_TWO]->SpawnChest({ 636.f, 228.f }, true);
+	mLevels[LEVELS::LEVEL_TWO]->SpawnChest({ 1686.f, 754.f }, false);	
+	mLevels[LEVELS::LEVEL_TWO]->SpawnChest({ 470.f, 698.f }, true);
 	// Level Three Chests
-	mLevels[LEVELS::LEVEL_THREE]->SpawnChest({ 200.f, 980.f }, true);
-	mLevels[LEVELS::LEVEL_THREE]->SpawnChest({ 1170.f, 170.f }, true);
-	mLevels[LEVELS::LEVEL_THREE]->SpawnChest({ 870.f, 370.f }, true);	
-	mLevels[LEVELS::LEVEL_THREE]->SpawnChest({ 570.f, 570.f }, true);	
+	mLevels[LEVELS::LEVEL_THREE]->SpawnChest({ 1360.f, 362.f }, false);
+	mLevels[LEVELS::LEVEL_THREE]->SpawnChest({ 736.f, 214.f }, true);
+	mLevels[LEVELS::LEVEL_THREE]->SpawnChest({ 1650.f, 572.f }, false);	
+	mLevels[LEVELS::LEVEL_THREE]->SpawnChest({ 412.f, 706.f }, true);	
 	// Level Four Chests
-	mLevels[LEVELS::LEVEL_FOUR]->SpawnChest({ 1170.f, 560.f }, false);
-	mLevels[LEVELS::LEVEL_FOUR]->SpawnChest({ 870.f, 860.f }, false);	
-	mLevels[LEVELS::LEVEL_FOUR]->SpawnChest({ 670.f, 660.f }, false);	
-	mLevels[LEVELS::LEVEL_FOUR]->SpawnChest({ 280.f, 260.f }, false);
+	mLevels[LEVELS::LEVEL_FOUR]->SpawnChest({ 680.f, 494.f }, true);
+	mLevels[LEVELS::LEVEL_FOUR]->SpawnChest({ 1284.f, 278.f }, false);	
+	mLevels[LEVELS::LEVEL_FOUR]->SpawnChest({ 252.f, 694.f }, false);	
+	mLevels[LEVELS::LEVEL_FOUR]->SpawnChest({ 1568.f, 320.f }, true);
 	// Level Five Chests
-	mLevels[LEVELS::LEVEL_FIVE]->SpawnChest({ 1200.f, 920.f }, false);
-	mLevels[LEVELS::LEVEL_FIVE]->SpawnChest({ 1120.f, 430.f }, true);
-	mLevels[LEVELS::LEVEL_FIVE]->SpawnChest({ 800.f, 830.f }, true);	
-	mLevels[LEVELS::LEVEL_FIVE]->SpawnChest({ 560.f, 560.f }, true);	
+	mLevels[LEVELS::LEVEL_FIVE]->SpawnChest({ 402.f, 252.f }, false);
+	mLevels[LEVELS::LEVEL_FIVE]->SpawnChest({ 1130.f, 712.f }, true);
+	mLevels[LEVELS::LEVEL_FIVE]->SpawnChest({ 806.f, 710.f }, false);	
+	mLevels[LEVELS::LEVEL_FIVE]->SpawnChest({ 1346.f, 302.f }, false);	
 	// Level Six Chests
-	mLevels[LEVELS::LEVEL_SIX]->SpawnChest({ 520.f, 320.f }, true);
-	mLevels[LEVELS::LEVEL_SIX]->SpawnChest({ 820.f, 470.f }, false);
-	mLevels[LEVELS::LEVEL_SIX]->SpawnChest({ 1650.f, 980.f }, true);
-	mLevels[LEVELS::LEVEL_SIX]->SpawnChest({ 950.f, 580.f }, true);		
+	mLevels[LEVELS::LEVEL_SIX]->SpawnChest({ 1370.f, 388.f }, false);
+	mLevels[LEVELS::LEVEL_SIX]->SpawnChest({ 434.f, 358.f }, true);
+	mLevels[LEVELS::LEVEL_SIX]->SpawnChest({ 1484.f, 676.f }, false);
+	mLevels[LEVELS::LEVEL_SIX]->SpawnChest({ 394.f, 726.f }, true);		
 	// Level Seven Chests
-	mLevels[LEVELS::LEVEL_SEVEN]->SpawnChest({ 1000.f, 180.f }, true);
-	mLevels[LEVELS::LEVEL_SEVEN]->SpawnChest({ 600.f, 800.f }, false);
-	mLevels[LEVELS::LEVEL_SEVEN]->SpawnChest({ 800.f, 900.f }, false);	
-	mLevels[LEVELS::LEVEL_SEVEN]->SpawnChest({ 500.f, 500.f }, false);	
+	mLevels[LEVELS::LEVEL_SEVEN]->SpawnChest({ 1532.f, 332.f }, true);
+	mLevels[LEVELS::LEVEL_SEVEN]->SpawnChest({ 776.f, 306.f }, false);
+	mLevels[LEVELS::LEVEL_SEVEN]->SpawnChest({ 1226.f, 514.f }, true);	
+	mLevels[LEVELS::LEVEL_SEVEN]->SpawnChest({ 1038.f, 532.f }, false);	
 	// Level Eight Chests
-	mLevels[LEVELS::LEVEL_EIGHT]->SpawnChest({ 1330.f, 340.f }, false); 
-	mLevels[LEVELS::LEVEL_EIGHT]->SpawnChest({ 930.f, 440.f }, false);	
-	mLevels[LEVELS::LEVEL_EIGHT]->SpawnChest({ 1030.f, 740.f }, false); 
-	mLevels[LEVELS::LEVEL_EIGHT]->SpawnChest({ 530.f, 540.f }, false);	
+	mLevels[LEVELS::LEVEL_EIGHT]->SpawnChest({ 1520.f, 812.f }, false); 
+	mLevels[LEVELS::LEVEL_EIGHT]->SpawnChest({ 278.f, 380.f }, true);	
+	mLevels[LEVELS::LEVEL_EIGHT]->SpawnChest({ 1508.f, 128.f }, true); 
+	mLevels[LEVELS::LEVEL_EIGHT]->SpawnChest({ 1184.f, 372.f }, true);	
 	// Level Nine Chests
-	mLevels[LEVELS::LEVEL_NINE]->SpawnChest({ 340.f, 330.f }, true);
-	mLevels[LEVELS::LEVEL_NINE]->SpawnChest({ 1450.f, 320.f }, false);
-	mLevels[LEVELS::LEVEL_NINE]->SpawnChest({ 950.f, 520.f }, false);	
-	mLevels[LEVELS::LEVEL_NINE]->SpawnChest({ 1050.f, 1020.f }, false);
+	mLevels[LEVELS::LEVEL_NINE]->SpawnChest({ 1236.f, 656.f }, true);
+	mLevels[LEVELS::LEVEL_NINE]->SpawnChest({ 964.f, 182.f }, true);
+	mLevels[LEVELS::LEVEL_NINE]->SpawnChest({ 352.f, 486.f }, true);	
+	mLevels[LEVELS::LEVEL_NINE]->SpawnChest({ 856.f, 470.f }, true);
 	// Level Ten Chests
-	mLevels[LEVELS::LEVEL_TEN]->SpawnChest({ 1180.f, 480.f }, false);
-	mLevels[LEVELS::LEVEL_TEN]->SpawnChest({ 600.f, 350.f }, true);
-	mLevels[LEVELS::LEVEL_TEN]->SpawnChest({ 900.f, 550.f }, true);		
-	mLevels[LEVELS::LEVEL_TEN]->SpawnChest({ 750.f, 750.f }, true);		
+	mLevels[LEVELS::LEVEL_TEN]->SpawnChest({ 498.f, 186.f }, true);
+	mLevels[LEVELS::LEVEL_TEN]->SpawnChest({ 660.f, 642.f }, true);
+	mLevels[LEVELS::LEVEL_TEN]->SpawnChest({ 1384.f, 334.f }, false);		
+	mLevels[LEVELS::LEVEL_TEN]->SpawnChest({ 1312.f, 690.f }, true);		
 	// Level Eleven Chests
-	mLevels[LEVELS::LEVEL_ELEVEN]->SpawnChest({ 1180.f, 480.f }, false);
-	mLevels[LEVELS::LEVEL_ELEVEN]->SpawnChest({ 600.f, 350.f }, true);
-	mLevels[LEVELS::LEVEL_ELEVEN]->SpawnChest({ 900.f, 550.f }, true);		
-	mLevels[LEVELS::LEVEL_ELEVEN]->SpawnChest({ 750.f, 750.f }, true);	
+	mLevels[LEVELS::LEVEL_ELEVEN]->SpawnChest({ 1036.f, 524.f }, false);
+	mLevels[LEVELS::LEVEL_ELEVEN]->SpawnChest({ 788.f, 276.f }, true);
+	mLevels[LEVELS::LEVEL_ELEVEN]->SpawnChest({ 1536.f, 658.f }, false);		
+	mLevels[LEVELS::LEVEL_ELEVEN]->SpawnChest({ 532.f, 794.f }, false);	
 	// Level Twelve Chests
-	mLevels[LEVELS::LEVEL_TWELVE]->SpawnChest({ 1180.f, 480.f }, false);
-	mLevels[LEVELS::LEVEL_TWELVE]->SpawnChest({ 600.f, 350.f }, true);
-	mLevels[LEVELS::LEVEL_TWELVE]->SpawnChest({ 900.f, 550.f }, true);		
-	mLevels[LEVELS::LEVEL_TWELVE]->SpawnChest({ 750.f, 750.f }, true);	
+	mLevels[LEVELS::LEVEL_TWELVE]->SpawnChest({ 1092.f, 290.f }, false);
+	mLevels[LEVELS::LEVEL_TWELVE]->SpawnChest({ 472.f, 622.f }, false);
+	mLevels[LEVELS::LEVEL_TWELVE]->SpawnChest({ 988.f, 526.f }, true);		
+	mLevels[LEVELS::LEVEL_TWELVE]->SpawnChest({ 442.f, 276.f }, true);	
 	// Level Thirteen Chests
-	mLevels[LEVELS::LEVEL_THIRTEEN]->SpawnChest({ 1180.f, 480.f }, false);
-	mLevels[LEVELS::LEVEL_THIRTEEN]->SpawnChest({ 600.f, 350.f }, true);
-	mLevels[LEVELS::LEVEL_THIRTEEN]->SpawnChest({ 900.f, 550.f }, true);		
-	mLevels[LEVELS::LEVEL_THIRTEEN]->SpawnChest({ 750.f, 750.f }, true);		
+	mLevels[LEVELS::LEVEL_THIRTEEN]->SpawnChest({ 634.f, 706.f }, false);
+	mLevels[LEVELS::LEVEL_THIRTEEN]->SpawnChest({ 1240.f, 338.f }, false);
+	mLevels[LEVELS::LEVEL_THIRTEEN]->SpawnChest({ 1476.f, 458.f }, false);		
+	mLevels[LEVELS::LEVEL_THIRTEEN]->SpawnChest({ 588.f, 276.f }, true);		
 
 	assert(mLevels.size() == LEVELS::MAX_LEVELS && "LevelManager did not make the right number of levels!");
 }
