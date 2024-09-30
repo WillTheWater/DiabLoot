@@ -135,6 +135,6 @@ void LevelManager::ResetLevelUpgrades()
 {
 	for (auto& level : mLevels)
 	{
-		level->ResetLevelUpgrades();
+		level->ResetLevelUpgrades();t
 	}
 }

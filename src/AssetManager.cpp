@@ -134,8 +134,8 @@ void AssetManager::InitializeTextureSprites()
     mTextures[TEXTURES::JAHRUNE]->loadFromFile              ("assets/graphics/runes/Jahrune31.png");
     mTextures[TEXTURES::CHAMRUNE]->loadFromFile             ("assets/graphics/runes/Chamrune32.png");
     mTextures[TEXTURES::ZODRUNE]->loadFromFile              ("assets/graphics/runes/Zodrune33.png");
-    mTextures[TEXTURES::GOLD_SMALL]->loadFromFile           ("assets/graphics/items/gold_large.png");
-    mTextures[TEXTURES::GOLD_MEDIUM]->loadFromFile          ("assets/graphics/items/gold_large.png");
+    mTextures[TEXTURES::GOLD_SMALL]->loadFromFile           ("assets/graphics/items/gold_small.png");
+    mTextures[TEXTURES::GOLD_MEDIUM]->loadFromFile          ("assets/graphics/items/gold_medium.png");
     mTextures[TEXTURES::GOLD_LARGE]->loadFromFile           ("assets/graphics/items/gold_large.png");
    
 
@@ -618,18 +618,20 @@ sf::Color AssetManager::GetColorForItemText(std::pair<ITEMID::ITEM, ITEMRARITY::
     switch (item.first)
     {
     case ITEMID::WORLDSTONE_SHARD:  return sf::Color::Red;
-    case ITEMID::AMETHYST_F:        return sf::Color{ 153, 102, 51 };   break;
-    case ITEMID::AMETHYST_P:        return sf::Color{ 153, 102, 51 };   break;
-    case ITEMID::DIAMOND_P:         return sf::Color{ 153, 102, 51 };   break;
-    case ITEMID::DIAMOND_F:         return sf::Color{ 153, 102, 51 };   break;
-    case ITEMID::EMERALD_P:         return sf::Color{ 153, 102, 51 };   break;
-    case ITEMID::EMERALD_F:         return sf::Color{ 153, 102, 51 };   break;
-    case ITEMID::RUBY_P:            return sf::Color{ 153, 102, 51 };   break;
-    case ITEMID::RUBY_F:            return sf::Color{ 153, 102, 51 };   break;  
-    case ITEMID::SAPPHIRE_P:        return sf::Color{ 153, 102, 51 };   break;
-    case ITEMID::SAPPHIRE_F:        return sf::Color{ 153, 102, 51 };   break;
-    case ITEMID::TOPAZ_P:           return sf::Color{ 153, 102, 51 };   break;
-    case ITEMID::TOPAZ_F:           return sf::Color{ 153, 102, 51 };   break;
+    case ITEMID::AMETHYST_F:        return sf::Color{ 255, 152, 0 };    break;
+    case ITEMID::AMETHYST_P:        return sf::Color{ 255, 152, 0 };    break;
+    case ITEMID::DIAMOND_P:         return sf::Color{ 255, 152, 0 };    break;
+    case ITEMID::DIAMOND_F:         return sf::Color{ 255, 152, 0 };    break;
+    case ITEMID::EMERALD_P:         return sf::Color{ 255, 152, 0 };    break;
+    case ITEMID::EMERALD_F:         return sf::Color{ 255, 152, 0 };    break;
+    case ITEMID::RUBY_P:            return sf::Color{ 255, 152, 0 };    break;
+    case ITEMID::RUBY_F:            return sf::Color{ 255, 152, 0 };    break;
+    case ITEMID::SAPPHIRE_P:        return sf::Color{ 255, 152, 0 };    break;
+    case ITEMID::SAPPHIRE_F:        return sf::Color{ 255, 152, 0 };    break;
+    case ITEMID::TOPAZ_P:           return sf::Color{ 255, 152, 0 };    break;
+    case ITEMID::TOPAZ_F:           return sf::Color{ 255, 152, 0 };    break;
+    case ITEMID::SKULL_P:           return sf::Color{ 255, 152, 0 };    break;
+    case ITEMID::SKULL_F:           return sf::Color{ 255, 152, 0 };    break;
     default: break;
     }
     switch (item.second)

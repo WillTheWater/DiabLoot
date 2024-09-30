@@ -213,7 +213,6 @@ namespace ITEMGEN
 		default : 
 			randomIndex = MathU::Random(0, (int)RarityNormalItems.size() - 1);
 			return RarityNormalItems[randomIndex];
-
 		}
 	}
 
