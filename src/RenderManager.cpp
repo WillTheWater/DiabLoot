@@ -210,7 +210,19 @@ void RenderManager::DrawToolTip(sf::Vector2f mousePos)
 	{
 		sf::Text tooltipText;
 		tooltipText.setFont(mSystem.AssetMgr.GetFont(FONTS::LIGHT));
-		tooltipText.setString("    Upgrade Level:\n  Add Chest to Level\n2nd Chest: 10,000 Gold\n3rd Chest: 20,000 Gold\n4th Chest: 50,000 Gold");
+		LEVELS::UPGRADE currentUpgrade = mSystem.LevelMgr.GetCurrentLevel().GetUpgradeLevel();
+		if ((int)currentUpgrade == (int)(LEVELS::MAX_UPGRADES - 1))
+		{
+			tooltipText.setString(" At Max Upgrade! \n");
+		}
+		else
+		{
+			std::string nextUpgrade = " Next Upgrade: \n $";
+			nextUpgrade += std::to_string(mSystem.AssetMgr.GetCostForNextLevelUpgrade(currentUpgrade));
+			nextUpgrade += " Gold\n";
+			tooltipText.setString(nextUpgrade);
+		}
+
 		tooltipText.setCharacterSize(25);
 		tooltipText.setFillColor(sf::Color::White);
 
@@ -223,7 +235,7 @@ void RenderManager::DrawToolTip(sf::Vector2f mousePos)
 		backgroundRect.setFillColor(sf::Color(0, 0, 0, 200));
 
 		float xPos = mousePos.x - (backgroundRect.getSize().x / 2.f);
-		float yPos = mousePos.y - backgroundRect.getSize().y + 280.f;
+		float yPos = mousePos.y - backgroundRect.getSize().y + 220.f;
 		backgroundRect.setPosition(xPos, yPos);
 
 		tooltipText.setPosition(xPos + 10.f, yPos + 5.f);
