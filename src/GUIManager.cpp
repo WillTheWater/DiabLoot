@@ -50,6 +50,7 @@ void GUIManager::ButtonInit()
     mButtons[BUTTONS::SORT_BUTTON_ID] = MakeSquareButton(BUTTONS::SORT, { 1700.f, 940.f });
     mButtons[BUTTONS::OPEN_INVENTORY_ID] = MakeButton(BUTTONS::WIDE, BUTTONS::OPEN_INVENTORY, mWindowCenter + sf::Vector2f{ 660.f, 500.f });
     mButtons[BUTTONS::MUTE_BUTTON_ID] = MakeSquareButton(BUTTONS::MUTE, {100.f,100.f});
+    mButtons[BUTTONS::INFO_BUTTON_ID] = MakeSquareButton(BUTTONS::INFO, {100.f,192.f});
     mButtons[BUTTONS::UPGRADE_BUTTON_ID] = MakeSquareButton(BUTTONS::UPGRADE, { 192.f, 100.f }); 
     mButtons[BUTTONS::CLOSE_BUTTON_ID] = MakeSquareButton(BUTTONS::CLOSE, { 1890.f, 30.f }); 
     mButtons[BUTTONS::MINI_BUTTON_ID] = MakeSquareButton(BUTTONS::MINI, { 1840.f, 30.f });
@@ -79,6 +80,7 @@ void GUIManager::PlayStateUpdate(sf::Vector2f mousePos, bool isClicked)
     mButtons[BUTTONS::OPEN_INVENTORY_ID]->HandleEvent(mousePos, isClicked);
     mButtons[BUTTONS::EXIT_PLAY_ID]->HandleEvent(mousePos, isClicked);
     mButtons[BUTTONS::MUTE_BUTTON_ID]->HandleEvent(mousePos, isClicked);
+    mButtons[BUTTONS::INFO_BUTTON_ID]->HandleEvent(mousePos, isClicked);
     mButtons[BUTTONS::UPGRADE_BUTTON_ID]->HandleEvent(mousePos, isClicked);
     mButtons[BUTTONS::SORT_BUTTON_ID]->HandleEvent(mousePos, isClicked);
     mButtons[BUTTONS::CLOSE_BUTTON_ID]->HandleEvent(mousePos, isClicked);

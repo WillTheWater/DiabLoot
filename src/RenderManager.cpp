@@ -69,6 +69,7 @@ void RenderManager::PlayStateRender()
 
 	Draw(mSystem.GUIMgr.GetButton(BUTTONS::MUTE_BUTTON_ID).GetSprite());
 	Draw(mSystem.GUIMgr.GetButton(BUTTONS::UPGRADE_BUTTON_ID).GetSprite());
+	Draw(mSystem.GUIMgr.GetButton(BUTTONS::INFO_BUTTON_ID).GetSprite());
 
 	Draw(mSystem.GUIMgr.GetButton(BUTTONS::CLOSE_BUTTON_ID).GetSprite());
 	Draw(mSystem.GUIMgr.GetButton(BUTTONS::MINI_BUTTON_ID).GetSprite());
@@ -223,6 +224,31 @@ void RenderManager::DrawToolTip(sf::Vector2f mousePos)
 
 		float xPos = mousePos.x - (backgroundRect.getSize().x / 2.f);
 		float yPos = mousePos.y - backgroundRect.getSize().y - 10.f;
+		backgroundRect.setPosition(xPos, yPos);
+
+		tooltipText.setPosition(xPos + 10.f, yPos + 5.f);
+
+		mSystem.RenderMgr.Draw(backgroundRect);
+		mSystem.RenderMgr.Draw(tooltipText);
+	}
+	if (mSystem.GUIMgr.GetButton(BUTTONS::INFO_BUTTON_ID).GetSprite().getGlobalBounds().contains(mousePos))
+	{
+		sf::Text tooltipText;
+		tooltipText.setFont(mSystem.AssetMgr.GetFont(FONTS::LIGHT));
+		tooltipText.setString("        | How to Play |\n\n   Collect all the items\nby clicking on the chests.\n  Click ~Next Level~ to\n            move on.\n    Collect Gold and to\n       upgrade levels.\n  Use the Upgrade to add\n      up to four chests.\n\n           | Hotkeys |\n          M: Mute all\n      I: Open Inventory\n       U: Upgrade Level\n         N: Next Level");
+		tooltipText.setCharacterSize(25);
+		tooltipText.setFillColor(sf::Color::White);
+
+		sf::FloatRect textBounds = tooltipText.getLocalBounds();
+		float textWidth = textBounds.width;
+		float textHeight = textBounds.height;
+
+		sf::RectangleShape backgroundRect;
+		backgroundRect.setSize(sf::Vector2f(textWidth + 20.f, textHeight + 20.f));
+		backgroundRect.setFillColor(sf::Color(0, 0, 0, 200));
+
+		float xPos = mousePos.x - (backgroundRect.getSize().x / 2.f - 280.f);
+		float yPos = mousePos.y - backgroundRect.getSize().y + 280.f;
 		backgroundRect.setPosition(xPos, yPos);
 
 		tooltipText.setPosition(xPos + 10.f, yPos + 5.f);

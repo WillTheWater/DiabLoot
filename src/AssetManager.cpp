@@ -38,6 +38,7 @@ void AssetManager::InitializeTextureSprites()
     mTextures[TEXTURES::SORT_BUTTON]->loadFromFile("assets/graphics/sortbutton.png");
     mTextures[TEXTURES::CLOSE_BUTTON]->loadFromFile("assets/graphics/closebutton.png");
     mTextures[TEXTURES::MINI_BUTTON]->loadFromFile("assets/graphics/minibutton.png");
+    mTextures[TEXTURES::INFO_BUTTON]->loadFromFile("assets/graphics/infobutton.png");
     mTextures[TEXTURES::CHESTCLOSED]->loadFromFile("assets/graphics/chestclosed.png");
     mTextures[TEXTURES::CHESTOPENED]->loadFromFile("assets/graphics/chestopened.png");
     // MAPS
@@ -161,6 +162,7 @@ void AssetManager::InitializeTextureSprites()
     mSprites[SPRITES::SORT_BUTTON]->setTexture(GetTexture(TEXTURES::SORT_BUTTON));
     mSprites[SPRITES::CLOSE_BUTTON]->setTexture(GetTexture(TEXTURES::CLOSE_BUTTON));
     mSprites[SPRITES::MINI_BUTTON]->setTexture(GetTexture(TEXTURES::MINI_BUTTON));
+    mSprites[SPRITES::INFO_BUTTON]->setTexture(GetTexture(TEXTURES::INFO_BUTTON));
     // INVENTORY
     mSprites[SPRITES::INVENTORY]->setTexture(GetTexture(TEXTURES::INVENTORY));
     // PARTICLE
@@ -626,7 +628,7 @@ sf::Color AssetManager::GetColorForItemText(std::pair<ITEMID::ITEM, ITEMRARITY::
     }                         
 }
 
-sf::Color AssetManager::GetTextboxColor()
+sf::Color AssetManager::GetTextboxColor() const
 {
     return mTextboxColor;
 }
@@ -641,6 +643,7 @@ sf::Sprite& AssetManager::GetSpriteForButton(BUTTONS::BUTTON_TYPE button)
     case BUTTONS::SORT: return *mSprites[SPRITES::SORT_BUTTON];
     case BUTTONS::CLOSE: return *mSprites[SPRITES::CLOSE_BUTTON];
     case BUTTONS::MINI: return *mSprites[SPRITES::MINI_BUTTON];
+    case BUTTONS::INFO: return *mSprites[SPRITES::INFO_BUTTON];
     default: return *mSprites[SPRITES::INVENTORY_BUTTON];
     }
 }
