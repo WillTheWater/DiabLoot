@@ -218,9 +218,9 @@ void RenderManager::DrawToolTip(sf::Vector2f mousePos)
 		}
 		else
 		{
-			std::string nextUpgrade = " Next Upgrade: \n $";
+			std::string nextUpgrade = " | Upgrade Cost | \n\n    ";
 			nextUpgrade += std::to_string(mSystem.AssetMgr.GetCostForNextLevelUpgrade(currentUpgrade));
-			nextUpgrade += " Gold\n";
+			nextUpgrade += " Gold";
 			tooltipText.setString(nextUpgrade);
 		}
 
@@ -235,8 +235,8 @@ void RenderManager::DrawToolTip(sf::Vector2f mousePos)
 		backgroundRect.setSize(sf::Vector2f(textWidth + 20.f, textHeight + 20.f));
 		backgroundRect.setFillColor(sf::Color(0, 0, 0, 200));
 
-		float xPos = mousePos.x - (backgroundRect.getSize().x / 2.f);
-		float yPos = mousePos.y - backgroundRect.getSize().y + 220.f;
+		float xPos = mousePos.x - (backgroundRect.getSize().x / 2.f - 215.f);
+		float yPos = mousePos.y - backgroundRect.getSize().y + 80.f;
 		backgroundRect.setPosition(xPos, yPos);
 
 		tooltipText.setPosition(xPos + 10.f, yPos + 5.f);

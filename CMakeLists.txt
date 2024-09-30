@@ -40,6 +40,32 @@ target_link_libraries(${PROJECT_NAME} PRIVATE sfml-graphics sfml-audio)
 # Ensure C++20 is enabled
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
 
+# Set subsystem for Release mode to Windows and Debug mode to Console
+if(WIN32)
+    if(CMAKE_BUILD_TYPE STREQUAL "Release")
+        set_target_properties(${PROJECT_NAME} PROPERTIES
+            WIN32_EXECUTABLE TRUE  # This sets /SUBSYSTEM:WINDOWS for Release builds
+        )
+    elseif(CMAKE_BUILD_TYPE STREQUAL "Debug")
+        set_target_properties(${PROJECT_NAME} PROPERTIES
+            WIN32_EXECUTABLE FALSE  # This sets /SUBSYSTEM:CONSOLE for Debug builds
+        )
+    endif()
+endif()
+
+# Define SFML_STATIC if building statically (optional)
+if(WIN32 AND NOT BUILD_SHARED_LIBS)
+    target_compile_definitions(${PROJECT_NAME} PRIVATE SFML_STATIC)
+endif()
+
+# Create the 'save' directory in the appropriate output directory for Debug and Release
+add_custom_command(
+    TARGET ${PROJECT_NAME}
+    PRE_BUILD
+    COMMAND ${CMAKE_COMMAND} -E make_directory $<TARGET_FILE_DIR:${PROJECT_NAME}>/save
+    COMMENT "Creating save directory in output folder"
+)
+
 # Copy the assets folder (with subfolders) to the output directory after build
 add_custom_command(
     TARGET ${PROJECT_NAME}
