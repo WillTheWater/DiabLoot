@@ -31,15 +31,17 @@ void AssetManager::InitializeTextureSprites()
     mTextures[TEXTURES::MAINMENU]->loadFromFile             ("assets/graphics/mainmenu.png");
     mTextures[TEXTURES::WINSCREEN]->loadFromFile            ("assets/graphics/winscreen.png");
     // BUTTON TEXTURES
-    mTextures[TEXTURES::WIDE_BUTTON]->loadFromFile          ("assets/graphics/button.png");
-    mTextures[TEXTURES::INVENTORY_BUTTON]->loadFromFile     ("assets/graphics/inventorybutton.png");
-    mTextures[TEXTURES::MUTE_BUTTON]->loadFromFile          ("assets/graphics/mutebutton.png");
-    mTextures[TEXTURES::UPGRADE_BUTTON]->loadFromFile       ("assets/graphics/upgradebutton.png");
-    mTextures[TEXTURES::SORT_BUTTON]->loadFromFile          ("assets/graphics/sortbutton.png");
-    mTextures[TEXTURES::CLOSE_BUTTON]->loadFromFile         ("assets/graphics/closebutton.png");
-    mTextures[TEXTURES::MINI_BUTTON]->loadFromFile          ("assets/graphics/minibutton.png");
-    mTextures[TEXTURES::CHESTCLOSED]->loadFromFile          ("assets/graphics/chestclosed.png");
-    mTextures[TEXTURES::CHESTOPENED]->loadFromFile          ("assets/graphics/chestopened.png");
+
+    mTextures[TEXTURES::WIDE_BUTTON]->loadFromFile("assets/graphics/button.png");
+    mTextures[TEXTURES::INVENTORY_BUTTON]->loadFromFile("assets/graphics/inventorybutton.png");
+    mTextures[TEXTURES::MUTE_BUTTON]->loadFromFile("assets/graphics/mutebutton.png");
+    mTextures[TEXTURES::UPGRADE_BUTTON]->loadFromFile("assets/graphics/upgradebutton.png");
+    mTextures[TEXTURES::SORT_BUTTON]->loadFromFile("assets/graphics/sortbutton.png");
+    mTextures[TEXTURES::CLOSE_BUTTON]->loadFromFile("assets/graphics/closebutton.png");
+    mTextures[TEXTURES::MINI_BUTTON]->loadFromFile("assets/graphics/minibutton.png");
+    mTextures[TEXTURES::INFO_BUTTON]->loadFromFile("assets/graphics/infobutton.png");
+    mTextures[TEXTURES::CHESTCLOSED]->loadFromFile("assets/graphics/chestclosed.png");
+    mTextures[TEXTURES::CHESTOPENED]->loadFromFile("assets/graphics/chestopened.png");
     // MAPS
     mTextures[TEXTURES::MAP_ONE]->loadFromFile              ("assets/graphics/levels/level1.png");
     mTextures[TEXTURES::MAP_TWO]->loadFromFile              ("assets/graphics/levels/level2.png");
@@ -158,13 +160,14 @@ void AssetManager::InitializeTextureSprites()
     mSprites[SPRITES::MAP_TWELVE]->setTexture               (GetTexture(TEXTURES::MAP_TWELVE));
     mSprites[SPRITES::MAP_THIRTEEN]->setTexture             (GetTexture(TEXTURES::MAP_THIRTEEN));
     // BUTTONS
-    mSprites[SPRITES::WIDE_BUTTON]->setTexture              (GetTexture(TEXTURES::WIDE_BUTTON));
-    mSprites[SPRITES::INVENTORY_BUTTON]->setTexture         (GetTexture(TEXTURES::INVENTORY_BUTTON));
-    mSprites[SPRITES::MUTE_BUTTON]->setTexture              (GetTexture(TEXTURES::MUTE_BUTTON));
-    mSprites[SPRITES::UPGRADE_BUTTON]->setTexture           (GetTexture(TEXTURES::UPGRADE_BUTTON));
-    mSprites[SPRITES::SORT_BUTTON]->setTexture              (GetTexture(TEXTURES::SORT_BUTTON));
-    mSprites[SPRITES::CLOSE_BUTTON]->setTexture             (GetTexture(TEXTURES::CLOSE_BUTTON));
-    mSprites[SPRITES::MINI_BUTTON]->setTexture              (GetTexture(TEXTURES::MINI_BUTTON));
+    mSprites[SPRITES::WIDE_BUTTON]->setTexture(GetTexture(TEXTURES::WIDE_BUTTON));
+    mSprites[SPRITES::INVENTORY_BUTTON]->setTexture(GetTexture(TEXTURES::INVENTORY_BUTTON));
+    mSprites[SPRITES::MUTE_BUTTON]->setTexture(GetTexture(TEXTURES::MUTE_BUTTON));
+    mSprites[SPRITES::UPGRADE_BUTTON]->setTexture(GetTexture(TEXTURES::UPGRADE_BUTTON));
+    mSprites[SPRITES::SORT_BUTTON]->setTexture(GetTexture(TEXTURES::SORT_BUTTON));
+    mSprites[SPRITES::CLOSE_BUTTON]->setTexture(GetTexture(TEXTURES::CLOSE_BUTTON));
+    mSprites[SPRITES::MINI_BUTTON]->setTexture(GetTexture(TEXTURES::MINI_BUTTON));
+    mSprites[SPRITES::INFO_BUTTON]->setTexture(GetTexture(TEXTURES::INFO_BUTTON));
     // INVENTORY
     mSprites[SPRITES::INVENTORY]->setTexture                (GetTexture(TEXTURES::INVENTORY));
     // CHESTS
@@ -646,7 +649,7 @@ sf::Color AssetManager::GetColorForItemText(std::pair<ITEMID::ITEM, ITEMRARITY::
     }                         
 }
 
-sf::Color AssetManager::GetTextboxColor()
+sf::Color AssetManager::GetTextboxColor() const
 {
     return mTextboxColor;
 }
@@ -655,13 +658,14 @@ sf::Sprite& AssetManager::GetSpriteForButton(BUTTONS::BUTTON_TYPE button)
 {
     switch (button)
     {
-    case BUTTONS::WIDE:     return *mSprites[SPRITES::WIDE_BUTTON];
-    case BUTTONS::MUTE:     return *mSprites[SPRITES::MUTE_BUTTON];
-    case BUTTONS::UPGRADE:  return *mSprites[SPRITES::UPGRADE_BUTTON];
-    case BUTTONS::SORT:     return *mSprites[SPRITES::SORT_BUTTON];
-    case BUTTONS::CLOSE:    return *mSprites[SPRITES::CLOSE_BUTTON];
-    case BUTTONS::MINI:     return *mSprites[SPRITES::MINI_BUTTON];
-    default:                return *mSprites[SPRITES::INVENTORY_BUTTON];
+    case BUTTONS::WIDE: return *mSprites[SPRITES::WIDE_BUTTON];
+    case BUTTONS::MUTE: return *mSprites[SPRITES::MUTE_BUTTON];
+    case BUTTONS::UPGRADE: return *mSprites[SPRITES::UPGRADE_BUTTON];
+    case BUTTONS::SORT: return *mSprites[SPRITES::SORT_BUTTON];
+    case BUTTONS::CLOSE: return *mSprites[SPRITES::CLOSE_BUTTON];
+    case BUTTONS::MINI: return *mSprites[SPRITES::MINI_BUTTON];
+    case BUTTONS::INFO: return *mSprites[SPRITES::INFO_BUTTON];
+    default: return *mSprites[SPRITES::INVENTORY_BUTTON];
     }
 }
 
