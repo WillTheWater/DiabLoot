@@ -12,7 +12,7 @@ MainMenuState::MainMenuState(System& system, ChangeStateCallback changeStateCB)
 	mSystem.GUIMgr.GetButton(BUTTONS::EXIT_ID).SetClickCB([this]() { mSystem.RenderMgr.GetWindow().close(); });
 	mSystem.GUIMgr.GetButton(BUTTONS::CLOSE_BUTTON_ID).SetClickCB([this]() { mSystem.RenderMgr.GetWindow().close(); });
 	mSystem.GUIMgr.GetButton(BUTTONS::MINI_BUTTON_ID).SetClickCB([this]() {HWND hwnd = mSystem.RenderMgr.GetWindow().getSystemHandle();	ShowWindow(hwnd, SW_MINIMIZE);});
-	mSystem.GUIMgr.GetButton(BUTTONS::LOAD_GAME_ID).SetClickCB([this]() { mSystem.InventoryMgr.loadInventory();
+	mSystem.GUIMgr.GetButton(BUTTONS::LOAD_GAME_ID).SetClickCB([this]() { mSystem.InventoryMgr.LoadInventory();
 	mSystem.LevelMgr.LoadLevels();
 	auto newState = std::make_unique<PlayState>(mSystem, mChangeStateCB, mSystem.LevelMgr.GetNextLevel());
 	mChangeStateCB(std::move(newState)); });
@@ -23,6 +23,7 @@ void MainMenuState::Enter()
 {
 	mSystem.InputMgr.AddObserver(this);
 	SoundManager::GetInstance().PlayMusic(MUSIC::INTRO, 10.f);
+	
 
 }
 

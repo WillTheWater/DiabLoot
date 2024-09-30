@@ -9,16 +9,16 @@ public:
 	ItemSlot(std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> item, int quantity);
 	ItemSlot(int id, int rartity, int quantity);
 
-	std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> getItemId();
+	std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> GetItemId();
 
 	bool operator== (const ItemSlot& other);
 
-	bool										isEmpty();
-	int											getQuantity();
-	void										incrementQuantity(int amount = 1);
+	bool										IsEmpty();
+	int											GetQuantity();
+	void										IncrementQuantity(int amount = 1);
 
-	void										setContainedItem(std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> item, int quantity = 1);
-	void										toggleEmpty(bool empty);
+	void										SetContainedItem(std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> item, int quantity = 1);
+	void										ToggleEmpty(bool empty);
 
 private:
 	std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> mItemId;

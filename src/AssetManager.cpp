@@ -607,19 +607,32 @@ sf::Sprite& AssetManager::GetSpriteForItem(ITEMID::ITEM item)
 
 sf::Color AssetManager::GetColorForItemText(std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> item)
 {
-    if (item.first == ITEMID::WORLDSTONE_SHARD)
+    switch (item.first)
     {
-        return sf::Color{ sf::Color::Red };
+    case ITEMID::WORLDSTONE_SHARD:  return sf::Color::Red;
+    case ITEMID::AMETHYST_F:        return sf::Color{ 153, 102, 51 };   break;
+    case ITEMID::AMETHYST_P:        return sf::Color{ 153, 102, 51 };   break;
+    case ITEMID::DIAMOND_P:         return sf::Color{ 153, 102, 51 };   break;
+    case ITEMID::DIAMOND_F:         return sf::Color{ 153, 102, 51 };   break;
+    case ITEMID::EMERALD_P:         return sf::Color{ 153, 102, 51 };   break;
+    case ITEMID::EMERALD_F:         return sf::Color{ 153, 102, 51 };   break;
+    case ITEMID::RUBY_P:            return sf::Color{ 153, 102, 51 };   break;
+    case ITEMID::RUBY_F:            return sf::Color{ 153, 102, 51 };   break;  
+    case ITEMID::SAPPHIRE_P:        return sf::Color{ 153, 102, 51 };   break;
+    case ITEMID::SAPPHIRE_F:        return sf::Color{ 153, 102, 51 };   break;
+    case ITEMID::TOPAZ_P:           return sf::Color{ 153, 102, 51 };   break;
+    case ITEMID::TOPAZ_F:           return sf::Color{ 153, 102, 51 };   break;
+    default: break;
     }
     switch (item.second)
     {
-    case ITEMRARITY::NORMAL:	return sf::Color::White;
-    case ITEMRARITY::MAGIC:		return sf::Color{  51, 102, 255 };	break;
-    case ITEMRARITY::RARE:		return sf::Color{ 253, 216, 53 };	break;
-    case ITEMRARITY::SET:		return sf::Color{ 44 , 190, 52 };	break;
-    case ITEMRARITY::UNIQUE:	return sf::Color{ 153, 102, 51 };	break;
-    case ITEMRARITY::RUNE:		return sf::Color{ 198, 140, 89 };	break;
-    default:					return sf::Color::White;			break;
+    case ITEMRARITY::NORMAL:	    return sf::Color::White;
+    case ITEMRARITY::MAGIC:		    return sf::Color{  51, 102, 255 };	break;
+    case ITEMRARITY::RARE:		    return sf::Color{ 253, 216, 53 };	break;
+    case ITEMRARITY::SET:		    return sf::Color{ 44 , 190, 52 };	break;
+    case ITEMRARITY::UNIQUE:	    return sf::Color{ 153, 102, 51 };	break;
+    case ITEMRARITY::RUNE:		    return sf::Color{ 198, 140, 89 };	break;
+    default:					    return sf::Color::White;			break;
     }                         
 }
 

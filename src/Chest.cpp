@@ -79,13 +79,13 @@ bool Chest::IsMirrored() const
 	return mMirrored;
 }
 
-void Chest::setActive(bool active)
+void Chest::SetActive(bool active)
 {
 	mMouseOver = false;
 	mActive = active;
 }
 
-bool Chest::isActive()
+bool Chest::IsActive()
 {
 	return mActive;
 }

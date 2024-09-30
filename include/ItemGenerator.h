@@ -174,14 +174,14 @@ namespace ITEMGEN
 		ITEMID::ZODRUNE
 	};
 
-	static int getValueForItem(std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> item)
+	static int GetValueForItem(std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> item)
 	{
 		int baseValue = 100;
 		int multiplier = (int)item.second;
 		return (baseValue * multiplier);
 	}
 
-	static ITEMID::ITEM getItemOfRarity(ITEMRARITY::RARITY rarity)
+	static ITEMID::ITEM GetItemOfRarity(ITEMRARITY::RARITY rarity)
 	{
 		int randomIndex;
 		switch (rarity)
@@ -222,15 +222,15 @@ namespace ITEMGEN
 		+ RaritySetItems.size() + RarityUniqueItems.size() + RarityRuneItems.size()
 	};
 
-	static ITEMRARITY::RARITY getRandomRarity()
+	static ITEMRARITY::RARITY GetRandomRarity()
 	{
 		ITEMRARITY::RARITY rarity = (ITEMRARITY::RARITY)MathU::DiscreteProbability(RarityProbabilities);
 		return rarity;
 	}
 
-	static std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> getRandomItem()
+	static std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> GetRandomItem()
 	{
-		ITEMRARITY::RARITY rarity = getRandomRarity();
+		ITEMRARITY::RARITY rarity = GetRandomRarity();
 		if (rarity == ITEMRARITY::GOLD)
 		{
 			return { ITEMID::GOLD, ITEMRARITY::GOLD };
@@ -241,11 +241,11 @@ namespace ITEMGEN
 			ITEMID::ITEM rune = RarityRuneItems[runeIndex];
 			return { rune, rarity };
 		}
-		ITEMID::ITEM item = getItemOfRarity(rarity);
+		ITEMID::ITEM item = GetItemOfRarity(rarity);
 		return { item, rarity };
 	}
 
-	static int getRandomGoldAmount()
+	static int GetRandomGoldAmount()
 	{
 		return MathU::Random(1, 1000);
 	}

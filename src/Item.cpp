@@ -54,37 +54,37 @@ void Item::OnMouseRelease(sf::Mouse::Button button)
 
 }
 
-sf::Vector2f Item::getPosition()
+sf::Vector2f Item::GetPosition()
 {
 	return mPos;
 }
 
-sf::RectangleShape Item::getTextRect()
+sf::RectangleShape Item::GetTextRect()
 {
 	return mRect;
 }
 
-int Item::getUniqueId()
+int Item::GetUniqueId()
 {
 	return mUniqueId;
 }
 
-sf::Text& Item::getItemText()
+sf::Text& Item::GetItemText()
 {
 	return mText;
 }
 
-std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> Item::getItemID()
+std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> Item::GetItemID()
 {
 	return { mItemId, mRarity };
 }
 
-int Item::getQuantity()
+int Item::GetQuantity()
 {
 	return mQuantity;
 }
 
-void Item::setTextRect(sf::RectangleShape& rect)
+void Item::SetTextRect(sf::RectangleShape& rect)
 {
 	mRect = rect;
 }

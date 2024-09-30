@@ -19,33 +19,33 @@ public:
 	void									OnKeyRelease(sf::Keyboard::Key key) override;
 	void									OnMouseClick(sf::Mouse::Button button) override;
 	void									OnMouseRelease(sf::Mouse::Button button) override;
-	void									swapSlots(int a, int b);
-	size_t									getFirstOpenIndex();
-	int										getClickedDownIndex();
-	bool									isItemSlotClicked();
-	ITEMID::ITEM							getItemIdOfSlotClicked();
+	void									SwapSlots(int a, int b);
+	size_t									GetFirstOpenIndex();
+	int										GetClickedDownIndex();
+	bool									IsItemSlotClicked();
+	ITEMID::ITEM							GetItemIdOfSlotClicked();
 
 	void									ToggleInventory();
-	bool									isOpen();
+	bool									IsOpen();
 	std::array<ItemSlot, 150>&				getItemSlots();
 	std::array<sf::RectangleShape, 150>&	getSlotRects();
-	bool									isMouseOverSlot();
-	int										getMouseOverSlotIndex();
-	sf::Vector2f							getLastMousePos();
-	bool									addItem(Item& item);	// Returns false if there is no where to add the item to
-	void									addGold(int quantity);
-	void									removeGold(int quantity);
-	int										getGold();
-	bool									doesItemAlreadyHaveASlot(Item& item);
-	size_t									getSlotForExistingItem(Item& item);
-	bool									availabeSlot();
+	bool									IsMouseOverSlot();
+	int										GetMouseOverSlotIndex();
+	sf::Vector2f							GetLastMousePos();
+	bool									AddItem(Item& item);	// Returns false if there is no where to add the item to
+	void									AddGold(int quantity);
+	void									RemoveGold(int quantity);
+	int										GetGold();
+	bool									DoesItemAlreadyHaveASlot(Item& item);
+	size_t									GetSlotForExistingItem(Item& item);
+	bool									AvailabeSlot();
 
-	void									sortInventory();
-	void									loadInventory();
-	void									saveInventory();
-	void									deleteInventory();
-	int										getNumberOfUniqueItems();
-	bool									hasOneOfEverything();	// Returns true if win condition is met
+	void									SortInventory();
+	void									LoadInventory();
+	void									SaveInventory();
+	void									DeleteInventory();
+	int										GetNumberOfUniqueItems();
+	bool									HasOneOfEverything();	// Returns true if win condition is met
 
 
 private:
@@ -54,7 +54,7 @@ private:
 	sf::Vector2f							mLastMousePos;
 	bool									mMouseOver;
 	int										mMouseOverSlotIndex;
-	void									initialzeSlotRects();
+	void									InitialzeSlotRects();
 	bool									mVisible = false;
 	int										mGold;
 	int										mClickedDownIndex;

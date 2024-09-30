@@ -92,7 +92,7 @@ void Level::SpawnParticles(Chest& chest)
 		endPos = endPos.getRotatedVector(randAngle);
 		endPos = startPos + endPos;
 		int id = GetUniqueParticleId();
-		std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> itemId = ITEMGEN::getRandomItem();
+		std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> itemId = ITEMGEN::GetRandomItem();
 		mParticles.push_back(std::make_unique<Particle>(id, startPos, endPos, randAnchorheight, animStep, callback, itemId));
 	}
 	mSystem.InputMgr.RemoveObserver(&chest);
@@ -100,8 +100,8 @@ void Level::SpawnParticles(Chest& chest)
 
 void Level::CreateBounceParticle(Item& item)
 {
-	std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> itemId = { ITEMID::GOLD, item.getItemID().second};
-	Vec2 startPos = item.getPosition();
+	std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> itemId = { ITEMID::GOLD, item.GetItemID().second};
+	Vec2 startPos = item.GetPosition();
 	Vec2 endPos = startPos;
 	int id = GetUniqueParticleId();
 	float randAnchorheight = MathU::Random(60.f, 120.f) * -1;
@@ -118,7 +118,7 @@ void Level::UpdateParticles()
 		{
 			continue;
 		}
-		particle->stepParticle(mSystem.TimeMgr.GetDeltaTime());
+		particle->StepParticle(mSystem.TimeMgr.GetDeltaTime());
 	}
 }
 
@@ -128,7 +128,7 @@ void Level::RemoveParticle(Particle& particle)
 
 	for (int i{ 0 }; i < mParticles.size(); i++)
 	{
-		if (mParticles[i]->getId() == particle.getId())
+		if (mParticles[i]->GetId() == particle.GetId())
 		{
 			mParticles.erase(mParticles.begin() + i);
 			success = true;
@@ -139,12 +139,12 @@ void Level::RemoveParticle(Particle& particle)
 
 void Level::PickUpItem(Item& item)
 {
-	bool couldAdd = mSystem.InventoryMgr.addItem(item);
+	bool couldAdd = mSystem.InventoryMgr.AddItem(item);
 	
 	bool success = false;
 	for (int i{ 0 }; i < mItems.size(); i++)
 	{
-		if (mItems[i]->getUniqueId() == item.getUniqueId())
+		if (mItems[i]->GetUniqueId() == item.GetUniqueId())
 		{
 			if (!couldAdd)
 			{
@@ -167,16 +167,16 @@ void Level::PickUpItem(Item& item)
 
 void Level::SpawnItem(Particle& particle)
 {
-	sf::Vector2f position = particle.getEndPos();
-	std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> itemId = particle.getItemID();
+	sf::Vector2f position = particle.GetEndPos();
+	std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> itemId = particle.GetItemID();
 	sf::Text& text = mSystem.AssetMgr.GetTextForItemID(itemId.first);
 	std::function<void(Item&)> callback = [this](Item& item) {this->PickUpItem(item); };
-	int uniqueId = particle.getId();
+	int uniqueId = particle.GetId();
 	RemoveAllItemObservers();
 	int quantity = 1;
 	if (itemId.first == ITEMID::GOLD)
 	{
-		quantity = ITEMGEN::getRandomGoldAmount();
+		quantity = ITEMGEN::GetRandomGoldAmount();
 	}
 	mItems.push_back(std::make_unique<Item>(itemId, uniqueId, position, text, callback, quantity));
 	AddAllItemObservers();		// TESTING
@@ -190,13 +190,13 @@ void Level::SpawnItem(Particle& particle)
 
 void Level::TurnItemToGold(Particle& particle)
 {
-	sf::Vector2f position = particle.getEndPos();
-	std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> itemId = particle.getItemID();
+	sf::Vector2f position = particle.GetEndPos();
+	std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> itemId = particle.GetItemID();
 	sf::Text& text = mSystem.AssetMgr.GetTextForItemID(itemId.first);
 	std::function<void(Item&)> callback = [this](Item& item) {this->PickUpItem(item); };
-	int uniqueId = particle.getId();
+	int uniqueId = particle.GetId();
 	RemoveAllItemObservers();
-	int quantity = ITEMGEN::getValueForItem(itemId);
+	int quantity = ITEMGEN::GetValueForItem(itemId);
 	mItems.push_back(std::make_unique<Item>(std::pair{ itemId.first, ITEMRARITY::GOLD }, uniqueId, position, text, callback, quantity));
 	AddAllItemObservers();
 	RemoveParticle(particle);
@@ -210,7 +210,7 @@ void Level::SortItemsByVerticalSpace()
 {	auto sortingLambda = [](std::unique_ptr<Item>& a, std::unique_ptr<Item>& b)
 		{
 			// > than because of y-down coord
-			return a->getPosition().y > b->getPosition().y;
+			return a->GetPosition().y > b->GetPosition().y;
 		};
 	std::sort(mItems.begin(), mItems.end(), sortingLambda);
 }
@@ -220,8 +220,8 @@ void Level::StackItemlabels()
 	std::vector<sf::RectangleShape> placedRects;
 	for (auto& item : mItems)
 	{
-		sf::RectangleShape textBox = item->getTextRect();
-		textBox.setPosition(item->getPosition() + sf::Vector2f{ 0.f, -30.f });
+		sf::RectangleShape textBox = item->GetTextRect();
+		textBox.setPosition(item->GetPosition() + sf::Vector2f{ 0.f, -30.f });
 		if (placedRects.size() != 0)
 		{
 			for (auto& rect : placedRects)
@@ -233,7 +233,7 @@ void Level::StackItemlabels()
 			}
 		}
 		placedRects.push_back(textBox);
-		item->setTextRect(textBox);
+		item->SetTextRect(textBox);
 	}
 }
 
@@ -290,14 +290,14 @@ void Level::ActivateChests()
 	{
 	case LEVELS::ONE_CHEST: 
 	{ 
-		mChests[0]->setActive(true); 
+		mChests[0]->SetActive(true); 
 		mChests[0]->ResetChest();
 		mSystem.InputMgr.AddObserver(mChests[0].get()); 
 	}; break;
 	case LEVELS::TWO_CHEST: 
 	{
-		mChests[0]->setActive(true);
-		mChests[1]->setActive(true);
+		mChests[0]->SetActive(true);
+		mChests[1]->SetActive(true);
 		mChests[0]->ResetChest();
 		mChests[1]->ResetChest();
 		mSystem.InputMgr.AddObserver(mChests[0].get());
@@ -305,9 +305,9 @@ void Level::ActivateChests()
 	}; break;
 	case LEVELS::THREE_CHEST: 
 	{
-		mChests[0]->setActive(true);
-		mChests[1]->setActive(true);
-		mChests[2]->setActive(true);
+		mChests[0]->SetActive(true);
+		mChests[1]->SetActive(true);
+		mChests[2]->SetActive(true);
 		mChests[0]->ResetChest();
 		mChests[1]->ResetChest();
 		mChests[2]->ResetChest();
@@ -317,10 +317,10 @@ void Level::ActivateChests()
 	}; break;
 	case LEVELS::FOUR_CHEST: 
 	{
-		mChests[0]->setActive(true);
-		mChests[1]->setActive(true);
-		mChests[2]->setActive(true);
-		mChests[3]->setActive(true);
+		mChests[0]->SetActive(true);
+		mChests[1]->SetActive(true);
+		mChests[2]->SetActive(true);
+		mChests[3]->SetActive(true);
 		mChests[0]->ResetChest();
 		mChests[1]->ResetChest();
 		mChests[2]->ResetChest();
@@ -337,6 +337,6 @@ void Level::DeactiveChests()
 {
 	for (auto& chest : mChests)
 	{
-		chest->setActive(false);
+		chest->SetActive(false);
 	}
 }
