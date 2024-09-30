@@ -138,3 +138,8 @@ void LevelManager::ResetLevelUpgrades()
 		level->ResetLevelUpgrades();
 	}
 }
+
+void LevelManager::ResetLevelLoop()
+{
+	mCurrentLevel = (LEVELS::LEVEL)(LEVELS::MAX_LEVELS - 1);
+}

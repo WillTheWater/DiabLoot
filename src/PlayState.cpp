@@ -111,6 +111,10 @@ void PlayState::OnKeyRelease(sf::Keyboard::Key key)
 		mLevel.UpgradeLevel();
 	}
 	if (key == sf::Keyboard::M) { SoundManager::GetInstance().MuteToggle(); }
+	if (key == sf::Keyboard::C)
+	{
+		mSystem.InventoryMgr.DebugGetOneOfEverything();
+	}
 }
 
 void PlayState::OnMouseClick(sf::Mouse::Button button)

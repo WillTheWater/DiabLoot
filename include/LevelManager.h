@@ -15,6 +15,7 @@ public:
 	void	SaveLevels();
 	void	LoadLevels();
 	void	ResetLevelUpgrades();
+	void	ResetLevelLoop();
 
 
 
