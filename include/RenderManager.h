@@ -21,7 +21,7 @@ public:
 
 	template <typename T>
 	void										Draw(const T& drawObject) { mGameWindow.draw(drawObject); }
-	void										RenderLevel(Level& level);
+	void										LevelRender(Level& level);
 	void										DrawToolTip(sf::Vector2f mousePos);
 	void										DrawToolTipWarning(sf::Vector2f mousePos);
 
@@ -31,8 +31,8 @@ private:
 	sf::Cursor									mCursorOpen;
 	sf::Cursor									mCursorClosed;
 	System& mSystem;
-	void										RenderParticles(std::vector<std::unique_ptr<Particle>>& particles);
-	void										RenderChests(std::vector<std::unique_ptr<Chest>>& chests);
-	void										RenderItems(std::vector<std::unique_ptr<Item>>& items);
-	void										RenderItemCollectionProgress();
+	void										ParticlesRender(std::vector<std::unique_ptr<Particle>>& particles);
+	void										ChestsRender(std::vector<std::unique_ptr<Chest>>& chests);
+	void										ItemsRender(std::vector<std::unique_ptr<Item>>& items);
+	void										ItemCollectionRender();
 };

@@ -23,7 +23,7 @@ ItemSlot::ItemSlot(int id, int rarity, int quantity)
 	}
 }
 
-std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> ItemSlot::getItemId()
+std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> ItemSlot::GetItemId()
 {
 	return mItemId;
 }
@@ -41,29 +41,29 @@ bool ItemSlot::operator==(const ItemSlot& other)
 		);
 }
 
-bool ItemSlot::isEmpty()
+bool ItemSlot::IsEmpty()
 {
 	return mEmpty;
 }
 
-int ItemSlot::getQuantity()
+int ItemSlot::GetQuantity()
 {
 	return mQuantity;
 }
 
-void ItemSlot::incrementQuantity(int amount)
+void ItemSlot::IncrementQuantity(int amount)
 {
 	mQuantity += amount;
 }
 
-void ItemSlot::setContainedItem(std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> item, int quantity)
+void ItemSlot::SetContainedItem(std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> item, int quantity)
 {
 	mItemId = item;
 	mQuantity = quantity; 
 	mEmpty = false;
 }
 
-void ItemSlot::toggleEmpty(bool empty)
+void ItemSlot::ToggleEmpty(bool empty)
 {
 	mEmpty = empty;
 	mQuantity = 0;

@@ -15,12 +15,12 @@ public:
 	// callback is the function called when the particle lands
 	Particle(int id, Vec2 pathStart, Vec2 pathEnd, float anchorHeight, float stepIncrement, std::function<void(Particle&)> callback, std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> itemId);
 
-	void											stepParticle(float deltaTime);
-	int												getId();
-	sf::Vector2f									getCurrentPos();
-	sf::Vector2f									getEndPos();
-	std::pair<ITEMID::ITEM, ITEMRARITY::RARITY>		getItemID();
-	float											getProgress();
+	void											StepParticle(float deltaTime);
+	int												GetId();
+	sf::Vector2f									GetCurrentPos();
+	sf::Vector2f									GetEndPos();
+	std::pair<ITEMID::ITEM, ITEMRARITY::RARITY>		GetItemID();
+	float											GetProgress();
 
 
 

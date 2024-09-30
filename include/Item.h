@@ -24,15 +24,14 @@ public:
 	void								OnMouseRelease(sf::Mouse::Button button) override;
 
 	// Getters
-
-	sf::Vector2f									getPosition();
-	sf::RectangleShape								getTextRect();
-	std::pair<ITEMID::ITEM, ITEMRARITY::RARITY>		getItemID();
-	int												getQuantity();
-	int												getUniqueId();
-	sf::Text&										getItemText();
+	sf::Vector2f									GetPosition();
+	sf::RectangleShape								GetTextRect();
+	std::pair<ITEMID::ITEM, ITEMRARITY::RARITY>		GetItemID();
+	int												GetQuantity();
+	int												GetUniqueId();
+	sf::Text&										GetItemText();
 	// Setters
-	void											setTextRect(sf::RectangleShape& rect);
+	void											SetTextRect(sf::RectangleShape& rect);
 
 private:
 	int mUniqueId;

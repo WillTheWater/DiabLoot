@@ -21,8 +21,8 @@ public:
 	sf::Vector2f						GetPosition() const;
 	bool								IsOpened() const;
 	bool								IsMirrored() const;
-	void								setActive(bool active);
-	bool								isActive();
+	void								SetActive(bool active);
+	bool								IsActive();
 
 private:
 	bool								mMirrored;

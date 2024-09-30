@@ -74,13 +74,13 @@ void RenderManager::PlayStateRender()
 	Draw(mSystem.GUIMgr.GetButton(BUTTONS::MINI_BUTTON_ID).GetSprite());
 
 	InventoryRender();
-	RenderItemCollectionProgress();
+	ItemCollectionRender();
 }
 
 void RenderManager::InventoryRender()
 {
 
-	if (!mSystem.InventoryMgr.isOpen())
+	if (!mSystem.InventoryMgr.IsOpen())
 	{
 		return;
 	}
@@ -93,7 +93,7 @@ void RenderManager::InventoryRender()
 
 	// Render the amount of gold
 	sf::Text goldText = mSystem.AssetMgr.GetTextForItemID(ITEMID::GOLD);
-	goldText.setString(std::to_string(mSystem.InventoryMgr.getGold()));
+	goldText.setString(std::to_string(mSystem.InventoryMgr.GetGold()));
 	goldText.setOrigin(-8.f, goldText.getLocalBounds().getSize().y + 2.f);
 	goldText.setPosition({ 1365, 922 });
 	mGameWindow.draw(goldText);
@@ -101,7 +101,7 @@ void RenderManager::InventoryRender()
 	auto& slots = mSystem.InventoryMgr.getItemSlots();
 	auto& rects = mSystem.InventoryMgr.getSlotRects();
 
-	int clickedDownIndex = mSystem.InventoryMgr.getClickedDownIndex();
+	int clickedDownIndex = mSystem.InventoryMgr.GetClickedDownIndex();
 
 	for (int i{ 0 }; i < slots.size(); i++)
 	{
@@ -109,7 +109,7 @@ void RenderManager::InventoryRender()
 		{
 			continue;
 		}
-		if (slots[i].isEmpty())
+		if (slots[i].IsEmpty())
 		{
 			continue;
 		}
@@ -118,9 +118,9 @@ void RenderManager::InventoryRender()
 
 		rects[i].setFillColor(blue);
 
-		if (mSystem.InventoryMgr.isMouseOverSlot())
+		if (mSystem.InventoryMgr.IsMouseOverSlot())
 		{
-			if (mSystem.InventoryMgr.getMouseOverSlotIndex() == i)
+			if (mSystem.InventoryMgr.GetMouseOverSlotIndex() == i)
 			{
 				rects[i].setFillColor(green);
 			}
@@ -132,24 +132,24 @@ void RenderManager::InventoryRender()
 
 		mGameWindow.draw(rects[i]);
 
-		sf::Sprite itemSprite = mSystem.AssetMgr.GetSpriteForItem(slots[i].getItemId().first);
+		sf::Sprite itemSprite = mSystem.AssetMgr.GetSpriteForItem(slots[i].GetItemId().first);
 		itemSprite.setOrigin({ itemSprite.getLocalBounds().getSize().x / 2.f, itemSprite.getLocalBounds().getSize().y / 2.f });
 		itemSprite.setPosition(rects[i].getPosition());
 
 		mGameWindow.draw(itemSprite);
 	}
 	// If mouse is over a valid slot, render item name and text box
-	if (mSystem.InventoryMgr.isMouseOverSlot())
+	if (mSystem.InventoryMgr.IsMouseOverSlot())
 	{
-		int index = mSystem.InventoryMgr.getMouseOverSlotIndex();
-		sf::Text hoverText = mSystem.AssetMgr.GetTextForItemID(slots[index].getItemId().first);
-		if (slots[index].getQuantity() > 1)
+		int index = mSystem.InventoryMgr.GetMouseOverSlotIndex();
+		sf::Text hoverText = mSystem.AssetMgr.GetTextForItemID(slots[index].GetItemId().first);
+		if (slots[index].GetQuantity() > 1)
 		{
-			hoverText.setString(hoverText.getString() + '\n' + "Quantity: " + std::to_string(slots[index].getQuantity()));
+			hoverText.setString(hoverText.getString() + '\n' + "Quantity: " + std::to_string(slots[index].GetQuantity()));
 		}
 		hoverText.setOrigin(hoverText.getLocalBounds().getSize().x / 2, hoverText.getLocalBounds().getSize().y / 2);
-		hoverText.setPosition(mSystem.InventoryMgr.getLastMousePos().x, mSystem.InventoryMgr.getLastMousePos().y - 20);
-		hoverText.setColor(mSystem.AssetMgr.GetColorForItemText(slots[index].getItemId()));
+		hoverText.setPosition(mSystem.InventoryMgr.GetLastMousePos().x, mSystem.InventoryMgr.GetLastMousePos().y - 20);
+		hoverText.setColor(mSystem.AssetMgr.GetColorForItemText(slots[index].GetItemId()));
 		// Text box to got under text
 		sf::RectangleShape textBox{ sf::Vector2f{hoverText.getGlobalBounds().getSize().x + FONTS::PADDING, hoverText.getGlobalBounds().getSize().y + FONTS::PADDING} };
 		textBox.setOrigin(textBox.getLocalBounds().getSize().x / 2 + FONTS::ORIGIN_YOFFSET, (textBox.getLocalBounds().getSize().y / 2) + FONTS::ORIGIN_YOFFSET);
@@ -159,23 +159,23 @@ void RenderManager::InventoryRender()
 		mGameWindow.draw(hoverText);
 	}
 	// Render the currently clicked item for swapping
-	if (mSystem.InventoryMgr.isItemSlotClicked())
+	if (mSystem.InventoryMgr.IsItemSlotClicked())
 	{
-		ITEMID::ITEM clickedItem = mSystem.InventoryMgr.getItemIdOfSlotClicked();
+		ITEMID::ITEM clickedItem = mSystem.InventoryMgr.GetItemIdOfSlotClicked();
 		sf::Sprite clickedSprite = mSystem.AssetMgr.GetSpriteForItem(clickedItem);
 		clickedSprite.setOrigin(clickedSprite.getLocalBounds().getSize().x / 2.f, clickedSprite.getLocalBounds().getSize().y / 2.f);
 		clickedSprite.setColor({ 255, 255, 255, 150 });
-		clickedSprite.setPosition(mSystem.InventoryMgr.getLastMousePos().x, mSystem.InventoryMgr.getLastMousePos().y);
+		clickedSprite.setPosition(mSystem.InventoryMgr.GetLastMousePos().x, mSystem.InventoryMgr.GetLastMousePos().y);
 		Draw(clickedSprite);
 	}
 }
 
-void RenderManager::RenderLevel(Level& level)
+void RenderManager::LevelRender(Level& level)
 {
 	Draw(mSystem.AssetMgr.GetLevelMap(level.GetLevelId()));
-	RenderChests(level.GetChests());
-	RenderParticles(level.GetParticles());
-	RenderItems(level.GetItems());
+	ChestsRender(level.GetChests());
+	ParticlesRender(level.GetParticles());
+	ItemsRender(level.GetItems());
 }
 
 void RenderManager::DrawToolTip(sf::Vector2f mousePos)
@@ -261,26 +261,26 @@ void RenderManager::DrawToolTipWarning(sf::Vector2f mousePos)
 	}
 }
 
-void RenderManager::RenderParticles(std::vector<std::unique_ptr<Particle>>& particles)
+void RenderManager::ParticlesRender(std::vector<std::unique_ptr<Particle>>& particles)
 {
 	for (auto& p : particles)
 	{
-		sf::Vector2f pos = p->getCurrentPos();
+		sf::Vector2f pos = p->GetCurrentPos();
 		// Change this to the correct sprite
-		sf::Sprite particleSprite = mSystem.AssetMgr.GetSpriteForItem(p->getItemID().first);
+		sf::Sprite particleSprite = mSystem.AssetMgr.GetSpriteForItem(p->GetItemID().first);
 		particleSprite.setOrigin(particleSprite.getTextureRect().getSize().x / 2.f, particleSprite.getTextureRect().getSize().y / 2.f);
 		particleSprite.setPosition(pos);
-		float particleScale = p->getProgress() * 0.5;
+		float particleScale = p->GetProgress() * 0.5;
 		particleSprite.setScale(particleScale, particleScale);
 		Draw(particleSprite);
 	}
 }
 
-void RenderManager::RenderChests(std::vector<std::unique_ptr<Chest>>& chests)
+void RenderManager::ChestsRender(std::vector<std::unique_ptr<Chest>>& chests)
 {
 	for (auto& chest : chests)
 	{
-		if (!chest->isActive())
+		if (!chest->IsActive())
 		{
 			continue;
 		}
@@ -307,16 +307,16 @@ void RenderManager::RenderChests(std::vector<std::unique_ptr<Chest>>& chests)
 	}
 }
 
-void RenderManager::RenderItems(std::vector<std::unique_ptr<Item>>& items)
+void RenderManager::ItemsRender(std::vector<std::unique_ptr<Item>>& items)
 {
 	for (auto& item : items)
 	{
-		sf::Vector2f itemPos = item->getPosition();
-		std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> itemId = item->getItemID();
+		sf::Vector2f itemPos = item->GetPosition();
+		std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> itemId = item->GetItemID();
 		sf::Sprite itemSprite;
-		if (item->getItemID().first == ITEMID::GOLD)
+		if (item->GetItemID().first == ITEMID::GOLD)
 		{
-			itemSprite = mSystem.AssetMgr.GetSpriteForGoldQuantity(item->getQuantity());
+			itemSprite = mSystem.AssetMgr.GetSpriteForGoldQuantity(item->GetQuantity());
 		}
 		else
 		{
@@ -332,10 +332,10 @@ void RenderManager::RenderItems(std::vector<std::unique_ptr<Item>>& items)
 
 	for (auto& item : items)
 	{
-		std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> itemId = item->getItemID();
-		sf::RectangleShape textRect = item->getTextRect();
+		std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> itemId = item->GetItemID();
+		sf::RectangleShape textRect = item->GetTextRect();
 		textRect.setFillColor(mSystem.AssetMgr.GetTextboxColor());
-		sf::Text text = item->getItemText();
+		sf::Text text = item->GetItemText();
 		text.setOrigin(text.getGlobalBounds().getSize().x / 2, text.getGlobalBounds().getSize().y / 2);
 		text.setPosition(textRect.getPosition());
 		text.setColor(mSystem.AssetMgr.GetColorForItemText(itemId));
@@ -344,13 +344,13 @@ void RenderManager::RenderItems(std::vector<std::unique_ptr<Item>>& items)
 	}
 }
 
-void RenderManager::RenderItemCollectionProgress()
+void RenderManager::ItemCollectionRender()
 {
 	if (mSystem.InventoryMgr.isOpen())
 	{
 		// Get the string with the appropriate numbers
 		std::string string{ "Items Found: " };
-		int uniqueItems = mSystem.InventoryMgr.getNumberOfUniqueItems();
+		int uniqueItems = mSystem.InventoryMgr.GetNumberOfUniqueItems();
 		if (uniqueItems < 100)
 		{
 			string += ' ';
