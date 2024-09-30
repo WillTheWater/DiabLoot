@@ -56,8 +56,6 @@ void AssetManager::InitializeTextureSprites()
     mTextures[TEXTURES::MAP_THIRTEEN]->loadFromFile("assets/graphics/levels/level13.png");
     // INVENTORY
     mTextures[TEXTURES::INVENTORY]->loadFromFile("assets/graphics/inventory.png");
-    // PARTICLE
-    mTextures[TEXTURES::PARTICLE]->loadFromFile("assets/graphics/particle.png");
     // ITEMS
     mTextures[TEXTURES::KEY]->loadFromFile("assets/graphics/items/key.png");
     mTextures[TEXTURES::AMULET1]->loadFromFile("assets/graphics/items/amulet1.png");
@@ -169,8 +167,6 @@ void AssetManager::InitializeTextureSprites()
     mSprites[SPRITES::MINI_BUTTON]->setTexture(GetTexture(TEXTURES::MINI_BUTTON));
     // INVENTORY
     mSprites[SPRITES::INVENTORY]->setTexture(GetTexture(TEXTURES::INVENTORY));
-    // PARTICLE
-    mSprites[SPRITES::PARTICLE]->setTexture(GetTexture(TEXTURES::PARTICLE));
     // CHESTS
     mSprites[SPRITES::CHESTCLOSED]->setTexture(GetTexture(TEXTURES::CHESTCLOSED));
     mSprites[SPRITES::CHESTOPENED]->setTexture(GetTexture(TEXTURES::CHESTOPENED));
