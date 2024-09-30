@@ -397,36 +397,36 @@ void AssetManager::InitializeSounds()
     assert(std::ssize(mSounds) == PLAYSOUND::MAX_SOUNDS && "AssetManager failed to initialize correct number of sounds\n");
 
     // Load Soundbuffers
-    mSoundBuffers[SOUNDBUFFERS::BUTTON_DOWN_SB]->loadFromFile("assets/audio/SFX/buttondown.wav");
-    mSoundBuffers[SOUNDBUFFERS::CHEST_OPEN_SB]->loadFromFile("assets/audio/SFX/chestopen.wav");
-    mSoundBuffers[SOUNDBUFFERS::ITEM_PICKUP_SB]->loadFromFile("assets/audio/SFX/itempickup.wav");
-    mSoundBuffers[SOUNDBUFFERS::ITEM_FLIP_SB]->loadFromFile("assets/audio/SFX/inventoryfull.wav");
-    mSoundBuffers[SOUNDBUFFERS::AMULET_DROP_SB]->loadFromFile("assets/audio/SFX/amuletdrop.wav");
-    mSoundBuffers[SOUNDBUFFERS::CHARM_DROP_SB]->loadFromFile("assets/audio/SFX/charmdrop.wav");
-    mSoundBuffers[SOUNDBUFFERS::GEM_DROP_SB]->loadFromFile("assets/audio/SFX/gemdrop.wav");
-    mSoundBuffers[SOUNDBUFFERS::SKULL_DROP_SB]->loadFromFile("assets/audio/SFX/skulldrop.wav");
-    mSoundBuffers[SOUNDBUFFERS::GOLD_DROP_SB]->loadFromFile("assets/audio/SFX/golddrop.wav");
-    mSoundBuffers[SOUNDBUFFERS::JEWEL_DROP_SB]->loadFromFile("assets/audio/SFX/jeweldrop.wav");
-    mSoundBuffers[SOUNDBUFFERS::KEY_DROP_SB]->loadFromFile("assets/audio/SFX/keydrop.wav");
-    mSoundBuffers[SOUNDBUFFERS::RING_DROP_SB]->loadFromFile("assets/audio/SFX/ringdrop.wav");
-    mSoundBuffers[SOUNDBUFFERS::RUNE_DROP_SB]->loadFromFile("assets/audio/SFX/runedrop.wav");
-    mSoundBuffers[SOUNDBUFFERS::SCROLL_DROP_SB]->loadFromFile("assets/audio/SFX/scrolldrop.wav");
+    mSoundBuffers[SOUNDBUFFERS::BUTTON_DOWN_SB]->loadFromFile   ("assets/audio/SFX/buttondown.wav");
+    mSoundBuffers[SOUNDBUFFERS::CHEST_OPEN_SB]->loadFromFile    ("assets/audio/SFX/chestopen.wav");
+    mSoundBuffers[SOUNDBUFFERS::ITEM_PICKUP_SB]->loadFromFile   ("assets/audio/SFX/itempickup.wav");
+    mSoundBuffers[SOUNDBUFFERS::ITEM_FLIP_SB]->loadFromFile     ("assets/audio/SFX/inventoryfull.wav");
+    mSoundBuffers[SOUNDBUFFERS::AMULET_DROP_SB]->loadFromFile   ("assets/audio/SFX/amuletdrop.wav");
+    mSoundBuffers[SOUNDBUFFERS::CHARM_DROP_SB]->loadFromFile    ("assets/audio/SFX/charmdrop.wav");
+    mSoundBuffers[SOUNDBUFFERS::GEM_DROP_SB]->loadFromFile      ("assets/audio/SFX/gemdrop.wav");
+    mSoundBuffers[SOUNDBUFFERS::SKULL_DROP_SB]->loadFromFile    ("assets/audio/SFX/skulldrop.wav");
+    mSoundBuffers[SOUNDBUFFERS::GOLD_DROP_SB]->loadFromFile     ("assets/audio/SFX/golddrop.wav");
+    mSoundBuffers[SOUNDBUFFERS::JEWEL_DROP_SB]->loadFromFile    ("assets/audio/SFX/jeweldrop.wav");
+    mSoundBuffers[SOUNDBUFFERS::KEY_DROP_SB]->loadFromFile      ("assets/audio/SFX/keydrop.wav");
+    mSoundBuffers[SOUNDBUFFERS::RING_DROP_SB]->loadFromFile     ("assets/audio/SFX/ringdrop.wav");
+    mSoundBuffers[SOUNDBUFFERS::RUNE_DROP_SB]->loadFromFile     ("assets/audio/SFX/runedrop.wav");
+    mSoundBuffers[SOUNDBUFFERS::SCROLL_DROP_SB]->loadFromFile   ("assets/audio/SFX/scrolldrop.wav");
 
     // Set Sound
-    mSounds[PLAYSOUND::BUTTON_DOWN]->setBuffer(GetSoundBuffer(SOUNDBUFFERS::BUTTON_DOWN_SB));
-    mSounds[PLAYSOUND::OPEN_CHEST]->setBuffer(GetSoundBuffer(SOUNDBUFFERS::CHEST_OPEN_SB));
-    mSounds[PLAYSOUND::ITEM_PICKUP]->setBuffer(GetSoundBuffer(SOUNDBUFFERS::ITEM_PICKUP_SB));
-    mSounds[PLAYSOUND::ITEM_FLIP]->setBuffer(GetSoundBuffer(SOUNDBUFFERS::ITEM_FLIP_SB));
-    mSounds[PLAYSOUND::AMULET_DROP]->setBuffer(GetSoundBuffer(SOUNDBUFFERS::AMULET_DROP_SB));
-    mSounds[PLAYSOUND::CHARM_DROP]->setBuffer(GetSoundBuffer(SOUNDBUFFERS::CHARM_DROP_SB));
-    mSounds[PLAYSOUND::GEM_DROP]->setBuffer(GetSoundBuffer(SOUNDBUFFERS::GEM_DROP_SB));
-    mSounds[PLAYSOUND::SKULL_DROP]->setBuffer(GetSoundBuffer(SOUNDBUFFERS::SKULL_DROP_SB));
-    mSounds[PLAYSOUND::GOLD_DROP]->setBuffer(GetSoundBuffer(SOUNDBUFFERS::GOLD_DROP_SB));
-    mSounds[PLAYSOUND::JEWEL_DROP]->setBuffer(GetSoundBuffer(SOUNDBUFFERS::JEWEL_DROP_SB));
-    mSounds[PLAYSOUND::KEY_DROP]->setBuffer(GetSoundBuffer(SOUNDBUFFERS::KEY_DROP_SB));
-    mSounds[PLAYSOUND::RING_DROP]->setBuffer(GetSoundBuffer(SOUNDBUFFERS::RING_DROP_SB));
-    mSounds[PLAYSOUND::RUNE_DROP]->setBuffer(GetSoundBuffer(SOUNDBUFFERS::RUNE_DROP_SB));
-    mSounds[PLAYSOUND::SCROLL_DROP]->setBuffer(GetSoundBuffer(SOUNDBUFFERS::SCROLL_DROP_SB));
+    mSounds[PLAYSOUND::BUTTON_DOWN]->setBuffer  (GetSoundBuffer(SOUNDBUFFERS::BUTTON_DOWN_SB));
+    mSounds[PLAYSOUND::OPEN_CHEST]->setBuffer   (GetSoundBuffer(SOUNDBUFFERS::CHEST_OPEN_SB));
+    mSounds[PLAYSOUND::ITEM_PICKUP]->setBuffer  (GetSoundBuffer(SOUNDBUFFERS::ITEM_PICKUP_SB));
+    mSounds[PLAYSOUND::ITEM_FLIP]->setBuffer    (GetSoundBuffer(SOUNDBUFFERS::ITEM_FLIP_SB));
+    mSounds[PLAYSOUND::AMULET_DROP]->setBuffer  (GetSoundBuffer(SOUNDBUFFERS::AMULET_DROP_SB));
+    mSounds[PLAYSOUND::CHARM_DROP]->setBuffer   (GetSoundBuffer(SOUNDBUFFERS::CHARM_DROP_SB));
+    mSounds[PLAYSOUND::GEM_DROP]->setBuffer     (GetSoundBuffer(SOUNDBUFFERS::GEM_DROP_SB));
+    mSounds[PLAYSOUND::SKULL_DROP]->setBuffer   (GetSoundBuffer(SOUNDBUFFERS::SKULL_DROP_SB));
+    mSounds[PLAYSOUND::GOLD_DROP]->setBuffer    (GetSoundBuffer(SOUNDBUFFERS::GOLD_DROP_SB));
+    mSounds[PLAYSOUND::JEWEL_DROP]->setBuffer   (GetSoundBuffer(SOUNDBUFFERS::JEWEL_DROP_SB));
+    mSounds[PLAYSOUND::KEY_DROP]->setBuffer     (GetSoundBuffer(SOUNDBUFFERS::KEY_DROP_SB));
+    mSounds[PLAYSOUND::RUNE_DROP]->setBuffer    (GetSoundBuffer(SOUNDBUFFERS::RUNE_DROP_SB));
+    mSounds[PLAYSOUND::RING_DROP]->setBuffer    (GetSoundBuffer(SOUNDBUFFERS::RING_DROP_SB));
+    mSounds[PLAYSOUND::SCROLL_DROP]->setBuffer  (GetSoundBuffer(SOUNDBUFFERS::SCROLL_DROP_SB));
 
 
 }
@@ -439,11 +439,11 @@ void AssetManager::InitializeMusic()
     }
     assert(std::ssize(mMusic) == MUSIC::MAX_MUSIC_FILES && "AssetManager failed to initialize correct number of music files\n");
 
-    mMusic[MUSIC::INTRO]->openFromFile("assets/audio/music/intro.wav");
-    mMusic[MUSIC::TRISTRAM]->openFromFile("assets/audio/music/Tristram.wav");
-    mMusic[MUSIC::CRYPT]->openFromFile("assets/audio/music/Crypt.wav");
-    mMusic[MUSIC::DIABLO]->openFromFile("assets/audio/music/Diablo.wav");
-    mMusic[MUSIC::KURAST]->openFromFile("assets/audio/music/Kurast.wav");
+    mMusic[MUSIC::INTRO]->openFromFile      ("assets/audio/music/intro.wav");
+    mMusic[MUSIC::TRISTRAM]->openFromFile   ("assets/audio/music/Tristram.wav");
+    mMusic[MUSIC::CRYPT]->openFromFile      ("assets/audio/music/Crypt.wav");
+    mMusic[MUSIC::DIABLO]->openFromFile     ("assets/audio/music/Diablo.wav");
+    mMusic[MUSIC::KURAST]->openFromFile     ("assets/audio/music/Kurast.wav");
 }
 
 void AssetManager::InitializeImages()
@@ -455,9 +455,9 @@ void AssetManager::InitializeImages()
     assert(std::ssize(mImages) == IMAGES::MAX_IMAGES && "AssetManager failed to initialize correct number of images\n");
 
     // Load Images
-    mImages[IMAGES::DEFAULT_CURSOR]->loadFromFile("assets/graphics/cursoropen.png");
-    mImages[IMAGES::CLOSED_CURSOR]->loadFromFile("assets/graphics/cursorclosed.png");
-    mImages[IMAGES::ICON]->loadFromFile("assets/graphics/icon.png");
+    mImages[IMAGES::DEFAULT_CURSOR]->loadFromFile   ("assets/graphics/cursoropen.png");
+    mImages[IMAGES::CLOSED_CURSOR]->loadFromFile    ("assets/graphics/cursorclosed.png");
+    mImages[IMAGES::ICON]->loadFromFile             ("assets/graphics/icon.png");
 }
 
 sf::Texture& AssetManager::GetTexture(TEXTURES::TEXTURE texture)
