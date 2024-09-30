@@ -20,6 +20,7 @@ public:
 	void									SetState(BUTTONS::BUTTON_STATE state);
 	void									HandleEvent(sf::Vector2f mousePos, bool isClicked);
 	void									OnClick();
+	void									SetScale(float scale);
 
 private:
 	sf::Sprite								mButtonSprite;

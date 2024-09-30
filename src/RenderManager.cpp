@@ -184,7 +184,7 @@ void RenderManager::DrawToolTip(sf::Vector2f mousePos)
 	{
 		sf::Text tooltipText;
 		tooltipText.setFont(mSystem.AssetMgr.GetFont(FONTS::LIGHT));
-		tooltipText.setString("    Upgrade Level:\nAdd Chest to Level");
+		tooltipText.setString("    Upgrade Level:\n  Add Chest to Level\n2nd Chest: 10,000 Gold\n3rd Chest: 20,000 Gold\n4th Chest: 50,000 Gold");
 		tooltipText.setCharacterSize(25);
 		tooltipText.setFillColor(sf::Color::White);
 
@@ -194,10 +194,10 @@ void RenderManager::DrawToolTip(sf::Vector2f mousePos)
 
 		sf::RectangleShape backgroundRect;
 		backgroundRect.setSize(sf::Vector2f(textWidth + 20.f, textHeight + 20.f));
-		backgroundRect.setFillColor(sf::Color(0, 0, 0, 160));
+		backgroundRect.setFillColor(sf::Color(0, 0, 0, 200));
 
 		float xPos = mousePos.x - (backgroundRect.getSize().x / 2.f);
-		float yPos = mousePos.y - backgroundRect.getSize().y - 10.f;
+		float yPos = mousePos.y - backgroundRect.getSize().y + 280.f;
 		backgroundRect.setPosition(xPos, yPos);
 
 		tooltipText.setPosition(xPos + 10.f, yPos + 5.f);
@@ -205,7 +205,7 @@ void RenderManager::DrawToolTip(sf::Vector2f mousePos)
 		mSystem.RenderMgr.Draw(backgroundRect);
 		mSystem.RenderMgr.Draw(tooltipText);
 	}
-	if (mSystem.GUIMgr.GetButton(BUTTONS::SORT_BUTTON_ID).GetSprite().getGlobalBounds().contains(mousePos))
+	if (mSystem.GUIMgr.GetButton(BUTTONS::SORT_BUTTON_ID).GetSprite().getGlobalBounds().contains(mousePos) && mSystem.InventoryMgr.isOpen())
 	{
 		sf::Text tooltipText;
 		tooltipText.setFont(mSystem.AssetMgr.GetFont(FONTS::LIGHT));
@@ -346,33 +346,35 @@ void RenderManager::ItemsRender(std::vector<std::unique_ptr<Item>>& items)
 
 void RenderManager::ItemCollectionRender()
 {
-	// Get the string with the appropriate numbers
-	std::string string{ "Items Found: " };
-	int uniqueItems = mSystem.InventoryMgr.GetNumberOfUniqueItems();
-	if (uniqueItems < 100)
+	if (mSystem.InventoryMgr.isOpen())
 	{
-		string += ' ';
-	}
-	if (uniqueItems < 10)
-	{
-		string += ' ';
-	}
-	string += std::to_string(uniqueItems);
-	string += " / ";
-	string += std::to_string(ITEMGEN::TOTAL_UNIQUE_ITEMS);
+		// Get the string with the appropriate numbers
+		std::string string{ "Items Found: " };
+		int uniqueItems = mSystem.InventoryMgr.GetNumberOfUniqueItems();
+		if (uniqueItems < 100)
+		{
+			string += ' ';
+		}
+		if (uniqueItems < 10)
+		{
+			string += ' ';
+		}
+		string += std::to_string(uniqueItems);
+		string += " / ";
+		string += std::to_string(ITEMGEN::TOTAL_UNIQUE_ITEMS);
 
-	// Create the SF::Text and TextRect
-	sf::Text text;
-	text.setString(string);
-	text.setFont(mSystem.AssetMgr.GetFont(FONTS::LIGHT));
-	text.setCharacterSize(FONTS::CHARACTER_SIZE_NORMAL);
-	text.setOrigin(text.getLocalBounds().getSize().x / 2.f, text.getLocalBounds().getSize().y / 2.f);
-	
-	//Set positions
-	sf::Vector2f position{ 1483.f, 953.f };
-	text.setPosition(position);
-	
-	//Draw
-	Draw(text);
+		// Create the SF::Text and TextRect
+		sf::Text text;
+		text.setString(string);
+		text.setFont(mSystem.AssetMgr.GetFont(FONTS::LIGHT));
+		text.setCharacterSize(FONTS::CHARACTER_SIZE_NORMAL);
+		text.setOrigin(text.getLocalBounds().getSize().x / 2.f, text.getLocalBounds().getSize().y / 2.f);
 
+		//Set positions
+		sf::Vector2f position{ 1483.f, 953.f };
+		text.setPosition(position);
+
+		//Draw
+		Draw(text);
+	}
 }

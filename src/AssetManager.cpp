@@ -29,6 +29,7 @@ void AssetManager::InitializeTextureSprites()
     // TEXTURES
     // MENU
     mTextures[TEXTURES::MAINMENU]->loadFromFile("assets/graphics/mainmenu.png");
+    mTextures[TEXTURES::WINSCREEN]->loadFromFile("assets/graphics/winscreen.png");
     // BUTTON TEXTURES
     mTextures[TEXTURES::WIDE_BUTTON]->loadFromFile("assets/graphics/button.png");
     mTextures[TEXTURES::INVENTORY_BUTTON]->loadFromFile("assets/graphics/inventorybutton.png");
@@ -140,6 +141,7 @@ void AssetManager::InitializeTextureSprites()
     // SPRITES SETUP
     // MENU
     mSprites[SPRITES::MAINMENU]->setTexture(GetTexture(TEXTURES::MAINMENU));
+    mSprites[SPRITES::WINSCREEN]->setTexture(GetTexture(TEXTURES::WINSCREEN));
     // MAPS
     mSprites[SPRITES::MAP_ONE]->setTexture(GetTexture(TEXTURES::MAP_ONE));
     mSprites[SPRITES::MAP_TWO]->setTexture(GetTexture(TEXTURES::MAP_TWO));
@@ -276,6 +278,7 @@ void AssetManager::InitializeFontsAndTexts()
     mFonts[FONTS::BOLD]->loadFromFile("assets/font/bolddiablo.ttf");
 
     mButtonTexts[BUTTONS::START]->setString("New Game");
+    mButtonTexts[BUTTONS::NEW_GAME]->setString("New Game");
     mButtonTexts[BUTTONS::LOAD_GAME]->setString("Continue");
     mButtonTexts[BUTTONS::EXIT]->setString("Exit Game");
     mButtonTexts[BUTTONS::NEXT_LEVEL]->setString("Next Level");
