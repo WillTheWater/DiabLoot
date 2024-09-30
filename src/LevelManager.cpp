@@ -130,3 +130,11 @@ void LevelManager::LoadLevels()
 		}
 	}
 }
+
+void LevelManager::ResetLevelUpgrades()
+{
+	for (auto& level : mLevels)
+	{
+		level->ResetLevelUpgrades();
+	}
+}
