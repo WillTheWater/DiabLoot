@@ -41,16 +41,19 @@ void AssetManager::InitializeTextureSprites()
     mTextures[TEXTURES::CHESTCLOSED]->loadFromFile("assets/graphics/chestclosed.png");
     mTextures[TEXTURES::CHESTOPENED]->loadFromFile("assets/graphics/chestopened.png");
     // MAPS
-    mTextures[TEXTURES::MAP_ONE]->loadFromFile("assets/graphics/map1.png");
-    mTextures[TEXTURES::MAP_TWO]->loadFromFile("assets/graphics/map2.png");
-    mTextures[TEXTURES::MAP_THREE]->loadFromFile("assets/graphics/map3.png");
-    mTextures[TEXTURES::MAP_FOUR]->loadFromFile("assets/graphics/map4.png");
-    mTextures[TEXTURES::MAP_FIVE]->loadFromFile("assets/graphics/map5.png");
-    mTextures[TEXTURES::MAP_SIX]->loadFromFile("assets/graphics/map6.png");
-    mTextures[TEXTURES::MAP_SEVEN]->loadFromFile("assets/graphics/map7.png");
-    mTextures[TEXTURES::MAP_EIGHT]->loadFromFile("assets/graphics/map8.png");
-    mTextures[TEXTURES::MAP_NINE]->loadFromFile("assets/graphics/map9.png");
-    mTextures[TEXTURES::MAP_TEN]->loadFromFile("assets/graphics/map10.png");
+    mTextures[TEXTURES::MAP_ONE]->loadFromFile("assets/graphics/levels/level1.png");
+    mTextures[TEXTURES::MAP_TWO]->loadFromFile("assets/graphics/levels/level2.png");
+    mTextures[TEXTURES::MAP_THREE]->loadFromFile("assets/graphics/levels/level3.png");
+    mTextures[TEXTURES::MAP_FOUR]->loadFromFile("assets/graphics/levels/level4.png");
+    mTextures[TEXTURES::MAP_FIVE]->loadFromFile("assets/graphics/levels/level5.png");
+    mTextures[TEXTURES::MAP_SIX]->loadFromFile("assets/graphics/levels/level6.png");
+    mTextures[TEXTURES::MAP_SEVEN]->loadFromFile("assets/graphics/levels/level7.png");
+    mTextures[TEXTURES::MAP_EIGHT]->loadFromFile("assets/graphics/levels/level8.png");
+    mTextures[TEXTURES::MAP_NINE]->loadFromFile("assets/graphics/levels/level9.png");
+    mTextures[TEXTURES::MAP_TEN]->loadFromFile("assets/graphics/levels/level10.png");
+    mTextures[TEXTURES::MAP_ELEVEN]->loadFromFile("assets/graphics/levels/level11.png");
+    mTextures[TEXTURES::MAP_TWELVE]->loadFromFile("assets/graphics/levels/level12.png");
+    mTextures[TEXTURES::MAP_THIRTEEN]->loadFromFile("assets/graphics/levels/level13.png");
     // INVENTORY
     mTextures[TEXTURES::INVENTORY]->loadFromFile("assets/graphics/inventory.png");
     // PARTICLE
@@ -153,6 +156,9 @@ void AssetManager::InitializeTextureSprites()
     mSprites[SPRITES::MAP_EIGHT]->setTexture(GetTexture(TEXTURES::MAP_EIGHT));
     mSprites[SPRITES::MAP_NINE]->setTexture(GetTexture(TEXTURES::MAP_NINE));
     mSprites[SPRITES::MAP_TEN]->setTexture(GetTexture(TEXTURES::MAP_TEN));
+    mSprites[SPRITES::MAP_ELEVEN]->setTexture(GetTexture(TEXTURES::MAP_ELEVEN));
+    mSprites[SPRITES::MAP_TWELVE]->setTexture(GetTexture(TEXTURES::MAP_TWELVE));
+    mSprites[SPRITES::MAP_THIRTEEN]->setTexture(GetTexture(TEXTURES::MAP_THIRTEEN));
     // BUTTONS
     mSprites[SPRITES::WIDE_BUTTON]->setTexture(GetTexture(TEXTURES::WIDE_BUTTON));
     mSprites[SPRITES::INVENTORY_BUTTON]->setTexture(GetTexture(TEXTURES::INVENTORY_BUTTON));
@@ -498,16 +504,19 @@ sf::Sprite& AssetManager::GetLevelMap(LEVELS::LEVEL level)
 {
     switch (level)
     {
-    case LEVELS::LEVEL_ONE: return *mSprites[SPRITES::MAP_ONE];
-    case LEVELS::LEVEL_TWO: return *mSprites[SPRITES::MAP_TWO];
-    case LEVELS::LEVEL_THREE: return *mSprites[SPRITES::MAP_THREE];
-    case LEVELS::LEVEL_FOUR: return *mSprites[SPRITES::MAP_FOUR];
-    case LEVELS::LEVEL_FIVE: return *mSprites[SPRITES::MAP_FIVE];
-    case LEVELS::LEVEL_SIX: return *mSprites[SPRITES::MAP_SIX];
-    case LEVELS::LEVEL_SEVEN: return *mSprites[SPRITES::MAP_SEVEN];
-    case LEVELS::LEVEL_EIGHT: return *mSprites[SPRITES::MAP_EIGHT];
-    case LEVELS::LEVEL_NINE: return *mSprites[SPRITES::MAP_NINE];
-    case LEVELS::LEVEL_TEN: return *mSprites[SPRITES::MAP_TEN];
+    case LEVELS::LEVEL_ONE:         return *mSprites[SPRITES::MAP_ONE];
+    case LEVELS::LEVEL_TWO:         return *mSprites[SPRITES::MAP_TWO];
+    case LEVELS::LEVEL_THREE:       return *mSprites[SPRITES::MAP_THREE];
+    case LEVELS::LEVEL_FOUR:        return *mSprites[SPRITES::MAP_FOUR];
+    case LEVELS::LEVEL_FIVE:        return *mSprites[SPRITES::MAP_FIVE];
+    case LEVELS::LEVEL_SIX:         return *mSprites[SPRITES::MAP_SIX];
+    case LEVELS::LEVEL_SEVEN:       return *mSprites[SPRITES::MAP_SEVEN];
+    case LEVELS::LEVEL_EIGHT:       return *mSprites[SPRITES::MAP_EIGHT];
+    case LEVELS::LEVEL_NINE:        return *mSprites[SPRITES::MAP_NINE];
+    case LEVELS::LEVEL_TEN:         return *mSprites[SPRITES::MAP_TEN];
+    case LEVELS::LEVEL_ELEVEN:      return *mSprites[SPRITES::MAP_ELEVEN];
+    case LEVELS::LEVEL_TWELVE:      return *mSprites[SPRITES::MAP_TWELVE];
+    case LEVELS::LEVEL_THIRTEEN:    return *mSprites[SPRITES::MAP_THIRTEEN];
     default:
         return *mSprites[SPRITES::MAP_ONE];
     }
