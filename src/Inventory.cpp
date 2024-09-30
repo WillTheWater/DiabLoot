@@ -367,6 +367,46 @@ bool Inventory::HasOneOfEverything()
 	return GetNumberOfUniqueItems() == ITEMGEN::TOTAL_UNIQUE_ITEMS;
 }
 
+void Inventory::DebugGetOneOfEverything()
+{
+	for(int i{0}; i < ITEMGEN::RarityNormalItems.size(); i++)
+	{
+		std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> id = { ITEMGEN::RarityNormalItems[i], ITEMRARITY::NORMAL };
+		Item item{ id, 1 };
+		AddItem(item);
+	}
+	for (int i{ 0 }; i < ITEMGEN::RarityMagicItems.size(); i++)
+	{
+		std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> id = { ITEMGEN::RarityMagicItems[i], ITEMRARITY::MAGIC };
+		Item item{ id, 1 };
+		AddItem(item);
+	}
+	for (int i{ 0 }; i < ITEMGEN::RarityRareItems.size(); i++)
+	{
+		std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> id = { ITEMGEN::RarityRareItems[i], ITEMRARITY::RARE };
+		Item item{ id, 1 };
+		AddItem(item);
+	}
+	for (int i{ 0 }; i < ITEMGEN::RaritySetItems.size(); i++)
+	{
+		std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> id = { ITEMGEN::RaritySetItems[i], ITEMRARITY::SET };
+		Item item{ id, 1 };
+		AddItem(item);
+	}
+	for (int i{ 0 }; i < ITEMGEN::RarityUniqueItems.size(); i++)
+	{
+		std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> id = { ITEMGEN::RarityUniqueItems[i], ITEMRARITY::UNIQUE };
+		Item item{ id, 1 };
+		AddItem(item);
+	}
+	for (int i{ 0 }; i < ITEMGEN::RarityRuneItems.size(); i++)
+	{
+		std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> id = { ITEMGEN::RarityRuneItems[i], ITEMRARITY::RUNE };
+		Item item{ id, 1 };
+		AddItem(item);
+	}
+}
+
 void Inventory::InitialzeSlotRects()
 {
 	// Needs testing

@@ -21,6 +21,18 @@ Item::Item(std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> item, int unique, sf::Vec
 	mRect.setPosition(pos);
 }
 
+Item::Item(std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> item, int quantity) // DEBUG ONLY
+	:mItemId{ item.first }
+	, mUniqueId{ 0 }
+	, mRarity{ item.second }
+	, mQuantity{ quantity }
+	, mPos{ sf::Vector2f{0.f,0.f} }
+	, mText{}
+	, mRect{ {100.f,100.f} }
+	, mCallback{ nullptr }
+{
+}
+
 // Observer overrides
 void Item::OnMouseMove(int x, int y) 
 {	 

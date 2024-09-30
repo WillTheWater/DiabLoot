@@ -9,7 +9,7 @@ public:
 	float								GetDeltaTime() const { return mDeltaTime; }
 	void								StartSpeedRunclock() { mSpeedRunClock.restart(); mSpeedRun = true; }
 	bool								IsSpeedrun() { return mSpeedRun; }
-	float								GetSpeedRunTime() { return mSpeedRunClock.getElapsedTime().asSeconds(); }
+	float								GetSpeedRunTime() { return mSpeedRunClock.getElapsedTime().asSeconds(); mSpeedRun = false; }
 
 private:
 	sf::Clock							mClock;

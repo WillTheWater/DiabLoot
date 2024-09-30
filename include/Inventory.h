@@ -46,6 +46,7 @@ public:
 	void									DeleteInventory();
 	int										GetNumberOfUniqueItems();
 	bool									HasOneOfEverything();	// Returns true if win condition is met
+	void									DebugGetOneOfEverything();
 
 
 private:
