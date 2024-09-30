@@ -53,6 +53,11 @@ void PlayState::Draw()
 		mSystem.RenderMgr.Draw(mSystem.AssetMgr.GetSprite(SPRITES::WINSCREEN));
 		mSystem.RenderMgr.Draw(mSystem.GUIMgr.GetButton(BUTTONS::NEW_GAME_ID).GetSprite());
 		mSystem.RenderMgr.Draw(mSystem.GUIMgr.GetButton(BUTTONS::NEW_GAME_ID).GetText());
+		if (mSystem.TimeMgr.IsSpeedrun())
+		{
+			mSystem.TimeMgr.LockSpeedRunTime();
+			mSystem.RenderMgr.SpeedRunTimeRender();
+		}
 	}
 }
 
