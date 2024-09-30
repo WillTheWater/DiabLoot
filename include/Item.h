@@ -15,6 +15,7 @@ class Item : public InputObserver
 public:
 	// Constructors
 	Item(std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> item, int unique, sf::Vector2f pos, sf::Text& text, std::function<void(Item&)> callback, int quantity = 1);
+	Item(std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> item, int quantity = 1); // ONLY FOR DEBUG
 
 	// Observer overrides
 	void								OnMouseMove(int x, int y) override;
@@ -24,15 +25,14 @@ public:
 	void								OnMouseRelease(sf::Mouse::Button button) override;
 
 	// Getters
-
-	sf::Vector2f									getPosition();
-	sf::RectangleShape								getTextRect();
-	std::pair<ITEMID::ITEM, ITEMRARITY::RARITY>		getItemID();
-	int												getQuantity();
-	int												getUniqueId();
-	sf::Text&										getItemText();
+	sf::Vector2f									GetPosition();
+	sf::RectangleShape								GetTextRect();
+	std::pair<ITEMID::ITEM, ITEMRARITY::RARITY>		GetItemID();
+	int												GetQuantity();
+	int												GetUniqueId();
+	sf::Text&										GetItemText();
 	// Setters
-	void											setTextRect(sf::RectangleShape& rect);
+	void											SetTextRect(sf::RectangleShape& rect);
 
 private:
 	int mUniqueId;

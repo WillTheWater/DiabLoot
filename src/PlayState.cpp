@@ -12,14 +12,16 @@ PlayState::PlayState(System& system, ChangeStateCallback changeStateCB, Level& l
 
 {
 	mSystem.GUIMgr.GetButton(BUTTONS::NEXT_LEVEL_ID).SetClickCB([this]() {auto newState = std::make_unique<PlayState>(mSystem, mChangeStateCB, mSystem.LevelMgr.GetNextLevel()); mChangeStateCB(std::move(newState)); });
-	mSystem.GUIMgr.GetButton(BUTTONS::EXIT_PLAY_ID).SetClickCB([this]() {mSystem.LevelMgr.SaveLevels(); mSystem.InventoryMgr.saveInventory(); auto newState = std::make_unique<MainMenuState>(mSystem, mChangeStateCB); mChangeStateCB(std::move(newState)); });
-	mSystem.GUIMgr.GetButton(BUTTONS::INVENTORY_ID).SetClickCB([this]() {if (mSystem.InventoryMgr.isOpen()) {mSystem.InventoryMgr.ToggleInventory();} });
+	mSystem.GUIMgr.GetButton(BUTTONS::EXIT_PLAY_ID).SetClickCB([this]() {mSystem.LevelMgr.SaveLevels(); mSystem.InventoryMgr.SaveInventory(); auto newState = std::make_unique<MainMenuState>(mSystem, mChangeStateCB); mChangeStateCB(std::move(newState)); });
+	mSystem.GUIMgr.GetButton(BUTTONS::INVENTORY_ID).SetClickCB([this]() {if (mSystem.InventoryMgr.IsOpen()) {mSystem.InventoryMgr.ToggleInventory();} });
 	mSystem.GUIMgr.GetButton(BUTTONS::OPEN_INVENTORY_ID).SetClickCB([this]() {mSystem.InventoryMgr.ToggleInventory();});
-	mSystem.GUIMgr.GetButton(BUTTONS::SORT_BUTTON_ID).SetClickCB([this]() { if (mSystem.InventoryMgr.isOpen()) {mSystem.InventoryMgr.sortInventory();} });
-	mSystem.GUIMgr.GetButton(BUTTONS::CLOSE_BUTTON_ID).SetClickCB([this]() { mSystem.LevelMgr.SaveLevels(); mSystem.InventoryMgr.saveInventory(); mSystem.RenderMgr.GetWindow().close(); });
+
+	mSystem.GUIMgr.GetButton(BUTTONS::SORT_BUTTON_ID).SetClickCB([this]() { mSystem.InventoryMgr.SortInventory(); });
+	mSystem.GUIMgr.GetButton(BUTTONS::CLOSE_BUTTON_ID).SetClickCB([this]() { mSystem.RenderMgr.GetWindow().close(); });
+
 	mSystem.GUIMgr.GetButton(BUTTONS::MINI_BUTTON_ID).SetClickCB([this]() {HWND hwnd = mSystem.RenderMgr.GetWindow().getSystemHandle();	ShowWindow(hwnd, SW_MINIMIZE); });
 	mSystem.GUIMgr.GetButton(BUTTONS::UPGRADE_BUTTON_ID).SetClickCB([this]() {this->UpgradeLevel(); });
-	mSystem.GUIMgr.GetButton(BUTTONS::NEW_GAME_ID).SetClickCB([this]() {auto newState = std::make_unique<PlayState>(mSystem, mChangeStateCB, mSystem.LevelMgr.GetNextLevel()); mChangeStateCB(std::move(newState)); });
+	mSystem.GUIMgr.GetButton(BUTTONS::NEW_GAME_ID).SetClickCB([this]() { auto newState = std::make_unique<MainMenuState>(mSystem, mChangeStateCB); mChangeStateCB(std::move(newState)); });
 }
 
 void PlayState::Enter()
@@ -42,15 +44,20 @@ void PlayState::Update()
 
 void PlayState::Draw()
 {
-	mSystem.RenderMgr.RenderLevel(mLevel);
+	mSystem.RenderMgr.LevelRender(mLevel);
 	mSystem.RenderMgr.PlayStateRender();
 	mSystem.RenderMgr.DrawToolTip(mMousePosition);
 
-	if (mSystem.InventoryMgr.hasOneOfEverything())
+	if (mSystem.InventoryMgr.HasOneOfEverything())
 	{
 		mSystem.RenderMgr.Draw(mSystem.AssetMgr.GetSprite(SPRITES::WINSCREEN));
 		mSystem.RenderMgr.Draw(mSystem.GUIMgr.GetButton(BUTTONS::NEW_GAME_ID).GetSprite());
 		mSystem.RenderMgr.Draw(mSystem.GUIMgr.GetButton(BUTTONS::NEW_GAME_ID).GetText());
+		if (mSystem.TimeMgr.IsSpeedrun())
+		{
+			mSystem.TimeMgr.LockSpeedRunTime();
+			mSystem.RenderMgr.SpeedRunTimeRender();
+		}
 	}
 }
 
@@ -73,7 +80,7 @@ void PlayState::OnKeyRelease(sf::Keyboard::Key key)
 	}
 	if (key == sf::Keyboard::Escape)
 	{
-		if (mSystem.InventoryMgr.isOpen()) { mSystem.InventoryMgr.ToggleInventory(); }
+		if (mSystem.InventoryMgr.IsOpen()) { mSystem.InventoryMgr.ToggleInventory(); }
 		else
 		{
 			auto newState = std::make_unique<MainMenuState>(mSystem, mChangeStateCB);
@@ -87,28 +94,32 @@ void PlayState::OnKeyRelease(sf::Keyboard::Key key)
 	if (key == sf::Keyboard::S)
 	{
 		mSystem.LevelMgr.SaveLevels();
-		mSystem.InventoryMgr.saveInventory();
+		mSystem.InventoryMgr.SaveInventory();
 	}
 	if (key == sf::Keyboard::L)
 	{
 		mSystem.LevelMgr.LoadLevels();
 		mLevel.DeactiveChests();	// This is just to simulate loading the level
 		mLevel.ActivateChests();    // This is just to simulate loading the level
-		mSystem.InventoryMgr.loadInventory();
+		mSystem.InventoryMgr.LoadInventory();
 	}
 	if (key == sf::Keyboard::O)
 	{
-		mSystem.InventoryMgr.sortInventory();
+		mSystem.InventoryMgr.SortInventory();
 	}
 	if (key == sf::Keyboard::D)
 	{
-		mSystem.InventoryMgr.deleteInventory();
+		mSystem.InventoryMgr.DeleteInventory();
 	}
 	if (key == sf::Keyboard::U)
 	{
 		mLevel.UpgradeLevel();
 	}
 	if (key == sf::Keyboard::M) { SoundManager::GetInstance().MuteToggle(); }
+	if (key == sf::Keyboard::C)
+	{
+		mSystem.InventoryMgr.DebugGetOneOfEverything();
+	}
 }
 
 void PlayState::OnMouseClick(sf::Mouse::Button button)
@@ -128,10 +139,10 @@ void PlayState::UpgradeLevel()
 		return;
 	}
 	int cost = mSystem.AssetMgr.GetCostForNextLevelUpgrade(mLevel.GetUpgradeLevel());
-	if (mSystem.InventoryMgr.getGold() < cost)
+	if (mSystem.InventoryMgr.GetGold() < cost)
 	{
 		return;
 	}
-	mSystem.InventoryMgr.removeGold(cost);
+	mSystem.InventoryMgr.RemoveGold(cost);
 	mLevel.UpgradeLevel();
 }

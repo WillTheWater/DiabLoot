@@ -21,6 +21,18 @@ Item::Item(std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> item, int unique, sf::Vec
 	mRect.setPosition(pos);
 }
 
+Item::Item(std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> item, int quantity) // DEBUG ONLY
+	:mItemId{ item.first }
+	, mUniqueId{ 0 }
+	, mRarity{ item.second }
+	, mQuantity{ quantity }
+	, mPos{ sf::Vector2f{0.f,0.f} }
+	, mText{}
+	, mRect{ {100.f,100.f} }
+	, mCallback{ nullptr }
+{
+}
+
 // Observer overrides
 void Item::OnMouseMove(int x, int y) 
 {	 
@@ -54,37 +66,37 @@ void Item::OnMouseRelease(sf::Mouse::Button button)
 
 }
 
-sf::Vector2f Item::getPosition()
+sf::Vector2f Item::GetPosition()
 {
 	return mPos;
 }
 
-sf::RectangleShape Item::getTextRect()
+sf::RectangleShape Item::GetTextRect()
 {
 	return mRect;
 }
 
-int Item::getUniqueId()
+int Item::GetUniqueId()
 {
 	return mUniqueId;
 }
 
-sf::Text& Item::getItemText()
+sf::Text& Item::GetItemText()
 {
 	return mText;
 }
 
-std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> Item::getItemID()
+std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> Item::GetItemID()
 {
 	return { mItemId, mRarity };
 }
 
-int Item::getQuantity()
+int Item::GetQuantity()
 {
 	return mQuantity;
 }
 
-void Item::setTextRect(sf::RectangleShape& rect)
+void Item::SetTextRect(sf::RectangleShape& rect)
 {
 	mRect = rect;
 }

@@ -18,41 +18,41 @@ Bezier::Bezier(Vec2 startPos, Vec2 endPos, float height)
 	: mS{ startPos }
 	, mE{ endPos }
 {
-	mA = pointStartToEnd(0.5f);
+	mA = PointStartToEnd(0.5f);
 	mA.sety(mA.gety() + height);
 }
 
-Vec2 Bezier::getEndPos() const
+Vec2 Bezier::GetEndPos() const
 {
 	return mE;
 }
-Vec2 Bezier::getStartPos() const
+Vec2 Bezier::GetStartPos() const
 {
 	return mS;
 }
 
-Vec2 Bezier::pointStartToEnd(float t)
+Vec2 Bezier::PointStartToEnd(float t)
 {
 	Vec2 pt = mS.lerpTo(mE, t);
 	return pt;
 }
 
-Vec2 Bezier::pointStartToAnchor(float t)
+Vec2 Bezier::PointStartToAnchor(float t)
 {
 	Vec2 pt = mS.lerpTo(mA, t);
 	return pt;
 }
 
-Vec2 Bezier::pointAnchorToEnd(float t)
+Vec2 Bezier::PointAnchorToEnd(float t)
 {
 	Vec2 pt = mA.lerpTo(mE, t);
 	return pt;
 }
 
-Vec2 Bezier::resultPoint(float t)
+Vec2 Bezier::ResultPoint(float t)
 {
-	Vec2 pointA = pointStartToAnchor(t);
-	Vec2 pointB = pointAnchorToEnd(t);
+	Vec2 pointA = PointStartToAnchor(t);
+	Vec2 pointB = PointAnchorToEnd(t);
 	Vec2 pt = pointA.lerpTo(pointB, t);
 	return pt;
 }
@@ -83,9 +83,9 @@ void Bezier::DebugDraw(sf::RenderWindow& window, float t)
 	start.setPosition(mS.getAsSFVec2F());
 	end.setPosition(mE.getAsSFVec2F());
 	anchor.setPosition(mA.getAsSFVec2F());
-	starttoanchor.setPosition(pointStartToAnchor(t).getAsSFVec2F());
-	endtoanchor.setPosition(pointAnchorToEnd(t).getAsSFVec2F());
-	result.setPosition(resultPoint(t).getAsSFVec2F());
+	starttoanchor.setPosition(PointStartToAnchor(t).getAsSFVec2F());
+	endtoanchor.setPosition(PointAnchorToEnd(t).getAsSFVec2F());
+	result.setPosition(ResultPoint(t).getAsSFVec2F());
 
 	window.draw(start);
 	window.draw(end);

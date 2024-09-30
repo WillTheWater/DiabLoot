@@ -51,6 +51,7 @@ public:
 	void									SetUpgradeLevel(LEVELS::UPGRADE upgrade); // Only used for loading
 	void									ActivateChests(); //Turns on the relevant chests for upgrade level and also adds them as observers;
 	void									DeactiveChests();
+	void									ResetLevelUpgrades();
 
 private:
 	LEVELS::LEVEL							mLevelID;

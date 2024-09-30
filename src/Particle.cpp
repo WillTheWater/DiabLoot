@@ -13,7 +13,7 @@ Particle::Particle(int id, Vec2 pathStart, Vec2 pathEnd, float anchorHeight, flo
 {
 }
 
-void Particle::stepParticle(float deltaTime)
+void Particle::StepParticle(float deltaTime)
 {
 	if (mFinished)
 	{
@@ -28,30 +28,30 @@ void Particle::stepParticle(float deltaTime)
 		mFinished = true;
 	}
 	mPreviousPos = mCurrentPos;
-	mCurrentPos = mPath.resultPoint(std::clamp<float>(mStepProgress, 0.f, 1.f));
+	mCurrentPos = mPath.ResultPoint(std::clamp<float>(mStepProgress, 0.f, 1.f));
 }
 
-int Particle::getId()
+int Particle::GetId()
 {
 	return mId;
 }
 
-sf::Vector2f Particle::getCurrentPos()
+sf::Vector2f Particle::GetCurrentPos()
 {
 	return mCurrentPos.getAsSFVec2F();
 }
 
-sf::Vector2f Particle::getEndPos()
+sf::Vector2f Particle::GetEndPos()
 {
-	return mPath.getEndPos().getAsSFVec2F();
+	return mPath.GetEndPos().getAsSFVec2F();
 }
 
-std::pair<ITEMID::ITEM, ITEMRARITY::RARITY>	Particle::getItemID()
+std::pair<ITEMID::ITEM, ITEMRARITY::RARITY>	Particle::GetItemID()
 {
 	return mItemID;
 }
 
-float Particle::getProgress()
+float Particle::GetProgress()
 {
 	return mStepProgress;
 }

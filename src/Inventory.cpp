@@ -5,7 +5,7 @@ Inventory::Inventory()
 	, mClickedDownIndex{-1}
 	, mClickedReleaseIndex{-1}
 {
-	initialzeSlotRects();
+	InitialzeSlotRects();
 }
 
 void Inventory::OnMouseMove(int x, int y)
@@ -16,7 +16,7 @@ void Inventory::OnMouseMove(int x, int y)
 	{
 		if (mSlotRects[i].getGlobalBounds().contains(mLastMousePos))
 		{
-			if(!mItemSlots[i].isEmpty())
+			if(!mItemSlots[i].IsEmpty())
 			mMouseOver = true;
 			mMouseOverSlotIndex = i;
 		}
@@ -38,7 +38,7 @@ void Inventory::OnMouseClick(sf::Mouse::Button button)
 	{
 		if (mSlotRects[i].getGlobalBounds().contains(mLastMousePos))
 		{
-			if (!mItemSlots[i].isEmpty())
+			if (!mItemSlots[i].IsEmpty())
 			{
 				mClickedDownIndex = i;
 				validSlot = true;
@@ -76,11 +76,11 @@ void Inventory::OnMouseRelease(sf::Mouse::Button button)
 	}
 	else
 	{
-		swapSlots(mClickedReleaseIndex, mClickedDownIndex);
+		SwapSlots(mClickedReleaseIndex, mClickedDownIndex);
 	}
 }
 
-void Inventory::swapSlots(int a, int b)
+void Inventory::SwapSlots(int a, int b)
 {
 	std::swap(mItemSlots[a], mItemSlots[b]);
 	mClickedDownIndex = -1;
@@ -92,7 +92,7 @@ void Inventory::ToggleInventory()
 	mVisible = !mVisible;
 }
 
-bool Inventory::isOpen()
+bool Inventory::IsOpen()
 {
 	return mVisible;
 }
@@ -107,60 +107,60 @@ std::array<sf::RectangleShape, 150>& Inventory::getSlotRects()
 	return mSlotRects;
 }
 
-bool Inventory::isMouseOverSlot()
+bool Inventory::IsMouseOverSlot()
 {
 	return mMouseOver;
 }
 
-int Inventory::getMouseOverSlotIndex()
+int Inventory::GetMouseOverSlotIndex()
 {
 	return mMouseOverSlotIndex;
 }
 
-sf::Vector2f Inventory::getLastMousePos()
+sf::Vector2f Inventory::GetLastMousePos()
 {
 	return mLastMousePos;
 }
 
-void Inventory::sortInventory()
+void Inventory::SortInventory()
 {
 	auto sortLamda = [](ItemSlot& a, ItemSlot& b)
 		{
-			if (a.isEmpty())
+			if (a.IsEmpty())
 			{
 				return false;
 			}
-			else if (b.isEmpty())
+			else if (b.IsEmpty())
 			{
-				return(a.getItemId().first < b.getItemId().first);
+				return(a.GetItemId().first < b.GetItemId().first);
 			}
-			else if (a.getItemId().first == b.getItemId().first)
+			else if (a.GetItemId().first == b.GetItemId().first)
 			{
-				return(a.getItemId().second > b.getItemId().second);
+				return(a.GetItemId().second > b.GetItemId().second);
 			}
 			else
 			{
-				return(a.getItemId().first > b.getItemId().first);
+				return(a.GetItemId().first > b.GetItemId().first);
 			}
 		};
 
 	std::sort(mItemSlots.begin(), mItemSlots.end(), sortLamda);
 }
 
-bool Inventory::doesItemAlreadyHaveASlot(Item& item)
+bool Inventory::DoesItemAlreadyHaveASlot(Item& item)
 {
 	bool alreadyExists = false;
 	for (auto& slot : mItemSlots)
 	{
-		if (slot.isEmpty())
+		if (slot.IsEmpty())
 		{
 			continue;
 		}
-		if (slot.getItemId().first != item.getItemID().first)
+		if (slot.GetItemId().first != item.GetItemID().first)
 		{
 			continue;
 		}
-		if (slot.getItemId().second == item.getItemID().second)
+		if (slot.GetItemId().second == item.GetItemID().second)
 		{
 			alreadyExists = true;
 			break;
@@ -169,17 +169,17 @@ bool Inventory::doesItemAlreadyHaveASlot(Item& item)
 	return alreadyExists;
 }
 
-size_t Inventory::getSlotForExistingItem(Item& item)
+size_t Inventory::GetSlotForExistingItem(Item& item)
 {
-	std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> itemId = item.getItemID();
+	std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> itemId = item.GetItemID();
 	size_t index = -1;
 	for (int i{ 0 }; i < mItemSlots.size(); i++)
 	{
-		if (mItemSlots[i].isEmpty())
+		if (mItemSlots[i].IsEmpty())
 		{
 			continue;
 		}
-		std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> slotId = mItemSlots[i].getItemId();
+		std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> slotId = mItemSlots[i].GetItemId();
 		if (itemId.first == slotId.first && itemId.second == slotId.second)
 		{
 			index = (size_t)i;
@@ -189,14 +189,14 @@ size_t Inventory::getSlotForExistingItem(Item& item)
 	return index;
 }
 
-bool Inventory::addItem(Item& item)
+bool Inventory::AddItem(Item& item)
 {
-	if (item.getItemID().first == ITEMID::GOLD)
+	if (item.GetItemID().first == ITEMID::GOLD)
 	{
-		addGold(item.getQuantity());
+		AddGold(item.GetQuantity());
 		return true;
 	}
-	size_t index = getSlotForExistingItem(item);
+	size_t index = GetSlotForExistingItem(item);
 	// If the item already exists in the inventory, add to it's quantity
 	if (index != -1)
 	{
@@ -205,20 +205,20 @@ bool Inventory::addItem(Item& item)
 		//return true;
 	}
 	// Otherwise, check if there is any slot available
-	if (!availabeSlot())
+	if (!AvailabeSlot())
 	{
 		return false;
 	}
 	// If there is, add it to that slot
-	size_t emptySlot = getFirstOpenIndex();
-	mItemSlots[emptySlot].setContainedItem(item.getItemID(), item.getQuantity());
+	size_t emptySlot = GetFirstOpenIndex();
+	mItemSlots[emptySlot].SetContainedItem(item.GetItemID(), item.GetQuantity());
 
 	//sortInventory();
 
 	return true;
 }
 
-void Inventory::addGold(int quantity)
+void Inventory::AddGold(int quantity)
 {
 	if (std::numeric_limits<int>::max() - quantity <= mGold)
 	{
@@ -230,7 +230,7 @@ void Inventory::addGold(int quantity)
 	}
 }
 
-void Inventory::removeGold(int quantity)
+void Inventory::RemoveGold(int quantity)
 {
 	if ((mGold - quantity) < 0)
 	{
@@ -242,17 +242,17 @@ void Inventory::removeGold(int quantity)
 	}
 }
 
-int Inventory::getGold()
+int Inventory::GetGold()
 {
 	return mGold;
 }
 
-bool Inventory::availabeSlot()
+bool Inventory::AvailabeSlot()
 {
 	bool available = false;
 	for (auto& slot : mItemSlots)
 	{
-		if (slot.isEmpty())
+		if (slot.IsEmpty())
 		{
 			available = true;
 			return available;
@@ -261,12 +261,12 @@ bool Inventory::availabeSlot()
 	return available;
 }
 
-size_t Inventory::getFirstOpenIndex()
+size_t Inventory::GetFirstOpenIndex()
 {
 	int index = -1;
 	for (int i{ 0 }; i < mItemSlots.size(); i++)
 	{
-		if (mItemSlots[i].isEmpty())
+		if (mItemSlots[i].IsEmpty())
 		{
 			index = (size_t)i;
 			return index;
@@ -275,22 +275,22 @@ size_t Inventory::getFirstOpenIndex()
 	return index;
 }
 
-int Inventory::getClickedDownIndex()
+int Inventory::GetClickedDownIndex()
 {
 	return mClickedDownIndex;
 }
 
-bool Inventory::isItemSlotClicked()
+bool Inventory::IsItemSlotClicked()
 {
 	return (mClickedDownIndex != -1);
 }
 
-ITEMID::ITEM Inventory::getItemIdOfSlotClicked()
+ITEMID::ITEM Inventory::GetItemIdOfSlotClicked()
 {
-	return mItemSlots[mClickedDownIndex].getItemId().first;
+	return mItemSlots[mClickedDownIndex].GetItemId().first;
 }
 
-void Inventory::loadInventory()
+void Inventory::LoadInventory()
 {
 	std::ifstream inData("inventoryData.inv");
 	assert(inData && "InventoryManager::loadInventory failed to open inventoryData.inv file");
@@ -326,7 +326,7 @@ void Inventory::loadInventory()
 	}
 }
 
-void Inventory::saveInventory()
+void Inventory::SaveInventory()
 {
 	std::ofstream outData;
 	outData.open("inventoryData.inv");
@@ -336,12 +336,12 @@ void Inventory::saveInventory()
 	outData << "#SLOTS\n";
 	for (int i{ 0 }; i < mItemSlots.size(); i++)
 	{
-		outData << mItemSlots[i].getItemId().first << '\n' << mItemSlots[i].getItemId().second << '\n' << mItemSlots[i].getQuantity() << '\n';
+		outData << mItemSlots[i].GetItemId().first << '\n' << mItemSlots[i].GetItemId().second << '\n' << mItemSlots[i].GetQuantity() << '\n';
 	}
 	outData.close();
 }
 
-void Inventory::deleteInventory()
+void Inventory::DeleteInventory()
 {
 	for (auto& slot : mItemSlots)
 	{
@@ -349,12 +349,12 @@ void Inventory::deleteInventory()
 	}
 }
 
-int Inventory::getNumberOfUniqueItems()
+int Inventory::GetNumberOfUniqueItems()
 {
 	int uniqueItems = 0;
 	for (auto& slot : mItemSlots)
 	{
-		if (!slot.isEmpty())
+		if (!slot.IsEmpty())
 		{
 			uniqueItems++;
 		}
@@ -362,12 +362,52 @@ int Inventory::getNumberOfUniqueItems()
 	return uniqueItems;
 }
 
-bool Inventory::hasOneOfEverything()
+bool Inventory::HasOneOfEverything()
 {
-	return getNumberOfUniqueItems() == ITEMGEN::TOTAL_UNIQUE_ITEMS;
+	return GetNumberOfUniqueItems() == ITEMGEN::TOTAL_UNIQUE_ITEMS;
 }
 
-void Inventory::initialzeSlotRects()
+void Inventory::DebugGetOneOfEverything()
+{
+	for(int i{0}; i < ITEMGEN::RarityNormalItems.size(); i++)
+	{
+		std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> id = { ITEMGEN::RarityNormalItems[i], ITEMRARITY::NORMAL };
+		Item item{ id, 1 };
+		AddItem(item);
+	}
+	for (int i{ 0 }; i < ITEMGEN::RarityMagicItems.size(); i++)
+	{
+		std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> id = { ITEMGEN::RarityMagicItems[i], ITEMRARITY::MAGIC };
+		Item item{ id, 1 };
+		AddItem(item);
+	}
+	for (int i{ 0 }; i < ITEMGEN::RarityRareItems.size(); i++)
+	{
+		std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> id = { ITEMGEN::RarityRareItems[i], ITEMRARITY::RARE };
+		Item item{ id, 1 };
+		AddItem(item);
+	}
+	for (int i{ 0 }; i < ITEMGEN::RaritySetItems.size(); i++)
+	{
+		std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> id = { ITEMGEN::RaritySetItems[i], ITEMRARITY::SET };
+		Item item{ id, 1 };
+		AddItem(item);
+	}
+	for (int i{ 0 }; i < ITEMGEN::RarityUniqueItems.size(); i++)
+	{
+		std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> id = { ITEMGEN::RarityUniqueItems[i], ITEMRARITY::UNIQUE };
+		Item item{ id, 1 };
+		AddItem(item);
+	}
+	for (int i{ 0 }; i < ITEMGEN::RarityRuneItems.size(); i++)
+	{
+		std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> id = { ITEMGEN::RarityRuneItems[i], ITEMRARITY::RUNE };
+		Item item{ id, 1 };
+		AddItem(item);
+	}
+}
+
+void Inventory::InitialzeSlotRects()
 {
 	// Needs testing
 	sf::RectangleShape slotTemplate{ {52.f, 52.f} };
