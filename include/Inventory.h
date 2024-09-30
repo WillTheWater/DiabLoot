@@ -21,17 +21,17 @@ public:
 	void									OnMouseRelease(sf::Mouse::Button button) override;
 	void									SwapSlots(int a, int b);
 	size_t									GetFirstOpenIndex();
-	int										GetClickedDownIndex();
-	bool									IsItemSlotClicked();
+	int										GetClickedDownIndex() const;
+	bool									IsItemSlotClicked() const;
 	ITEMID::ITEM							GetItemIdOfSlotClicked();
 
 	void									ToggleInventory();
-	bool									IsOpen();
+	bool									IsOpen() const;
 	std::array<ItemSlot, 150>&				getItemSlots();
 	std::array<sf::RectangleShape, 150>&	getSlotRects();
-	bool									IsMouseOverSlot();
-	int										GetMouseOverSlotIndex();
-	sf::Vector2f							GetLastMousePos();
+	bool									IsMouseOverSlot() const;
+	int										GetMouseOverSlotIndex() const;
+	sf::Vector2f							GetLastMousePos() const;
 	bool									AddItem(Item& item);	// Returns false if there is no where to add the item to
 	void									AddGold(int quantity);
 	void									RemoveGold(int quantity);

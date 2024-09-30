@@ -92,7 +92,7 @@ void Inventory::ToggleInventory()
 	mVisible = !mVisible;
 }
 
-bool Inventory::IsOpen()
+bool Inventory::IsOpen() const
 {
 	return mVisible;
 }
@@ -107,17 +107,17 @@ std::array<sf::RectangleShape, 150>& Inventory::getSlotRects()
 	return mSlotRects;
 }
 
-bool Inventory::IsMouseOverSlot()
+bool Inventory::IsMouseOverSlot() const
 {
 	return mMouseOver;
 }
 
-int Inventory::GetMouseOverSlotIndex()
+int Inventory::GetMouseOverSlotIndex() const
 {
 	return mMouseOverSlotIndex;
 }
 
-sf::Vector2f Inventory::GetLastMousePos()
+sf::Vector2f Inventory::GetLastMousePos() const
 {
 	return mLastMousePos;
 }
@@ -275,12 +275,12 @@ size_t Inventory::GetFirstOpenIndex()
 	return index;
 }
 
-int Inventory::GetClickedDownIndex()
+int Inventory::GetClickedDownIndex() const
 {
 	return mClickedDownIndex;
 }
 
-bool Inventory::IsItemSlotClicked()
+bool Inventory::IsItemSlotClicked() const
 {
 	return (mClickedDownIndex != -1);
 }
@@ -292,7 +292,7 @@ ITEMID::ITEM Inventory::GetItemIdOfSlotClicked()
 
 void Inventory::LoadInventory()
 {
-	std::ifstream inData("inventoryData.inv");
+	std::ifstream inData("save/inventoryData.inv");
 	assert(inData && "InventoryManager::loadInventory failed to open inventoryData.inv file");
 	std::string line;
 	while (std::getline(inData, line))
@@ -310,13 +310,10 @@ void Inventory::LoadInventory()
 			while (index < mItemSlots.size())
 			{
 				std::getline(inData, line);
-				//std::cout << index << ": " << line << ' '; // debug
 				int id = std::stoi(line);
 				std::getline(inData, line);
-				// std::cout << line << ' '; // debug
 				int rarity = std::stoi(line);
 				std::getline(inData, line);
-				// std::cout << line << '\n'; // debug
 				int quantity = std::stoi(line);
 				mItemSlots[index] = ItemSlot{ id, rarity, quantity };
 				index++;
@@ -329,14 +326,19 @@ void Inventory::LoadInventory()
 void Inventory::SaveInventory()
 {
 	std::ofstream outData;
-	outData.open("inventoryData.inv");
+	// Save the file in the inventory directory created by CMake
+	std::string filePath = "save/inventoryData.inv"; // Relative path
+	outData.open(filePath);
 	assert(outData && "InventoryManager::saveInventory failed to open inventoryData.inv file");
+
 	int gold = mGold;
 	outData << "#GOLD\n" << gold << '\n';
 	outData << "#SLOTS\n";
 	for (int i{ 0 }; i < mItemSlots.size(); i++)
 	{
-		outData << mItemSlots[i].GetItemId().first << '\n' << mItemSlots[i].GetItemId().second << '\n' << mItemSlots[i].GetQuantity() << '\n';
+		outData << mItemSlots[i].GetItemId().first << '\n'
+			<< mItemSlots[i].GetItemId().second << '\n'
+			<< mItemSlots[i].GetQuantity() << '\n';
 	}
 	outData.close();
 }
@@ -417,7 +419,7 @@ void Inventory::InitialzeSlotRects()
 	{
 		
 		mSlotRects[(int)i] = slotTemplate;
-		mSlotRects[(int)i].move(i % 10 * 52, i / 10 * 52);
+		mSlotRects[(int)i].move(i % 10 * 52, i / static_cast<float>(10) * 52);
 		
 	}
 }

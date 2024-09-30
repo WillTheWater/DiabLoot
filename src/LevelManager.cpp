@@ -98,8 +98,11 @@ Level& LevelManager::GetNextLevel()
 void LevelManager::SaveLevels()
 {
 	std::ofstream outData;
-	outData.open("levelData.lvl");
-	assert(outData && "LevelManager::SaveLevels failed to open inventoryData.inv file");
+	// Save the file in the save directory created by CMake
+	std::string filePath = "save/levelData.lvl";  // Relative path
+	outData.open(filePath);
+	assert(outData && "LevelManager::SaveLevels failed to open levelData.lvl file");
+
 	outData << "#UPGRADES\n";
 	for (int i{ 0 }; i < mLevels.size(); i++)
 	{
@@ -110,8 +113,9 @@ void LevelManager::SaveLevels()
 
 void LevelManager::LoadLevels()
 {
-	std::ifstream inData("levelData.lvl");
-	assert(inData && "LevelManager::LoadLevels failed to open inventoryData.inv file");
+	std::ifstream inData("save/levelData.lvl");  // Relative path to the save directory
+	assert(inData && "LevelManager::LoadLevels failed to open levelData.lvl file");
+
 	std::string line;
 	while (std::getline(inData, line))
 	{
