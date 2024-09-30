@@ -83,7 +83,7 @@ void GUIManager::PlayStateUpdate(sf::Vector2f mousePos, bool isClicked)
     mButtons[BUTTONS::SORT_BUTTON_ID]->HandleEvent(mousePos, isClicked);
     mButtons[BUTTONS::CLOSE_BUTTON_ID]->HandleEvent(mousePos, isClicked);
     mButtons[BUTTONS::MINI_BUTTON_ID]->HandleEvent(mousePos, isClicked);
-    if (mSystem.InventoryMgr.hasOneOfEverything())
+    if (mSystem.InventoryMgr.HasOneOfEverything())
     {
         mButtons[BUTTONS::NEW_GAME_ID]->HandleEvent(mousePos, isClicked);
     }

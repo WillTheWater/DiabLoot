@@ -205,7 +205,7 @@ void RenderManager::DrawToolTip(sf::Vector2f mousePos)
 		mSystem.RenderMgr.Draw(backgroundRect);
 		mSystem.RenderMgr.Draw(tooltipText);
 	}
-	if (mSystem.GUIMgr.GetButton(BUTTONS::SORT_BUTTON_ID).GetSprite().getGlobalBounds().contains(mousePos) && mSystem.InventoryMgr.isOpen())
+	if (mSystem.GUIMgr.GetButton(BUTTONS::SORT_BUTTON_ID).GetSprite().getGlobalBounds().contains(mousePos) && mSystem.InventoryMgr.IsOpen())
 	{
 		sf::Text tooltipText;
 		tooltipText.setFont(mSystem.AssetMgr.GetFont(FONTS::LIGHT));
@@ -346,7 +346,7 @@ void RenderManager::ItemsRender(std::vector<std::unique_ptr<Item>>& items)
 
 void RenderManager::ItemCollectionRender()
 {
-	if (mSystem.InventoryMgr.isOpen())
+	if (mSystem.InventoryMgr.IsOpen())
 	{
 		// Get the string with the appropriate numbers
 		std::string string{ "Items Found: " };

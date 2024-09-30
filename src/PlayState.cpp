@@ -48,7 +48,7 @@ void PlayState::Draw()
 	mSystem.RenderMgr.PlayStateRender();
 	mSystem.RenderMgr.DrawToolTip(mMousePosition);
 
-	if (mSystem.InventoryMgr.hasOneOfEverything())
+	if (mSystem.InventoryMgr.HasOneOfEverything())
 	{
 		mSystem.RenderMgr.Draw(mSystem.AssetMgr.GetSprite(SPRITES::WINSCREEN));
 		mSystem.RenderMgr.Draw(mSystem.GUIMgr.GetButton(BUTTONS::NEW_GAME_ID).GetSprite());
