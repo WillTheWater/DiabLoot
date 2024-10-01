@@ -423,7 +423,6 @@ void Inventory::InitialzeSlotRects()
 	{
 		
 		mSlotRects[(int)i] = slotTemplate;
-		mSlotRects[(int)i].move(i % 10 * 52, i / 10 * 52);
-		
+		mSlotRects[(int)i].move(i % 10 * 52, (float)(i / 10 * 52));
 	}
 }
