@@ -16,13 +16,13 @@ void AssetManager::InitializeTextureSprites()
 {
     for (int i{ 0 }; i < TEXTURES::MAX_TEXTURES; i++)
     {
-        mTextures.push_back(std::make_unique<sf::Texture>());
+        mTextures[i] = std::make_unique<sf::Texture>();
     }
     assert(std::ssize(mTextures) == TEXTURES::MAX_TEXTURES && "AssetManager failed to initialize correct number of textures\n");
 
     for (int i{ 0 }; i < SPRITES::MAX_SPRITES; i++)
     {
-        mSprites.push_back(std::make_unique<sf::Sprite>());
+        mSprites[i] = (std::make_unique<sf::Sprite>());
     }
     assert(std::ssize(mSprites) == SPRITES::MAX_SPRITES && "AssetManager failed to initialize correct number of sprites\n");
 
@@ -30,18 +30,17 @@ void AssetManager::InitializeTextureSprites()
     // MENU
     mTextures[TEXTURES::MAINMENU]->loadFromFile             ("assets/graphics/mainmenu.png");
     mTextures[TEXTURES::WINSCREEN]->loadFromFile            ("assets/graphics/winscreen.png");
-    // BUTTON TEXTURES
-
-    mTextures[TEXTURES::WIDE_BUTTON]->loadFromFile("assets/graphics/button.png");
-    mTextures[TEXTURES::INVENTORY_BUTTON]->loadFromFile("assets/graphics/inventorybutton.png");
-    mTextures[TEXTURES::MUTE_BUTTON]->loadFromFile("assets/graphics/mutebutton.png");
-    mTextures[TEXTURES::UPGRADE_BUTTON]->loadFromFile("assets/graphics/upgradebutton.png");
-    mTextures[TEXTURES::SORT_BUTTON]->loadFromFile("assets/graphics/sortbutton.png");
-    mTextures[TEXTURES::CLOSE_BUTTON]->loadFromFile("assets/graphics/closebutton.png");
-    mTextures[TEXTURES::MINI_BUTTON]->loadFromFile("assets/graphics/minibutton.png");
-    mTextures[TEXTURES::INFO_BUTTON]->loadFromFile("assets/graphics/infobutton.png");
-    mTextures[TEXTURES::CHESTCLOSED]->loadFromFile("assets/graphics/chestclosed.png");
-    mTextures[TEXTURES::CHESTOPENED]->loadFromFile("assets/graphics/chestopened.png");
+    // BUTTONS
+    mTextures[TEXTURES::WIDE_BUTTON]->loadFromFile          ("assets/graphics/button.png");
+    mTextures[TEXTURES::INVENTORY_BUTTON]->loadFromFile     ("assets/graphics/inventorybutton.png");
+    mTextures[TEXTURES::MUTE_BUTTON]->loadFromFile          ("assets/graphics/mutebutton.png");
+    mTextures[TEXTURES::UPGRADE_BUTTON]->loadFromFile       ("assets/graphics/upgradebutton.png");
+    mTextures[TEXTURES::SORT_BUTTON]->loadFromFile          ("assets/graphics/sortbutton.png");
+    mTextures[TEXTURES::CLOSE_BUTTON]->loadFromFile         ("assets/graphics/closebutton.png");
+    mTextures[TEXTURES::MINI_BUTTON]->loadFromFile          ("assets/graphics/minibutton.png");
+    mTextures[TEXTURES::INFO_BUTTON]->loadFromFile          ("assets/graphics/infobutton.png");
+    mTextures[TEXTURES::CHESTCLOSED]->loadFromFile          ("assets/graphics/chestclosed.png");
+    mTextures[TEXTURES::CHESTOPENED]->loadFromFile          ("assets/graphics/chestopened.png");
     // MAPS
     mTextures[TEXTURES::MAP_ONE]->loadFromFile              ("assets/graphics/levels/level1.png");
     mTextures[TEXTURES::MAP_TWO]->loadFromFile              ("assets/graphics/levels/level2.png");
@@ -75,7 +74,6 @@ void AssetManager::InitializeTextureSprites()
     mTextures[TEXTURES::SUPER_MANA_POTION]->loadFromFile    ("assets/graphics/items/supermanapotion.png");
     mTextures[TEXTURES::THAWING_POTION]->loadFromFile       ("assets/graphics/items/thawingpotion.png");
     mTextures[TEXTURES::RANCIDGAS_POTION]->loadFromFile     ("assets/graphics/items/rancidgaspotion.png");
-
     mTextures[TEXTURES::AMETHYST_P]->loadFromFile           ("assets/graphics/items/perfectamethyst.png");
     mTextures[TEXTURES::AMETHYST_F]->loadFromFile           ("assets/graphics/items/flawlessamethyst.png");
     mTextures[TEXTURES::DIAMOND_P]->loadFromFile            ("assets/graphics/items/perfectdiamond.png");
@@ -139,6 +137,9 @@ void AssetManager::InitializeTextureSprites()
     mTextures[TEXTURES::GOLD_SMALL]->loadFromFile           ("assets/graphics/items/gold_small.png");
     mTextures[TEXTURES::GOLD_MEDIUM]->loadFromFile          ("assets/graphics/items/gold_medium.png");
     mTextures[TEXTURES::GOLD_LARGE]->loadFromFile           ("assets/graphics/items/gold_large.png");
+    // PARTICLE
+    mTextures[TEXTURES::PARTICLE]->loadFromFile             ("assets/graphics/particle.png");
+    mTextures[TEXTURES::GLOW]->loadFromFile                 ("assets/graphics/glow.png");
    
 
     // SPRITES SETUP
@@ -160,14 +161,14 @@ void AssetManager::InitializeTextureSprites()
     mSprites[SPRITES::MAP_TWELVE]->setTexture               (GetTexture(TEXTURES::MAP_TWELVE));
     mSprites[SPRITES::MAP_THIRTEEN]->setTexture             (GetTexture(TEXTURES::MAP_THIRTEEN));
     // BUTTONS
-    mSprites[SPRITES::WIDE_BUTTON]->setTexture(GetTexture(TEXTURES::WIDE_BUTTON));
-    mSprites[SPRITES::INVENTORY_BUTTON]->setTexture(GetTexture(TEXTURES::INVENTORY_BUTTON));
-    mSprites[SPRITES::MUTE_BUTTON]->setTexture(GetTexture(TEXTURES::MUTE_BUTTON));
-    mSprites[SPRITES::UPGRADE_BUTTON]->setTexture(GetTexture(TEXTURES::UPGRADE_BUTTON));
-    mSprites[SPRITES::SORT_BUTTON]->setTexture(GetTexture(TEXTURES::SORT_BUTTON));
-    mSprites[SPRITES::CLOSE_BUTTON]->setTexture(GetTexture(TEXTURES::CLOSE_BUTTON));
-    mSprites[SPRITES::MINI_BUTTON]->setTexture(GetTexture(TEXTURES::MINI_BUTTON));
-    mSprites[SPRITES::INFO_BUTTON]->setTexture(GetTexture(TEXTURES::INFO_BUTTON));
+    mSprites[SPRITES::WIDE_BUTTON]->setTexture              (GetTexture(TEXTURES::WIDE_BUTTON));
+    mSprites[SPRITES::INVENTORY_BUTTON]->setTexture         (GetTexture(TEXTURES::INVENTORY_BUTTON));
+    mSprites[SPRITES::MUTE_BUTTON]->setTexture              (GetTexture(TEXTURES::MUTE_BUTTON));
+    mSprites[SPRITES::UPGRADE_BUTTON]->setTexture           (GetTexture(TEXTURES::UPGRADE_BUTTON));
+    mSprites[SPRITES::SORT_BUTTON]->setTexture              (GetTexture(TEXTURES::SORT_BUTTON));
+    mSprites[SPRITES::CLOSE_BUTTON]->setTexture             (GetTexture(TEXTURES::CLOSE_BUTTON));
+    mSprites[SPRITES::MINI_BUTTON]->setTexture              (GetTexture(TEXTURES::MINI_BUTTON));
+    mSprites[SPRITES::INFO_BUTTON]->setTexture              (GetTexture(TEXTURES::INFO_BUTTON));
     // INVENTORY
     mSprites[SPRITES::INVENTORY]->setTexture                (GetTexture(TEXTURES::INVENTORY));
     // CHESTS
@@ -255,25 +256,30 @@ void AssetManager::InitializeTextureSprites()
     mSprites[SPRITES::GOLD_SMALL]->setTexture               (GetTexture(TEXTURES::GOLD_LARGE));
     mSprites[SPRITES::GOLD_MEDIUM]->setTexture              (GetTexture(TEXTURES::GOLD_LARGE));
     mSprites[SPRITES::GOLD_LARGE]->setTexture               (GetTexture(TEXTURES::GOLD_LARGE));
+    // PARTICLE
+    mSprites[SPRITES::PARTICLE]->setTexture                 (GetTexture(TEXTURES::PARTICLE));
+    mSprites[SPRITES::GLOW]->setTexture                     (GetTexture(TEXTURES::GLOW));
+   
+
 }
 
 void AssetManager::InitializeFontsAndTexts()
 {
     for (int i{ 0 }; i < FONTS::MAX_FONTS; i++)
     {
-        mFonts.push_back(std::make_unique<sf::Font>());
+        mFonts[i] =(std::make_unique<sf::Font>());
     }
     assert(std::ssize(mFonts) == FONTS::MAX_FONTS && "AssetManager failed to initialize correct number of fonts\n");
 
     for (int i{ 0 }; i < ITEMID::MAX_ITEMS; i++)
     {
-        mItemTexts.push_back(std::make_unique<sf::Text>());
+        mItemTexts[i] = (std::make_unique<sf::Text>());
     }
     assert(std::ssize(mItemTexts) == ITEMID::MAX_ITEMS && "AssetManager failed to initialize correct number of item texts\n");
 
     for (int i{ 0 }; i < BUTTONS::MAX_BUTTONS; i++)
     {
-        mButtonTexts.push_back(std::make_unique<sf::Text>());
+        mButtonTexts[i] = (std::make_unique<sf::Text>());
     }
     assert(std::ssize(mButtonTexts) == BUTTONS::MAX_BUTTONS && "AssetManager failed to initialize correct number of button texts\n");
 
@@ -290,7 +296,7 @@ void AssetManager::InitializeFontsAndTexts()
     mButtonTexts[BUTTONS::OPEN_INVENTORY]->setString("Inventory");
     mButtonTexts[BUTTONS::EXIT_PLAY]->setString("Main Menu");
 
-    // Set Up Texts
+    // Set Item Texts
     mItemTexts[ITEMID::GOLD]->setString                 ("Gold");
     mItemTexts[ITEMID::AMULET1]->setString              ("Amulet");
     mItemTexts[ITEMID::KEY]->setString                  ("Key");
@@ -299,7 +305,6 @@ void AssetManager::InitializeFontsAndTexts()
     mItemTexts[ITEMID::CHARM1]->setString               ("Small Charm of Dexterity");
     mItemTexts[ITEMID::CHARM2]->setString               ("Small Charm of Luck");
     mItemTexts[ITEMID::CHARM3]->setString               ("Small Charm of Strength");
-
     mItemTexts[ITEMID::REJUV_POTION]->setString         ("Rejuvenation Potion");
     mItemTexts[ITEMID::FULL_REJUV_POTION]->setString    ("Full Rejuvenation Potion");
     mItemTexts[ITEMID::ANTIDOTE]->setString             ("Antidote");
@@ -309,7 +314,6 @@ void AssetManager::InitializeFontsAndTexts()
     mItemTexts[ITEMID::SUPER_MANA_POTION]->setString    ("Super Mana Potion");
     mItemTexts[ITEMID::THAWING_POTION]->setString       ("Thawing Potion");
     mItemTexts[ITEMID::RANCIDGAS_POTION]->setString     ("Rancid Gas Potion");
-
     mItemTexts[ITEMID::AMETHYST_P]->setString           ("Perfect Amethyst");
     mItemTexts[ITEMID::AMETHYST_F]->setString           ("Flawless Amethyst");
     mItemTexts[ITEMID::DIAMOND_P]->setString            ("Perfect Diamond");
@@ -388,13 +392,13 @@ void AssetManager::InitializeSounds()
 {
     for (int i{ 0 }; i < SOUNDBUFFERS::MAX_SOUNDSBUFFERS; i++)
     {
-        mSoundBuffers.push_back(std::make_unique<sf::SoundBuffer>());
+        mSoundBuffers[i] = (std::make_unique<sf::SoundBuffer>());
     }
     assert(std::ssize(mSoundBuffers) == SOUNDBUFFERS::MAX_SOUNDSBUFFERS && "AssetManager failed to initialize correct number of soundbuffers\n");
 
     for (int i{ 0 }; i < PLAYSOUND::MAX_SOUNDS; i++)
     {
-        mSounds.push_back(std::make_unique<sf::Sound>());
+        mSounds[i] = (std::make_unique<sf::Sound>());
 
     }
     assert(std::ssize(mSounds) == PLAYSOUND::MAX_SOUNDS && "AssetManager failed to initialize correct number of sounds\n");
@@ -438,7 +442,7 @@ void AssetManager::InitializeMusic()
 {
     for (int i{ 0 }; i < MUSIC::MAX_MUSIC_FILES; i++)
     {
-        mMusic.push_back(std::make_unique<sf::Music>());
+        mMusic[i] = (std::make_unique<sf::Music>());
     }
     assert(std::ssize(mMusic) == MUSIC::MAX_MUSIC_FILES && "AssetManager failed to initialize correct number of music files\n");
 
@@ -453,7 +457,7 @@ void AssetManager::InitializeImages()
 {
     for (int i{ 0 }; i < IMAGES::MAX_IMAGES; i++)
     {
-        mImages.push_back(std::make_unique<sf::Image>());
+        mImages[i] = (std::make_unique<sf::Image>());
     }
     assert(std::ssize(mImages) == IMAGES::MAX_IMAGES && "AssetManager failed to initialize correct number of images\n");
 

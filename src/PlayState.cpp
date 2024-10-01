@@ -34,12 +34,23 @@ void PlayState::Exit()
 {
 	mSystem.InputMgr.RemoveObserver(this);
 	mLevel.ExitLevel();
+	mFireWorks.EndFireWorks();
 }
 
 void PlayState::Update()
 {
+	if (mSystem.InventoryMgr.HasOneOfEverything() && !hasWon)
+	{
+		mFireWorks.StartFireworks();
+		hasWon = true;
+	}
 	mLevel.UpdateLevel();
 	mSystem.GUIMgr.PlayStateUpdate(mMousePosition, mMouseIsClicked);
+
+	if (hasWon)
+	{
+		mFireWorks.Update(mSystem.TimeMgr.GetDeltaTime());
+	}	
 }
 
 void PlayState::Draw()
@@ -47,8 +58,9 @@ void PlayState::Draw()
 	mSystem.RenderMgr.LevelRender(mLevel);
 	mSystem.RenderMgr.PlayStateRender();
 	mSystem.RenderMgr.DrawToolTip(mMousePosition);
+	mSystem.RenderMgr.FireWorksRender(mFireWorks);
 
-	if (mSystem.InventoryMgr.HasOneOfEverything())
+	if (hasWon)
 	{
 		mSystem.RenderMgr.Draw(mSystem.AssetMgr.GetSprite(SPRITES::WINSCREEN));
 		mSystem.RenderMgr.Draw(mSystem.GUIMgr.GetButton(BUTTONS::NEW_GAME_ID).GetSprite());
@@ -73,11 +85,6 @@ void PlayState::OnKeyPress(sf::Keyboard::Key key)
 
 void PlayState::OnKeyRelease(sf::Keyboard::Key key)
 {
-	if (key == sf::Keyboard::R)
-	{
-		auto newState = std::make_unique<PlayState>(mSystem, mChangeStateCB, mSystem.LevelMgr.GetNextLevel());
-		mChangeStateCB(std::move(newState));
-	}
 	if (key == sf::Keyboard::Escape)
 	{
 		if (mSystem.InventoryMgr.IsOpen()) { mSystem.InventoryMgr.ToggleInventory(); }
@@ -87,36 +94,36 @@ void PlayState::OnKeyRelease(sf::Keyboard::Key key)
 			mChangeStateCB(std::move(newState));
 		}
 	}
-	if (key == sf::Keyboard::I)
+	if (key == sf::Keyboard::I && !hasWon)
 	{
 		mSystem.InventoryMgr.ToggleInventory();
 	}
-	if (key == sf::Keyboard::S)
+	if (key == sf::Keyboard::S && !hasWon)
 	{
 		mSystem.LevelMgr.SaveLevels();
 		mSystem.InventoryMgr.SaveInventory();
 	}
-	if (key == sf::Keyboard::L)
+	if (key == sf::Keyboard::L && !hasWon)
 	{
 		mSystem.LevelMgr.LoadLevels();
 		mLevel.DeactiveChests();	// This is just to simulate loading the level
 		mLevel.ActivateChests();    // This is just to simulate loading the level
 		mSystem.InventoryMgr.LoadInventory();
 	}
-	if (key == sf::Keyboard::O)
+	if (key == sf::Keyboard::O && !hasWon)
 	{
 		mSystem.InventoryMgr.SortInventory();
 	}
-	if (key == sf::Keyboard::D)
+	if (key == sf::Keyboard::D && !hasWon)
 	{
 		mSystem.InventoryMgr.DeleteInventory();
 	}
-	if (key == sf::Keyboard::U)
+	if (key == sf::Keyboard::U && !hasWon)
 	{
-		mLevel.UpgradeLevel();
+		UpgradeLevel();
 	}
 	if (key == sf::Keyboard::M) { SoundManager::GetInstance().MuteToggle(); }
-	if (key == sf::Keyboard::C)
+	if (key == sf::Keyboard::C && !hasWon)
 	{
 		mSystem.InventoryMgr.DebugGetOneOfEverything();
 	}

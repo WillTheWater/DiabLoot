@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "Level.h"
 #include "Inventory.h"
+#include "FireWorkSystem.h"
 #include <iomanip>
 
 class System;
@@ -20,6 +21,7 @@ public:
 	void										PlayStateRender();
 	void										InventoryRender();
 	void										SpeedRunTimeRender();
+	void										FireWorksRender(const FireWorkSystem& fireWorkSys);
 
 	template <typename T>
 	void										Draw(const T& drawObject) { mGameWindow.draw(drawObject); }
