@@ -6,7 +6,7 @@
 
 namespace ITEMGEN
 {
-	static const std::vector<float> RarityProbabilities = { 0.500, 0.200, 0.150, 0.025, 0.015, 0.010, 0.100 }; // Gold, normal, magic, rare, set, unique, rune
+	static const std::vector<float> RarityProbabilities = { 0.550, 0.140, 0.100, 0.070, 0.060, 0.080 }; // Gold, normal, magic, rare, set, unique, rune
 	static const std::vector<float> RuneProbabilities =
 	{
 		0.030, // 1 : ELRUNE

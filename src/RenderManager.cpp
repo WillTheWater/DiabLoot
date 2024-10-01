@@ -197,9 +197,104 @@ void RenderManager::SpeedRunTimeRender()
 	Draw(timeText);
 }
 
+sf::Sprite& RenderManager::AnimatedFire(ANIMATE::FIRE fireSize, const sf::Vector2f& position, const float scale)
+{
+	float dT = mSystem.TimeMgr.GetDeltaTime();
+	static sf::Sprite fireSprite = mSystem.AssetMgr.GetSprite(SPRITES::FIRE);
+	auto& fireTexture = mSystem.AssetMgr.GetTexture(TEXTURES::FIRE);
+
+	// Create an sf::Image from the texture to apply the color mask
+	sf::Image fireImage = fireTexture.copyToImage();
+	fireImage.createMaskFromColor(sf::Color(255, 0, 153));
+	fireTexture.loadFromImage(fireImage);
+
+	// Variables to store the position and size of the frame
+	int frameWidth, frameHeight, startX, startY;
+
+	// Define frame separation (2 pixel between frames)
+	const int frameSeparation = 2;
+
+	static float frameTimer = 0.0f;
+	const float frameDuration = .3f; // Adjust to control animation speed
+	static int currentFrame = 0;  // Keeps track of the current frame
+	const int maxFrames = 20;     // 20 frames per fire
+
+	switch (fireSize)
+	{
+	case ANIMATE::SMALL_FIRE:
+		frameWidth = 46 - 1;
+		frameHeight = 92 - 17;
+		startX = 3 + currentFrame * (frameWidth + frameSeparation);
+		startY = 19;
+		break;
+
+	case ANIMATE::MEDIUM_FIRE:
+		frameWidth = 69 - 1;
+		frameHeight = 210 - 110;
+		startX = 1 + currentFrame * (frameWidth + frameSeparation);
+		startY = 110;
+		break;
+
+	case ANIMATE::LARGE_FIRE:
+		frameWidth = 118 - 1;
+		frameHeight = 414 - 228;
+		startX = 2 + currentFrame * (frameWidth + frameSeparation);
+		startY = 228;
+		break;
+	}
+	sf::IntRect frameRect(startX, startY, frameWidth, frameHeight);
+	fireSprite.setTextureRect(frameRect);
+	fireSprite.setOrigin(frameWidth / 2.0f, frameHeight);
+	fireSprite.setPosition(position);
+	fireSprite.setScale(sf::Vector2f{ scale, scale });
+
+	frameTimer += dT;
+	if (frameTimer >= frameDuration)
+	{
+		currentFrame = (currentFrame + 1) % maxFrames;
+		frameTimer = 0.0f;
+	}
+	return fireSprite;
+}
+
+void RenderManager::FireRenderer(LEVELS::LEVEL level)
+{
+	switch (level)
+	{
+	case LEVELS::LEVEL_ONE:
+		Draw(AnimatedFire(ANIMATE::LARGE_FIRE, sf::Vector2f{ 1108.f, 474.f }, 0.8f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 904.f, 163.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 360.f, 34.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 72.f, 306.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 519.f, 624.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 791.f, 904.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 1431.f, 602.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 1592.f, 298.f }, 0.5f));
+		return;
+	case LEVELS::LEVEL_TWO:
+	case LEVELS::LEVEL_THREE:
+	case LEVELS::LEVEL_FOUR:
+	case LEVELS::LEVEL_FIVE:
+	case LEVELS::LEVEL_SIX:
+	case LEVELS::LEVEL_SEVEN:
+	case LEVELS::LEVEL_EIGHT:
+	case LEVELS::LEVEL_NINE:
+	case LEVELS::LEVEL_TEN:
+	case LEVELS::LEVEL_ELEVEN:
+	case LEVELS::LEVEL_TWELVE:
+	case LEVELS::LEVEL_THIRTEEN:
+	default:
+		break;
+	}
+}
+
+
+
+
 void RenderManager::LevelRender(Level& level)
 {
 	Draw(mSystem.AssetMgr.GetLevelMap(level.GetLevelId()));
+	FireRenderer(level.GetLevelId());
 	ChestsRender(level.GetChests());
 	ParticlesRender(level.GetParticles());
 	ItemsRender(level.GetItems());
