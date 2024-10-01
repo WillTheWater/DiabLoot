@@ -12,6 +12,7 @@ void Inventory::OnMouseMove(int x, int y)
 {
 	mLastMousePos = sf::Vector2f{(float)x, (float)y };
 	mMouseOver = false;
+	if (!mVisible) { return; }
 	for (int i{ 0 }; i < mSlotRects.size(); i++)
 	{
 		if (mSlotRects[i].getGlobalBounds().contains(mLastMousePos))
@@ -33,7 +34,9 @@ void Inventory::OnKeyRelease(sf::Keyboard::Key key)
 
 void Inventory::OnMouseClick(sf::Mouse::Button button)
 {
+	if (!mVisible) { return; }
 	bool validSlot = false;
+	
 	for (int i{ 0 }; i < mSlotRects.size(); i++)
 	{
 		if (mSlotRects[i].getGlobalBounds().contains(mLastMousePos))
@@ -53,6 +56,7 @@ void Inventory::OnMouseClick(sf::Mouse::Button button)
 
 void Inventory::OnMouseRelease(sf::Mouse::Button button)
 {
+	if (!mVisible) { return; }
 	if (mClickedDownIndex == -1)
 	{
 		return;
@@ -419,7 +423,7 @@ void Inventory::InitialzeSlotRects()
 	{
 		
 		mSlotRects[(int)i] = slotTemplate;
-		mSlotRects[(int)i].move(i % 10 * 52, i / static_cast<float>(10) * 52);
+		mSlotRects[(int)i].move(i % 10 * 52, i / 10 * 52);
 		
 	}
 }
