@@ -23,6 +23,6 @@ private:
 	sf::Vector2f							mMousePosition;
 	bool									mIsInventoryOpen;
 	FireWorkSystem							mFireWorks;
-	bool									hasWon = false;
+	bool									mHasWon;
 
 };

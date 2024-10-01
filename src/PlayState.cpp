@@ -9,6 +9,7 @@ PlayState::PlayState(System& system, ChangeStateCallback changeStateCB, Level& l
 	,mLevel{level}
 	, mMouseIsClicked{false}
 	, mIsInventoryOpen{false}
+	, mHasWon{false}
 
 {
 	mSystem.GUIMgr.GetButton(BUTTONS::NEXT_LEVEL_ID).SetClickCB([this]() {auto newState = std::make_unique<PlayState>(mSystem, mChangeStateCB, mSystem.LevelMgr.GetNextLevel()); mChangeStateCB(std::move(newState)); });
@@ -33,24 +34,25 @@ void PlayState::Enter()
 void PlayState::Exit()
 {
 	mSystem.InputMgr.RemoveObserver(this);
-	mLevel.ExitLevel();
 	mFireWorks.EndFireWorks();
+	mLevel.ExitLevel();
 }
 
 void PlayState::Update()
 {
-	if (mSystem.InventoryMgr.HasOneOfEverything() && !hasWon)
+	
+	if (mSystem.InventoryMgr.HasOneOfEverything() && !mHasWon)
 	{
 		mFireWorks.StartFireworks();
-		hasWon = true;
+		mHasWon = true;
 	}
 	mLevel.UpdateLevel();
-	mSystem.GUIMgr.PlayStateUpdate(mMousePosition, mMouseIsClicked);
-
-	if (hasWon)
+	if (mHasWon)
 	{
+		
 		mFireWorks.Update(mSystem.TimeMgr.GetDeltaTime());
 	}	
+	mSystem.GUIMgr.PlayStateUpdate(mMousePosition, mMouseIsClicked);
 }
 
 void PlayState::Draw()
@@ -60,7 +62,7 @@ void PlayState::Draw()
 	mSystem.RenderMgr.DrawToolTip(mMousePosition);
 	mSystem.RenderMgr.FireWorksRender(mFireWorks);
 
-	if (hasWon)
+	if (mHasWon)
 	{
 		mSystem.RenderMgr.Draw(mSystem.AssetMgr.GetSprite(SPRITES::WINSCREEN));
 		mSystem.RenderMgr.Draw(mSystem.GUIMgr.GetButton(BUTTONS::NEW_GAME_ID).GetSprite());
@@ -94,36 +96,36 @@ void PlayState::OnKeyRelease(sf::Keyboard::Key key)
 			mChangeStateCB(std::move(newState));
 		}
 	}
-	if (key == sf::Keyboard::I && !hasWon)
+	if (key == sf::Keyboard::I && !mHasWon)
 	{
 		mSystem.InventoryMgr.ToggleInventory();
 	}
-	if (key == sf::Keyboard::S && !hasWon)
+	if (key == sf::Keyboard::S && !mHasWon)
 	{
 		mSystem.LevelMgr.SaveLevels();
 		mSystem.InventoryMgr.SaveInventory();
 	}
-	if (key == sf::Keyboard::L && !hasWon)
+	if (key == sf::Keyboard::L && !mHasWon)
 	{
 		mSystem.LevelMgr.LoadLevels();
 		mLevel.DeactiveChests();	// This is just to simulate loading the level
 		mLevel.ActivateChests();    // This is just to simulate loading the level
 		mSystem.InventoryMgr.LoadInventory();
 	}
-	if (key == sf::Keyboard::O && !hasWon)
+	if (key == sf::Keyboard::O && !mHasWon)
 	{
 		mSystem.InventoryMgr.SortInventory();
 	}
-	if (key == sf::Keyboard::D && !hasWon)
+	if (key == sf::Keyboard::D && !mHasWon)
 	{
 		mSystem.InventoryMgr.DeleteInventory();
 	}
-	if (key == sf::Keyboard::U && !hasWon)
+	if (key == sf::Keyboard::U && !mHasWon)
 	{
 		UpgradeLevel();
 	}
 	if (key == sf::Keyboard::M) { SoundManager::GetInstance().MuteToggle(); }
-	if (key == sf::Keyboard::C && !hasWon)
+	if (key == sf::Keyboard::C && !mHasWon)
 	{
 		mSystem.InventoryMgr.DebugGetOneOfEverything();
 	}
