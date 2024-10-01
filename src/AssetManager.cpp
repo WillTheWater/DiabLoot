@@ -459,11 +459,14 @@ void AssetManager::InitializeMusic()
     }
     assert(std::ssize(mMusic) == MUSIC::MAX_MUSIC_FILES && "AssetManager failed to initialize correct number of music files\n");
 
-    mMusic[MUSIC::INTRO]->openFromFile      ("assets/audio/music/intro.wav");
-    mMusic[MUSIC::TRISTRAM]->openFromFile   ("assets/audio/music/Tristram.wav");
-    mMusic[MUSIC::CRYPT]->openFromFile      ("assets/audio/music/Crypt.wav");
-    mMusic[MUSIC::DIABLO]->openFromFile     ("assets/audio/music/Diablo.wav");
-    mMusic[MUSIC::KURAST]->openFromFile     ("assets/audio/music/Kurast.wav");
+    mMusic[MUSIC::INTRO]->openFromFile          ("assets/audio/music/intro.wav");
+    mMusic[MUSIC::TRISTRAM]->openFromFile       ("assets/audio/music/Tristram.wav");
+    mMusic[MUSIC::CRYPT]->openFromFile          ("assets/audio/music/Crypt.wav");
+    mMusic[MUSIC::DIABLO]->openFromFile         ("assets/audio/music/Diablo.wav");
+    mMusic[MUSIC::KURAST]->openFromFile         ("assets/audio/music/Kurast.wav");
+    mMusic[MUSIC::LUTGHOLEIN]->openFromFile     ("assets/audio/music/LutGholein.wav");
+    mMusic[MUSIC::HARROGATH]->openFromFile      ("assets/audio/music/Harrogath.wav");
+    mMusic[MUSIC::HAREM]->openFromFile          ("assets/audio/music/Harem.wav");
 }
 
 void AssetManager::InitializeImages()

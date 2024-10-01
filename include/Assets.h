@@ -322,18 +322,20 @@ namespace MUSIC
 		CRYPT,
 		DIABLO,
 		KURAST,
+		LUTGHOLEIN,
+		HARROGATH,
+		HAREM,
 		MAX_MUSIC_FILES
 	};
 }
 
-namespace CHANNELS
+namespace AUDIO_MUTE
 {
-	enum CHANNEL
+	enum class AUDIOSTATE
 	{
-		SFX,
-		MUSIC,
-		AMBIENT,
-		MAX_CHANNELS
+		MUTE_ALL,
+		MUTE_MUSIC,
+		UNMUTED
 	};
 }
 

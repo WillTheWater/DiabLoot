@@ -148,9 +148,14 @@ void Level::PickUpItem(Item& item)
 			if (!couldAdd)
 			{
 				CreateBounceParticle(item);
+				AUDIO_MUTE::AUDIOSTATE currentAudioState = SoundManager::GetInstance().GetAudioState();
 				auto pitchShifter = MathU::Random(0.8f, 1.2f);
 				auto modulator = MathU::Random(20.f, 40.f);
-				SoundManager::GetInstance().PlaySound(PLAYSOUND::ITEM_FLIP, modulator, pitchShifter);
+				if (currentAudioState == AUDIO_MUTE::AUDIOSTATE::UNMUTED ||
+					currentAudioState == AUDIO_MUTE::AUDIOSTATE::MUTE_MUSIC)
+				{
+					SoundManager::GetInstance().PlaySound(PLAYSOUND::ITEM_FLIP, modulator, pitchShifter);
+				}
 			}
 			RemoveAllItemObservers();
 			mItems.erase(mItems.begin() + i);
@@ -181,10 +186,15 @@ void Level::SpawnItem(Particle& particle)
 	AddAllItemObservers();
 	RemoveParticle(particle);
 	// Play the sounds 
+	AUDIO_MUTE::AUDIOSTATE currentAudioState = SoundManager::GetInstance().GetAudioState();
 	PLAYSOUND::PLAYSOUND sound = mSystem.AssetMgr.GetSoundForItem(itemId);
 	auto pitchShifter = MathU::Random(0.8f, 1.2f);
 	auto modulator = MathU::Random(20.f, 40.f);
-	SoundManager::GetInstance().PlaySound(sound, modulator, pitchShifter);
+	if (currentAudioState == AUDIO_MUTE::AUDIOSTATE::UNMUTED ||
+		currentAudioState == AUDIO_MUTE::AUDIOSTATE::MUTE_MUSIC)
+	{
+		SoundManager::GetInstance().PlaySound(sound, modulator, pitchShifter);
+	}
 }
 
 void Level::TurnItemToGold(Particle& particle)
@@ -201,7 +211,12 @@ void Level::TurnItemToGold(Particle& particle)
 	RemoveParticle(particle);
 	auto pitchShifter = MathU::Random(0.8f, 1.2f);
 	auto modulator = MathU::Random(20.f, 40.f);
-	SoundManager::GetInstance().PlaySound(PLAYSOUND::GOLD_DROP, modulator, pitchShifter);
+	AUDIO_MUTE::AUDIOSTATE currentAudioState = SoundManager::GetInstance().GetAudioState();
+	if (currentAudioState == AUDIO_MUTE::AUDIOSTATE::UNMUTED ||
+		currentAudioState == AUDIO_MUTE::AUDIOSTATE::MUTE_MUSIC)
+	{
+		SoundManager::GetInstance().PlaySound(PLAYSOUND::GOLD_DROP, modulator, pitchShifter);
+	}
 }
 
 void Level::SortItemsByVerticalSpace()

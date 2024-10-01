@@ -222,6 +222,7 @@ sf::Sprite& RenderManager::AnimatedFire(ANIMATE::FIRE fireSize, const sf::Vector
 	// Create an sf::Image from the texture to apply the color mask
 	sf::Image fireImage = fireTexture.copyToImage();
 	fireImage.createMaskFromColor(sf::Color(255, 0, 153));
+	fireImage.createMaskFromColor(sf::Color(0, 128, 128));
 	fireTexture.loadFromImage(fireImage);
 
 	// Variables to store the position and size of the frame
@@ -288,8 +289,32 @@ void RenderManager::FireRenderer(LEVELS::LEVEL level)
 		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 1592.f, 298.f }, 0.5f));
 		return;
 	case LEVELS::LEVEL_TWO:
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 88.f, 58.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 138.f, 803.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 456.f, 642.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 408.f, 938.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 730.f, 778.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 905.f, 351.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 1225.f, 515.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 1481.f, 82.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 1832.f, 259.f }, 0.5f));
+		return;
 	case LEVELS::LEVEL_THREE:
+		Draw(AnimatedFire(ANIMATE::MEDIUM_FIRE, sf::Vector2f{ 283.f, 665.f }, 1.f));
+		Draw(AnimatedFire(ANIMATE::MEDIUM_FIRE, sf::Vector2f{ 679.f, 946.f }, 1.f));
+		Draw(AnimatedFire(ANIMATE::MEDIUM_FIRE, sf::Vector2f{ 1380.f, 256.f }, 1.f));
+		Draw(AnimatedFire(ANIMATE::MEDIUM_FIRE, sf::Vector2f{ 925.f, 349.f }, 1.f));
+		Draw(AnimatedFire(ANIMATE::MEDIUM_FIRE, sf::Vector2f{ 1648.f, 70.f }, 1.f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 196.f, 782.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 570.f, 590.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 844.f, 714.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 1404.f, 976.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 1149.f, 301.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 1436.f, 434.f }, 0.5f));
+		return;
 	case LEVELS::LEVEL_FOUR:
+		Draw(AnimatedFire(ANIMATE::MEDIUM_FIRE, sf::Vector2f{ 1442.f, 330.f }, 0.5f));
+		return;
 	case LEVELS::LEVEL_FIVE:
 	case LEVELS::LEVEL_SIX:
 	case LEVELS::LEVEL_SEVEN:
@@ -318,6 +343,31 @@ void RenderManager::LevelRender(Level& level)
 
 void RenderManager::DrawToolTip(sf::Vector2f mousePos)
 {
+	if (mSystem.GUIMgr.GetButton(BUTTONS::MUTE_BUTTON_ID).GetSprite().getGlobalBounds().contains(mousePos))
+	{
+		sf::Text tooltipText;
+		tooltipText.setFont(mSystem.AssetMgr.GetFont(FONTS::LIGHT));
+		tooltipText.setString("| Toggle Mute |\n\n1: SFX only\n2: Mute All\n3: Unmute");
+		tooltipText.setCharacterSize(25);
+		tooltipText.setFillColor(sf::Color::White);
+
+		sf::FloatRect textBounds = tooltipText.getLocalBounds();
+		float textWidth = textBounds.width;
+		float textHeight = textBounds.height;
+
+		sf::RectangleShape backgroundRect;
+		backgroundRect.setSize(sf::Vector2f(textWidth + 20.f, textHeight + 20.f));
+		backgroundRect.setFillColor(sf::Color(0, 0, 0, 200));
+
+		float xPos = mousePos.x - (backgroundRect.getSize().x / 2.f - 200.f);
+		float yPos = mousePos.y - backgroundRect.getSize().y + 80.f;
+		backgroundRect.setPosition(xPos, yPos);
+
+		tooltipText.setPosition(xPos + 10.f, yPos + 5.f);
+
+		mSystem.RenderMgr.Draw(backgroundRect);
+		mSystem.RenderMgr.Draw(tooltipText);
+	}
 	if (mSystem.GUIMgr.GetButton(BUTTONS::UPGRADE_BUTTON_ID).GetSprite().getGlobalBounds().contains(mousePos))
 	{
 		sf::Text tooltipText;
@@ -427,6 +477,31 @@ void RenderManager::DrawToolTipWarning(sf::Vector2f mousePos)
 
 		float xPos = mousePos.x - (backgroundRect.getSize().x / 2.f);
 		float yPos = mousePos.y - backgroundRect.getSize().y - 10.f;
+		backgroundRect.setPosition(xPos, yPos);
+
+		tooltipText.setPosition(xPos + 10.f, yPos + 5.f);
+
+		mSystem.RenderMgr.Draw(backgroundRect);
+		mSystem.RenderMgr.Draw(tooltipText);
+	}
+	if (mSystem.GUIMgr.GetButton(BUTTONS::MUTE_BUTTON_ID).GetSprite().getGlobalBounds().contains(mousePos))
+	{
+		sf::Text tooltipText;
+		tooltipText.setFont(mSystem.AssetMgr.GetFont(FONTS::LIGHT));
+		tooltipText.setString("| Toggle Mute |\n\n1: SFX only\n2: Mute All\n3: Unmute");
+		tooltipText.setCharacterSize(25);
+		tooltipText.setFillColor(sf::Color::White);
+
+		sf::FloatRect textBounds = tooltipText.getLocalBounds();
+		float textWidth = textBounds.width;
+		float textHeight = textBounds.height;
+
+		sf::RectangleShape backgroundRect;
+		backgroundRect.setSize(sf::Vector2f(textWidth + 20.f, textHeight + 20.f));
+		backgroundRect.setFillColor(sf::Color(0, 0, 0, 200));
+
+		float xPos = mousePos.x - (backgroundRect.getSize().x / 2.f - 200.f);
+		float yPos = mousePos.y - backgroundRect.getSize().y + 80.f;
 		backgroundRect.setPosition(xPos, yPos);
 
 		tooltipText.setPosition(xPos + 10.f, yPos + 5.f);

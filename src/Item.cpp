@@ -55,9 +55,14 @@ void Item::OnMouseClick(sf::Mouse::Button button)
 	if (mRect.getGlobalBounds().contains(mMouseLastPos))
 	{
 		mCallback(*this);
+		AUDIO_MUTE::AUDIOSTATE currentAudioState = SoundManager::GetInstance().GetAudioState();
 		auto pitchShifter = MathU::Random(0.9f, 1.1f);
 		auto modulator = MathU::Random(10.f, 30.f);
-		SoundManager::GetInstance().PlaySound(PLAYSOUND::ITEM_PICKUP, modulator, pitchShifter);
+		if (currentAudioState == AUDIO_MUTE::AUDIOSTATE::UNMUTED ||
+			currentAudioState == AUDIO_MUTE::AUDIOSTATE::MUTE_MUSIC)
+		{
+			SoundManager::GetInstance().PlaySound(PLAYSOUND::ITEM_PICKUP, modulator, pitchShifter);
+		}
 	}
 }	 
 	 
