@@ -79,7 +79,6 @@ void Level::SpawnChest(sf::Vector2f pos, bool mirrored)
 void Level::SpawnParticles(Chest& chest)
 {
 	int numOfParticles = MathU::Random(8, 16);
-	// Need to solve the function bind problem below
 	std::function<void(Particle&)> callback = [this](Particle& particle) {this->SpawnItem(particle); };
 	float animStep = MathU::Random(PARTICLE::ANIMSTEP - 0.08f, PARTICLE::ANIMSTEP + 0.08f);
 	for (int i{ 0 }; i < numOfParticles; i++)
@@ -179,7 +178,7 @@ void Level::SpawnItem(Particle& particle)
 		quantity = ITEMGEN::GetRandomGoldAmount();
 	}
 	mItems.push_back(std::make_unique<Item>(itemId, uniqueId, position, text, callback, quantity));
-	AddAllItemObservers();		// TESTING
+	AddAllItemObservers();
 	RemoveParticle(particle);
 	// Play the sounds 
 	PLAYSOUND::PLAYSOUND sound = mSystem.AssetMgr.GetSoundForItem(itemId);
@@ -290,45 +289,40 @@ void Level::ActivateChests()
 	{
 	case LEVELS::ONE_CHEST: 
 	{ 
-		mChests[0]->SetActive(true); 
-		mChests[0]->ResetChest();
-		mSystem.InputMgr.AddObserver(mChests[0].get()); 
+		for (int i{ 0 }; i <= LEVELS::ONE_CHEST; i++)
+		{
+			mChests[i]->SetActive(true);
+			mChests[i]->ResetChest();
+			mSystem.InputMgr.AddObserver(mChests[i].get());
+		}
+		
 	}; break;
 	case LEVELS::TWO_CHEST: 
 	{
-		mChests[0]->SetActive(true);
-		mChests[1]->SetActive(true);
-		mChests[0]->ResetChest();
-		mChests[1]->ResetChest();
-		mSystem.InputMgr.AddObserver(mChests[0].get());
-		mSystem.InputMgr.AddObserver(mChests[1].get());
+		for (int i{ 0 }; i <= LEVELS::TWO_CHEST; i++)
+		{
+			mChests[i]->SetActive(true);
+			mChests[i]->ResetChest();
+			mSystem.InputMgr.AddObserver(mChests[i].get());
+		}
 	}; break;
 	case LEVELS::THREE_CHEST: 
 	{
-		mChests[0]->SetActive(true);
-		mChests[1]->SetActive(true);
-		mChests[2]->SetActive(true);
-		mChests[0]->ResetChest();
-		mChests[1]->ResetChest();
-		mChests[2]->ResetChest();
-		mSystem.InputMgr.AddObserver(mChests[0].get());
-		mSystem.InputMgr.AddObserver(mChests[1].get());
-		mSystem.InputMgr.AddObserver(mChests[2].get());
+		for (int i{ 0 }; i <= LEVELS::THREE_CHEST; i++)
+		{
+			mChests[i]->SetActive(true);
+			mChests[i]->ResetChest();
+			mSystem.InputMgr.AddObserver(mChests[i].get());
+		}
 	}; break;
 	case LEVELS::FOUR_CHEST: 
 	{
-		mChests[0]->SetActive(true);
-		mChests[1]->SetActive(true);
-		mChests[2]->SetActive(true);
-		mChests[3]->SetActive(true);
-		mChests[0]->ResetChest();
-		mChests[1]->ResetChest();
-		mChests[2]->ResetChest();
-		mChests[3]->ResetChest();
-		mSystem.InputMgr.AddObserver(mChests[0].get());
-		mSystem.InputMgr.AddObserver(mChests[1].get());
-		mSystem.InputMgr.AddObserver(mChests[2].get());
-		mSystem.InputMgr.AddObserver(mChests[3].get());
+		for (int i{ 0 }; i <= LEVELS::FOUR_CHEST; i++)
+		{
+			mChests[i]->SetActive(true);
+			mChests[i]->ResetChest();
+			mSystem.InputMgr.AddObserver(mChests[i].get());
+		}
 	}; break;
 	}
 }
