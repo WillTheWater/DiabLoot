@@ -46,7 +46,15 @@ sf::Text& Button::GetText()
 void Button::OnClick()
 {
 	if (mClickCB) { mClickCB(); }
-	SoundManager::GetInstance().PlaySound(PLAYSOUND::BUTTON_DOWN);
+	// Retrieve the current audio state from SoundManager
+	AUDIO_MUTE::AUDIOSTATE currentAudioState = SoundManager::GetInstance().GetAudioState();
+
+	if (currentAudioState == AUDIO_MUTE::AUDIOSTATE::UNMUTED ||
+		currentAudioState == AUDIO_MUTE::AUDIOSTATE::MUTE_MUSIC)
+	{
+		// Play the button click sound if audio is not fully muted
+		SoundManager::GetInstance().PlaySound(PLAYSOUND::BUTTON_DOWN);
+	}
 }
 
 void Button::SetScale(float scale)

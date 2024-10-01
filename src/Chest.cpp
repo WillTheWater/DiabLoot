@@ -59,9 +59,14 @@ void Chest::OpenChest()
 {
 	mOpened = true; 
 	mCallback(*this);
+	AUDIO_MUTE::AUDIOSTATE currentAudioState = SoundManager::GetInstance().GetAudioState();
 	auto pitchShifter = MathU::Random(0.8f, 1.2f);
 	auto modulator = MathU::Random(20.f, 40.f);
-	SoundManager::GetInstance().PlaySound(PLAYSOUND::OPEN_CHEST, modulator, pitchShifter);
+	if (currentAudioState == AUDIO_MUTE::AUDIOSTATE::UNMUTED ||
+		currentAudioState == AUDIO_MUTE::AUDIOSTATE::MUTE_MUSIC)
+	{
+		SoundManager::GetInstance().PlaySound(PLAYSOUND::OPEN_CHEST, modulator, pitchShifter);
+	}
 }
 
 sf::Vector2f Chest::GetPosition() const

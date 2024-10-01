@@ -13,6 +13,7 @@ void WinState::Enter()
 {
 	mSystem.InputMgr.AddObserver(this);
 	mSystem.TimeMgr.LockSpeedRunTime();
+	SoundManager::GetInstance().PlayMusic(MUSIC::HARROGATH, 10.f);
 	mSystem.FireWorks.StartFireworks();
 }
 

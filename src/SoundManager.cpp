@@ -55,10 +55,17 @@ void SoundManager::StopMusic(MUSIC::PLAYMUSIC music)
 	mCurrentlyPlaying = MUSIC::MAX_MUSIC_FILES;
 }
 
+AUDIO_MUTE::AUDIOSTATE SoundManager::GetAudioState() const
+{
+    return mAudioState;
+}
+
 void SoundManager::AudioControl()
 {
-    if (mIsMuted)
+    switch (mAudioState)
     {
+    case AUDIO_MUTE::AUDIOSTATE::MUTE_ALL:
+        // Mute both sound effects and music
         for (auto& soundPair : mActiveSounds)
         {
             soundPair.first->setVolume(0);
@@ -67,9 +74,22 @@ void SoundManager::AudioControl()
         {
             musicPair.first->setVolume(0);
         }
-    }
-    else
-    {
+        break;
+
+    case AUDIO_MUTE::AUDIOSTATE::MUTE_MUSIC:
+        // Enable sound effects, mute music
+        for (auto& soundPair : mActiveSounds)
+        {
+            soundPair.first->setVolume(soundPair.second);
+        }
+        for (auto& musicPair : mActiveMusic)
+        {
+            musicPair.first->setVolume(0);
+        }
+        break;
+
+    case AUDIO_MUTE::AUDIOSTATE::UNMUTED:
+        // Enable both sound effects and music
         for (auto& soundPair : mActiveSounds)
         {
             soundPair.first->setVolume(soundPair.second);
@@ -78,12 +98,31 @@ void SoundManager::AudioControl()
         {
             musicPair.first->setVolume(musicPair.second);
         }
+        break;
     }
 }
 
 void SoundManager::MuteToggle()
 {
-    mIsMuted = !mIsMuted;
+    // Cycle through the 3 states of AUDIO_MUTE::AUDIOSTATE
+    switch (mAudioState)
+    {
+    case AUDIO_MUTE::AUDIOSTATE::UNMUTED:
+        // If currently unmuted
+        mAudioState = AUDIO_MUTE::AUDIOSTATE::MUTE_MUSIC;
+        break;
+
+    case AUDIO_MUTE::AUDIOSTATE::MUTE_MUSIC:
+        // If music is muted
+        mAudioState = AUDIO_MUTE::AUDIOSTATE::MUTE_ALL;
+        break;
+
+    case AUDIO_MUTE::AUDIOSTATE::MUTE_ALL:
+        // If everything is muted
+        mAudioState = AUDIO_MUTE::AUDIOSTATE::UNMUTED;
+        break;
+    }
+    AudioControl();
 }
 
 void SoundManager::FillMusicQueue()
@@ -91,7 +130,7 @@ void SoundManager::FillMusicQueue()
     std::queue<MUSIC::PLAYMUSIC> empty;
     std::swap(mMusicQueue, empty);
 
-    std::vector<MUSIC::PLAYMUSIC> songs = { MUSIC::TRISTRAM, MUSIC::CRYPT, MUSIC::DIABLO, MUSIC::KURAST };
+    std::vector<MUSIC::PLAYMUSIC> songs = { MUSIC::TRISTRAM, MUSIC::CRYPT, MUSIC::DIABLO, MUSIC::KURAST, MUSIC::LUTGHOLEIN, MUSIC::HAREM };
     
     std::shuffle(songs.begin(), songs.end(), std::default_random_engine(static_cast<unsigned>(std::time(nullptr))));
 
