@@ -110,6 +110,7 @@ namespace TEXTURES
 		CHAMRUNE,
 		ZODRUNE,
 		PARTICLE,
+		GLOW,
 		MAX_TEXTURES
 	};
 }
@@ -224,6 +225,7 @@ namespace SPRITES
 		CHAMRUNE,
 		ZODRUNE,
 		PARTICLE,
+		GLOW,
 		MAX_SPRITES
 	};
 

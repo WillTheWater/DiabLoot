@@ -330,7 +330,6 @@ void RenderManager::ParticlesRender(std::vector<std::unique_ptr<Particle>>& part
 	for (auto& p : particles)
 	{
 		sf::Vector2f pos = p->GetCurrentPos();
-		// Change this to the correct sprite
 		sf::Sprite particleSprite = mSystem.AssetMgr.GetSpriteForItem(p->GetItemID().first);
 		particleSprite.setOrigin(particleSprite.getTextureRect().getSize().x / 2.f, particleSprite.getTextureRect().getSize().y / 2.f);
 		particleSprite.setPosition(pos);
@@ -455,6 +454,14 @@ void RenderManager::FireWorksRender(const FireWorkSystem& fireWorkSys)
 		particleSprite.setColor(color);
 		float particleScale = fireWork->GetProgress() * 0.5;
 		particleSprite.setScale(particleScale, particleScale);
+
+		sf::Sprite glowSprite = mSystem.AssetMgr.GetSprite(SPRITES::GLOW);
+		glowSprite.setOrigin(glowSprite.getTextureRect().getSize().x / 2.f, glowSprite.getTextureRect().getSize().y / 2.f);
+		glowSprite.setPosition(particleSprite.getPosition());
+		glowSprite.setColor({ color.r, color.g, color.b, 150 });
+		glowSprite.setScale(particleSprite.getScale() * 1.5f);
+
+		Draw(glowSprite);
 		Draw(particleSprite);
 	}
 	for (auto& spark : fireWorkSys.GetSparks())
@@ -465,8 +472,16 @@ void RenderManager::FireWorksRender(const FireWorkSystem& fireWorkSys)
 		particleSprite.setOrigin(particleSprite.getTextureRect().getSize().x / 2.f, particleSprite.getTextureRect().getSize().y / 2.f);
 		particleSprite.setPosition(pos);
 		particleSprite.setColor(color);
-		float particleScale = 0.5 - (spark->GetProgress() / 2.f);
+		float particleScale = 0.3  - (spark->GetProgress() * 0.3);
 		particleSprite.setScale(particleScale, particleScale);
+
+		sf::Sprite glowSprite = mSystem.AssetMgr.GetSprite(SPRITES::GLOW);
+		glowSprite.setOrigin(glowSprite.getTextureRect().getSize().x / 2.f, glowSprite.getTextureRect().getSize().y / 2.f);
+		glowSprite.setPosition(particleSprite.getPosition());
+		glowSprite.setColor({ color.r, color.g, color.b, 150 });
+		glowSprite.setScale(particleSprite.getScale() * 1.5f);
+
+		Draw(glowSprite);
 		Draw(particleSprite);
 	}
 }

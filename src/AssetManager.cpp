@@ -139,6 +139,7 @@ void AssetManager::InitializeTextureSprites()
     mTextures[TEXTURES::GOLD_LARGE]->loadFromFile           ("assets/graphics/items/gold_large.png");
     // PARTICLE
     mTextures[TEXTURES::PARTICLE]->loadFromFile             ("assets/graphics/particle.png");
+    mTextures[TEXTURES::GLOW]->loadFromFile                 ("assets/graphics/glow.png");
    
 
     // SPRITES SETUP
@@ -257,6 +258,7 @@ void AssetManager::InitializeTextureSprites()
     mSprites[SPRITES::GOLD_LARGE]->setTexture               (GetTexture(TEXTURES::GOLD_LARGE));
     // PARTICLE
     mSprites[SPRITES::PARTICLE]->setTexture                 (GetTexture(TEXTURES::PARTICLE));
+    mSprites[SPRITES::GLOW]->setTexture                     (GetTexture(TEXTURES::GLOW));
    
 
 }
