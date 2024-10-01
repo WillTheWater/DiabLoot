@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "Level.h"
 #include "Inventory.h"
+#include "FireWorkSystem.h"
 #include <iomanip>
 
 class System;
@@ -22,6 +23,9 @@ public:
 	void										SpeedRunTimeRender();
 	sf::Sprite&									AnimatedFire(ANIMATE::FIRE fireSize, const sf::Vector2f& position, const float scale = 1.f);
 	void										FireRenderer(LEVELS::LEVEL level);
+
+	void										FireWorksRender(const FireWorkSystem& fireWorkSys);
+
 
 	template <typename T>
 	void										Draw(const T& drawObject) { mGameWindow.draw(drawObject); }

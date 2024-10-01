@@ -3,6 +3,7 @@
 #include <SFML/Audio.hpp>
 #include <memory>
 #include <vector>
+#include <array>
 #include "Assets.h"
 #include <cassert>
 
@@ -30,19 +31,19 @@ public:
 	int												GetCostForNextLevelUpgrade(LEVELS::UPGRADE levelUpgrade);
 
 private:
-	void											InitializeTextureSprites();
-	void											InitializeFontsAndTexts();
-	void											InitializeSounds();
-	void											InitializeMusic();
-	void											InitializeImages();
-	std::vector<std::unique_ptr<sf::Texture>>		mTextures;
-	std::vector<std::unique_ptr<sf::Sprite>>		mSprites;
-	std::vector<std::unique_ptr<sf::Image>>			mImages;
-	std::vector<std::unique_ptr<sf::SoundBuffer>>	mSoundBuffers;
-	std::vector<std::unique_ptr<sf::Sound>>			mSounds;
-	std::vector<std::unique_ptr<sf::Music>>			mMusic;
-	std::vector<std::unique_ptr<sf::Font>>			mFonts;
-	std::vector<std::unique_ptr<sf::Text>>			mItemTexts;
-	sf::Color										mTextboxColor;
-	std::vector<std::unique_ptr<sf::Text>>			mButtonTexts;
+	void																			InitializeTextureSprites();
+	void																			InitializeFontsAndTexts();
+	void																			InitializeSounds();
+	void																			InitializeMusic();
+	void																			InitializeImages();
+	std::array<std::unique_ptr<sf::Texture>, TEXTURES::MAX_TEXTURES>				mTextures;
+	std::array<std::unique_ptr<sf::Sprite>, SPRITES::MAX_SPRITES>					mSprites;
+	std::array<std::unique_ptr<sf::Image>, IMAGES::MAX_IMAGES>						mImages;
+	std::array<std::unique_ptr<sf::SoundBuffer>, SOUNDBUFFERS::MAX_SOUNDSBUFFERS>	mSoundBuffers;
+	std::array<std::unique_ptr<sf::Sound>, PLAYSOUND::MAX_SOUNDS>					mSounds;
+	std::array<std::unique_ptr<sf::Music>, MUSIC::MAX_MUSIC_FILES>					mMusic;
+	std::array<std::unique_ptr<sf::Font>, FONTS::MAX_FONTS>							mFonts;
+	std::array<std::unique_ptr<sf::Text>, ITEMID::MAX_ITEMS>						mItemTexts;
+	sf::Color																		mTextboxColor;
+	std::array<std::unique_ptr<sf::Text>, BUTTONS::MAX_BUTTONS>						mButtonTexts;
 };
