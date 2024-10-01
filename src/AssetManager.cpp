@@ -390,6 +390,15 @@ void AssetManager::InitializeFontsAndTexts()
         button->setFillColor(sf::Color::Black);
         button->setCharacterSize(FONTS::CHARACTER_SIZE_BUTTONS);
     }
+
+    // Initialized rarity strings
+    mRarityStrings[ITEMRARITY::GOLD]    = "Gold";
+    mRarityStrings[ITEMRARITY::NORMAL]  = "Normal";
+    mRarityStrings[ITEMRARITY::MAGIC]   = "Magic";
+    mRarityStrings[ITEMRARITY::RARE]    = "Rare";
+    mRarityStrings[ITEMRARITY::SET]     = "Set";
+    mRarityStrings[ITEMRARITY::UNIQUE]  = "Unique";
+    mRarityStrings[ITEMRARITY::RUNE]    = "Rune";
 }
 
 void AssetManager::InitializeSounds()
@@ -793,5 +802,19 @@ int AssetManager::GetCostForNextLevelUpgrade(LEVELS::UPGRADE levelUpgrade)
     case LEVELS::THREE_CHEST:   return 50000;
     case LEVELS::FOUR_CHEST:    return 0;
     default:                    return 0;
+    }
+}
+
+std::string& AssetManager::GetRarityAsString(ITEMRARITY::RARITY rarity)
+{
+    switch (rarity)
+    {
+    case ITEMRARITY::NORMAL:        return mRarityStrings[ITEMRARITY::NORMAL];
+    case ITEMRARITY::MAGIC:         return mRarityStrings[ITEMRARITY::MAGIC];
+    case ITEMRARITY::RARE:          return mRarityStrings[ITEMRARITY::RARE];
+    case ITEMRARITY::SET:           return mRarityStrings[ITEMRARITY::SET];
+    case ITEMRARITY::UNIQUE:        return mRarityStrings[ITEMRARITY::UNIQUE];
+    case ITEMRARITY::RUNE:          return mRarityStrings[ITEMRARITY::RUNE];
+    default: return mRarityStrings[ITEMRARITY::GOLD];
     }
 }

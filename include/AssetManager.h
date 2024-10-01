@@ -29,6 +29,7 @@ public:
 	sf::Font& GetFont(FONTS::FONT font);
 	PLAYSOUND::PLAYSOUND							GetSoundForItem(std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> item);
 	int												GetCostForNextLevelUpgrade(LEVELS::UPGRADE levelUpgrade);
+	std::string&									GetRarityAsString(ITEMRARITY::RARITY rarity);
 
 private:
 	void																			InitializeTextureSprites();
@@ -46,4 +47,5 @@ private:
 	std::array<std::unique_ptr<sf::Text>, ITEMID::MAX_ITEMS>						mItemTexts;
 	sf::Color																		mTextboxColor;
 	std::array<std::unique_ptr<sf::Text>, BUTTONS::MAX_BUTTONS>						mButtonTexts;
+	std::array<std::string, ITEMRARITY::MAX_RARITIES>								mRarityStrings;
 };

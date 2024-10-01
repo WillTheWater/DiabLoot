@@ -19,12 +19,13 @@ public:
 
 	void										MainMenuRender();
 	void										PlayStateRender();
+	void										WinStateRender();
 	void										InventoryRender();
 	void										SpeedRunTimeRender();
-	sf::Sprite&									AnimatedFire(ANIMATE::FIRE fireSize, const sf::Vector2f& position, const float scale = 1.f);
+	void										FireWorksRender();
+	sf::Sprite&							AnimatedFire(ANIMATE::FIRE fireSize, const sf::Vector2f& position, const float scale = 1.f);
 	void										FireRenderer(LEVELS::LEVEL level);
 
-	void										FireWorksRender(const FireWorkSystem& fireWorkSys);
 
 
 	template <typename T>
@@ -33,6 +34,7 @@ public:
 	void										DrawToolTip(sf::Vector2f mousePos);
 	void										DrawToolTipWarning(sf::Vector2f mousePos);
 
+	void										ItemsMissingListRender();
 private:
 	sf::RenderWindow							mGameWindow;
 	sf::Vector2f								mWindowCenter;

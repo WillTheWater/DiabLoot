@@ -1,10 +1,10 @@
 #pragma once
 #include "GameState.h"
 
-class PlayState : public GameState, public InputObserver
+class WinState : public GameState, public InputObserver
 {
 public:
-	PlayState(System& system, ChangeStateCallback changeStateCB, Level& level);
+	WinState(System& system, ChangeStateCallback changeStateCB, Level& level);
 
 	virtual void							Enter() override;
 	virtual void							Exit() override;
@@ -16,13 +16,9 @@ public:
 	void									OnKeyRelease(sf::Keyboard::Key key) override;
 	void									OnMouseClick(sf::Mouse::Button button) override;
 	void									OnMouseRelease(sf::Mouse::Button button) override;
-	void									UpgradeLevel();
 private:
-	Level&									mLevel;
+	Level& mLevel;
 	bool									mMouseIsClicked;
 	sf::Vector2f							mMousePosition;
-	bool									mIsInventoryOpen;
-	FireWorkSystem							mFireWorks;
-	bool									mHasWon;
 
 };

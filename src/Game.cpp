@@ -4,7 +4,7 @@
 #include "Core.h"
 
 Game::Game()
-    : mSystem{ mTimeMgr, mRenderMgr, mAssetMgr, mGUIMgr, mInputMgr, mInventoryMgr, mLevelManager }
+    : mSystem{ mTimeMgr, mRenderMgr, mAssetMgr, mGUIMgr, mInputMgr, mInventoryMgr, mLevelManager, mFireWorks }
     , mRenderMgr{ mSystem }
     , mGUIMgr{ mSystem }
     , mLevelManager{mSystem}

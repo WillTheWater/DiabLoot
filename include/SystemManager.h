@@ -6,7 +6,6 @@
 #include "InputManager.h"
 #include "Inventory.h"
 #include "LevelManager.h"
-#include "FireWorkSystem.h"
 
 #include <functional>
 
@@ -17,8 +16,8 @@ class System
 {
 public:
     System() = delete;
-    System(TimeManager& timeMgr, RenderManager& renderMgr, AssetManager& assetMgr, GUIManager& guiMgr, InputManager& inputMgr, Inventory& inventory, LevelManager& levelmgr)
-        : TimeMgr{ timeMgr }, RenderMgr{ renderMgr }, AssetMgr{ assetMgr }, GUIMgr{ guiMgr }, InputMgr{ inputMgr }, InventoryMgr{ inventory }, LevelMgr{ levelmgr }
+    System(TimeManager& timeMgr, RenderManager& renderMgr, AssetManager& assetMgr, GUIManager& guiMgr, InputManager& inputMgr, Inventory& inventory, LevelManager& levelmgr, FireWorkSystem& fireworks)
+        : TimeMgr{ timeMgr }, RenderMgr{ renderMgr }, AssetMgr{ assetMgr }, GUIMgr{ guiMgr }, InputMgr{ inputMgr }, InventoryMgr{ inventory }, LevelMgr{ levelmgr }, FireWorks{fireworks}
     {}
 
     TimeManager& TimeMgr;
@@ -28,4 +27,5 @@ public:
     InputManager& InputMgr;
     Inventory& InventoryMgr;
     LevelManager& LevelMgr;
+    FireWorkSystem& FireWorks;
 };

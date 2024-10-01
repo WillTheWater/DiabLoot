@@ -117,8 +117,7 @@ void FireWorkSystem::RemoveSparkWithID(int id)
 			mSparks.erase(mSparks.begin() + i);
 			break;
 		}
-	}
-		
+	}	
 }
 
 void FireWorkSystem::RemoveOldSparks()

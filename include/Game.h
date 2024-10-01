@@ -21,4 +21,5 @@ private:
 	std::unique_ptr<GameState>					mCurrentState;
 	ChangeStateCallback							mChangeStateCB;
 	LevelManager								mLevelManager;
+	FireWorkSystem								mFireWorks;
 };
