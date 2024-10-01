@@ -1,6 +1,9 @@
 #include "RenderManager.h"
 #include "SystemManager.h"
 #include "Core.h"
+#include <iostream>
+#include <sstream>
+#include <string>
 
 RenderManager::RenderManager(System& system)
 	: mGameWindow{ sf::VideoMode(1920u, 1080u), "DiabLoot", sf::Style::None, sf::ContextSettings(0,0,8)}
@@ -78,8 +81,21 @@ void RenderManager::PlayStateRender()
 	ItemCollectionRender();
 }
 
+void RenderManager::WinStateRender()
+{
+	FireWorksRender();
+	Draw(mSystem.AssetMgr.GetSprite(SPRITES::WINSCREEN));
+	Draw(mSystem.GUIMgr.GetButton(BUTTONS::NEW_GAME_ID).GetSprite());
+	Draw(mSystem.GUIMgr.GetButton(BUTTONS::NEW_GAME_ID).GetText());
+	if (mSystem.TimeMgr.IsSpeedrun())
+	{
+		SpeedRunTimeRender();
+	}
+}
+
 void RenderManager::InventoryRender()
 {
+	ItemsMissingListRender();
 
 	if (!mSystem.InventoryMgr.IsOpen())
 	{
@@ -442,9 +458,104 @@ void RenderManager::ItemCollectionRender()
 	}
 }
 
-void RenderManager::FireWorksRender(const FireWorkSystem& fireWorkSys)
+void RenderManager::ItemsMissingListRender()
 {
-	for (auto& fireWork : fireWorkSys.GetFireWorks())
+	if (!mSystem.InventoryMgr.IsItemListOn())
+	{
+		return;
+	}
+
+	auto& itemList = mSystem.InventoryMgr.GetItemFoundList();
+	
+	int count = 0;
+	std::map<std::pair<ITEMID::ITEM, ITEMRARITY::RARITY>, bool>::iterator it;
+	sf::Vector2f initPos{ mWindowCenter - sf::Vector2f{0.f, 400.f} };
+	std::vector<sf::Text> textVec;
+	sf::Text title;
+	title.setString("You are Missing:");
+	title.setCharacterSize(FONTS::CHARACTER_SIZE_NORMAL);
+	title.setColor(sf::Color::White);
+	title.setOutlineColor(sf::Color::Black);
+	title.setOutlineThickness(1);
+	title.setFont(mSystem.AssetMgr.GetFont(FONTS::LIGHT));
+	title.setOrigin(title.getLocalBounds().getSize().x / 2, title.getLocalBounds().getSize().y / 2);
+	title.setPosition(initPos);
+	textVec.push_back(title);
+	for (it = itemList.begin(); it != itemList.end(); it++)
+	{
+		if (count > 10)
+		{
+			break;
+		}
+		if(it->second == false)
+		{
+			count++;
+			std::string itemMissing;
+			itemMissing += (std::string)mSystem.AssetMgr.GetTextForItemID(it->first.first).getString();
+			itemMissing += " (";
+			itemMissing += mSystem.AssetMgr.GetRarityAsString(it->first.second);
+			itemMissing += ")\n";
+			
+			sf::Text itemText;
+			itemText.setString(itemMissing);
+			itemText.setCharacterSize(FONTS::CHARACTER_SIZE_NORMAL);
+			itemText.setColor(mSystem.AssetMgr.GetColorForItemText(it->first));
+			itemText.setFont(mSystem.AssetMgr.GetFont(FONTS::LIGHT));
+			sf::Vector2f pos = initPos + (sf::Vector2f{ 0.f, (itemText.getGlobalBounds().getSize().y * (float)count + 1) });
+			itemText.setOrigin(itemText.getLocalBounds().getSize().x / 2, itemText.getLocalBounds().getSize().y / 2);
+			itemText.setPosition(pos);
+			textVec.push_back(itemText);
+		}
+	}
+	float top = initPos.y;
+	float bottom = initPos.y;
+	float left = initPos.x;
+	float right = initPos.x;
+	for (auto& text : textVec)
+	{
+		if (text.getGlobalBounds().top < top)
+		{
+			top = text.getGlobalBounds().top;
+		}
+		if (text.getGlobalBounds().left < left)
+		{
+			left = text.getGlobalBounds().left;
+		}
+		if (text.getGlobalBounds().top + text.getGlobalBounds().height > bottom)
+		{
+			bottom = text.getGlobalBounds().top + text.getGlobalBounds().height;
+		}
+		if (text.getGlobalBounds().left + text.getGlobalBounds().width > right)
+		{
+			right = text.getGlobalBounds().left + text.getGlobalBounds().width;
+		}
+	}
+
+	top -= 10.f;
+	bottom += 10.f;
+	left -= 10.f;
+	right += 10.f;
+
+	float width = right - left;
+	float height = bottom - top;
+	float centerx = right - (0.5 * width);
+	float centery = bottom - (0.5 * height);
+	sf::RectangleShape box;
+	box.setSize({ width, height });
+	box.setOrigin(box.getLocalBounds().getSize().x /2 , box.getLocalBounds().getSize().y / 2);
+	box.setFillColor(mSystem.AssetMgr.GetTextboxColor());
+	box.setPosition({ centerx, centery });
+	Draw(box);
+
+	for (auto& text : textVec)
+	{
+		Draw(text);
+	}
+}
+
+void RenderManager::FireWorksRender()
+{
+	for (auto& fireWork : mSystem.FireWorks.GetFireWorks())
 	{
 		sf::Color color = fireWork->GetColor();
 		sf::Vector2f pos = fireWork->GetCurrentPos();
@@ -464,7 +575,7 @@ void RenderManager::FireWorksRender(const FireWorkSystem& fireWorkSys)
 		Draw(glowSprite);
 		Draw(particleSprite);
 	}
-	for (auto& spark : fireWorkSys.GetSparks())
+	for (auto& spark : mSystem.FireWorks.GetSparks())
 	{
 		sf::Color color = spark->GetColor();
 		sf::Vector2f pos = spark->GetCurrentPos();

@@ -4,8 +4,10 @@ Inventory::Inventory()
 	:mGold{0}
 	, mClickedDownIndex{-1}
 	, mClickedReleaseIndex{-1}
+	, mItemsMissingDisplay{ false }
 {
 	InitialzeSlotRects();
+	InitializeItemFoundList();
 }
 
 void Inventory::OnMouseMove(int x, int y)
@@ -96,9 +98,19 @@ void Inventory::ToggleInventory()
 	mVisible = !mVisible;
 }
 
+void Inventory::ToggleItemMissingList()
+{
+	mItemsMissingDisplay = !mItemsMissingDisplay;
+}
+
 bool Inventory::IsOpen() const
 {
 	return mVisible;
+}
+
+bool Inventory::IsItemListOn()
+{
+	return mItemsMissingDisplay;
 }
 
 std::array<ItemSlot, 150>& Inventory::getItemSlots()
@@ -216,6 +228,7 @@ bool Inventory::AddItem(Item& item)
 	// If there is, add it to that slot
 	size_t emptySlot = GetFirstOpenIndex();
 	mItemSlots[emptySlot].SetContainedItem(item.GetItemID(), item.GetQuantity());
+	mItemsFound[item.GetItemID()] = true;
 
 	//sortInventory();
 
@@ -319,6 +332,7 @@ void Inventory::LoadInventory()
 				std::getline(inData, line);
 				int quantity = std::stoi(line);
 				mItemSlots[index] = ItemSlot{ id, rarity, quantity };
+				mItemsFound[std::pair<ITEMID::ITEM, ITEMRARITY::RARITY>((ITEMID::ITEM)id, (ITEMRARITY::RARITY)rarity)] = true;
 				index++;
 			}
 			break;
@@ -410,6 +424,45 @@ void Inventory::DebugGetOneOfEverything()
 		Item item{ id, 1 };
 		AddItem(item);
 	}
+}
+
+void Inventory::InitializeItemFoundList()
+{
+	for (int i{ 0 }; i < ITEMGEN::RarityNormalItems.size(); i++)
+	{
+		std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> id = { ITEMGEN::RarityNormalItems[i], ITEMRARITY::NORMAL };
+		mItemsFound[id] = false;
+	}
+	for (int i{ 0 }; i < ITEMGEN::RarityMagicItems.size(); i++)
+	{
+		std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> id = { ITEMGEN::RarityMagicItems[i], ITEMRARITY::MAGIC };
+		mItemsFound[id] = false;
+	}
+	for (int i{ 0 }; i < ITEMGEN::RarityRareItems.size(); i++)
+	{
+		std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> id = { ITEMGEN::RarityRareItems[i], ITEMRARITY::RARE };
+		mItemsFound[id] = false;
+	}
+	for (int i{ 0 }; i < ITEMGEN::RaritySetItems.size(); i++)
+	{
+		std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> id = { ITEMGEN::RaritySetItems[i], ITEMRARITY::SET };
+		mItemsFound[id] = false;
+	}
+	for (int i{ 0 }; i < ITEMGEN::RarityUniqueItems.size(); i++)
+	{
+		std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> id = { ITEMGEN::RarityUniqueItems[i], ITEMRARITY::UNIQUE };
+		mItemsFound[id] = false;
+	}
+	for (int i{ 0 }; i < ITEMGEN::RarityRuneItems.size(); i++)
+	{
+		std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> id = { ITEMGEN::RarityRuneItems[i], ITEMRARITY::RUNE };
+		mItemsFound[id] = false;
+	}
+}
+
+std::map<std::pair<ITEMID::ITEM, ITEMRARITY::RARITY>, bool>& Inventory::GetItemFoundList()
+{
+	return mItemsFound;
 }
 
 void Inventory::InitialzeSlotRects()

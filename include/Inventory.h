@@ -7,6 +7,7 @@
 #include <sstream>
 #include <cassert>
 #include "ItemGenerator.h"
+#include <map>
 
 class Inventory : public InputObserver
 {
@@ -26,7 +27,9 @@ public:
 	ITEMID::ITEM							GetItemIdOfSlotClicked();
 
 	void									ToggleInventory();
+	void									ToggleItemMissingList();
 	bool									IsOpen() const;
+	bool									IsItemListOn();
 	std::array<ItemSlot, 150>&				getItemSlots();
 	std::array<sf::RectangleShape, 150>&	getSlotRects();
 	bool									IsMouseOverSlot() const;
@@ -47,6 +50,8 @@ public:
 	int										GetNumberOfUniqueItems();
 	bool									HasOneOfEverything();	// Returns true if win condition is met
 	void									DebugGetOneOfEverything();
+	void									InitializeItemFoundList();
+	std::map<std::pair<ITEMID::ITEM, ITEMRARITY::RARITY>, bool>& GetItemFoundList();
 
 
 private:
@@ -60,4 +65,7 @@ private:
 	int										mGold;
 	int										mClickedDownIndex;
 	int										mClickedReleaseIndex;
+	std::map<std::pair<ITEMID::ITEM, ITEMRARITY::RARITY>, bool>	mItemsFound;
+	bool									mItemsMissingDisplay;
+
 };

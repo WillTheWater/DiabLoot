@@ -19,9 +19,10 @@ public:
 
 	void										MainMenuRender();
 	void										PlayStateRender();
+	void										WinStateRender();
 	void										InventoryRender();
 	void										SpeedRunTimeRender();
-	void										FireWorksRender(const FireWorkSystem& fireWorkSys);
+	void										FireWorksRender();
 
 	template <typename T>
 	void										Draw(const T& drawObject) { mGameWindow.draw(drawObject); }
@@ -29,6 +30,7 @@ public:
 	void										DrawToolTip(sf::Vector2f mousePos);
 	void										DrawToolTipWarning(sf::Vector2f mousePos);
 
+	void										ItemsMissingListRender();
 private:
 	sf::RenderWindow							mGameWindow;
 	sf::Vector2f								mWindowCenter;
