@@ -28,18 +28,21 @@ void PlayState::Enter()
 {
 	mSystem.InputMgr.AddObserver(this);
 	mLevel.EnterLevel();
+	mFireWorks.StartFireworks();
 }
 
 void PlayState::Exit()
 {
 	mSystem.InputMgr.RemoveObserver(this);
 	mLevel.ExitLevel();
+	mFireWorks.EndFireWorks();
 }
 
 void PlayState::Update()
 {
 	mLevel.UpdateLevel();
 	mSystem.GUIMgr.PlayStateUpdate(mMousePosition, mMouseIsClicked);
+	mFireWorks.Update(mSystem.TimeMgr.GetDeltaTime());
 }
 
 void PlayState::Draw()
@@ -47,6 +50,7 @@ void PlayState::Draw()
 	mSystem.RenderMgr.LevelRender(mLevel);
 	mSystem.RenderMgr.PlayStateRender();
 	mSystem.RenderMgr.DrawToolTip(mMousePosition);
+	mSystem.RenderMgr.FireWorksRender(mFireWorks);
 
 	if (mSystem.InventoryMgr.HasOneOfEverything())
 	{

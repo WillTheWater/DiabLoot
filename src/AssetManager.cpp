@@ -137,6 +137,8 @@ void AssetManager::InitializeTextureSprites()
     mTextures[TEXTURES::GOLD_SMALL]->loadFromFile           ("assets/graphics/items/gold_small.png");
     mTextures[TEXTURES::GOLD_MEDIUM]->loadFromFile          ("assets/graphics/items/gold_medium.png");
     mTextures[TEXTURES::GOLD_LARGE]->loadFromFile           ("assets/graphics/items/gold_large.png");
+    // PARTICLE
+    mTextures[TEXTURES::PARTICLE]->loadFromFile             ("assets/graphics/particle.png");
    
 
     // SPRITES SETUP
@@ -253,6 +255,10 @@ void AssetManager::InitializeTextureSprites()
     mSprites[SPRITES::GOLD_SMALL]->setTexture               (GetTexture(TEXTURES::GOLD_LARGE));
     mSprites[SPRITES::GOLD_MEDIUM]->setTexture              (GetTexture(TEXTURES::GOLD_LARGE));
     mSprites[SPRITES::GOLD_LARGE]->setTexture               (GetTexture(TEXTURES::GOLD_LARGE));
+    // PARTICLE
+    mSprites[SPRITES::PARTICLE]->setTexture                 (GetTexture(TEXTURES::PARTICLE));
+   
+
 }
 
 void AssetManager::InitializeFontsAndTexts()

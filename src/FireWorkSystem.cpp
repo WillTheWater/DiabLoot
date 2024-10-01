@@ -13,6 +13,24 @@ FireWorkSystem::FireWorkSystem()
 	mColors[5] = sf::Color::Magenta;
 }
 
+void FireWorkSystem::Update(float deltaTime)
+{
+	if (mFireWorks.size() > 0)
+	{
+		for (auto& firework : mFireWorks)
+		{
+			firework->StepParticle(deltaTime);
+		}
+	}
+	if (mSparks.size() > 0)
+	{
+		for (auto& spark : mSparks)
+		{
+			spark->StepParticle(deltaTime);
+		}
+	}
+}
+
 void FireWorkSystem::StartFireworks()
 {
 	if (mPlaying)
@@ -50,9 +68,8 @@ void FireWorkSystem::CreateSparks(FireWork& fireWork)
 		float randomHeight = MathU::Random(5.f, 10.f);
 		float stepIncrement = MathU::Random(0.05f, 0.1f);
 		int id = GetUniqueId();
-		mSparks.emplace_back(std::make_unique<FireWork>(id, startPos, endPos, randomHeight, stepIncrement, fireWork.GetColor(), callback));
+		mSparks.push_back(std::make_unique<FireWork>(id, startPos, endPos, randomHeight, stepIncrement, fireWork.GetColor(), callback));
 	}
-
 	RemoveFireWork(fireWork);
 	CreateFireWork();
 }
@@ -68,11 +85,11 @@ void FireWorkSystem::CreateFireWork()
 	Vec2 startPos{ 600.f, 600.f };
 	Vec2 endPos{ GetRandomPointInCircle(startPos, 50.f, 200.f, 180.f) };
 	float randomHeight = MathU::Random(50.f, 100.f);
-	float stepIncrement = MathU::Random(0.01f, 0.05f);
+	float stepIncrement = MathU::Random(0.1f, 0.2f);
 	int id = GetUniqueId();
 	sf::Color color = GetRandomColor();
 	std::function<void(FireWork&)> callback = [this](FireWork& fireWork) {this->CreateSparks(fireWork); };
-	mFireWorks.emplace_back(std::make_unique<FireWork>(id, startPos, endPos, randomHeight, stepIncrement, color, callback));
+	mFireWorks.push_back(std::make_unique<FireWork>(id, startPos, endPos, randomHeight, stepIncrement, color, callback));
 }
 
 void FireWorkSystem::RemoveFireWork(FireWork& fireWork)
@@ -107,6 +124,16 @@ void FireWorkSystem::RemoveSpark(FireWork& spark)
 	}
 }
 
+const std::vector<std::unique_ptr<FireWork>>& FireWorkSystem::GetFireWorks() const
+{
+	return mFireWorks;
+}
+
+const std::vector<std::unique_ptr<FireWork>>& FireWorkSystem::GetSparks() const
+{
+	return mSparks;
+}
+
 Vec2 FireWorkSystem::GetRandomPointInCircle(Vec2 startPos, float minRadius, float maxRadius, float maxAngle)
 {
 	float randDist = MathU::Random(minRadius, maxRadius);
@@ -114,6 +141,7 @@ Vec2 FireWorkSystem::GetRandomPointInCircle(Vec2 startPos, float minRadius, floa
 	Vec2 endPos{ -randDist, 0 };
 	endPos = endPos.getRotatedVector(randAngle);
 	endPos = startPos + endPos;
+	return endPos;
 }
 
 int FireWorkSystem::GetUniqueId()

@@ -442,3 +442,31 @@ void RenderManager::ItemCollectionRender()
 		Draw(text);
 	}
 }
+
+void RenderManager::FireWorksRender(const FireWorkSystem& fireWorkSys)
+{
+	for (auto& fireWork : fireWorkSys.GetFireWorks())
+	{
+		sf::Color color = fireWork->GetColor();
+		sf::Vector2f pos = fireWork->GetCurrentPos();
+		sf::Sprite particleSprite = mSystem.AssetMgr.GetSprite(SPRITES::PARTICLE);
+		particleSprite.setOrigin(particleSprite.getTextureRect().getSize().x / 2.f, particleSprite.getTextureRect().getSize().y / 2.f);
+		particleSprite.setPosition(pos);
+		particleSprite.setColor(color);
+		float particleScale = fireWork->GetProgress() * 0.5;
+		particleSprite.setScale(particleScale, particleScale);
+		Draw(particleSprite);
+	}
+	for (auto& spark : fireWorkSys.GetSparks())
+	{
+		sf::Color color = spark->GetColor();
+		sf::Vector2f pos = spark->GetCurrentPos();
+		sf::Sprite particleSprite = mSystem.AssetMgr.GetSprite(SPRITES::PARTICLE);
+		particleSprite.setOrigin(particleSprite.getTextureRect().getSize().x / 2.f, particleSprite.getTextureRect().getSize().y / 2.f);
+		particleSprite.setPosition(pos);
+		particleSprite.setColor(color);
+		float particleScale = 0.5 - (spark->GetProgress() / 2.f);
+		particleSprite.setScale(particleScale, particleScale);
+		Draw(particleSprite);
+	}
+}

@@ -6,6 +6,7 @@
 #include "InputManager.h"
 #include "Inventory.h"
 #include "LevelManager.h"
+#include "FireWorkSystem.h"
 
 #include <functional>
 

@@ -1,17 +1,23 @@
+#pragma once
 #include "FireWork.h"
 #include <Vector>
 #include <Array>
 #include "MathUtilities.h"
+#include <iostream>
 
 class FireWorkSystem
 {
 public:
 	FireWorkSystem();
+	void				Update(float deltaTime);
 	void				StartFireworks();
 	void				EndFireWorks();
 	void				RenderFireWorks();
 	void				CreateSparks(FireWork& fireWork);
 	void				RemoveSpark(FireWork& spark);
+
+	const std::vector<std::unique_ptr<FireWork>>& GetFireWorks() const;
+	const std::vector<std::unique_ptr<FireWork>>&	GetSparks() const;
 
 
 private:
