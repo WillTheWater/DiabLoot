@@ -23,6 +23,10 @@ public:
 	void										InventoryRender();
 	void										SpeedRunTimeRender();
 	void										FireWorksRender();
+	sf::Sprite&							AnimatedFire(ANIMATE::FIRE fireSize, const sf::Vector2f& position, const float scale = 1.f);
+	void										FireRenderer(LEVELS::LEVEL level);
+
+
 
 	template <typename T>
 	void										Draw(const T& drawObject) { mGameWindow.draw(drawObject); }

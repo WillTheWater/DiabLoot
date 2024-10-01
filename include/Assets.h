@@ -17,6 +17,7 @@ namespace TEXTURES
 		WINSCREEN,
 		CHESTCLOSED,
 		CHESTOPENED,
+		FIRE,
 		MAP_ONE,
 		MAP_TWO,
 		MAP_THREE,
@@ -132,6 +133,7 @@ namespace SPRITES
 		WINSCREEN,
 		CHESTCLOSED,
 		CHESTOPENED,
+		FIRE,
 		MAP_ONE,
 		MAP_TWO,
 		MAP_THREE,
@@ -229,6 +231,17 @@ namespace SPRITES
 		MAX_SPRITES
 	};
 
+}
+
+namespace ANIMATE
+{
+	enum FIRE
+	{
+		SMALL_FIRE,
+		MEDIUM_FIRE,
+		LARGE_FIRE,
+		MAX_FIRE_SIZES
+	};
 }
 
 namespace FONTS
