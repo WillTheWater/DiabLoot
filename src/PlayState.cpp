@@ -39,14 +39,20 @@ void PlayState::Exit()
 
 void PlayState::Update()
 {
-	
+	bool hasWon = false;
+	if (mSystem.InventoryMgr.HasOneOfEverything())
+	{	
+		hasWon = true;
+	}
+
 	mLevel.UpdateLevel();
 	mSystem.GUIMgr.PlayStateUpdate(mMousePosition, mMouseIsClicked);
-	if (mSystem.InventoryMgr.HasOneOfEverything() && !mHasWon)
+	if (hasWon)
 	{
 		auto newState = std::make_unique<WinState>(mSystem, mChangeStateCB, mLevel);
 		mChangeStateCB(std::move(newState));
 	}
+	
 }
 
 void PlayState::Draw()
