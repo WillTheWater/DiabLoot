@@ -219,7 +219,10 @@ sf::Sprite& RenderManager::AnimatedFire(ANIMATE::FIRE fireSize, const sf::Vector
 	static sf::Sprite fireSprite = mSystem.AssetMgr.GetSprite(SPRITES::FIRE);
 	auto& fireTexture = mSystem.AssetMgr.GetTexture(TEXTURES::FIRE);
 
-	int frameWidth, frameHeight, startX, startY;
+	int frameWidth = 0;
+	int frameHeight = 0;
+	int startX = 0;
+	int startY = 0;
 	const int frameSeparation = 2;
 	int currentFrame = mSystem.TimeMgr.GetFireAnimFrame();
 
@@ -298,16 +301,103 @@ void RenderManager::FireRenderer(LEVELS::LEVEL level)
 		Draw(AnimatedFire(ANIMATE::MEDIUM_FIRE, sf::Vector2f{ 1442.f, 330.f }, 0.5f));
 		return;
 	case LEVELS::LEVEL_FIVE:
+		Draw(AnimatedFire(ANIMATE::MEDIUM_FIRE, sf::Vector2f{ 816.f, 258.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::MEDIUM_FIRE, sf::Vector2f{ 976.f, 147.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::MEDIUM_FIRE, sf::Vector2f{ 976.f, 306.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::MEDIUM_FIRE, sf::Vector2f{ 1216.f, 266.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::MEDIUM_FIRE, sf::Vector2f{ 734.f, 958.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::MEDIUM_FIRE, sf::Vector2f{ 1647.f, 1030.f }, 0.5f));
+		return;
 	case LEVELS::LEVEL_SIX:
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 1369.f, 20.f }, 1.f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 1256.f, 28.f }, 1.f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 1049.f, 85.f }, 1.f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 953.f, 132.f }, 1.f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 808.f, 236.f }, 1.f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 776.f, 299.f }, 1.f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 761.f, 420.f }, 1.f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 793.f, 500.f }, 1.f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 888.f, 595.f }, 1.f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 1017.f, 660.f }, 1.f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 1240.f, 723.f }, 1.f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 1369.f, 740.f }, 1.f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 1608.f, 731.f }, 1.f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 1736.f, 716.f }, 1.f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 1593.f, 20.f }, 1.f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 1721.f, 37.f }, 1.f));
+		return;
 	case LEVELS::LEVEL_SEVEN:
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 1415.f, 96.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 855.f, 327.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 1111.f, 473.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 457.f, 335.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 710.f, 656.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 1302.f, 681.f }, 0.5f));
+		return;
 	case LEVELS::LEVEL_EIGHT:
+		Draw(AnimatedFire(ANIMATE::MEDIUM_FIRE, sf::Vector2f{ 238.f, 232.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::MEDIUM_FIRE, sf::Vector2f{ 494.f, 360.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::MEDIUM_FIRE, sf::Vector2f{ 975.f, 584.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::MEDIUM_FIRE, sf::Vector2f{ 1358.f, 312.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::MEDIUM_FIRE, sf::Vector2f{ 1647.f, 137.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::MEDIUM_FIRE, sf::Vector2f{ 1311.f, 800.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::MEDIUM_FIRE, sf::Vector2f{ 1327.f, 887.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::MEDIUM_FIRE, sf::Vector2f{ 1455.f, 953.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::MEDIUM_FIRE, sf::Vector2f{ 1615.f, 936.f }, 0.5f));
+		return;
 	case LEVELS::LEVEL_NINE:
+		return;
 	case LEVELS::LEVEL_TEN:
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 88.f, 181.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 249.f, 101.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 409.f, 20.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 778.f, 524.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 808.f, 459.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 969.f, 381.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 1112.f, 356.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 1528.f, 309.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::MEDIUM_FIRE, sf::Vector2f{ 504.f, 295.f }, 1.f));
+		Draw(AnimatedFire(ANIMATE::MEDIUM_FIRE, sf::Vector2f{ 728.f, 181.f }, 1.f));
+		Draw(AnimatedFire(ANIMATE::LARGE_FIRE, sf::Vector2f{ 1739.f, 876.f }, 1.f));
+		return;
 	case LEVELS::LEVEL_ELEVEN:
+		Draw(AnimatedFire(ANIMATE::LARGE_FIRE, sf::Vector2f{ 1212.f, 712.f }, 1.f));
+		Draw(AnimatedFire(ANIMATE::MEDIUM_FIRE, sf::Vector2f{ 1081.f, 360.f }, 1.f));
+		Draw(AnimatedFire(ANIMATE::MEDIUM_FIRE, sf::Vector2f{ 721.f, 659.f }, 1.f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 696.f, 437.f }, 1.f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 1133.f, 367.f }, 1.f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 1269.f, 720.f }, 1.f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 1373.f, 489.f }, 1.f));
+		return;
 	case LEVELS::LEVEL_TWELVE:
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 903.f, 89.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 1351.f, 327.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 728.f, 315.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 903.f, 227.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 823.f, 524.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 968.f, 437.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 1143.f, 348.f }, 0.5f));
+		return;
 	case LEVELS::LEVEL_THIRTEEN:
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 1216.f, 288.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 1184.f, 386.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 1344.f, 466.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 1585.f, 456.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 96.f, 880.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 271.f, 793.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 176.f, 1001.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 337.f, 923.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 480.f, 334.f }, 1.f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 337.f, 536.f }, 1.f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 545.f, 638.f }, 1.f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 705.f, 719.f }, 1.f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 928.f, 832.f }, 1.f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 1311.f, 847.f }, 1.f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 1794.f, 680.f }, 1.f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 1889.f, 958.f }, 1.f));
+		return;
 	default:
-		break;
+		return;
 	}
 }
 
