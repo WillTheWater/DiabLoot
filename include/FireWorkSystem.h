@@ -20,7 +20,6 @@ public:
 	const std::vector<std::unique_ptr<FireWork>>& GetFireWorks() const;
 	const std::vector<std::unique_ptr<FireWork>>&	GetSparks() const;
 
-
 private:
 	bool mPlaying = false;
 	std::vector<std::unique_ptr<FireWork>>	mFireWorks;

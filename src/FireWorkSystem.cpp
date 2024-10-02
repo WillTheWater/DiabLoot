@@ -6,11 +6,11 @@ FireWorkSystem::FireWorkSystem()
 	mFireWorks.reserve(12);
 	mSparks.reserve(120);
 
-	mColors[0] = sf::Color{ 51, 102, 255 };
-	mColors[1] = sf::Color{ 253, 216, 53 };
-	mColors[2] = sf::Color{ 44 , 190, 52 };
-	mColors[3] = sf::Color{ 153, 102, 51 };
-	mColors[4] = sf::Color{ 198, 140, 89 };
+	mColors[0] = sf::Color::Blue;
+	mColors[1] = sf::Color::Cyan;
+	mColors[2] = sf::Color::Green;
+	mColors[3] = sf::Color::Magenta;
+	mColors[4] = sf::Color::Yellow;
 	mColors[5] = sf::Color::Red;
 }
 
