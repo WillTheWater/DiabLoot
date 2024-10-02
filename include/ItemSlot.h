@@ -16,7 +16,6 @@ public:
 	bool										IsEmpty();
 	int											GetQuantity();
 	void										IncrementQuantity(int amount = 1);
-
 	void										SetContainedItem(std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> item, int quantity = 1);
 	void										ToggleEmpty(bool empty);
 

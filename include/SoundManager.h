@@ -7,6 +7,7 @@
 #include <utility> 
 #include <cassert> 
 #include <iostream>
+#include "MathUtilities.h"
 
 class SoundManager
 {
@@ -23,6 +24,7 @@ public:
 	void											MuteToggle();
 	void											FillMusicQueue();
 	void											StartMusicSequence();
+	void											PlayItemSound(std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> itemid);
 
 private:
 	SoundManager() = default;

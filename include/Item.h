@@ -14,7 +14,7 @@ class Item : public InputObserver
 {
 public:
 	// Constructors
-	Item(std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> item, int unique, sf::Vector2f pos, sf::Text& text, std::function<void(Item&)> callback, int quantity = 1);
+	Item(std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> item, int unique, sf::Vector2f pos, const sf::Text& text, std::function<void(Item&)> callback, int quantity = 1);
 	Item(std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> item, int quantity = 1); // ONLY FOR DEBUG
 
 	// Observer overrides

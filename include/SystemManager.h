@@ -17,8 +17,11 @@ class System
 public:
     System() = delete;
     System(TimeManager& timeMgr, RenderManager& renderMgr, AssetManager& assetMgr, GUIManager& guiMgr, InputManager& inputMgr, Inventory& inventory, LevelManager& levelmgr, FireWorkSystem& fireworks)
-        : TimeMgr{ timeMgr }, RenderMgr{ renderMgr }, AssetMgr{ assetMgr }, GUIMgr{ guiMgr }, InputMgr{ inputMgr }, InventoryMgr{ inventory }, LevelMgr{ levelmgr }, FireWorks{fireworks}
+        : TimeMgr{ timeMgr }, RenderMgr{ renderMgr }, AssetMgr{ assetMgr }, GUIMgr{ guiMgr }, InputMgr{ inputMgr }, InventoryMgr{ inventory }, LevelMgr{ levelmgr }, FireWorks{ fireworks }
     {}
+
+    void Save() { InventoryMgr.SaveInventory(); LevelMgr.SaveLevels(); }
+    void Load() { InventoryMgr.LoadInventory(); LevelMgr.LoadLevels(); }
 
     TimeManager& TimeMgr;
     RenderManager& RenderMgr;

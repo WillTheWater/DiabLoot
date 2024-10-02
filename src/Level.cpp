@@ -73,10 +73,10 @@ int Level::GetUniqueParticleId()
 	return mParticleUniqueId;
 }
 
-void Level::SpawnChest(sf::Vector2f pos, bool mirrored, size_t index)
+void Level::SpawnChest(sf::Vector2f pos, bool mirrored, LEVELS::UPGRADE chest)
 {
 	std::function<void(Chest&)> callback = [this](Chest& chest) {this->SpawnParticles(chest); };
-	mChests[index - 1] = (std::make_unique<Chest>(pos, mirrored, callback));
+	mChests[(size_t)chest] = (std::make_unique<Chest>(pos, mirrored, callback));
 }
 
 void Level::SpawnParticles(Chest& chest)
@@ -233,7 +233,7 @@ void Level::SpawnItem(Particle& particle)
 {
 	sf::Vector2f position = particle.GetEndPos();
 	std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> itemId = particle.GetItemID();
-	sf::Text& text = mSystem.AssetMgr.GetTextForItemID(itemId.first);
+	const sf::Text& text = mSystem.AssetMgr.GetTextForItemID(itemId.first);
 	std::function<void(Item&)> callback = [this](Item& item) {this->PickUpItem(item); };
 	int uniqueId = particle.GetId();
 	int quantity = 1;
@@ -245,37 +245,22 @@ void Level::SpawnItem(Particle& particle)
 	mSystem.InputMgr.AddObserver(mItems.back().get());
 	SetParticleForRemoval(particle);
 	// Play the sounds 
-	AUDIO_MUTE::AUDIOSTATE currentAudioState = SoundManager::GetInstance().GetAudioState();
-	PLAYSOUND::PLAYSOUND sound = mSystem.AssetMgr.GetSoundForItem(itemId);
-	auto pitchShifter = MathU::Random(0.8f, 1.2f);
-	auto modulator = MathU::Random(20.f, 40.f);
-	if (currentAudioState == AUDIO_MUTE::AUDIOSTATE::UNMUTED ||
-		currentAudioState == AUDIO_MUTE::AUDIOSTATE::MUTE_MUSIC)
-	{
-		SoundManager::GetInstance().PlaySound(sound, modulator, pitchShifter);
-	}
+	SoundManager::GetInstance().PlayItemSound(itemId);
 }
 
 void Level::TurnItemToGold(Particle& particle)
 {
 	sf::Vector2f position = particle.GetEndPos();
 	std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> itemId = particle.GetItemID();
-	sf::Text& text = mSystem.AssetMgr.GetTextForItemID(itemId.first);
+	const sf::Text& text = mSystem.AssetMgr.GetTextForItemID(itemId.first);
 	std::function<void(Item&)> callback = [this](Item& item) {this->PickUpItem(item); };
 	int uniqueId = particle.GetId();
 	int quantity = ITEMGEN::GetValueForItem(itemId);
 	mItems.push_back(std::make_unique<Item>(std::pair{ itemId.first, ITEMRARITY::GOLD }, uniqueId, position, text, callback, quantity));
 	mSystem.InputMgr.AddObserver(mItems.back().get());
 	SetParticleForRemoval(particle);
-
-	auto pitchShifter = MathU::Random(0.8f, 1.2f);
-	auto modulator = MathU::Random(20.f, 40.f);
-	AUDIO_MUTE::AUDIOSTATE currentAudioState = SoundManager::GetInstance().GetAudioState();
-	if (currentAudioState == AUDIO_MUTE::AUDIOSTATE::UNMUTED ||
-		currentAudioState == AUDIO_MUTE::AUDIOSTATE::MUTE_MUSIC)
-	{
-		SoundManager::GetInstance().PlaySound(PLAYSOUND::GOLD_DROP, modulator, pitchShifter);
-	}
+	// Play the sounds 
+	SoundManager::GetInstance().PlayItemSound({ITEMID::GOLD, ITEMRARITY::GOLD });
 }
 
 void Level::SortItemsByVerticalSpace()

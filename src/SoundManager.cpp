@@ -148,3 +148,16 @@ void SoundManager::StartMusicSequence()
         PlayMusic(mCurrentlyPlaying, mDefaultVolume, true);
     }
 }
+
+void SoundManager::PlayItemSound(std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> itemid)
+{
+    AUDIO_MUTE::AUDIOSTATE currentAudioState = GetAudioState();
+    PLAYSOUND::PLAYSOUND sound = mAssetMgr->GetSoundForItem(itemid);
+    auto pitchShifter = MathU::Random(0.8f, 1.2f);
+    auto modulator = MathU::Random(20.f, 40.f);
+    if (currentAudioState == AUDIO_MUTE::AUDIOSTATE::UNMUTED ||
+        currentAudioState == AUDIO_MUTE::AUDIOSTATE::MUTE_MUSIC)
+    {
+        SoundManager::GetInstance().PlaySound(sound, modulator, pitchShifter);
+    }
+}
