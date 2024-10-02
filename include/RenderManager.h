@@ -3,6 +3,7 @@
 #include "Level.h"
 #include "Inventory.h"
 #include "FireWorkSystem.h"
+#include "Fire.h"
 #include <iomanip>
 
 class System;

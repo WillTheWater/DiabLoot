@@ -114,7 +114,6 @@ void LevelManager::SaveLevels()
 void LevelManager::LoadLevels()
 {
 	std::ifstream inData("save/levelData.lvl");  // Relative path to the save directory
-	assert(inData && "LevelManager::LoadLevels failed to open levelData.lvl file");
 
 	std::string line;
 	while (std::getline(inData, line))
