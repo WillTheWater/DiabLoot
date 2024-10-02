@@ -31,6 +31,8 @@ void MainMenuState::Enter()
 {
 	mSystem.InputMgr.AddObserver(this);
 	SoundManager::GetInstance().PlayMusic(MUSIC::INTRO, 10.f);
+	SoundManager::GetInstance().PlayASound(PLAYSOUND::FIRE, 20.f, 1.f, true);
+	SoundManager::GetInstance().PlayASound(PLAYSOUND::TOWN, 15.f, 1.f, true);
 }
 
 void MainMenuState::Exit()

@@ -44,7 +44,24 @@ void RenderManager::CustomizeGameWindow()
 
 void RenderManager::MainMenuRender()
 {
+
 	Draw(mSystem.AssetMgr.GetSprite(SPRITES::MAINMENU));
+	mSystem.TimeMgr.UpdateFireFrame();
+	Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 1460.f, 536.f }, 0.3f));
+	Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 330.f, 530.f }, 0.3f));
+	Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 1560.f, 566.f }, 0.3f));
+	Draw(AnimatedFire(ANIMATE::LARGE_FIRE, sf::Vector2f{ 361.f, 366.f }, 2.1f));
+	Draw(AnimatedFire(ANIMATE::MEDIUM_FIRE, sf::Vector2f{ 461.f, 366.f }, 1.8f));
+	Draw(AnimatedFire(ANIMATE::LARGE_FIRE, sf::Vector2f{ 561.f, 366.f }, 2.3f));
+	Draw(AnimatedFire(ANIMATE::MEDIUM_FIRE, sf::Vector2f{ 671.f, 296.f }, 1.8f));
+	Draw(AnimatedFire(ANIMATE::LARGE_FIRE, sf::Vector2f{ 791.f, 366.f }, 2.6f));
+	Draw(AnimatedFire(ANIMATE::MEDIUM_FIRE, sf::Vector2f{ 991.f, 296.f }, 2.8f));
+	Draw(AnimatedFire(ANIMATE::LARGE_FIRE, sf::Vector2f{ 1091.f, 366.f }, 2.4f));
+	Draw(AnimatedFire(ANIMATE::MEDIUM_FIRE, sf::Vector2f{ 1211.f, 296.f }, 2.5f));
+	Draw(AnimatedFire(ANIMATE::LARGE_FIRE, sf::Vector2f{ 1391.f, 366.f }, 2.8f));
+	Draw(AnimatedFire(ANIMATE::LARGE_FIRE, sf::Vector2f{ 1491.f, 366.f }, 2.3f));
+	Draw(mSystem.AssetMgr.GetSprite(SPRITES::MAINMENUTITLE));
+
 
 	Draw(mSystem.GUIMgr.GetButton(BUTTONS::START_ID).GetSprite());
 	Draw(mSystem.GUIMgr.GetButton(BUTTONS::START_ID).GetText());
@@ -360,7 +377,7 @@ void RenderManager::FireRenderer(LEVELS::LEVEL level)
 		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 1528.f, 309.f }, 0.5f));
 		Draw(AnimatedFire(ANIMATE::MEDIUM_FIRE, sf::Vector2f{ 504.f, 295.f }, 1.f));
 		Draw(AnimatedFire(ANIMATE::MEDIUM_FIRE, sf::Vector2f{ 728.f, 181.f }, 1.f));
-		Draw(AnimatedFire(ANIMATE::LARGE_FIRE, sf::Vector2f{ 1739.f, 876.f }, 1.f));
+		Draw(AnimatedFire(ANIMATE::LARGE_FIRE, sf::Vector2f{ 1739.f, 888.f }, 1.f));
 		return;
 	case LEVELS::LEVEL_ELEVEN:
 		Draw(AnimatedFire(ANIMATE::LARGE_FIRE, sf::Vector2f{ 1212.f, 712.f }, 1.f));
@@ -395,7 +412,7 @@ void RenderManager::FireRenderer(LEVELS::LEVEL level)
 		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 705.f, 719.f }, 1.f));
 		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 928.f, 832.f }, 1.f));
 		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 1311.f, 847.f }, 1.f));
-		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 1794.f, 680.f }, 1.f));
+		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 1794.f, 606.f }, 1.f));
 		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 1889.f, 958.f }, 1.f));
 		return;
 	default:

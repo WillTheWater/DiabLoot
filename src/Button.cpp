@@ -53,7 +53,7 @@ void Button::OnClick()
 		currentAudioState == AUDIO_MUTE::AUDIOSTATE::MUTE_MUSIC)
 	{
 		// Play the button click sound if audio is not fully muted
-		SoundManager::GetInstance().PlaySound(PLAYSOUND::BUTTON_DOWN);
+		SoundManager::GetInstance().PlayASound(PLAYSOUND::BUTTON_DOWN);
 	}
 }
 

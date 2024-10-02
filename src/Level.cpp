@@ -218,7 +218,7 @@ void Level::PickUpItem(Item& item)
 				if (currentAudioState == AUDIO_MUTE::AUDIOSTATE::UNMUTED ||
 					currentAudioState == AUDIO_MUTE::AUDIOSTATE::MUTE_MUSIC)
 				{
-					SoundManager::GetInstance().PlaySound(PLAYSOUND::ITEM_FLIP, modulator, pitchShifter);
+					SoundManager::GetInstance().PlayASound(PLAYSOUND::ITEM_FLIP, modulator, pitchShifter);
 				}
 			}
 			SetItemForRemoval(*it->get());

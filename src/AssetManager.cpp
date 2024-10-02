@@ -29,6 +29,7 @@ void AssetManager::InitializeTextureSprites()
     // TEXTURES
     // MENU
     mTextures[TEXTURES::MAINMENU]->loadFromFile             ("assets/graphics/mainmenu.png");
+    mTextures[TEXTURES::MAINMENUTITLE]->loadFromFile        ("assets/graphics/mainmenutitle.png");
     mTextures[TEXTURES::WINSCREEN]->loadFromFile            ("assets/graphics/winscreen.png");
     // BUTTONS
     mTextures[TEXTURES::WIDE_BUTTON]->loadFromFile          ("assets/graphics/button.png");
@@ -147,6 +148,7 @@ void AssetManager::InitializeTextureSprites()
     // SPRITES SETUP
     // MENU
     mSprites[SPRITES::MAINMENU]->setTexture                 (GetTexture(TEXTURES::MAINMENU));
+    mSprites[SPRITES::MAINMENUTITLE]->setTexture            (GetTexture(TEXTURES::MAINMENUTITLE));
     mSprites[SPRITES::WINSCREEN]->setTexture                (GetTexture(TEXTURES::WINSCREEN));
     // MAPS
     mSprites[SPRITES::MAP_ONE]->setTexture                  (GetTexture(TEXTURES::MAP_ONE));
@@ -431,6 +433,8 @@ void AssetManager::InitializeSounds()
     mSoundBuffers[SOUNDBUFFERS::RING_DROP_SB]->loadFromFile     ("assets/audio/SFX/ringdrop.wav");
     mSoundBuffers[SOUNDBUFFERS::RUNE_DROP_SB]->loadFromFile     ("assets/audio/SFX/runedrop.wav");
     mSoundBuffers[SOUNDBUFFERS::SCROLL_DROP_SB]->loadFromFile   ("assets/audio/SFX/scrolldrop.wav");
+    mSoundBuffers[SOUNDBUFFERS::FIRE_SB]->loadFromFile          ("assets/audio/ambient/fire.wav");
+    mSoundBuffers[SOUNDBUFFERS::TOWN_SB]->loadFromFile          ("assets/audio/ambient/town3night.wav");
 
     // Set Sound
     mSounds[PLAYSOUND::BUTTON_DOWN]->setBuffer  (GetSoundBuffer(SOUNDBUFFERS::BUTTON_DOWN_SB));
@@ -447,6 +451,8 @@ void AssetManager::InitializeSounds()
     mSounds[PLAYSOUND::RUNE_DROP]->setBuffer    (GetSoundBuffer(SOUNDBUFFERS::RUNE_DROP_SB));
     mSounds[PLAYSOUND::RING_DROP]->setBuffer    (GetSoundBuffer(SOUNDBUFFERS::RING_DROP_SB));
     mSounds[PLAYSOUND::SCROLL_DROP]->setBuffer  (GetSoundBuffer(SOUNDBUFFERS::SCROLL_DROP_SB));
+    mSounds[PLAYSOUND::FIRE]->setBuffer         (GetSoundBuffer(SOUNDBUFFERS::FIRE_SB));
+    mSounds[PLAYSOUND::TOWN]->setBuffer         (GetSoundBuffer(SOUNDBUFFERS::TOWN_SB));
 
 
 }
