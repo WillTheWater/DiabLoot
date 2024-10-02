@@ -29,6 +29,7 @@ void Level::EnterLevel()
 void Level::ExitLevel()
 {
 	RemoveAllChestObservers();
+	RemoveAllItemObsevers();
 	DeactiveChests();
 	mItems.clear();
 	mParticles.clear();
@@ -314,6 +315,14 @@ void Level::RemoveAllChestObservers()
 	for (auto& chest : mChests)
 	{
 		mSystem.InputMgr.RemoveObserver(chest.get());
+	}
+}
+
+void Level::RemoveAllItemObsevers()
+{
+	for (auto& item : mItems)
+	{
+		mSystem.InputMgr.RemoveObserver(item.get());
 	}
 }
 

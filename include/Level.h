@@ -47,6 +47,7 @@ public:
 	void									SortItemsByVerticalSpace();
 	void									StackItemlabels();
 	void									RemoveAllChestObservers();
+	void									RemoveAllItemObsevers();
 
 	void									UpgradeLevel();
 	LEVELS::UPGRADE							GetUpgradeLevel();
