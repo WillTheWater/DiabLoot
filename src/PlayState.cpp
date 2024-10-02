@@ -39,6 +39,7 @@ void PlayState::Exit()
 
 void PlayState::Update()
 {
+	mSystem.TimeMgr.PrintTimeStats();
 	bool hasWon = false;
 	if (mSystem.InventoryMgr.HasOneOfEverything())
 	{	
