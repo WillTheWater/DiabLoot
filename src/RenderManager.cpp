@@ -237,7 +237,7 @@ sf::Sprite& RenderManager::AnimatedFire(ANIMATE::FIRE fireSize, const sf::Vector
 	//const int maxFrames = 20;     // 20 frames per fire
 
 	// ADDED THIS:
-	int currentFrame = mSystem.TimeMgr.getFireAnimFrame();
+	int currentFrame = mSystem.TimeMgr.GetFireAnimFrame();
 
 	switch (fireSize)
 	{
@@ -280,7 +280,7 @@ sf::Sprite& RenderManager::AnimatedFire(ANIMATE::FIRE fireSize, const sf::Vector
 
 void RenderManager::FireRenderer(LEVELS::LEVEL level)
 {
-	mSystem.TimeMgr.updateFireFrame();
+	mSystem.TimeMgr.UpdateFireFrame();
 	switch (level)
 	{
 	case LEVELS::LEVEL_ONE:
@@ -516,7 +516,7 @@ void RenderManager::DrawToolTipWarning(sf::Vector2f mousePos)
 	}
 }
 
-void RenderManager::ParticlesRender(std::vector<std::unique_ptr<Particle>>& particles)
+void RenderManager::ParticlesRender(std::list<std::unique_ptr<Particle>>& particles)
 {
 	for (auto& p : particles)
 	{
@@ -530,7 +530,7 @@ void RenderManager::ParticlesRender(std::vector<std::unique_ptr<Particle>>& part
 	}
 }
 
-void RenderManager::ChestsRender(std::vector<std::unique_ptr<Chest>>& chests)
+void RenderManager::ChestsRender(std::array<std::unique_ptr<Chest>, 4>& chests)
 {
 	for (auto& chest : chests)
 	{
@@ -561,7 +561,7 @@ void RenderManager::ChestsRender(std::vector<std::unique_ptr<Chest>>& chests)
 	}
 }
 
-void RenderManager::ItemsRender(std::vector<std::unique_ptr<Item>>& items)
+void RenderManager::ItemsRender(std::list<std::unique_ptr<Item>>& items)
 {
 	for (auto& item : items)
 	{

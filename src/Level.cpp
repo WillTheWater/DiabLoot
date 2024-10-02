@@ -6,8 +6,9 @@ Level::Level(LEVELS::LEVEL id, System& system)
 	,mSystem{system}
 	,mParticleUniqueId{0}
 	,mUpgradeLevel{LEVELS::UPGRADE::ONE_CHEST}
+	,mChests{ nullptr, nullptr, nullptr, nullptr}
+	,mParticlesToRemove{}
 {
-	mChests.reserve(10);
 }
 
 Level::~Level()
@@ -27,30 +28,32 @@ void Level::EnterLevel()
 
 void Level::ExitLevel()
 {
-	RemoveAllItemObservers();
 	RemoveAllChestObservers();
+	RemoveAllItemObsevers();
 	DeactiveChests();
 	mItems.clear();
 	mParticles.clear();
 }
 
-std::vector<std::unique_ptr<Item>>& Level::GetItems()
+std::list<std::unique_ptr<Item>>& Level::GetItems()
 {
 	return mItems;
 }
 
-std::vector<std::unique_ptr<Chest>>& Level::GetChests()
+std::array<std::unique_ptr<Chest>, 4>& Level::GetChests()
 {
 	return mChests;
 }
 
-std::vector<std::unique_ptr<Particle>>& Level::GetParticles()
+std::list<std::unique_ptr<Particle>>& Level::GetParticles()
 {
 	return mParticles;
 }
 
 void Level::UpdateLevel()
 {
+	RemoveOldParticles();
+	RemoveOldItems();
 	UpdateParticles();
 	UpdateItems();
 }
@@ -70,10 +73,10 @@ int Level::GetUniqueParticleId()
 	return mParticleUniqueId;
 }
 
-void Level::SpawnChest(sf::Vector2f pos, bool mirrored)
+void Level::SpawnChest(sf::Vector2f pos, bool mirrored, size_t index)
 {
 	std::function<void(Chest&)> callback = [this](Chest& chest) {this->SpawnParticles(chest); };
-	mChests.push_back(std::make_unique<Chest>(pos, mirrored, callback));
+	mChests[index - 1] = (std::make_unique<Chest>(pos, mirrored, callback));
 }
 
 void Level::SpawnParticles(Chest& chest)
@@ -109,28 +112,89 @@ void Level::CreateBounceParticle(Item& item)
 	mParticles.push_back(std::make_unique<Particle>(id, startPos, endPos, randAnchorheight, animStep, callback, itemId));
 }
 
+void Level::RemoveOldParticles()
+{
+	bool success = false;
+	for (auto& i : mParticlesToRemove)
+	{
+		for (std::list<std::unique_ptr<Particle>>::iterator it = mParticles.begin(); it != mParticles.end(); it++)
+		{
+			if (it->get()->GetId() == i)
+			{
+				success = true;
+			}
+			if (success)
+			{
+				mParticles.erase(it);
+				break;
+			}
+		}
+	}
+	mParticlesToRemove.clear();
+}
+
+void Level::RemoveOldItems()
+{
+	bool success = false;
+	for (auto& i : mItemsToRemove)
+	{
+		for (std::list<std::unique_ptr<Item>>::iterator it = mItems.begin(); it != mItems.end(); it++)
+		{
+			if (it->get()->GetUniqueId() == i)
+			{
+				success = true;
+			}
+			if (success)
+			{
+				mItems.erase(it);
+				break;
+			}
+		}
+	}
+	mItemsToRemove.clear();
+}
+
 void Level::UpdateParticles()
 {
-	for (auto& particle : mParticles)
+	for (std::list<std::unique_ptr<Particle>>::iterator it = mParticles.begin(); it != mParticles.end(); it++)
 	{
-		if (particle == nullptr)
-		{
-			continue;
-		}
-		particle->StepParticle(mSystem.TimeMgr.GetDeltaTime());
+		it->get()->StepParticle(mSystem.TimeMgr.GetDeltaTime());
 	}
 }
 
-void Level::RemoveParticle(Particle& particle)
+void Level::SetParticleForRemoval(Particle& particle)
 {
 	bool success = false;
 
-	for (int i{ 0 }; i < mParticles.size(); i++)
+	for (std::list<std::unique_ptr<Particle>>::iterator it = mParticles.begin(); it != mParticles.end(); it++)
 	{
-		if (mParticles[i]->GetId() == particle.GetId())
+		if (it->get()->GetId() == particle.GetId())
 		{
-			mParticles.erase(mParticles.begin() + i);
 			success = true;
+		}
+		if (success)
+		{
+			mParticlesToRemove.push_back(it->get()->GetId());
+			break;
+		}
+	}
+	assert(success && "PlayState::RemoveParticle failed to remove the particle");
+}
+
+void Level::SetItemForRemoval(Item& item)
+{
+	bool success = false;
+
+	for (std::list<std::unique_ptr<Item>>::iterator it = mItems.begin(); it != mItems.end(); it++)
+	{
+		if (it->get()->GetUniqueId() == item.GetUniqueId())
+		{
+			success = true;
+		}
+		if (success)
+		{
+			mItemsToRemove.push_back(it->get()->GetUniqueId());
+			break;
 		}
 	}
 	assert(success && "PlayState::RemoveParticle failed to remove the particle");
@@ -141,9 +205,9 @@ void Level::PickUpItem(Item& item)
 	bool couldAdd = mSystem.InventoryMgr.AddItem(item);
 	
 	bool success = false;
-	for (int i{ 0 }; i < mItems.size(); i++)
+	for (std::list<std::unique_ptr<Item>>::iterator it = mItems.begin(); it != mItems.end(); it++)
 	{
-		if (mItems[i]->GetUniqueId() == item.GetUniqueId())
+		if (it->get()->GetUniqueId() == item.GetUniqueId())
 		{
 			if (!couldAdd)
 			{
@@ -157,16 +221,12 @@ void Level::PickUpItem(Item& item)
 					SoundManager::GetInstance().PlaySound(PLAYSOUND::ITEM_FLIP, modulator, pitchShifter);
 				}
 			}
-			RemoveAllItemObservers();
-			mItems.erase(mItems.begin() + i);
-			AddAllItemObservers();
+			SetItemForRemoval(*it->get());
+			mSystem.InputMgr.RemoveObserver(it->get());
 			success = true;
 		}
 	}
-
 	assert(success && "PlayState::RemoveItem failed to remove the item");
-	
-	
 }
 
 void Level::SpawnItem(Particle& particle)
@@ -176,15 +236,14 @@ void Level::SpawnItem(Particle& particle)
 	sf::Text& text = mSystem.AssetMgr.GetTextForItemID(itemId.first);
 	std::function<void(Item&)> callback = [this](Item& item) {this->PickUpItem(item); };
 	int uniqueId = particle.GetId();
-	RemoveAllItemObservers();
 	int quantity = 1;
 	if (itemId.first == ITEMID::GOLD)
 	{
 		quantity = ITEMGEN::GetRandomGoldAmount();
 	}
 	mItems.push_back(std::make_unique<Item>(itemId, uniqueId, position, text, callback, quantity));
-	AddAllItemObservers();
-	RemoveParticle(particle);
+	mSystem.InputMgr.AddObserver(mItems.back().get());
+	SetParticleForRemoval(particle);
 	// Play the sounds 
 	AUDIO_MUTE::AUDIOSTATE currentAudioState = SoundManager::GetInstance().GetAudioState();
 	PLAYSOUND::PLAYSOUND sound = mSystem.AssetMgr.GetSoundForItem(itemId);
@@ -204,11 +263,11 @@ void Level::TurnItemToGold(Particle& particle)
 	sf::Text& text = mSystem.AssetMgr.GetTextForItemID(itemId.first);
 	std::function<void(Item&)> callback = [this](Item& item) {this->PickUpItem(item); };
 	int uniqueId = particle.GetId();
-	RemoveAllItemObservers();
 	int quantity = ITEMGEN::GetValueForItem(itemId);
 	mItems.push_back(std::make_unique<Item>(std::pair{ itemId.first, ITEMRARITY::GOLD }, uniqueId, position, text, callback, quantity));
-	AddAllItemObservers();
-	RemoveParticle(particle);
+	mSystem.InputMgr.AddObserver(mItems.back().get());
+	SetParticleForRemoval(particle);
+
 	auto pitchShifter = MathU::Random(0.8f, 1.2f);
 	auto modulator = MathU::Random(20.f, 40.f);
 	AUDIO_MUTE::AUDIOSTATE currentAudioState = SoundManager::GetInstance().GetAudioState();
@@ -226,7 +285,7 @@ void Level::SortItemsByVerticalSpace()
 			// > than because of y-down coord
 			return a->GetPosition().y > b->GetPosition().y;
 		};
-	std::sort(mItems.begin(), mItems.end(), sortingLambda);
+	mItems.sort(sortingLambda);
 }
 
 void Level::StackItemlabels()
@@ -251,27 +310,19 @@ void Level::StackItemlabels()
 	}
 }
 
-void Level::RemoveAllItemObservers()
-{
-	for (auto& item : mItems)
-	{
-		mSystem.InputMgr.RemoveObserver(item.get());
-	}
-}
-
-void Level::AddAllItemObservers()
-{
-	for (auto& item : mItems)
-	{
-		mSystem.InputMgr.AddObserver(item.get());
-	}
-}
-
 void Level::RemoveAllChestObservers()
 {
 	for (auto& chest : mChests)
 	{
 		mSystem.InputMgr.RemoveObserver(chest.get());
+	}
+}
+
+void Level::RemoveAllItemObsevers()
+{
+	for (auto& item : mItems)
+	{
+		mSystem.InputMgr.RemoveObserver(item.get());
 	}
 }
 
