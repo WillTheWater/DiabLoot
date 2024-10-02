@@ -310,7 +310,6 @@ ITEMID::ITEM Inventory::GetItemIdOfSlotClicked()
 void Inventory::LoadInventory()
 {
 	std::ifstream inData("save/inventoryData.inv");
-	assert(inData && "InventoryManager::loadInventory failed to open inventoryData.inv file");
 	std::string line;
 	while (std::getline(inData, line))
 	{
