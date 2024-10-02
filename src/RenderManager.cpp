@@ -301,12 +301,14 @@ void RenderManager::FireRenderer(LEVELS::LEVEL level)
 		Draw(AnimatedFire(ANIMATE::MEDIUM_FIRE, sf::Vector2f{ 1442.f, 330.f }, 0.5f));
 		return;
 	case LEVELS::LEVEL_FIVE:
-		Draw(AnimatedFire(ANIMATE::MEDIUM_FIRE, sf::Vector2f{ 816.f, 258.f }, 0.5f));
-		Draw(AnimatedFire(ANIMATE::MEDIUM_FIRE, sf::Vector2f{ 976.f, 147.f }, 0.5f));
-		Draw(AnimatedFire(ANIMATE::MEDIUM_FIRE, sf::Vector2f{ 976.f, 306.f }, 0.5f));
-		Draw(AnimatedFire(ANIMATE::MEDIUM_FIRE, sf::Vector2f{ 1216.f, 266.f }, 0.5f));
-		Draw(AnimatedFire(ANIMATE::MEDIUM_FIRE, sf::Vector2f{ 734.f, 958.f }, 0.5f));
-		Draw(AnimatedFire(ANIMATE::MEDIUM_FIRE, sf::Vector2f{ 1647.f, 1030.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::MEDIUM_FIRE, sf::Vector2f{ 128.f, 152.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::MEDIUM_FIRE, sf::Vector2f{ 95.f, 408.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::MEDIUM_FIRE, sf::Vector2f{ 798.f, 264.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::MEDIUM_FIRE, sf::Vector2f{ 976.f, 145.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::MEDIUM_FIRE, sf::Vector2f{ 975.f, 305.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::MEDIUM_FIRE, sf::Vector2f{ 1216.f, 265.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::MEDIUM_FIRE, sf::Vector2f{ 1725.f, 174.f }, 0.5f));
+		Draw(AnimatedFire(ANIMATE::MEDIUM_FIRE, sf::Vector2f{ 1873.f, 416.f }, 0.5f));
 		return;
 	case LEVELS::LEVEL_SIX:
 		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 1369.f, 20.f }, 1.f));
