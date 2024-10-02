@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/System/Clock.hpp>
+#include <iostream>
 
 
 class TimeManager
@@ -10,6 +11,9 @@ public:
 	void								StartSpeedRunclock() { mSpeedRunClock.restart(); mSpeedRun = true; mHasTimeBeenLocked = false; }
 	bool								IsSpeedrun() { return mSpeedRun; }
 	float								GetSpeedRunTime() { return mSpeedRunTime; }
+	int									GetFireAnimFrame() { return mFireAnimFrame; }
+	int									GetFPS() { return (int)(1.f / mDeltaTime); }
+	void								PrintTimeStats() { std::cout << "FPS: " << GetFPS() << " DeltaTime: " << GetDeltaTime() << '\n'; }
 	void LockSpeedRunTime() 
 	{ 
 		if (!mHasTimeBeenLocked)
@@ -18,7 +22,7 @@ public:
 			mHasTimeBeenLocked = true;
 		}
 	}
-	void updateFireFrame()
+	void UpdateFireFrame()
 	{
 		mFireFrameTimer += mDeltaTime;
 		if (mFireFrameTimer >= mFireFrameDuration)
@@ -27,8 +31,6 @@ public:
 			mFireFrameTimer = 0.0f;
 		}
 	}
-
-	int getFireAnimFrame() { return mFireAnimFrame; }
 
 private:
 	sf::Clock							mClock;
