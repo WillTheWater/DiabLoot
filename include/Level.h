@@ -13,6 +13,7 @@
 #include "SoundManager.h"
 #include <utility>
 #include <algorithm>
+#include <list>
 
 class System;
 
@@ -23,9 +24,9 @@ public:
 	Level(LEVELS::LEVEL id, System& system);
 	~Level();
 
-	std::vector<std::unique_ptr<Chest>>&	GetChests();
-	std::vector<std::unique_ptr<Particle>>&	GetParticles();
-	std::vector<std::unique_ptr<Item>>&		GetItems();
+	std::array<std::unique_ptr<Chest>, 4>&	GetChests();
+	std::list<std::unique_ptr<Particle>>&	GetParticles();
+	std::list<std::unique_ptr<Item>>&		GetItems();
 	LEVELS::LEVEL							GetLevelId() const;
 	void									EnterLevel();
 	void									ExitLevel();
@@ -33,17 +34,18 @@ public:
 	void									UpdateParticles();
 	void									UpdateItems();
 	int										GetUniqueParticleId();
-	void									SpawnChest(sf::Vector2f pos, bool mirrored);
+	void									SpawnChest(sf::Vector2f pos, bool mirrored, size_t index);
 	void									SpawnParticles(Chest& chest);
 	void									CreateBounceParticle(Item& item);
-	void									RemoveParticle(Particle& particle);
+	void									RemoveOldParticles();
+	void									RemoveOldItems();
+	void									SetParticleForRemoval(Particle& particle);
+	void									SetItemForRemoval(Item& item);
 	void									PickUpItem(Item& item);
 	void									SpawnItem(Particle& particle);
 	void									TurnItemToGold(Particle& particle);
 	void									SortItemsByVerticalSpace();
 	void									StackItemlabels();
-	void									RemoveAllItemObservers();
-	void									AddAllItemObservers();
 	void									RemoveAllChestObservers();
 
 	void									UpgradeLevel();
@@ -55,10 +57,12 @@ public:
 
 private:
 	LEVELS::LEVEL							mLevelID;
-	std::vector<std::unique_ptr<Chest>>		mChests;
-	std::vector<std::unique_ptr<Particle>>	mParticles;
-	std::vector<std::unique_ptr<Item>>		mItems;
+	std::array<std::unique_ptr<Chest>, 4>	mChests;
+	std::list<std::unique_ptr<Particle>>	mParticles;
+	std::list<std::unique_ptr<Item>>		mItems;
 	System&									mSystem;
 	int										mParticleUniqueId;
 	LEVELS::UPGRADE							mUpgradeLevel;
+	std::vector<int>						mParticlesToRemove;
+	std::vector<int>						mItemsToRemove;
 };

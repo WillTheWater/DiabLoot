@@ -41,8 +41,8 @@ private:
 	sf::Cursor									mCursorOpen;
 	sf::Cursor									mCursorClosed;
 	System& mSystem;
-	void										ParticlesRender(std::vector<std::unique_ptr<Particle>>& particles);
-	void										ChestsRender(std::vector<std::unique_ptr<Chest>>& chests);
-	void										ItemsRender(std::vector<std::unique_ptr<Item>>& items);
+	void										ParticlesRender(std::list<std::unique_ptr<Particle>>& particles);
+	void										ChestsRender(std::array<std::unique_ptr<Chest>, 4>& chests);
+	void										ItemsRender(std::list<std::unique_ptr<Item>>& items);
 	void										ItemCollectionRender();
 };

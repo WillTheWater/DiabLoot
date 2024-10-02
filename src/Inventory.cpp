@@ -338,6 +338,7 @@ void Inventory::LoadInventory()
 			break;
 		}
 	}
+	inData.close();
 }
 
 void Inventory::SaveInventory()
