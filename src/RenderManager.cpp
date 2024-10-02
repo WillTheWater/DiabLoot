@@ -219,24 +219,8 @@ sf::Sprite& RenderManager::AnimatedFire(ANIMATE::FIRE fireSize, const sf::Vector
 	static sf::Sprite fireSprite = mSystem.AssetMgr.GetSprite(SPRITES::FIRE);
 	auto& fireTexture = mSystem.AssetMgr.GetTexture(TEXTURES::FIRE);
 
-	// Create an sf::Image from the texture to apply the color mask
-	sf::Image fireImage = fireTexture.copyToImage();
-	fireImage.createMaskFromColor(sf::Color(255, 0, 153));
-	fireImage.createMaskFromColor(sf::Color(0, 128, 128));
-	fireTexture.loadFromImage(fireImage);
-
-	// Variables to store the position and size of the frame
 	int frameWidth, frameHeight, startX, startY;
-
-	// Define frame separation (2 pixel between frames)
 	const int frameSeparation = 2;
-
-	//static float frameTimer = 0.0f;
-	//const float frameDuration = .3f; // Adjust to control animation speed
-	//static int currentFrame = 0;  // Keeps track of the current frame
-	//const int maxFrames = 20;     // 20 frames per fire
-
-	// ADDED THIS:
 	int currentFrame = mSystem.TimeMgr.GetFireAnimFrame();
 
 	switch (fireSize)
@@ -267,13 +251,6 @@ sf::Sprite& RenderManager::AnimatedFire(ANIMATE::FIRE fireSize, const sf::Vector
 	fireSprite.setOrigin(frameWidth / 2.0f, frameHeight);
 	fireSprite.setPosition(position);
 	fireSprite.setScale(sf::Vector2f{ scale, scale });
-
-	/*frameTimer += dT;
-	if (frameTimer >= frameDuration)
-	{
-		currentFrame = (currentFrame + 1) % maxFrames;
-		frameTimer = 0.0f;
-	}*/
 
 	return fireSprite;
 }
