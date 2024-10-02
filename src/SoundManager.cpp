@@ -6,7 +6,7 @@ SoundManager& SoundManager::GetInstance()
 	return instance;
 }
 
-void SoundManager::PlaySound(PLAYSOUND::PLAYSOUND sound, float volume, float pitch)
+void SoundManager::PlayASound(PLAYSOUND::PLAYSOUND sound, float volume, float pitch, bool loop)
 {
     float finalVolume = mIsMuted ? 0 : volume;
     auto& soundToPlay = mAssetMgr->GetSound(sound);
@@ -19,6 +19,7 @@ void SoundManager::PlaySound(PLAYSOUND::PLAYSOUND sound, float volume, float pit
 
     soundToPlay.setVolume(finalVolume);
     soundToPlay.setPitch(pitch);
+    soundToPlay.setLoop(loop);
     soundToPlay.play();
 }
 
@@ -158,6 +159,6 @@ void SoundManager::PlayItemSound(std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> ite
     if (currentAudioState == AUDIO_MUTE::AUDIOSTATE::UNMUTED ||
         currentAudioState == AUDIO_MUTE::AUDIOSTATE::MUTE_MUSIC)
     {
-        SoundManager::GetInstance().PlaySound(sound, modulator, pitchShifter);
+        SoundManager::GetInstance().PlayASound(sound, modulator, pitchShifter);
     }
 }

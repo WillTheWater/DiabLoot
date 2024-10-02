@@ -15,7 +15,7 @@ public:
 	static SoundManager& GetInstance();
 	void											SetAssetMgr(AssetManager* assetMgr) { mAssetMgr = assetMgr; }
 
-	void											PlaySound(PLAYSOUND::PLAYSOUND sound, float volume = 100.f, float pitch = 1.f);
+	void											PlayASound(PLAYSOUND::PLAYSOUND sound, float volume = 100.f, float pitch = 1.f, bool loop = false);
 	void											PlayMusic(MUSIC::PLAYMUSIC music, float volume = 100.f, bool loop = true);
 	void											StopMusic(MUSIC::PLAYMUSIC music);
 	AUDIO_MUTE::AUDIOSTATE							GetAudioState() const;

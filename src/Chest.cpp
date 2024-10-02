@@ -65,7 +65,7 @@ void Chest::OpenChest()
 	if (currentAudioState == AUDIO_MUTE::AUDIOSTATE::UNMUTED ||
 		currentAudioState == AUDIO_MUTE::AUDIOSTATE::MUTE_MUSIC)
 	{
-		SoundManager::GetInstance().PlaySound(PLAYSOUND::OPEN_CHEST, modulator, pitchShifter);
+		SoundManager::GetInstance().PlayASound(PLAYSOUND::OPEN_CHEST, modulator, pitchShifter);
 	}
 }
 
