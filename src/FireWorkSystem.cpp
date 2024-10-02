@@ -65,7 +65,7 @@ void FireWorkSystem::CreateSparks(FireWork& fireWork)
 		endPos = endPos.getRotatedVector((360.f / 10.f) * i);
 		endPos = startPos + endPos;
 		float randomHeight = -MathU::Random(150.f, 200.f);
-		float stepIncrement = MathU::Random(0.5f, 0.6f);
+		float stepIncrement = MathU::Random(0.8f, 1.0f);
 		int id = GetUniqueId();
 		mSparks.push_back(std::make_unique<FireWork>(id, startPos, endPos, randomHeight, stepIncrement, fireWork.GetColor(), callback));
 	}
@@ -89,7 +89,7 @@ void FireWorkSystem::CreateFireWork()
 	Vec2 startPos{ 1920.f /2.f, 980.f };
 	Vec2 endPos{ GetRandomPointInCircle(startPos, 500.f, 800.f, 180.f) };
 	float randomHeight = -MathU::Random(200.f, 200.f);
-	float stepIncrement = MathU::Random(0.3f, 0.5f);
+	float stepIncrement = MathU::Random(0.6f, 1.f);
 	int id = GetUniqueId();
 	sf::Color color = GetRandomColor();
 	std::function<void(FireWork&)> callback = [this](FireWork& fireWork) {this->CreateSparks(fireWork); };
