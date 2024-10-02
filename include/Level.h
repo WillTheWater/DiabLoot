@@ -34,21 +34,9 @@ public:
 	void									UpdateParticles();
 	void									UpdateItems();
 	int										GetUniqueParticleId();
-	void									SpawnChest(sf::Vector2f pos, bool mirrored, size_t index);
+	void									SpawnChest(sf::Vector2f pos, bool mirrored, LEVELS::UPGRADE chest);
 	void									SpawnParticles(Chest& chest);
 	void									CreateBounceParticle(Item& item);
-	void									RemoveOldParticles();
-	void									RemoveOldItems();
-	void									SetParticleForRemoval(Particle& particle);
-	void									SetItemForRemoval(Item& item);
-	void									PickUpItem(Item& item);
-	void									SpawnItem(Particle& particle);
-	void									TurnItemToGold(Particle& particle);
-	void									SortItemsByVerticalSpace();
-	void									StackItemlabels();
-	void									RemoveAllChestObservers();
-	void									RemoveAllItemObsevers();
-
 	void									UpgradeLevel();
 	LEVELS::UPGRADE							GetUpgradeLevel();
 	void									SetUpgradeLevel(LEVELS::UPGRADE upgrade); // Only used for loading
@@ -66,4 +54,16 @@ private:
 	LEVELS::UPGRADE							mUpgradeLevel;
 	std::vector<int>						mParticlesToRemove;
 	std::vector<int>						mItemsToRemove;
+	// Private Functions
+	void									RemoveOldParticles();
+	void									RemoveOldItems();
+	void									SetParticleForRemoval(Particle& particle);
+	void									SetItemForRemoval(Item& item);
+	void									PickUpItem(Item& item);
+	void									SpawnItem(Particle& particle);
+	void									TurnItemToGold(Particle& particle);
+	void									SortItemsByVerticalSpace();
+	void									StackItemlabels();
+	void									RemoveAllChestObservers();
+	void									RemoveAllItemObsevers();
 };

@@ -310,7 +310,6 @@ ITEMID::ITEM Inventory::GetItemIdOfSlotClicked()
 void Inventory::LoadInventory()
 {
 	std::ifstream inData("save/inventoryData.inv");
-	assert(inData && "InventoryManager::loadInventory failed to open inventoryData.inv file");
 	std::string line;
 	while (std::getline(inData, line))
 	{
@@ -344,21 +343,20 @@ void Inventory::LoadInventory()
 void Inventory::SaveInventory()
 {
 	std::ofstream outData;
-	// Save the file in the inventory directory created by CMake
-	std::string filePath = "save/inventoryData.inv"; // Relative path
-	outData.open(filePath);
-	assert(outData && "InventoryManager::saveInventory failed to open inventoryData.inv file");
+    // Save the file in the inventory directory created by CMake
+    std::string filePath = "save/inventoryData.inv"; // Relative path
+    outData.open(filePath);
 
-	int gold = mGold;
-	outData << "#GOLD\n" << gold << '\n';
-	outData << "#SLOTS\n";
-	for (int i{ 0 }; i < mItemSlots.size(); i++)
-	{
-		outData << mItemSlots[i].GetItemId().first << '\n'
-			<< mItemSlots[i].GetItemId().second << '\n'
-			<< mItemSlots[i].GetQuantity() << '\n';
-	}
-	outData.close();
+    int gold = mGold;
+    outData << "#GOLD\n" << gold << '\n';
+    outData << "#SLOTS\n";
+    for (int i{ 0 }; i < mItemSlots.size(); i++)
+    {
+        outData << mItemSlots[i].GetItemId().first << '\n'
+            << mItemSlots[i].GetItemId().second << '\n'
+            << mItemSlots[i].GetQuantity() << '\n';
+    }
+    outData.close();
 }
 
 void Inventory::DeleteInventory()

@@ -483,43 +483,43 @@ void AssetManager::InitializeImages()
     mImages[IMAGES::ICON]->loadFromFile             ("assets/graphics/icon.png");
 }
 
-sf::Texture& AssetManager::GetTexture(TEXTURES::TEXTURE texture)
+sf::Texture& AssetManager::GetTexture(TEXTURES::TEXTURE texture) const
 {
     assert(texture < TEXTURES::MAX_TEXTURES && texture >= 0 && "Attempted to get texture that doesn't exist!\n");
     return *mTextures[texture];
 }
 
-sf::Sprite& AssetManager::GetSprite(SPRITES::SPRITE sprite)
+const sf::Sprite& AssetManager::GetSprite(SPRITES::SPRITE sprite) const
 {
     assert(sprite < SPRITES::MAX_SPRITES && sprite >= 0 && "Attempted to get sprite that doesn't exist!\n");
     return *mSprites[sprite];
 }
 
-sf::Image& AssetManager::GetImage(IMAGES::IMAGE image)
+const sf::Image& AssetManager::GetImage(IMAGES::IMAGE image) const
 {
     assert(image < IMAGES::MAX_IMAGES && image >= 0 && "Attempted to get image that doesn't exist!\n");
     return *mImages[image];
 }
 
-sf::SoundBuffer& AssetManager::GetSoundBuffer(SOUNDBUFFERS::SOUNDBUFFER soundbuffer)
+sf::SoundBuffer& AssetManager::GetSoundBuffer(SOUNDBUFFERS::SOUNDBUFFER soundbuffer) const
 {
     assert(soundbuffer < SOUNDBUFFERS::MAX_SOUNDSBUFFERS && soundbuffer >= 0 && "Attempted to get soundbuffer that doesn't exist!\n");
     return *mSoundBuffers[soundbuffer];
 }
 
-sf::Sound& AssetManager::GetSound(PLAYSOUND::PLAYSOUND sound)
+sf::Sound& AssetManager::GetSound(PLAYSOUND::PLAYSOUND sound) const
 {
     assert(sound < PLAYSOUND::MAX_SOUNDS && sound >= 0 && "Attempted to get sound that doesn't exist!\n");
     return *mSounds[sound];
 }
 
-sf::Music& AssetManager::GetMusic(MUSIC::PLAYMUSIC music)
+sf::Music& AssetManager::GetMusic(MUSIC::PLAYMUSIC music) const
 {
     assert(music < MUSIC::MAX_MUSIC_FILES && music >= 0 && "Attempted to get music that doesn't exist!\n");
     return *mMusic[music];
 }
 
-sf::Sprite& AssetManager::GetLevelMap(LEVELS::LEVEL level)
+const sf::Sprite& AssetManager::GetLevelMap(LEVELS::LEVEL level) const
 {
     switch (level)
     {
@@ -541,18 +541,18 @@ sf::Sprite& AssetManager::GetLevelMap(LEVELS::LEVEL level)
     }
 }
 
-sf::Text& AssetManager::GetTextForItemID(ITEMID::ITEM item)
+const sf::Text& AssetManager::GetTextForItemID(ITEMID::ITEM item) const
 {
     return *mItemTexts[item];
 }
 
-sf::Text& AssetManager::GetTextForButtons(BUTTONS::BUTTON_TEXT text)
+const sf::Text& AssetManager::GetTextForButtons(BUTTONS::BUTTON_TEXT text) const
 {
     return *mButtonTexts[text];
 }
 
-sf::Sprite& AssetManager::GetSpriteForItem(ITEMID::ITEM item)
-{
+const sf::Sprite& AssetManager::GetSpriteForItem(ITEMID::ITEM item) const
+{ 
     switch (item)
     {
     case ITEMID::GOLD:                      return *mSprites[SPRITES::GOLD_LARGE];
@@ -636,7 +636,7 @@ sf::Sprite& AssetManager::GetSpriteForItem(ITEMID::ITEM item)
     }
 }
 
-sf::Color AssetManager::GetColorForItemText(std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> item)
+const sf::Color AssetManager::GetColorForItemText(std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> item) const
 {
     switch (item.first)
     {
@@ -669,12 +669,12 @@ sf::Color AssetManager::GetColorForItemText(std::pair<ITEMID::ITEM, ITEMRARITY::
     }                         
 }
 
-sf::Color AssetManager::GetTextboxColor() const
+const sf::Color AssetManager::GetTextboxColor() const
 {
     return mTextboxColor;
 }
 
-sf::Sprite& AssetManager::GetSpriteForButton(BUTTONS::BUTTON_TYPE button)
+const sf::Sprite& AssetManager::GetSpriteForButton(BUTTONS::BUTTON_TYPE button) const
 {
     switch (button)
     {
@@ -689,7 +689,7 @@ sf::Sprite& AssetManager::GetSpriteForButton(BUTTONS::BUTTON_TYPE button)
     }
 }
 
-sf::Sprite& AssetManager::GetSpriteForGoldQuantity(int quantity)
+const sf::Sprite& AssetManager::GetSpriteForGoldQuantity(int quantity) const
 {
     if (quantity < 100)
     {
@@ -705,12 +705,12 @@ sf::Sprite& AssetManager::GetSpriteForGoldQuantity(int quantity)
     }
 }
 
-sf::Font& AssetManager::GetFont(FONTS::FONT font)
+const sf::Font& AssetManager::GetFont(FONTS::FONT font) const
 {
     return *mFonts[font];
 }
 
-PLAYSOUND::PLAYSOUND AssetManager::GetSoundForItem(std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> item)
+const PLAYSOUND::PLAYSOUND AssetManager::GetSoundForItem(std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> item) const
 {
     switch (item.first)
     {
@@ -796,7 +796,7 @@ PLAYSOUND::PLAYSOUND AssetManager::GetSoundForItem(std::pair<ITEMID::ITEM, ITEMR
     }
 }
 
-int AssetManager::GetCostForNextLevelUpgrade(LEVELS::UPGRADE levelUpgrade)
+const int AssetManager::GetCostForNextLevelUpgrade(LEVELS::UPGRADE levelUpgrade) const
 {
     switch (levelUpgrade)
     {
@@ -808,7 +808,7 @@ int AssetManager::GetCostForNextLevelUpgrade(LEVELS::UPGRADE levelUpgrade)
     }
 }
 
-std::string& AssetManager::GetRarityAsString(ITEMRARITY::RARITY rarity)
+const std::string& AssetManager::GetRarityAsString(ITEMRARITY::RARITY rarity) const
 {
     switch (rarity)
     {

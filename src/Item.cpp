@@ -2,7 +2,7 @@
 #include "MathUtilities.h"
 #include "SoundManager.h"
 
-Item::Item(std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> item, int unique, sf::Vector2f pos, sf::Text& text, std::function<void(Item&)> callback, int quantity)
+Item::Item(std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> item, int unique, sf::Vector2f pos, const sf::Text& text, std::function<void(Item&)> callback, int quantity)
 	:mItemId{item.first}
 	,mUniqueId{unique}
 	,mRarity{item.second}

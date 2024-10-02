@@ -15,13 +15,6 @@ public:
 	Inventory();
 
 	// Observer overrides
-	void									OnMouseMove(int x, int y) override;
-	void									OnKeyPress(sf::Keyboard::Key key) override;
-	void									OnKeyRelease(sf::Keyboard::Key key) override;
-	void									OnMouseClick(sf::Mouse::Button button) override;
-	void									OnMouseRelease(sf::Mouse::Button button) override;
-	void									SwapSlots(int a, int b);
-	size_t									GetFirstOpenIndex();
 	int										GetClickedDownIndex() const;
 	bool									IsItemSlotClicked() const;
 	ITEMID::ITEM							GetItemIdOfSlotClicked();
@@ -39,8 +32,6 @@ public:
 	void									AddGold(int quantity);
 	void									RemoveGold(int quantity);
 	int										GetGold();
-	bool									DoesItemAlreadyHaveASlot(Item& item);
-	size_t									GetSlotForExistingItem(Item& item);
 	bool									AvailabeSlot();
 
 	void									SortInventory();
@@ -50,7 +41,6 @@ public:
 	int										GetNumberOfUniqueItems();
 	bool									HasOneOfEverything();	// Returns true if win condition is met
 	void									DebugGetOneOfEverything();
-	void									InitializeItemFoundList();
 	std::map<std::pair<ITEMID::ITEM, ITEMRARITY::RARITY>, bool>& GetItemFoundList();
 
 
@@ -60,12 +50,22 @@ private:
 	sf::Vector2f							mLastMousePos;
 	bool									mMouseOver;
 	int										mMouseOverSlotIndex;
-	void									InitialzeSlotRects();
 	bool									mVisible = false;
 	int										mGold;
 	int										mClickedDownIndex;
 	int										mClickedReleaseIndex;
 	std::map<std::pair<ITEMID::ITEM, ITEMRARITY::RARITY>, bool>	mItemsFound;
 	bool									mItemsMissingDisplay;
-
+	//Private Functions
+	void									InitialzeSlotRects();
+	void									InitializeItemFoundList();
+	bool									DoesItemAlreadyHaveASlot(Item& item);
+	size_t									GetSlotForExistingItem(Item& item);
+	void									SwapSlots(int a, int b);
+	size_t									GetFirstOpenIndex();
+	void									OnMouseMove(int x, int y) override;
+	void									OnKeyPress(sf::Keyboard::Key key) override;
+	void									OnKeyRelease(sf::Keyboard::Key key) override;
+	void									OnMouseClick(sf::Mouse::Button button) override;
+	void									OnMouseRelease(sf::Mouse::Button button) override;
 };

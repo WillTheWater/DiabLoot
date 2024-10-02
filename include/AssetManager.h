@@ -12,24 +12,24 @@ class AssetManager
 public:
 	AssetManager();
 
-	sf::Texture&									GetTexture(TEXTURES::TEXTURE texture);
-	sf::Sprite&										GetSprite(SPRITES::SPRITE sprite);
-	sf::Image&										GetImage(IMAGES::IMAGE image);
-	sf::SoundBuffer&								GetSoundBuffer(SOUNDBUFFERS::SOUNDBUFFER soundbuffer);
-	sf::Sound&										GetSound(PLAYSOUND::PLAYSOUND sound);
-	sf::Music&										GetMusic(MUSIC::PLAYMUSIC music);
-	sf::Sprite&										GetLevelMap(LEVELS::LEVEL level);
-	sf::Text&										GetTextForItemID(ITEMID::ITEM item);
-	sf::Text&										GetTextForButtons(BUTTONS::BUTTON_TEXT text);
-	sf::Sprite&										GetSpriteForItem(ITEMID::ITEM item);
-	sf::Color										GetColorForItemText(std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> item);
-	sf::Color										GetTextboxColor() const;
-	sf::Sprite&										GetSpriteForButton(BUTTONS::BUTTON_TYPE button);
-	sf::Sprite&										GetSpriteForGoldQuantity(int quantity);
-	sf::Font& GetFont(FONTS::FONT font);
-	PLAYSOUND::PLAYSOUND							GetSoundForItem(std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> item);
-	int												GetCostForNextLevelUpgrade(LEVELS::UPGRADE levelUpgrade);
-	std::string&									GetRarityAsString(ITEMRARITY::RARITY rarity);
+	sf::Texture&									GetTexture(TEXTURES::TEXTURE texture) const;
+	const sf::Sprite&								GetSprite(SPRITES::SPRITE sprite) const;
+	const sf::Image&								GetImage(IMAGES::IMAGE image) const;
+	sf::SoundBuffer&								GetSoundBuffer(SOUNDBUFFERS::SOUNDBUFFER soundbuffer) const;
+	sf::Sound&										GetSound(PLAYSOUND::PLAYSOUND sound) const;
+	sf::Music&										GetMusic(MUSIC::PLAYMUSIC music) const;
+	const sf::Sprite&								GetLevelMap(LEVELS::LEVEL level) const;
+	const sf::Text&									GetTextForItemID(ITEMID::ITEM item) const;
+	const sf::Text&									GetTextForButtons(BUTTONS::BUTTON_TEXT text) const;
+	const sf::Sprite&								GetSpriteForItem(ITEMID::ITEM item) const;
+	const sf::Color									GetColorForItemText(std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> item) const;
+	const sf::Color									GetTextboxColor() const;
+	const sf::Sprite&								GetSpriteForButton(BUTTONS::BUTTON_TYPE button) const;
+	const sf::Sprite&								GetSpriteForGoldQuantity(int quantity) const;
+	const sf::Font&									GetFont(FONTS::FONT font) const;
+	const PLAYSOUND::PLAYSOUND						GetSoundForItem(std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> item) const;
+	const int										GetCostForNextLevelUpgrade(LEVELS::UPGRADE levelUpgrade) const;
+	const std::string&								GetRarityAsString(ITEMRARITY::RARITY rarity) const;
 
 private:
 	void																			InitializeTextureSprites();
@@ -45,7 +45,7 @@ private:
 	std::array<std::unique_ptr<sf::Music>, MUSIC::MAX_MUSIC_FILES>					mMusic;
 	std::array<std::unique_ptr<sf::Font>, FONTS::MAX_FONTS>							mFonts;
 	std::array<std::unique_ptr<sf::Text>, ITEMID::MAX_ITEMS>						mItemTexts;
-	sf::Color																		mTextboxColor;
+	const sf::Color																	mTextboxColor;
 	std::array<std::unique_ptr<sf::Text>, BUTTONS::MAX_BUTTONS>						mButtonTexts;
 	std::array<std::string, ITEMRARITY::MAX_RARITIES>								mRarityStrings;
 };
