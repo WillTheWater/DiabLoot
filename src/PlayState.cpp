@@ -52,7 +52,6 @@ void PlayState::Update()
 		auto newState = std::make_unique<WinState>(mSystem, mChangeStateCB, mLevel);
 		mChangeStateCB(std::move(newState));
 	}
-	
 }
 
 void PlayState::Draw()

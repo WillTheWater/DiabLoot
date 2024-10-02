@@ -231,10 +231,13 @@ sf::Sprite& RenderManager::AnimatedFire(ANIMATE::FIRE fireSize, const sf::Vector
 	// Define frame separation (2 pixel between frames)
 	const int frameSeparation = 2;
 
-	static float frameTimer = 0.0f;
-	const float frameDuration = .3f; // Adjust to control animation speed
-	static int currentFrame = 0;  // Keeps track of the current frame
-	const int maxFrames = 20;     // 20 frames per fire
+	//static float frameTimer = 0.0f;
+	//const float frameDuration = .3f; // Adjust to control animation speed
+	//static int currentFrame = 0;  // Keeps track of the current frame
+	//const int maxFrames = 20;     // 20 frames per fire
+
+	// ADDED THIS:
+	int currentFrame = mSystem.TimeMgr.getFireAnimFrame();
 
 	switch (fireSize)
 	{
@@ -265,17 +268,19 @@ sf::Sprite& RenderManager::AnimatedFire(ANIMATE::FIRE fireSize, const sf::Vector
 	fireSprite.setPosition(position);
 	fireSprite.setScale(sf::Vector2f{ scale, scale });
 
-	frameTimer += dT;
+	/*frameTimer += dT;
 	if (frameTimer >= frameDuration)
 	{
 		currentFrame = (currentFrame + 1) % maxFrames;
 		frameTimer = 0.0f;
-	}
+	}*/
+
 	return fireSprite;
 }
 
 void RenderManager::FireRenderer(LEVELS::LEVEL level)
 {
+	mSystem.TimeMgr.updateFireFrame();
 	switch (level)
 	{
 	case LEVELS::LEVEL_ONE:
@@ -735,6 +740,7 @@ void RenderManager::FireWorksRender()
 		particleSprite.setColor(color);
 		float particleScale = fireWork->GetProgress() * 0.5;
 		particleSprite.setScale(particleScale, particleScale);
+		particleSprite.setRotation(fireWork->GetProgress() * 3600);
 
 		sf::Sprite glowSprite = mSystem.AssetMgr.GetSprite(SPRITES::GLOW);
 		glowSprite.setOrigin(glowSprite.getTextureRect().getSize().x / 2.f, glowSprite.getTextureRect().getSize().y / 2.f);
@@ -755,6 +761,7 @@ void RenderManager::FireWorksRender()
 		particleSprite.setColor(color);
 		float particleScale = 0.3  - (spark->GetProgress() * 0.3);
 		particleSprite.setScale(particleScale, particleScale);
+		particleSprite.setRotation(spark->GetProgress() * 3600);
 
 		sf::Sprite glowSprite = mSystem.AssetMgr.GetSprite(SPRITES::GLOW);
 		glowSprite.setOrigin(glowSprite.getTextureRect().getSize().x / 2.f, glowSprite.getTextureRect().getSize().y / 2.f);
