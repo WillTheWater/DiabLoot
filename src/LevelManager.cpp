@@ -90,6 +90,22 @@ LevelManager::LevelManager(System& system)
 
 	// Set Rain
 	mLevels[LEVELS::LEVEL_ONE]->SetRain(true);
+	mLevels[LEVELS::LEVEL_SEVEN]->SetRain(true);
+	
+	// Set Fire
+	mLevels[LEVELS::LEVEL_ONE]->SetFire(true);
+	mLevels[LEVELS::LEVEL_TWO]->SetFire(true);
+	mLevels[LEVELS::LEVEL_THREE]->SetFire(true);
+	mLevels[LEVELS::LEVEL_FOUR]->SetFire(true);
+	mLevels[LEVELS::LEVEL_FIVE]->SetFire(true);
+	mLevels[LEVELS::LEVEL_SIX]->SetFire(true);
+	mLevels[LEVELS::LEVEL_SEVEN]->SetFire(true);
+	mLevels[LEVELS::LEVEL_EIGHT]->SetFire(true);
+
+	mLevels[LEVELS::LEVEL_TEN]->SetFire(true);
+	mLevels[LEVELS::LEVEL_ELEVEN]->SetFire(true);
+	mLevels[LEVELS::LEVEL_TWELVE]->SetFire(true);
+	mLevels[LEVELS::LEVEL_THIRTEEN]->SetFire(true);
 
 }
 
