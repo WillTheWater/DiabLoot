@@ -169,6 +169,7 @@ void Level::RemoveOldItems()
 			if (it->get()->GetUniqueId() == i)
 			{
 				success = true;
+				mSystem.InputMgr.RemoveObserver(it->get());
 			}
 			if (success)
 			{
@@ -248,7 +249,6 @@ void Level::PickUpItem(Item& item)
 				}
 			}
 			SetItemForRemoval(*it->get());
-			mSystem.InputMgr.RemoveObserver(it->get());
 			success = true;
 		}
 	}
