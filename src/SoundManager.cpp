@@ -23,6 +23,12 @@ void SoundManager::PlayASound(PLAYSOUND::PLAYSOUND sound, float volume, float pi
     soundToPlay.play();
 }
 
+void SoundManager::StopPlayingSound(PLAYSOUND::PLAYSOUND sound)
+{
+    auto& soundToStop = mAssetMgr->GetSound(sound);
+    soundToStop.stop();
+}
+
 void SoundManager::PlayMusic(MUSIC::PLAYMUSIC music, float volume, bool loop)
 {
     if (music == mCurrentlyPlaying && mAssetMgr->GetMusic(mCurrentlyPlaying).getStatus() == sf::SoundSource::Playing)

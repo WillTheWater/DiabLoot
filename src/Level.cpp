@@ -25,6 +25,10 @@ LEVELS::LEVEL Level::GetLevelId() const
 void Level::EnterLevel()
 {
 	ActivateChests();
+	if (mRain)
+	{
+		SoundManager::GetInstance().PlayASound(PLAYSOUND::RAIN, 10.f, 1.f, true);
+	}
 }
 
 void Level::ExitLevel()
@@ -34,6 +38,10 @@ void Level::ExitLevel()
 	DeactiveChests();
 	mItems.clear();
 	mParticles.clear();
+	if (mRain)
+	{
+		SoundManager::GetInstance().StopPlayingSound(PLAYSOUND::RAIN);
+	}
 }
 
 std::list<std::unique_ptr<Item>>& Level::GetItems()
