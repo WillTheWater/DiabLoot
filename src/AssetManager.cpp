@@ -440,6 +440,7 @@ void AssetManager::InitializeSounds()
     mSoundBuffers[SOUNDBUFFERS::SCROLL_DROP_SB]->loadFromFile   ("assets/audio/SFX/scrolldrop.wav");
     mSoundBuffers[SOUNDBUFFERS::FIRE_SB]->loadFromFile          ("assets/audio/ambient/fire.wav");
     mSoundBuffers[SOUNDBUFFERS::TOWN_SB]->loadFromFile          ("assets/audio/ambient/town3night.wav");
+    mSoundBuffers[SOUNDBUFFERS::RAIN_SB]->loadFromFile          ("assets/audio/ambient/rain2.wav");
 
     // Set Sound
     mSounds[PLAYSOUND::BUTTON_DOWN]->setBuffer  (GetSoundBuffer(SOUNDBUFFERS::BUTTON_DOWN_SB));
@@ -458,6 +459,7 @@ void AssetManager::InitializeSounds()
     mSounds[PLAYSOUND::SCROLL_DROP]->setBuffer  (GetSoundBuffer(SOUNDBUFFERS::SCROLL_DROP_SB));
     mSounds[PLAYSOUND::FIRE]->setBuffer         (GetSoundBuffer(SOUNDBUFFERS::FIRE_SB));
     mSounds[PLAYSOUND::TOWN]->setBuffer         (GetSoundBuffer(SOUNDBUFFERS::TOWN_SB));
+    mSounds[PLAYSOUND::RAIN]->setBuffer         (GetSoundBuffer(SOUNDBUFFERS::RAIN_SB));
 
 
 }

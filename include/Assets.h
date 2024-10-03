@@ -295,6 +295,7 @@ namespace SOUNDBUFFERS
 		SCROLL_DROP_SB,
 		FIRE_SB,
 		TOWN_SB,
+		RAIN_SB,
 		MAX_SOUNDSBUFFERS
 	};
 }
@@ -319,6 +320,7 @@ namespace PLAYSOUND
 		SCROLL_DROP,
 		FIRE,
 		TOWN,
+		RAIN,
 		MAX_SOUNDS
 	};
 }
