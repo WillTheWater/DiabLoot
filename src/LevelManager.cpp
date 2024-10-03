@@ -108,7 +108,8 @@ LevelManager::LevelManager(System& system)
 	mLevels[LEVELS::LEVEL_THIRTEEN]->SetFire(true);
 
 	// Set which levels have a merchant
-	mLevels[LEVELS::LEVEL_ONE]->SetMerchant(true);
+	mLevels[LEVELS::LEVEL_ONE]->SetHasMerchant(true);
+	mLevels[LEVELS::LEVEL_ONE]->CreateMerchant();
 
 }
 

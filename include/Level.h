@@ -14,6 +14,7 @@
 #include <utility>
 #include <algorithm>
 #include <list>
+#include "Merchant.h"
 
 class System;
 
@@ -48,7 +49,11 @@ public:
 	void											SetFire(bool fire);
 	bool											HasRain();
 	bool											ThunderStrike();
-	void											SetMerchant(bool merchant);
+	void											SetHasMerchant(bool merchant);
+	void											CreateMerchant();
+	bool											HasMerchant();
+	Merchant&										GetMerchant();
+	void											ActivateMerchant();
 
 private:
 	LEVELS::LEVEL							mLevelID;
@@ -63,7 +68,8 @@ private:
 	bool									mRain;
 	bool									mThunder;
 	bool									mFire;
-	bool									mMerchant;
+	bool									mHasMerchant;
+	std::unique_ptr<Merchant>				mMerchant;
 	// Private Functions
 	void									RemoveOldParticles();
 	void									RemoveOldItems();

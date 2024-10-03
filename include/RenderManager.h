@@ -27,6 +27,9 @@ public:
 	void										FireRenderer(LEVELS::LEVEL level);
 	void										RainRender();
 	void										ScreenFlash();
+	void										MerchantRender(Level& level);
+	sf::Sprite									GetGheedIdleFrame(Merchant& merchant);
+	sf::Sprite									GetGheedWalkFrame(Merchant& merchant);
 	sf::Sprite&									GheedAnimation(const sf::Vector2f& position);
 
 
