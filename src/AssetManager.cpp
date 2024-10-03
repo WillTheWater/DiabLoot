@@ -60,6 +60,8 @@ void AssetManager::InitializeTextureSprites()
     mTextures[TEXTURES::INVENTORY]->loadFromFile            ("assets/graphics/inventory.png");
     // FIRE
     mTextures[TEXTURES::FIRE]->loadFromFile                 ("assets/graphics/animated/fire.png");
+    // GHEED
+    mTextures[TEXTURES::GHEED]->loadFromFile                ("assets/graphics/animated/gheed.png");
     // ITEMS
     mTextures[TEXTURES::KEY]->loadFromFile                  ("assets/graphics/items/key.png");
     mTextures[TEXTURES::AMULET1]->loadFromFile              ("assets/graphics/items/amulet1.png");
@@ -179,6 +181,8 @@ void AssetManager::InitializeTextureSprites()
     mSprites[SPRITES::INVENTORY]->setTexture                (GetTexture(TEXTURES::INVENTORY));
     // FIRE
     mSprites[SPRITES::FIRE]->setTexture                     (GetTexture(TEXTURES::FIRE));
+    // GHEED
+    mSprites[SPRITES::GHEED]->setTexture                    (GetTexture(TEXTURES::GHEED));
     // CHESTS
     mSprites[SPRITES::CHESTCLOSED]->setTexture              (GetTexture(TEXTURES::CHESTCLOSED));
     mSprites[SPRITES::CHESTOPENED]->setTexture              (GetTexture(TEXTURES::CHESTOPENED));

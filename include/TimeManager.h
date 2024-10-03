@@ -12,6 +12,7 @@ public:
 	bool								IsSpeedrun() { return mSpeedRun; }
 	float								GetSpeedRunTime() { return mSpeedRunTime; }
 	int									GetFireAnimFrame() { return mFireAnimFrame; }
+	int									GetGheedAnimFrame() { return mGheedAnimFrame; }
 	int									GetFPS() { return (int)(1.f / mDeltaTime); }
 	void								PrintTimeStats() { std::cout << "FPS: " << GetFPS() << " DeltaTime: " << GetDeltaTime() << '\n'; }
 	void LockSpeedRunTime() 
@@ -31,6 +32,17 @@ public:
 			mFireFrameTimer = 0.0f;
 		}
 	}
+
+	void UpdateGheedAnimFrame()
+	{
+		mGheedTimer += mDeltaTime;
+		if (mGheedTimer >= mGheedFrameDuration)
+		{
+			mGheedAnimFrame = (mGheedAnimFrame + 1) % mGheedAnimMaxFrames;
+			mGheedTimer = 0.0f;
+		}
+	}
+
 	void UpdateRainProgress() 
 	{ 
 		mRainProgressFG.first += ((mRainIncrementFG / 3.f) * mDeltaTime); 
@@ -81,6 +93,11 @@ private:
 	float								mFireFrameDuration = 0.03f;
 	int									mFireAnimFrame = 0;
 	int									mFireAnimMaxFrames = 20;
+	// Gheed Animation
+	float								mGheedTimer = 0.f;
+	float								mGheedFrameDuration = 0.1f;
+	int									mGheedAnimFrame = 0;
+	int									mGheedAnimMaxFrames = 8;
 	// Rain Animation
 	std::pair<float, float>				mRainProgressFG = { 0.f, 0.f };
 	std::pair<float, float>				mRainProgressBG = { 0.f, 0.f };

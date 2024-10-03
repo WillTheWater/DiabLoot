@@ -232,9 +232,7 @@ void RenderManager::SpeedRunTimeRender()
 
 sf::Sprite& RenderManager::AnimatedFire(ANIMATE::FIRE fireSize, const sf::Vector2f& position, const float scale)
 {
-	float dT = mSystem.TimeMgr.GetDeltaTime();
 	static sf::Sprite fireSprite = mSystem.AssetMgr.GetSprite(SPRITES::FIRE);
-	auto& fireTexture = mSystem.AssetMgr.GetTexture(TEXTURES::FIRE);
 
 	int frameWidth = 0;
 	int frameHeight = 0;
@@ -278,6 +276,7 @@ sf::Sprite& RenderManager::AnimatedFire(ANIMATE::FIRE fireSize, const sf::Vector
 void RenderManager::FireRenderer(LEVELS::LEVEL level)
 {
 	mSystem.TimeMgr.UpdateFireFrame();
+	mSystem.TimeMgr.UpdateGheedAnimFrame();
 	switch (level)
 	{
 	case LEVELS::LEVEL_ONE:
@@ -289,6 +288,7 @@ void RenderManager::FireRenderer(LEVELS::LEVEL level)
 		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 791.f, 904.f }, 0.5f));
 		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 1431.f, 602.f }, 0.5f));
 		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 1592.f, 298.f }, 0.5f));
+		Draw(GheedAnimation(sf::Vector2f{ 500.f,300.f }));
 		return;
 	case LEVELS::LEVEL_TWO:
 		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 88.f, 58.f }, 0.5f));
@@ -418,6 +418,42 @@ void RenderManager::FireRenderer(LEVELS::LEVEL level)
 	default:
 		return;
 	}
+}
+
+sf::Sprite& RenderManager::GheedAnimation(const sf::Vector2f& position)
+{
+	static sf::Sprite gheedSprite = mSystem.AssetMgr.GetSprite(SPRITES::GHEED);  // Assuming you have a sprite for Gheed.
+	gheedSprite.setScale(sf::Vector2f{ 1.4f,1.4f });
+	// Idle frames
+	const int frameWidth = 29 - 0;
+	const int frameHeight = 556 - 488;
+	// Walkingframes
+	//const int frameWidth = 278 - 239;
+	//const int frameHeight = 563 - 495;
+
+	const int totalFrames = 8;
+
+	// Get the current animation frame from TimeManager
+	int currentFrame = mSystem.TimeMgr.GetGheedAnimFrame();  // You'll need to implement this similar to fire animation frame update.
+	// Idle start
+	int startX = currentFrame * frameWidth;
+	int startY = 488;
+
+	// Walking
+	//int startX = 239 + (currentFrame * frameWidth);
+	//int startY = 495;
+
+	// Set texture rectangle for the current frame
+	sf::IntRect frameRect(startX, startY, frameWidth, frameHeight);
+	gheedSprite.setTextureRect(frameRect);
+
+	// Set origin to the center for positioning
+	gheedSprite.setOrigin(frameWidth / 2.0f, frameHeight);
+
+	// Set the position and return the sprite
+	gheedSprite.setPosition(position);
+
+	return gheedSprite;
 }
 
 void RenderManager::RainRender()
