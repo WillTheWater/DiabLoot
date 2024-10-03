@@ -10,6 +10,7 @@ Level::Level(LEVELS::LEVEL id, System& system)
 	,mParticlesToRemove{}
 	,mRain{false}
 	,mThunder{false}
+	,mFire{false}
 {
 }
 
@@ -30,6 +31,10 @@ void Level::EnterLevel()
 	{
 		SoundManager::GetInstance().PlayASound(PLAYSOUND::RAIN, 20.f, 1.f, true);
 	}
+	if (mFire)
+	{
+		SoundManager::GetInstance().PlayASound(PLAYSOUND::FIRE, 15.f, 1.f, true);
+	}
 }
 
 void Level::ExitLevel()
@@ -44,6 +49,10 @@ void Level::ExitLevel()
 		SoundManager::GetInstance().StopPlayingSound(PLAYSOUND::RAIN);
 		SoundManager::GetInstance().StopThunder();
 		mThunder = false;
+	}
+	if (mFire)
+	{
+		SoundManager::GetInstance().StopPlayingSound(PLAYSOUND::FIRE);
 	}
 }
 
@@ -297,6 +306,11 @@ void Level::SortItemsByVerticalSpace()
 			return a->GetPosition().y > b->GetPosition().y;
 		};
 	mItems.sort(sortingLambda);
+}
+
+void Level::SetFire(bool fire)
+{
+	mFire = fire;
 }
 
 

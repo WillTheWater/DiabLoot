@@ -44,6 +44,7 @@ public:
 	void									DeactiveChests();
 	void									ResetLevelUpgrades();
 	void									SetRain(bool rain);
+	void									SetFire(bool fire);
 	bool									HasRain();
 	bool									ThunderStrike();
 
@@ -59,6 +60,7 @@ private:
 	std::vector<int>						mItemsToRemove;
 	bool									mRain;
 	bool									mThunder;
+	bool									mFire;
 	// Private Functions
 	void									RemoveOldParticles();
 	void									RemoveOldItems();

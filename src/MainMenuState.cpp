@@ -39,6 +39,8 @@ void MainMenuState::Exit()
 {
 	mSystem.InputMgr.RemoveObserver(this);
 	SoundManager::GetInstance().StopMusic(MUSIC::INTRO);
+	SoundManager::GetInstance().StopPlayingSound(PLAYSOUND::FIRE);
+	SoundManager::GetInstance().StopPlayingSound(PLAYSOUND::TOWN);
 	SoundManager::GetInstance().StartMusicSequence();
 }
 
