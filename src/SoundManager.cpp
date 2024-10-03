@@ -29,6 +29,14 @@ void SoundManager::StopPlayingSound(PLAYSOUND::PLAYSOUND sound)
     soundToStop.stop();
 }
 
+void SoundManager::ForceStopAllSounds()
+{
+    for (int i{ 0 }; i < PLAYSOUND::MAX_SOUNDS; i++)
+    {
+        StopPlayingSound(static_cast<PLAYSOUND::PLAYSOUND>(i));
+    }
+}
+
 void SoundManager::PlayMusic(MUSIC::PLAYMUSIC music, float volume, bool loop)
 {
     if (music == mCurrentlyPlaying && mAssetMgr->GetMusic(mCurrentlyPlaying).getStatus() == sf::SoundSource::Playing)
