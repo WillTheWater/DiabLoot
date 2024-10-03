@@ -54,11 +54,6 @@ float Merchant::GetIdleAnimProgress()
 	return mIdleAnimProgress;
 }
 
-float Merchant::GetWalkAnimProgress()
-{
-	return mWalkAnimProgress;
-}
-
 bool Merchant::IsDialogueOpen()
 {
 	return mDialogueOpen;
@@ -86,7 +81,7 @@ void Merchant::UpdateItemToSell()
 
 int Merchant::CalculcateMissingItemCost()
 {
-	
+	return 0;
 }
 
 void Merchant::IncremenentWalkAnimation()
