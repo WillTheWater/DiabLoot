@@ -26,6 +26,7 @@ public:
 	sf::Sprite&									AnimatedFire(ANIMATE::FIRE fireSize, const sf::Vector2f& position, const float scale = 1.f);
 	void										FireRenderer(LEVELS::LEVEL level);
 	void										RainRender();
+	void										ScreenFlash();
 
 
 

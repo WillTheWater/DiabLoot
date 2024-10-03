@@ -9,6 +9,7 @@ Level::Level(LEVELS::LEVEL id, System& system)
 	,mChests{ nullptr, nullptr, nullptr, nullptr}
 	,mParticlesToRemove{}
 	,mRain{false}
+	,mThunder{false}
 {
 }
 
@@ -27,7 +28,7 @@ void Level::EnterLevel()
 	ActivateChests();
 	if (mRain)
 	{
-		SoundManager::GetInstance().PlayASound(PLAYSOUND::RAIN, 10.f, 1.f, true);
+		SoundManager::GetInstance().PlayASound(PLAYSOUND::RAIN, 20.f, 1.f, true);
 	}
 }
 
@@ -41,6 +42,8 @@ void Level::ExitLevel()
 	if (mRain)
 	{
 		SoundManager::GetInstance().StopPlayingSound(PLAYSOUND::RAIN);
+		SoundManager::GetInstance().StopThunder();
+		mThunder = false;
 	}
 }
 
@@ -65,6 +68,10 @@ void Level::UpdateLevel()
 	RemoveOldItems();
 	UpdateParticles();
 	UpdateItems();
+	if (mRain)
+	{
+		RandomThunder();
+	}
 }
 
 void Level::UpdateItems()
@@ -316,6 +323,11 @@ void Level::StackItemlabels()
 	}
 }
 
+bool Level::ThunderStrike()
+{
+	return mThunder;
+}
+
 void Level::RemoveAllChestObservers()
 {
 	for (auto& chest : mChests)
@@ -329,6 +341,28 @@ void Level::RemoveAllItemObsevers()
 	for (auto& item : mItems)
 	{
 		mSystem.InputMgr.RemoveObserver(item.get());
+	}
+}
+
+void Level::RandomThunder()
+{
+	if (mSystem.TimeMgr.GetThunderProgress() == 0.f)
+	{
+		int randomNumber = MathU::Random(1, 1000);
+		if (randomNumber == 1000)
+		{
+			mThunder = true;
+			mSystem.TimeMgr.UpdateThunderProgress();
+		}
+	}
+	else
+	{
+		mSystem.TimeMgr.UpdateThunderProgress();
+		if (mSystem.TimeMgr.GetThunderProgress() == 0.f)
+		{
+			SoundManager::GetInstance().PlayThunder();
+			mThunder = false;
+		}
 	}
 }
 

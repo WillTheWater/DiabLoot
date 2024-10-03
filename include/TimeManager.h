@@ -54,8 +54,20 @@ public:
 			mRainProgressBG.second = (mRainProgressBG.second - 1.0f);
 		}
 	}
-	const std::pair<float, float> GetRainProgressFG() { return mRainProgressFG; }
-	const std::pair<float, float> GetRainProgressBG() { return mRainProgressBG; }
+
+	void UpdateThunderProgress()
+	{
+		mThunderProgress += mThunderIncrement * mDeltaTime;
+		if (mThunderProgress > 1.0)
+		{
+			mThunderProgress = 0.f;
+		}
+	}
+
+	const std::pair<float, float>	GetRainProgressFG()		{ return mRainProgressFG; }
+	const std::pair<float, float>	GetRainProgressBG()		{ return mRainProgressBG; }
+
+	const float						GetThunderProgress()	{ return mThunderProgress; }
 
 private:
 	sf::Clock							mClock;
@@ -74,4 +86,6 @@ private:
 	std::pair<float, float>				mRainProgressBG = { 0.f, 0.f };
 	float								mRainIncrementFG = 0.3f;
 	float								mRainIncrementBG = 0.5f;
+	float								mThunderProgress = 0.f;
+	float								mThunderIncrement = 2.5f;
 };

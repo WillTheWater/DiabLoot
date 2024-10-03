@@ -70,6 +70,19 @@ void SoundManager::StopMusic(MUSIC::PLAYMUSIC music)
 	mCurrentlyPlaying = MUSIC::MAX_MUSIC_FILES;
 }
 
+void SoundManager::PlayThunder()
+{
+    PLAYSOUND::PLAYSOUND randomThunder = (PLAYSOUND::PLAYSOUND)MathU::Random((int)PLAYSOUND::THUNDER_1, (int)PLAYSOUND::THUNDER_3);
+    PlayASound(randomThunder, 40.f, 1.0f, false);
+}
+
+void SoundManager::StopThunder()
+{
+    StopPlayingSound(PLAYSOUND::THUNDER_1);
+    StopPlayingSound(PLAYSOUND::THUNDER_2);
+    StopPlayingSound(PLAYSOUND::THUNDER_3);
+}
+
 AUDIO_MUTE::AUDIOSTATE SoundManager::GetAudioState() const
 {
     return mAudioState;

@@ -20,6 +20,8 @@ public:
 	void											ForceStopAllSounds();
 	void											PlayMusic(MUSIC::PLAYMUSIC music, float volume = 100.f, bool loop = true);
 	void											StopMusic(MUSIC::PLAYMUSIC music);
+	void											PlayThunder();
+	void											StopThunder();
 	AUDIO_MUTE::AUDIOSTATE							GetAudioState() const;
 
 	void											AudioControl();

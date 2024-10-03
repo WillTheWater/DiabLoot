@@ -483,6 +483,19 @@ void RenderManager::RainRender()
 	Draw(rainFG);
 }
 
+void RenderManager::ScreenFlash()
+{
+	sf::RectangleShape flash{ {(float)mGameWindow.getSize().x, (float)mGameWindow.getSize().y} };
+	float thunderProgress = mSystem.TimeMgr.GetThunderProgress();
+	if (thunderProgress > 0.5)
+	{
+		thunderProgress = 0.5f - (thunderProgress - 0.5f);
+	}
+	thunderProgress *= 2;
+	flash.setFillColor({ 255, 255, 255, (sf::Uint8)(120 * thunderProgress)});
+	Draw(flash);
+}
+
 
 
 
@@ -496,6 +509,10 @@ void RenderManager::LevelRender(Level& level)
 	if (level.HasRain())
 	{
 		RainRender();
+		if (level.ThunderStrike())
+		{
+			ScreenFlash();
+		}
 	}
 }
 

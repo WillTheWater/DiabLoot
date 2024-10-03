@@ -45,6 +45,7 @@ public:
 	void									ResetLevelUpgrades();
 	void									SetRain(bool rain);
 	bool									HasRain();
+	bool									ThunderStrike();
 
 private:
 	LEVELS::LEVEL							mLevelID;
@@ -57,6 +58,7 @@ private:
 	std::vector<int>						mParticlesToRemove;
 	std::vector<int>						mItemsToRemove;
 	bool									mRain;
+	bool									mThunder;
 	// Private Functions
 	void									RemoveOldParticles();
 	void									RemoveOldItems();
@@ -69,4 +71,5 @@ private:
 	void									StackItemlabels();
 	void									RemoveAllChestObservers();
 	void									RemoveAllItemObsevers();
+	void									RandomThunder();
 };
