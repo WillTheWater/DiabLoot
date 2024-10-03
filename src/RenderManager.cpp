@@ -436,7 +436,7 @@ void RenderManager::RainRender()
 	
 	//Modulate rain color/opacity
 	rainBG.setColor({ 255,255,255,80 });
-	rainFG.setColor({ 255,255,255,100 });
+	rainFG.setColor({ 255,255,255,60 });
 
 	// Offset rain by rainprogress
 	sf::Vector2f offsetBG{ -(windowX * rainProgressBG.first), windowY * rainProgressBG.second };
