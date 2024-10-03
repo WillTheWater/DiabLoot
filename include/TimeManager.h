@@ -31,6 +31,31 @@ public:
 			mFireFrameTimer = 0.0f;
 		}
 	}
+	void UpdateRainProgress() 
+	{ 
+		mRainProgressFG.first += ((mRainIncrementFG / 3.f) * mDeltaTime); 
+		mRainProgressFG.second += (mRainIncrementFG * mDeltaTime); 
+		mRainProgressBG.first += ((mRainIncrementBG / 3.5f) * mDeltaTime);
+		mRainProgressBG.second += ((mRainIncrementBG / 1.2f) * mDeltaTime);
+		if (mRainProgressFG.first > 1.0) 
+		{ 
+			mRainProgressFG.first = (mRainProgressFG.first - 1.0f); 
+		} 
+		if (mRainProgressFG.second > 1.0)
+		{
+			mRainProgressFG.second = (mRainProgressFG.second - 1.0f);
+		}
+		if (mRainProgressBG.first > 1.0)
+		{
+			mRainProgressBG.first = (mRainProgressBG.first - 1.0f);
+		}
+		if (mRainProgressBG.second > 1.0)
+		{
+			mRainProgressBG.second = (mRainProgressBG.second - 1.0f);
+		}
+	}
+	const std::pair<float, float> GetRainProgressFG() { return mRainProgressFG; }
+	const std::pair<float, float> GetRainProgressBG() { return mRainProgressBG; }
 
 private:
 	sf::Clock							mClock;
@@ -44,4 +69,9 @@ private:
 	float								mFireFrameDuration = 0.03f;
 	int									mFireAnimFrame = 0;
 	int									mFireAnimMaxFrames = 20;
+	// Rain Animation
+	std::pair<float, float>				mRainProgressFG = { 0.f, 0.f };
+	std::pair<float, float>				mRainProgressBG = { 0.f, 0.f };
+	float								mRainIncrementFG = 0.3f;
+	float								mRainIncrementBG = 0.5f;
 };

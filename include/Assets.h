@@ -113,6 +113,8 @@ namespace TEXTURES
 		ZODRUNE,
 		PARTICLE,
 		GLOW,
+		RAIN_FG,
+		RAIN_BG,
 		MAX_TEXTURES
 	};
 }
@@ -230,6 +232,8 @@ namespace SPRITES
 		ZODRUNE,
 		PARTICLE,
 		GLOW,
+		RAIN_FG,
+		RAIN_BG,
 		MAX_SPRITES
 	};
 
