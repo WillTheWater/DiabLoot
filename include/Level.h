@@ -24,29 +24,31 @@ public:
 	Level(LEVELS::LEVEL id, System& system);
 	~Level();
 
-	std::array<std::unique_ptr<Chest>, 4>&	GetChests();
-	std::list<std::unique_ptr<Particle>>&	GetParticles();
-	std::list<std::unique_ptr<Item>>&		GetItems();
-	LEVELS::LEVEL							GetLevelId() const;
-	void									EnterLevel();
-	void									ExitLevel();
-	void									UpdateLevel();
-	void									UpdateParticles();
-	void									UpdateItems();
-	int										GetUniqueParticleId();
-	void									SpawnChest(sf::Vector2f pos, bool mirrored, LEVELS::UPGRADE chest);
-	void									SpawnParticles(Chest& chest);
-	void									CreateBounceParticle(Item& item);
-	void									UpgradeLevel();
-	LEVELS::UPGRADE							GetUpgradeLevel();
-	void									SetUpgradeLevel(LEVELS::UPGRADE upgrade); // Only used for loading
-	void									ActivateChests(); //Turns on the relevant chests for upgrade level and also adds them as observers;
-	void									DeactiveChests();
-	void									ResetLevelUpgrades();
-	void									SetRain(bool rain);
-	void									SetFire(bool fire);
-	bool									HasRain();
-	bool									ThunderStrike();
+	std::array<std::unique_ptr<Chest>, 4>&			GetChests();
+	std::list<std::unique_ptr<Particle>>&			GetParticles();
+	std::list<std::unique_ptr<Item>>&				GetItems();
+	LEVELS::LEVEL									GetLevelId() const;
+	void											EnterLevel();
+	void											ExitLevel();
+	void											UpdateLevel();
+	void											UpdateParticles();
+	void											UpdateItems();
+	int												GetUniqueParticleId();
+	void											SpawnChest(sf::Vector2f pos, bool mirrored, LEVELS::UPGRADE chest);
+	void											SpawnParticles(Chest& chest);
+	void											SpawnSingleParticle(sf::Vector2f pos, std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> itemId);
+	void											CreateBounceParticle(Item& item);
+	void											UpgradeLevel();
+	LEVELS::UPGRADE									GetUpgradeLevel();
+	void											SetUpgradeLevel(LEVELS::UPGRADE upgrade); // Only used for loading
+	void											ActivateChests(); //Turns on the relevant chests for upgrade level and also adds them as observers;
+	void											DeactiveChests();
+	void											ResetLevelUpgrades();
+	void											SetRain(bool rain);
+	void											SetFire(bool fire);
+	bool											HasRain();
+	bool											ThunderStrike();
+	void											SetMerchant(bool merchant);
 
 private:
 	LEVELS::LEVEL							mLevelID;
@@ -61,6 +63,7 @@ private:
 	bool									mRain;
 	bool									mThunder;
 	bool									mFire;
+	bool									mMerchant;
 	// Private Functions
 	void									RemoveOldParticles();
 	void									RemoveOldItems();

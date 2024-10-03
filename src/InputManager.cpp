@@ -12,9 +12,7 @@ void InputManager::AddObserver(InputObserver* observer)
 	{
 		return;
 	}
-
 	mObservers.push_back(observer);
-	
 }
 
 void InputManager::RemoveObserver(InputObserver* observer)
