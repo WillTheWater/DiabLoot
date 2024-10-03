@@ -390,9 +390,6 @@ void Level::RandomThunder()
 			mSystem.TimeMgr.UpdateThunderProgress();
 		}
 	}
-	void Level::RandomThunder()
-	{
-	}
 	else
 	{
 		mSystem.TimeMgr.UpdateThunderProgress();
