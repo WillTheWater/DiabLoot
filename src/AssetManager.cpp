@@ -448,6 +448,12 @@ void AssetManager::InitializeSounds()
     mSoundBuffers[SOUNDBUFFERS::THUNDER_1_SB]->loadFromFile     ("assets/audio/ambient/thunder_norm_1.wav");
     mSoundBuffers[SOUNDBUFFERS::THUNDER_2_SB]->loadFromFile     ("assets/audio/ambient/thunder_norm_2.wav");
     mSoundBuffers[SOUNDBUFFERS::THUNDER_3_SB]->loadFromFile     ("assets/audio/ambient/thunder_norm_5.wav");
+    mSoundBuffers[SOUNDBUFFERS::FAREWELL_SB]->loadFromFile      ("assets/audio/SFX/gheed/farewell.wav");
+    mSoundBuffers[SOUNDBUFFERS::GOODTOSEEYOU_SB]->loadFromFile  ("assets/audio/SFX/gheed/goodtoseeyou.wav");
+    mSoundBuffers[SOUNDBUFFERS::HAPPY_SB]->loadFromFile         ("assets/audio/SFX/gheed/happy.wav");
+    mSoundBuffers[SOUNDBUFFERS::INSULT_SB]->loadFromFile        ("assets/audio/SFX/gheed/insult.wav");
+    mSoundBuffers[SOUNDBUFFERS::INTRO_SB]->loadFromFile         ("assets/audio/SFX/gheed/intro.wav");
+    mSoundBuffers[SOUNDBUFFERS::LAUGH_SB]->loadFromFile         ("assets/audio/SFX/gheed/laugh.wav");
 
     // Set Sound
     mSounds[PLAYSOUND::BUTTON_DOWN]->setBuffer  (GetSoundBuffer(SOUNDBUFFERS::BUTTON_DOWN_SB));
@@ -470,6 +476,12 @@ void AssetManager::InitializeSounds()
     mSounds[PLAYSOUND::THUNDER_1]->setBuffer    (GetSoundBuffer(SOUNDBUFFERS::THUNDER_1_SB));
     mSounds[PLAYSOUND::THUNDER_2]->setBuffer    (GetSoundBuffer(SOUNDBUFFERS::THUNDER_2_SB));
     mSounds[PLAYSOUND::THUNDER_3]->setBuffer    (GetSoundBuffer(SOUNDBUFFERS::THUNDER_3_SB));
+    mSounds[PLAYSOUND::FAREWELL]->setBuffer     (GetSoundBuffer(SOUNDBUFFERS::FAREWELL_SB));
+    mSounds[PLAYSOUND::GOODTOSEEYOU]->setBuffer (GetSoundBuffer(SOUNDBUFFERS::GOODTOSEEYOU_SB));
+    mSounds[PLAYSOUND::HAPPY]->setBuffer        (GetSoundBuffer(SOUNDBUFFERS::HAPPY_SB));
+    mSounds[PLAYSOUND::INSULT]->setBuffer       (GetSoundBuffer(SOUNDBUFFERS::INSULT_SB));
+    mSounds[PLAYSOUND::INTRO]->setBuffer        (GetSoundBuffer(SOUNDBUFFERS::INTRO_SB));
+    mSounds[PLAYSOUND::LAUGH]->setBuffer        (GetSoundBuffer(SOUNDBUFFERS::LAUGH_SB));
 
 
 }
