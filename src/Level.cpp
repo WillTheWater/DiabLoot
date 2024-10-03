@@ -11,7 +11,8 @@ Level::Level(LEVELS::LEVEL id, System& system)
 	,mRain{false}
 	,mThunder{false}
 	,mFire{false}
-	,mMerchant{false}
+	,mHasMerchant{false}
+	,mMerchant{nullptr}
 {
 }
 
@@ -83,6 +84,19 @@ void Level::UpdateLevel()
 	{
 		RandomThunder();
 	}
+
+	if (mHasMerchant)
+	{
+		if (!mMerchant->IsVisible())
+		{
+			mMerchant->SetVisiblility(true);
+		}
+		else
+		{
+			mMerchant->UpdateMerchant();
+		}
+	}
+
 }
 
 void Level::UpdateItems()
@@ -374,9 +388,29 @@ void Level::RemoveAllItemObsevers()
 	}
 }
 
-void Level::SetMerchant(bool merchant)
+void Level::SetHasMerchant(bool merchant)
 {
-	mMerchant = merchant; 
+	mHasMerchant = merchant; 
+}
+
+void Level::CreateMerchant()
+{
+	mMerchant = std::make_unique<Merchant>(mSystem);
+}
+
+bool Level::HasMerchant()
+{
+	return mHasMerchant;
+}
+
+Merchant& Level::GetMerchant()
+{
+	return *mMerchant;
+}
+
+void Level::ActivateMerchant()
+{
+	mMerchant->SetVisiblility(true);
 }
 
 void Level::RandomThunder()

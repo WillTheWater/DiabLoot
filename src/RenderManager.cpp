@@ -276,7 +276,6 @@ sf::Sprite& RenderManager::AnimatedFire(ANIMATE::FIRE fireSize, const sf::Vector
 void RenderManager::FireRenderer(LEVELS::LEVEL level)
 {
 	mSystem.TimeMgr.UpdateFireFrame();
-	mSystem.TimeMgr.UpdateGheedAnimFrame();
 	switch (level)
 	{
 	case LEVELS::LEVEL_ONE:
@@ -288,7 +287,6 @@ void RenderManager::FireRenderer(LEVELS::LEVEL level)
 		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 791.f, 904.f }, 0.5f));
 		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 1431.f, 602.f }, 0.5f));
 		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 1592.f, 298.f }, 0.5f));
-		Draw(GheedAnimation(sf::Vector2f{ 500.f,300.f }));
 		return;
 	case LEVELS::LEVEL_TWO:
 		Draw(AnimatedFire(ANIMATE::SMALL_FIRE, sf::Vector2f{ 88.f, 58.f }, 0.5f));
@@ -532,6 +530,73 @@ void RenderManager::ScreenFlash()
 	Draw(flash);
 }
 
+void RenderManager::MerchantRender(Level& level)
+{
+	Merchant& merchant = level.GetMerchant();
+	if (!merchant.IsVisible()) { return; }
+
+	sf::Sprite gheed;
+	if (merchant.IsWalking())
+	{
+		gheed = GetGheedWalkFrame(merchant);
+	}
+	else
+	{
+		gheed = GetGheedIdleFrame(merchant);
+	}
+	gheed.setPosition(merchant.GetCurrentPosition()); 
+	Draw(gheed);
+}
+
+sf::Sprite RenderManager::GetGheedIdleFrame(Merchant& merchant)
+{
+	sf::Sprite gheedSprite = mSystem.AssetMgr.GetSprite(SPRITES::GHEED); 
+	gheedSprite.setScale(sf::Vector2f{ 1.4f,1.4f });
+	// Idle frames
+	const int frameWidth = 29 - 0;
+	const int frameHeight = 556 - 488;
+
+	// Get the current animation frame from TimeManager
+	int currentFrame = merchant.GetIdleFrame();  // You'll need to implement this similar to fire animation frame update.
+	// Idle start
+	int startX = currentFrame * frameWidth;
+	int startY = 488;
+
+	// Set texture rectangle for the current frame
+	sf::IntRect frameRect(startX, startY, frameWidth, frameHeight);
+	gheedSprite.setTextureRect(frameRect);
+
+	// Set origin to the center for positioning
+	gheedSprite.setOrigin(frameWidth / 2.0f, frameHeight);
+
+	return gheedSprite;
+}
+
+sf::Sprite RenderManager::GetGheedWalkFrame(Merchant& merchant)
+{
+	sf::Sprite gheedSprite = mSystem.AssetMgr.GetSprite(SPRITES::GHEED);
+	gheedSprite.setScale(sf::Vector2f{ 1.4f,1.4f });
+	// Walking frames
+	const int frameWidth = 278 - 239;
+	const int frameHeight = 563 - 495;
+
+	// Get the current animation frame from TimeManager
+	int currentFrame = merchant.GetWalkFrame();  // You'll need to implement this similar to fire animation frame update.
+	// Walking
+	int startX = 239 + (currentFrame * frameWidth);
+	int startY = 495;
+	std::cout << currentFrame << '\n';
+
+	// Set texture rectangle for the current frame
+	sf::IntRect frameRect(startX, startY, frameWidth, frameHeight);
+	gheedSprite.setTextureRect(frameRect);
+
+	// Set origin to the center for positioning
+	gheedSprite.setOrigin(frameWidth / 2.0f, frameHeight);
+
+	return gheedSprite;	
+}
+
 
 
 
@@ -542,6 +607,11 @@ void RenderManager::LevelRender(Level& level)
 	ChestsRender(level.GetChests());
 	ParticlesRender(level.GetParticles());
 	ItemsRender(level.GetItems());
+	if (level.HasMerchant())
+	{
+		MerchantRender(level);
+	}
+
 	if (level.HasRain())
 	{
 		RainRender();
