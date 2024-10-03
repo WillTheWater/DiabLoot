@@ -309,6 +309,7 @@ ITEMID::ITEM Inventory::GetItemIdOfSlotClicked()
 
 void Inventory::LoadInventory()
 {
+	InitializeItemFoundList();
 	std::ifstream inData("save/inventoryData.inv");
 	std::string line;
 	while (std::getline(inData, line))
@@ -365,6 +366,7 @@ void Inventory::DeleteInventory()
 	{
 		slot = ItemSlot();
 	}
+	InitializeItemFoundList();
 }
 
 int Inventory::GetNumberOfUniqueItems()
