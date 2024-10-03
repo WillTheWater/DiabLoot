@@ -43,6 +43,8 @@ public:
 	void									ActivateChests(); //Turns on the relevant chests for upgrade level and also adds them as observers;
 	void									DeactiveChests();
 	void									ResetLevelUpgrades();
+	void									SetRain(bool rain);
+	bool									HasRain();
 
 private:
 	LEVELS::LEVEL							mLevelID;
@@ -54,6 +56,7 @@ private:
 	LEVELS::UPGRADE							mUpgradeLevel;
 	std::vector<int>						mParticlesToRemove;
 	std::vector<int>						mItemsToRemove;
+	bool									mRain;
 	// Private Functions
 	void									RemoveOldParticles();
 	void									RemoveOldItems();

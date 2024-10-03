@@ -143,6 +143,8 @@ void AssetManager::InitializeTextureSprites()
     // PARTICLE
     mTextures[TEXTURES::PARTICLE]->loadFromFile             ("assets/graphics/particle.png");
     mTextures[TEXTURES::GLOW]->loadFromFile                 ("assets/graphics/glow.png");
+    mTextures[TEXTURES::RAIN_FG]->loadFromFile              ("assets/graphics/rain_fg.png");
+    mTextures[TEXTURES::RAIN_BG]->loadFromFile              ("assets/graphics/rain_bg.png");
    
 
     // SPRITES SETUP
@@ -265,6 +267,9 @@ void AssetManager::InitializeTextureSprites()
     // PARTICLE
     mSprites[SPRITES::PARTICLE]->setTexture                 (GetTexture(TEXTURES::PARTICLE));
     mSprites[SPRITES::GLOW]->setTexture                     (GetTexture(TEXTURES::GLOW));
+    // WEATHER
+    mSprites[SPRITES::RAIN_FG]->setTexture                  (GetTexture(TEXTURES::RAIN_FG));
+    mSprites[SPRITES::RAIN_BG]->setTexture                  (GetTexture(TEXTURES::RAIN_BG));
    
 
 }

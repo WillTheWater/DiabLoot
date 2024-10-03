@@ -420,6 +420,69 @@ void RenderManager::FireRenderer(LEVELS::LEVEL level)
 	}
 }
 
+void RenderManager::RainRender()
+{
+	// Get raining timing
+	mSystem.TimeMgr.UpdateRainProgress();
+	auto& rainProgressBG = mSystem.TimeMgr.GetRainProgressBG();
+	auto& rainProgressFG = mSystem.TimeMgr.GetRainProgressFG();
+
+	//Get rain sprites
+	sf::Sprite rainBG = mSystem.AssetMgr.GetSprite(SPRITES::RAIN_BG);
+	sf::Sprite rainFG = mSystem.AssetMgr.GetSprite(SPRITES::RAIN_FG);
+	//Get Window sizes for offsetting
+	float windowX{ (float)GetWindow().getSize().x };
+	float windowY{ (float)GetWindow().getSize().y };
+	
+	//Modulate rain color/opacity
+	rainBG.setColor({ 255,255,255,80 });
+	rainFG.setColor({ 255,255,255,100 });
+
+	// Offset rain by rainprogress
+	sf::Vector2f offsetBG{ -(windowX * rainProgressBG.first), windowY * rainProgressBG.second };
+	sf::Vector2f offsetFG{ -(windowX * rainProgressFG.first), windowY * rainProgressFG.second };
+
+	// Offset for each panel
+	sf::Vector2f origin{ 0.f,0.f };
+	sf::Vector2f topOffset{ 0.f, -windowY };
+	sf::Vector2f rightOffset{ windowX, 0 };
+	sf::Vector2f topRightOffset{ windowX, -windowY };
+	
+	//BACKGROUND RAIN
+	//Draw rain center
+	rainBG.move(offsetBG);
+	Draw(rainBG);
+	//Draw rain top
+	rainBG.setPosition(origin);
+	rainBG.move(offsetBG + topOffset);
+	Draw(rainBG);
+	//Draw rain right
+	rainBG.setPosition(origin);
+	rainBG.move(offsetBG + rightOffset);
+	Draw(rainBG);
+	//Draw rain top-right
+	rainBG.setPosition(origin);
+	rainBG.move(offsetBG + topRightOffset);
+	Draw(rainBG);
+
+	//FOREGROUND RAIN
+	//Draw rain center
+	rainFG.move(offsetFG);
+	Draw(rainFG);
+	//Draw rain top
+	rainFG.setPosition(origin);
+	rainFG.move(offsetFG + topOffset);
+	Draw(rainFG);
+	//Draw rain right
+	rainFG.setPosition(origin);
+	rainFG.move(offsetFG + rightOffset);
+	Draw(rainFG);
+	//Draw rain top-right
+	rainFG.setPosition(origin);
+	rainFG.move(offsetFG + topRightOffset);
+	Draw(rainFG);
+}
+
 
 
 
@@ -430,6 +493,10 @@ void RenderManager::LevelRender(Level& level)
 	ChestsRender(level.GetChests());
 	ParticlesRender(level.GetParticles());
 	ItemsRender(level.GetItems());
+	if (level.HasRain())
+	{
+		RainRender();
+	}
 }
 
 void RenderManager::DrawToolTip(sf::Vector2f mousePos)
