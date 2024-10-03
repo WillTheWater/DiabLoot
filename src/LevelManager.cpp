@@ -87,6 +87,10 @@ LevelManager::LevelManager(System& system)
 	mLevels[LEVELS::LEVEL_THIRTEEN]->SpawnChest({ 588.f, 276.f }, true,		LEVELS::FOUR_CHEST);
 
 	assert(mLevels.size() == LEVELS::MAX_LEVELS && "LevelManager did not make the right number of levels!");
+
+	// Set Rain
+	mLevels[LEVELS::LEVEL_ONE]->SetRain(true);
+
 }
 
 Level& LevelManager::GetNextLevel()

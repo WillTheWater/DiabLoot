@@ -8,6 +8,7 @@ Level::Level(LEVELS::LEVEL id, System& system)
 	,mUpgradeLevel{LEVELS::UPGRADE::ONE_CHEST}
 	,mChests{ nullptr, nullptr, nullptr, nullptr}
 	,mParticlesToRemove{}
+	,mRain{false}
 {
 }
 
@@ -263,6 +264,16 @@ void Level::TurnItemToGold(Particle& particle)
 	SoundManager::GetInstance().PlayItemSound({ITEMID::GOLD, ITEMRARITY::GOLD });
 }
 
+void Level::SetRain(bool rain)
+{
+	mRain = rain;
+}
+
+bool Level::HasRain()
+{
+	return mRain;
+}
+
 void Level::SortItemsByVerticalSpace()
 
 {	auto sortingLambda = [](std::unique_ptr<Item>& a, std::unique_ptr<Item>& b)
@@ -272,6 +283,8 @@ void Level::SortItemsByVerticalSpace()
 		};
 	mItems.sort(sortingLambda);
 }
+
+
 
 void Level::StackItemlabels()
 {

@@ -94,8 +94,6 @@ void RenderManager::PlayStateRender()
 	Draw(mSystem.GUIMgr.GetButton(BUTTONS::CLOSE_BUTTON_ID).GetSprite());
 	Draw(mSystem.GUIMgr.GetButton(BUTTONS::MINI_BUTTON_ID).GetSprite());
 
-	RainRender();
-
 	InventoryRender();
 	ItemCollectionRender();
 }
@@ -495,6 +493,10 @@ void RenderManager::LevelRender(Level& level)
 	ChestsRender(level.GetChests());
 	ParticlesRender(level.GetParticles());
 	ItemsRender(level.GetItems());
+	if (level.HasRain())
+	{
+		RainRender();
+	}
 }
 
 void RenderManager::DrawToolTip(sf::Vector2f mousePos)
