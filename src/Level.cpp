@@ -31,9 +31,19 @@ void Level::EnterLevel()
 	{
 		SoundManager::GetInstance().PlayASound(PLAYSOUND::RAIN, 20.f, 1.f, true);
 	}
+	else
+	{
+		SoundManager::GetInstance().StopPlayingSound(PLAYSOUND::RAIN);
+		SoundManager::GetInstance().StopThunder();
+		mThunder = false;
+	}
 	if (mFire)
 	{
-		SoundManager::GetInstance().PlayASound(PLAYSOUND::FIRE, 15.f, 1.f, true);
+		SoundManager::GetInstance().PlayASound(PLAYSOUND::FIRE, 20.f, 1.f, true);
+	}
+	else
+	{
+		SoundManager::GetInstance().StopPlayingSound(PLAYSOUND::FIRE);
 	}
 }
 
@@ -44,16 +54,7 @@ void Level::ExitLevel()
 	DeactiveChests();
 	mItems.clear();
 	mParticles.clear();
-	if (mRain)
-	{
-		SoundManager::GetInstance().StopPlayingSound(PLAYSOUND::RAIN);
-		SoundManager::GetInstance().StopThunder();
-		mThunder = false;
-	}
-	if (mFire)
-	{
-		SoundManager::GetInstance().StopPlayingSound(PLAYSOUND::FIRE);
-	}
+	
 }
 
 std::list<std::unique_ptr<Item>>& Level::GetItems()
@@ -312,8 +313,6 @@ void Level::SetFire(bool fire)
 {
 	mFire = fire;
 }
-
-
 
 void Level::StackItemlabels()
 {
