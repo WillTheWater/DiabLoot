@@ -466,6 +466,23 @@ std::map<std::pair<ITEMID::ITEM, ITEMRARITY::RARITY>, bool>& Inventory::GetItemF
 	return mItemsFound;
 }
 
+std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> Inventory::GetMissingItem()
+{
+	for (auto& item : mItemsFound)
+	{
+		if (item.second == false)
+		{
+			return item.first;
+		}
+	}
+	
+}
+
+int Inventory::GetNumberOfItemsMissing()
+{
+	return ITEMGEN::TOTAL_UNIQUE_ITEMS - GetNumberOfUniqueItems();
+}
+
 void Inventory::InitialzeSlotRects()
 {
 	sf::RectangleShape slotTemplate{ {52.f, 52.f} };

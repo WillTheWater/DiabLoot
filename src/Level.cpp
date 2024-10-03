@@ -11,6 +11,7 @@ Level::Level(LEVELS::LEVEL id, System& system)
 	,mRain{false}
 	,mThunder{false}
 	,mFire{false}
+	,mMerchant{false}
 {
 }
 
@@ -124,6 +125,22 @@ void Level::SpawnParticles(Chest& chest)
 		mParticles.push_back(std::make_unique<Particle>(id, startPos, endPos, randAnchorheight, animStep, callback, itemId));
 	}
 	mSystem.InputMgr.RemoveObserver(&chest);
+}
+
+void Level::SpawnSingleParticle(sf::Vector2f pos, std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> itemId)
+{
+	std::function<void(Particle&)> callback = [this](Particle& particle) {this->SpawnItem(particle); };
+	float animStep = MathU::Random(PARTICLE::ANIMSTEP - 0.08f, PARTICLE::ANIMSTEP + 0.08f);
+	float randDist = MathU::Random(30.f, 60.f);
+	float randAngle = MathU::Random(0.f, 360.f);
+	float randAnchorheight = MathU::Random(60.f, 120.f) * -1;
+	Vec2 endPos{ randDist, 0 };
+	Vec2 startPos{ pos };
+	endPos = endPos.getRotatedVector(randAngle);
+	endPos = startPos + endPos;
+	int id = GetUniqueParticleId();
+	mParticles.push_back(std::make_unique<Particle>(id, startPos, endPos, randAnchorheight, animStep, callback, itemId));
+
 }
 
 void Level::CreateBounceParticle(Item& item)
@@ -357,6 +374,11 @@ void Level::RemoveAllItemObsevers()
 	}
 }
 
+void Level::SetMerchant(bool merchant)
+{
+	mMerchant = merchant; 
+}
+
 void Level::RandomThunder()
 {
 	if (mSystem.TimeMgr.GetThunderProgress() == 0.f)
@@ -367,6 +389,9 @@ void Level::RandomThunder()
 			mThunder = true;
 			mSystem.TimeMgr.UpdateThunderProgress();
 		}
+	}
+	void Level::RandomThunder()
+	{
 	}
 	else
 	{

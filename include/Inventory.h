@@ -41,7 +41,9 @@ public:
 	int										GetNumberOfUniqueItems();
 	bool									HasOneOfEverything();	// Returns true if win condition is met
 	void									DebugGetOneOfEverything();
-	std::map<std::pair<ITEMID::ITEM, ITEMRARITY::RARITY>, bool>& GetItemFoundList();
+	std::map<std::pair<ITEMID::ITEM, ITEMRARITY::RARITY>, bool>&	GetItemFoundList();
+	std::pair<ITEMID::ITEM, ITEMRARITY::RARITY>						GetMissingItem();
+	int										GetNumberOfItemsMissing();
 
 
 private:
