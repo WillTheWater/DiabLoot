@@ -27,6 +27,7 @@ public:
 	void										FireRenderer(LEVELS::LEVEL level);
 	void										RainRender();
 	void										ScreenFlash();
+	sf::Sprite&									GheedAnimation(const sf::Vector2f& position);
 
 
 
