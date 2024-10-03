@@ -29,6 +29,14 @@ void SoundManager::StopPlayingSound(PLAYSOUND::PLAYSOUND sound)
     soundToStop.stop();
 }
 
+void SoundManager::ForceStopAllSounds()
+{
+    for (int i{ 0 }; i < PLAYSOUND::MAX_SOUNDS; i++)
+    {
+        StopPlayingSound(static_cast<PLAYSOUND::PLAYSOUND>(i));
+    }
+}
+
 void SoundManager::PlayMusic(MUSIC::PLAYMUSIC music, float volume, bool loop)
 {
     if (music == mCurrentlyPlaying && mAssetMgr->GetMusic(mCurrentlyPlaying).getStatus() == sf::SoundSource::Playing)
@@ -60,6 +68,19 @@ void SoundManager::StopMusic(MUSIC::PLAYMUSIC music)
 	auto& musicToStop = mAssetMgr->GetMusic(music);
 	musicToStop.stop();
 	mCurrentlyPlaying = MUSIC::MAX_MUSIC_FILES;
+}
+
+void SoundManager::PlayThunder()
+{
+    PLAYSOUND::PLAYSOUND randomThunder = (PLAYSOUND::PLAYSOUND)MathU::Random((int)PLAYSOUND::THUNDER_1, (int)PLAYSOUND::THUNDER_3);
+    PlayASound(randomThunder, 40.f, 1.0f, false);
+}
+
+void SoundManager::StopThunder()
+{
+    StopPlayingSound(PLAYSOUND::THUNDER_1);
+    StopPlayingSound(PLAYSOUND::THUNDER_2);
+    StopPlayingSound(PLAYSOUND::THUNDER_3);
 }
 
 AUDIO_MUTE::AUDIOSTATE SoundManager::GetAudioState() const

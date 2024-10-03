@@ -441,6 +441,9 @@ void AssetManager::InitializeSounds()
     mSoundBuffers[SOUNDBUFFERS::FIRE_SB]->loadFromFile          ("assets/audio/ambient/fire.wav");
     mSoundBuffers[SOUNDBUFFERS::TOWN_SB]->loadFromFile          ("assets/audio/ambient/town3night.wav");
     mSoundBuffers[SOUNDBUFFERS::RAIN_SB]->loadFromFile          ("assets/audio/ambient/rain2.wav");
+    mSoundBuffers[SOUNDBUFFERS::THUNDER_1_SB]->loadFromFile     ("assets/audio/ambient/thunder_norm_1.wav");
+    mSoundBuffers[SOUNDBUFFERS::THUNDER_2_SB]->loadFromFile     ("assets/audio/ambient/thunder_norm_2.wav");
+    mSoundBuffers[SOUNDBUFFERS::THUNDER_3_SB]->loadFromFile     ("assets/audio/ambient/thunder_norm_5.wav");
 
     // Set Sound
     mSounds[PLAYSOUND::BUTTON_DOWN]->setBuffer  (GetSoundBuffer(SOUNDBUFFERS::BUTTON_DOWN_SB));
@@ -460,6 +463,9 @@ void AssetManager::InitializeSounds()
     mSounds[PLAYSOUND::FIRE]->setBuffer         (GetSoundBuffer(SOUNDBUFFERS::FIRE_SB));
     mSounds[PLAYSOUND::TOWN]->setBuffer         (GetSoundBuffer(SOUNDBUFFERS::TOWN_SB));
     mSounds[PLAYSOUND::RAIN]->setBuffer         (GetSoundBuffer(SOUNDBUFFERS::RAIN_SB));
+    mSounds[PLAYSOUND::THUNDER_1]->setBuffer    (GetSoundBuffer(SOUNDBUFFERS::THUNDER_1_SB));
+    mSounds[PLAYSOUND::THUNDER_2]->setBuffer    (GetSoundBuffer(SOUNDBUFFERS::THUNDER_2_SB));
+    mSounds[PLAYSOUND::THUNDER_3]->setBuffer    (GetSoundBuffer(SOUNDBUFFERS::THUNDER_3_SB));
 
 
 }
