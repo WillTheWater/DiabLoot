@@ -38,8 +38,10 @@ public:
 	void									IncremenentWalkAnimation();
 	void									IncremenentIdleAnimation();
 	void									SpawnItem();
-	void									Speak();
+	void									ArrivalAudio();
+	void									PurchaseAudio();
 	void									InitializePurchaseButton();
+	void									ResetMerchant();
 
 
 

@@ -4,6 +4,7 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <algorithm>
 
 RenderManager::RenderManager(System& system)
 	: mGameWindow{ sf::VideoMode(1920u, 1080u), "DiabLoot", sf::Style::None, sf::ContextSettings(0,0,8)}
@@ -590,6 +591,20 @@ void RenderManager::MerchantRender(Level& level)
 			costText.setPosition(itemText.getPosition());
 			costText.move(0.f, itemText.getLocalBounds().getSize().y + FONTS::PADDING);
 
+			// Text Box
+			float maxWidth = std::max({ itemText.getGlobalBounds().getSize().x, titleText.getGlobalBounds().getSize().x, costText.getGlobalBounds().getSize().x });
+			maxWidth += FONTS::PADDING * 2;
+			float maxHeight = (costText.getGlobalBounds().top + costText.getGlobalBounds().height) - titleText.getGlobalBounds().top;
+			maxHeight += FONTS::PADDING * 2;
+			maxHeight = 100.f;
+			sf::RectangleShape textBox({ maxWidth, maxHeight });
+			float averageXOrigin = (titleText.getPosition().x + itemText.getPosition().x + costText.getPosition().x) / 3;
+			float averageYOrigin = (titleText.getPosition().y + itemText.getPosition().y + costText.getPosition().y) / 3;
+			textBox.setOrigin(textBox.getLocalBounds().getSize().x / 2, textBox.getLocalBounds().getSize().y / 2);
+			textBox.setPosition(averageXOrigin, averageYOrigin - FONTS::ORIGIN_YOFFSET);
+			textBox.setFillColor(mSystem.AssetMgr.GetTextboxColor());
+
+			Draw(textBox);
 			Draw(titleText);
 			Draw(itemText);
 			Draw(costText);

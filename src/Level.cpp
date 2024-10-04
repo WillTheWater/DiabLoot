@@ -63,6 +63,7 @@ void Level::ExitLevel()
 	if (mMerchant)
 	{
 		mSystem.InputMgr.RemoveObserver(mMerchant.get());
+		mMerchant->ResetMerchant();
 	}
 	
 }
@@ -149,12 +150,12 @@ void Level::SpawnParticles(Chest& chest)
 	mSystem.InputMgr.RemoveObserver(&chest);
 }
 
-void Level::SpawnSingleParticle(sf::Vector2f pos, std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> itemId)
+void Level::SpawnMerchantParticle(sf::Vector2f pos, std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> itemId)
 {
 	std::function<void(Particle&)> callback = [this](Particle& particle) {this->SpawnItem(particle); };
 	float animStep = MathU::Random(PARTICLE::ANIMSTEP - 0.08f, PARTICLE::ANIMSTEP + 0.08f);
 	float randDist = MathU::Random(30.f, 60.f);
-	float randAngle = MathU::Random(0.f, 360.f);
+	float randAngle = MathU::Random(45.f, 135.f);
 	float randAnchorheight = MathU::Random(60.f, 120.f) * -1;
 	Vec2 endPos{ randDist, 0 };
 	Vec2 startPos{ pos };
