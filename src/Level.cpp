@@ -290,6 +290,7 @@ void Level::PickUpItem(Item& item)
 			}
 			SetItemForRemoval(*it->get());
 			success = true;
+			break;
 		}
 	}
 	assert(success && "PlayState::RemoveItem failed to remove the item");
@@ -301,7 +302,7 @@ void Level::SpawnItem(Particle& particle)
 	std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> itemId = particle.GetItemID();
 	const sf::Text& text = mSystem.AssetMgr.GetTextForItemID(itemId.first);
 	std::function<void(Item&)> callback = [this](Item& item) {this->PickUpItem(item); };
-	int uniqueId = particle.GetId();
+	int uniqueId = GetUniqueParticleId();
 	int quantity = 1;
 	if (itemId.first == ITEMID::GOLD)
 	{
@@ -320,7 +321,7 @@ void Level::TurnItemToGold(Particle& particle)
 	std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> itemId = particle.GetItemID();
 	const sf::Text& text = mSystem.AssetMgr.GetTextForItemID(itemId.first);
 	std::function<void(Item&)> callback = [this](Item& item) {this->PickUpItem(item); };
-	int uniqueId = particle.GetId();
+	int uniqueId = GetUniqueParticleId();
 	int quantity = ITEMGEN::GetValueForItem(itemId);
 	mItems.push_back(std::make_unique<Item>(std::pair{ itemId.first, ITEMRARITY::GOLD }, uniqueId, position, text, callback, quantity));
 	mSystem.InputMgr.AddObserver(mItems.back().get());
@@ -367,12 +368,13 @@ void Level::StackItemlabels()
 			{
 				if (rect.getGlobalBounds().intersects(textBox.getGlobalBounds()))
 				{
-					textBox.setPosition(textBox.getPosition().x, rect.getGlobalBounds().top - textBox.getLocalBounds().getSize().y /2 - 5.f );
+					textBox.setPosition(textBox.getPosition().x, rect.getGlobalBounds().top - textBox.getLocalBounds().getSize().y / 2 - 5.f);
 				}
 			}
 		}
-		placedRects.push_back(textBox);
 		item->SetTextRect(textBox);
+		placedRects.push_back(textBox);
+
 	}
 }
 
