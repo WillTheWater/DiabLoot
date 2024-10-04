@@ -37,7 +37,7 @@ public:
 	int												GetUniqueParticleId();
 	void											SpawnChest(sf::Vector2f pos, bool mirrored, LEVELS::UPGRADE chest);
 	void											SpawnParticles(Chest& chest);
-	void											SpawnSingleParticle(sf::Vector2f pos, std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> itemId);
+	void											SpawnMerchantParticle(sf::Vector2f pos, std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> itemId);
 	void											CreateBounceParticle(Item& item);
 	void											UpgradeLevel();
 	LEVELS::UPGRADE									GetUpgradeLevel();

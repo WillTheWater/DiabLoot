@@ -20,7 +20,7 @@ Merchant::Merchant(System& system)
 	,mIdleAnimStep{1.0f}
 	,mIdleAnimProgress{0.f}
 	,mWalkingProgress{0.f}
-	,mWalkingIncrement{0.1f}
+	,mWalkingIncrement{0.15f}
 {
 	mRect.setOrigin(mRect.getLocalBounds().getSize().x / 2, mRect.getLocalBounds().getSize().y);
 }
@@ -212,10 +212,15 @@ void Merchant::IncremenentIdleAnimation()
 
 void Merchant::SpawnItem()
 {
-	mSystem.LevelMgr.GetCurrentLevel().SpawnSingleParticle(mCurrentPos.getAsSFVec2F(), mItem);
+	mSystem.LevelMgr.GetCurrentLevel().SpawnMerchantParticle(mCurrentPos.getAsSFVec2F(), mItem);
 }
 
-void Merchant::Speak()
+void Merchant::ArrivalAudio()
+{
+
+}
+
+void Merchant::PurchaseAudio()
 {
 
 }
@@ -224,4 +229,12 @@ void Merchant::InitializePurchaseButton()
 {
 	mPurchaseButton.setSize({ 65.f, 65.f });
 	mPurchaseButton.setPosition(mCurrentPos.getAsSFVec2F() + sf::Vector2f{30.f, -120.f});
+}
+
+void Merchant::ResetMerchant()
+{
+	mWalkingProgress = 0.f;
+	mWalkAnimProgress = 0.f;
+	mWalking = true;
+	mCurrentPos = mStartPos;
 }
