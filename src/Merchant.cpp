@@ -18,18 +18,34 @@ Merchant::Merchant(System& system)
 	,mWalking{true}
 	,mWalkAnimStep{1.0f}
 	,mIdleAnimStep{1.0f}
-	,mWalkSpeed{45.0f}
 	,mIdleAnimProgress{0.f}
+	,mWalkingProgress{0.f}
+	,mWalkingIncrement{0.1f}
 {
-	mWalkVector = mStartPos + mEndPos;
-	mWalkVector = mWalkVector / mWalkVector.magnitude();
 	mRect.setOrigin(mRect.getLocalBounds().getSize().x / 2, mRect.getLocalBounds().getSize().y);
 }
 
 
 void Merchant::OnMouseMove(int x, int y)
 {
-	mMousePos =  {(float)x,(float)y};
+	mMousePos = { (float)x,(float)y };
+	if (mRect.getGlobalBounds().contains(mMousePos))
+	{
+		mMouseOverMerchant = true;
+	}
+	else
+	{
+		mMouseOverMerchant = false;
+	}
+
+	if (mPurchaseButton.getGlobalBounds().contains(mMousePos) && mDialogueOpen)
+	{
+		mMouseOverPurchase = true;
+	}
+	else
+	{
+		mMouseOverPurchase = false;
+	}
 }
 
 void Merchant::OnKeyPress(sf::Keyboard::Key key)
@@ -42,13 +58,26 @@ void Merchant::OnKeyRelease(sf::Keyboard::Key key)
 
 void Merchant::OnMouseClick(sf::Mouse::Button button)
 {
+	
 }
 
 void Merchant::OnMouseRelease(sf::Mouse::Button button)
 {
-	if (mRect.getGlobalBounds().contains(mMousePos))
+	if (mWalking) { return; }
+	if (mMouseOverMerchant)
 	{
 		mDialogueOpen = !mDialogueOpen;
+	}
+	if (mMouseOverPurchase && mDialogueOpen)
+	{
+		int itemCost = CalculcateMissingItemCost();
+		if (mSystem.InventoryMgr.GetGold() >= itemCost)
+		{
+			mDialogueOpen = false;
+			mSystem.InventoryMgr.RemoveGold(itemCost);
+			SpawnItem();
+			UpdateItemToSell();
+		}
 	}
 }
 
@@ -99,19 +128,32 @@ bool Merchant::IsDialogueOpen()
 	return mDialogueOpen;
 }
 
-void Merchant::UpdateWalkPosition()
+bool Merchant::IsMouseOverMerchant()
+{
+	return mMouseOverMerchant;
+}
+
+bool Merchant::IsMouseOverPurchase()
+{
+	return mMouseOverPurchase;
+}
+
+void Merchant::UpdateWalkingProgress()
 {
 	float deltaTime = mSystem.TimeMgr.GetDeltaTime();
-	float travelDistance = (mWalkVector * (mWalkSpeed * deltaTime)).magnitude();
-	if (mCurrentPos.distance(mEndPos) > travelDistance)
+	mWalkingProgress += mWalkingIncrement * deltaTime;
+	if (mWalkingProgress > 1.0f)
 	{
-		mCurrentPos += mWalkVector * (mWalkSpeed * deltaTime);
-	}
-	else
-	{
-		mCurrentPos = mEndPos; 
+		mWalkingProgress = 1.0f;
 		mWalking = false;
+		InitializePurchaseButton();
 	}
+}
+
+void Merchant::UpdateWalkPosition()
+{
+	mCurrentPos = mStartPos.lerpTo(mEndPos, mWalkingProgress);
+	mRect.setPosition(mCurrentPos.getAsSFVec2F());
 }
 
 sf::Vector2f Merchant::GetCurrentPosition()
@@ -119,10 +161,16 @@ sf::Vector2f Merchant::GetCurrentPosition()
 	return mCurrentPos.getAsSFVec2F();
 }
 
+sf::RectangleShape& Merchant::GetPurchaseButtonRect()
+{
+	return mPurchaseButton;
+}
+
 void Merchant::UpdateMerchant()
 {
 	if (mWalking)
 	{
+		UpdateWalkingProgress();
 		IncremenentWalkAnimation();
 		UpdateWalkPosition();
 	}
@@ -132,7 +180,6 @@ void Merchant::UpdateMerchant()
 	}
 
 	UpdateItemToSell();
-	CalculcateMissingItemCost();
 }
 
 void Merchant::UpdateItemToSell()
@@ -142,7 +189,7 @@ void Merchant::UpdateItemToSell()
 
 int Merchant::CalculcateMissingItemCost()
 {
-	return (10 - mSystem.InventoryMgr.GetNumberOfItemsMissing()) * 100000;
+	return (ITEMGEN::TOTAL_UNIQUE_ITEMS - mSystem.InventoryMgr.GetNumberOfItemsMissing()) * 10000;
 }
 
 void Merchant::IncremenentWalkAnimation()
@@ -171,4 +218,10 @@ void Merchant::SpawnItem()
 void Merchant::Speak()
 {
 
+}
+
+void Merchant::InitializePurchaseButton()
+{
+	mPurchaseButton.setSize({ 65.f, 65.f });
+	mPurchaseButton.setPosition(mCurrentPos.getAsSFVec2F() + sf::Vector2f{30.f, -120.f});
 }

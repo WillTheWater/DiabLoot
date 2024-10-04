@@ -546,6 +546,58 @@ void RenderManager::MerchantRender(Level& level)
 	}
 	gheed.setPosition(merchant.GetCurrentPosition()); 
 	Draw(gheed);
+
+	if (merchant.IsDialogueOpen())
+	{
+		sf::Sprite purchase_btn = mSystem.AssetMgr.GetSprite(SPRITES::PURCHASE_BUTTON);
+		sf::Vector2f btnPos = merchant.GetPurchaseButtonRect().getPosition();
+		purchase_btn.setPosition(btnPos);
+		Draw(purchase_btn);
+
+		if (merchant.IsMouseOverPurchase())
+		{
+			//Get font
+			sf::Font font = mSystem.AssetMgr.GetFont(FONTS::LIGHT);
+			//Set Up Item Text
+			std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> item = merchant.GetItem();
+			sf::Text itemText = mSystem.AssetMgr.GetTextForItemID(item.first);
+			itemText.setCharacterSize(FONTS::CHARACTER_SIZE_NORMAL);
+			itemText.setColor(mSystem.AssetMgr.GetColorForItemText(item));
+			itemText.setString(itemText.getString() + " (" + mSystem.AssetMgr.GetRarityAsString(item.second) + ")");
+			//Set Up Title Text
+			std::string titlestr{ "You can buy a missing item: " };
+			sf::Text titleText;
+			titleText.setFont(font);
+			titleText.setCharacterSize(FONTS::CHARACTER_SIZE_NORMAL);
+			titleText.setString(titlestr);
+			//Set Up Cost Text
+			std::string coststr{ "For the price of: " };
+			coststr += (std::to_string(merchant.CalculcateMissingItemCost()));
+			coststr += (" Gold!");
+			sf::Text costText;
+			costText.setFont(font);
+			costText.setCharacterSize(FONTS::CHARACTER_SIZE_NORMAL);
+			costText.setString(coststr);
+
+			titleText.setOrigin(titleText.getGlobalBounds().getSize().x / 2, titleText.getGlobalBounds().getSize().y / 2);
+			itemText.setOrigin(itemText.getGlobalBounds().getSize().x / 2, itemText.getGlobalBounds().getSize().y / 2);
+			costText.setOrigin(costText.getGlobalBounds().getSize().x / 2, costText.getGlobalBounds().getSize().y / 2);
+
+			sf::Vector2f textPos{ btnPos + sf::Vector2f{ 0.f, 200.f } };
+			titleText.setPosition(textPos);
+			itemText.setPosition(textPos);
+			itemText.move(0.f, titleText.getLocalBounds().getSize().y + FONTS::PADDING);
+			costText.setPosition(itemText.getPosition());
+			costText.move(0.f, itemText.getLocalBounds().getSize().y + FONTS::PADDING);
+
+			Draw(titleText);
+			Draw(itemText);
+			Draw(costText);
+
+			
+
+		}
+	}
 }
 
 sf::Sprite RenderManager::GetGheedIdleFrame(Merchant& merchant)

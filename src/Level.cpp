@@ -47,6 +47,10 @@ void Level::EnterLevel()
 	{
 		SoundManager::GetInstance().StopPlayingSound(PLAYSOUND::FIRE);
 	}
+	if (mMerchant)
+	{
+		mSystem.InputMgr.AddObserver(mMerchant.get());
+	}
 }
 
 void Level::ExitLevel()
@@ -56,6 +60,10 @@ void Level::ExitLevel()
 	DeactiveChests();
 	mItems.clear();
 	mParticles.clear();
+	if (mMerchant)
+	{
+		mSystem.InputMgr.RemoveObserver(mMerchant.get());
+	}
 	
 }
 
