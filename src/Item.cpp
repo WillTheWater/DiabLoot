@@ -11,6 +11,7 @@ Item::Item(std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> item, int unique, sf::Vec
 	,mText{text}
 	,mRect{ {100.f,100.f} }
 	,mCallback{callback}
+	,mMouseLastPos{0.f,0.f}
 {
 	if (mItemId == ITEMID::GOLD)
 	{
