@@ -31,7 +31,7 @@ void Level::EnterLevel()
 	ActivateChests();
 	if (mRain)
 	{
-		SoundManager::GetInstance().PlayASound(PLAYSOUND::RAIN, 20.f, 1.f, true);
+		SoundManager::GetInstance().PlayASound(PLAYSOUND::RAIN, 15.f, 1.f, true);
 	}
 	else
 	{
@@ -41,15 +41,17 @@ void Level::EnterLevel()
 	}
 	if (mFire)
 	{
-		SoundManager::GetInstance().PlayASound(PLAYSOUND::FIRE, 20.f, 1.f, true);
+		SoundManager::GetInstance().PlayASound(PLAYSOUND::FIRE, 15.f, 1.f, true);
 	}
 	else
 	{
 		SoundManager::GetInstance().StopPlayingSound(PLAYSOUND::FIRE);
 	}
-	if (mMerchant)
+	if (mMerchant && (mSystem.InventoryMgr.GetNumberOfItemsMissing() <= 5))
 	{
 		mSystem.InputMgr.AddObserver(mMerchant.get());
+		mMerchant->SetVisiblility(true);
+		mMerchant->ArrivalAudio();
 	}
 }
 
@@ -64,7 +66,9 @@ void Level::ExitLevel()
 	{
 		mSystem.InputMgr.RemoveObserver(mMerchant.get());
 		mMerchant->ResetMerchant();
+		mMerchant->StopAllGheedAudio();
 	}
+
 	
 }
 
@@ -96,11 +100,7 @@ void Level::UpdateLevel()
 
 	if (mHasMerchant)
 	{
-		if (!mMerchant->IsVisible())
-		{
-			mMerchant->SetVisiblility(true);
-		}
-		else
+		if (mMerchant->IsVisible())
 		{
 			mMerchant->UpdateMerchant();
 		}
