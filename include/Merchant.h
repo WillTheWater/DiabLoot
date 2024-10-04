@@ -24,14 +24,10 @@ public:
 	float										GetIdleAnimProgress();
 	int											GetWalkFrame();
 	int											GetIdleFrame();
-	bool										IsDialogueOpen();
 	bool										IsMouseOverMerchant();
-	bool										IsMouseOverPurchase();
 	void										UpdateWalkingProgress();
 	void										UpdateWalkPosition();
 	sf::Vector2f								GetCurrentPosition();
-	sf::RectangleShape&							GetPurchaseButtonRect();
-
 	void									UpdateMerchant();
 	void									UpdateItemToSell();
 	int										CalculcateMissingItemCost();
@@ -40,8 +36,8 @@ public:
 	void									SpawnItem();
 	void									ArrivalAudio();
 	void									PurchaseAudio();
-	void									InitializePurchaseButton();
 	void									ResetMerchant();
+	void									StopAllGheedAudio();
 
 
 
@@ -51,8 +47,8 @@ private:
 	Vec2 mStartPos;
 	Vec2 mEndPos;
 	sf::RectangleShape mRect;
-	sf::RectangleShape mPurchaseButton;
 	std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> mItem; 
+	std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> mLastSoldItem; 
 	float mWalkingProgress;
 	float mWalkingIncrement;
 	bool mWalking;
@@ -62,13 +58,12 @@ private:
 	float mIdleAnimProgress;
 	float mIdleAnimStep;
 	int mIdleAnimFrame;
-	bool mDialogueOpen;
 	sf::Vector2f mMousePos; 
 	System& mSystem;
 	int mTotalFrames;
 
 	bool mMouseOverMerchant = false; 
-	bool mMouseOverPurchase = false;
+	bool mFirstAppearance = false;
 
 
 };

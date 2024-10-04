@@ -545,74 +545,68 @@ void RenderManager::MerchantRender(Level& level)
 	{
 		gheed = GetGheedIdleFrame(merchant);
 	}
+	if (merchant.IsMouseOverMerchant())
+	{
+		gheed.setColor({ 180, 255, 20, 255 });
+	}
 	gheed.setPosition(merchant.GetCurrentPosition()); 
 	Draw(gheed);
 
-	if (merchant.IsDialogueOpen())
+	// Draw Gheed Tooltip
+	if (merchant.IsMouseOverMerchant())
 	{
-		sf::Sprite purchase_btn = mSystem.AssetMgr.GetSprite(SPRITES::PURCHASE_BUTTON);
-		sf::Vector2f btnPos = merchant.GetPurchaseButtonRect().getPosition();
-		purchase_btn.setPosition(btnPos);
-		Draw(purchase_btn);
+		//Get font
+		sf::Font font = mSystem.AssetMgr.GetFont(FONTS::LIGHT);
+		//Set Up Item Text
+		std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> item = merchant.GetItem();
+		sf::Text itemText = mSystem.AssetMgr.GetTextForItemID(item.first);
+		itemText.setCharacterSize(FONTS::CHARACTER_SIZE_NORMAL);
+		itemText.setColor(mSystem.AssetMgr.GetColorForItemText(item));
+		itemText.setString(itemText.getString() + " (" + mSystem.AssetMgr.GetRarityAsString(item.second) + ")");
+		//Set Up Title Text
+		std::string titlestr{ "       | GHEED |\n\nBuy missing item: " };
+		sf::Text titleText;
+		titleText.setFont(font);
+		titleText.setCharacterSize(FONTS::CHARACTER_SIZE_NORMAL);
+		titleText.setString(titlestr);
+		//Set Up Cost Text
+		std::string coststr = ("\n" + std::to_string(merchant.CalculcateMissingItemCost()));
+		coststr += (" Gold!");
+		sf::Text costText;
+		costText.setFont(font);
+		costText.setCharacterSize(FONTS::CHARACTER_SIZE_NORMAL);
+		costText.setString(coststr);
 
-		if (merchant.IsMouseOverPurchase())
-		{
-			//Get font
-			sf::Font font = mSystem.AssetMgr.GetFont(FONTS::LIGHT);
-			//Set Up Item Text
-			std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> item = merchant.GetItem();
-			sf::Text itemText = mSystem.AssetMgr.GetTextForItemID(item.first);
-			itemText.setCharacterSize(FONTS::CHARACTER_SIZE_NORMAL);
-			itemText.setColor(mSystem.AssetMgr.GetColorForItemText(item));
-			itemText.setString(itemText.getString() + " (" + mSystem.AssetMgr.GetRarityAsString(item.second) + ")");
-			//Set Up Title Text
-			std::string titlestr{ "You can buy a missing item: " };
-			sf::Text titleText;
-			titleText.setFont(font);
-			titleText.setCharacterSize(FONTS::CHARACTER_SIZE_NORMAL);
-			titleText.setString(titlestr);
-			//Set Up Cost Text
-			std::string coststr{ "For the price of: " };
-			coststr += (std::to_string(merchant.CalculcateMissingItemCost()));
-			coststr += (" Gold!");
-			sf::Text costText;
-			costText.setFont(font);
-			costText.setCharacterSize(FONTS::CHARACTER_SIZE_NORMAL);
-			costText.setString(coststr);
+		titleText.setOrigin(titleText.getGlobalBounds().getSize().x / 2, titleText.getGlobalBounds().getSize().y / 2);
+		itemText.setOrigin(itemText.getGlobalBounds().getSize().x / 2, itemText.getGlobalBounds().getSize().y / 2);
+		costText.setOrigin(costText.getGlobalBounds().getSize().x / 2, costText.getGlobalBounds().getSize().y / 2);
 
-			titleText.setOrigin(titleText.getGlobalBounds().getSize().x / 2, titleText.getGlobalBounds().getSize().y / 2);
-			itemText.setOrigin(itemText.getGlobalBounds().getSize().x / 2, itemText.getGlobalBounds().getSize().y / 2);
-			costText.setOrigin(costText.getGlobalBounds().getSize().x / 2, costText.getGlobalBounds().getSize().y / 2);
+		sf::Vector2f textPos{ (sf::Vector2f)sf::Mouse::getPosition() + sf::Vector2f{-150.f, 0.f} };
+		titleText.setPosition(textPos);
+		itemText.setPosition(textPos);
+		itemText.move(0.f, titleText.getLocalBounds().getSize().y + FONTS::PADDING);
+		costText.setPosition(itemText.getPosition());
+		costText.move(0.f, itemText.getLocalBounds().getSize().y + FONTS::PADDING);
 
-			sf::Vector2f textPos{ btnPos + sf::Vector2f{ 0.f, 200.f } };
-			titleText.setPosition(textPos);
-			itemText.setPosition(textPos);
-			itemText.move(0.f, titleText.getLocalBounds().getSize().y + FONTS::PADDING);
-			costText.setPosition(itemText.getPosition());
-			costText.move(0.f, itemText.getLocalBounds().getSize().y + FONTS::PADDING);
+		// Text Box
+		float maxWidth = std::max({ itemText.getGlobalBounds().getSize().x, titleText.getGlobalBounds().getSize().x, costText.getGlobalBounds().getSize().x });
+		maxWidth += FONTS::PADDING * 2;
+		float maxHeight = (costText.getGlobalBounds().top + costText.getGlobalBounds().height) - titleText.getGlobalBounds().top;
+		maxHeight += FONTS::PADDING;
+		maxHeight = 180.f;
+		sf::RectangleShape textBox({ maxWidth, maxHeight });
+		float averageXOrigin = (titleText.getPosition().x + itemText.getPosition().x + costText.getPosition().x) / 3;
+		float averageYOrigin = (titleText.getPosition().y + itemText.getPosition().y + costText.getPosition().y) / 3;
+		textBox.setOrigin(textBox.getLocalBounds().getSize().x / 2, textBox.getLocalBounds().getSize().y / 2);
+		textBox.setPosition(averageXOrigin, averageYOrigin);
+		textBox.setFillColor(mSystem.AssetMgr.GetTextboxColor());
 
-			// Text Box
-			float maxWidth = std::max({ itemText.getGlobalBounds().getSize().x, titleText.getGlobalBounds().getSize().x, costText.getGlobalBounds().getSize().x });
-			maxWidth += FONTS::PADDING * 2;
-			float maxHeight = (costText.getGlobalBounds().top + costText.getGlobalBounds().height) - titleText.getGlobalBounds().top;
-			maxHeight += FONTS::PADDING * 2;
-			maxHeight = 100.f;
-			sf::RectangleShape textBox({ maxWidth, maxHeight });
-			float averageXOrigin = (titleText.getPosition().x + itemText.getPosition().x + costText.getPosition().x) / 3;
-			float averageYOrigin = (titleText.getPosition().y + itemText.getPosition().y + costText.getPosition().y) / 3;
-			textBox.setOrigin(textBox.getLocalBounds().getSize().x / 2, textBox.getLocalBounds().getSize().y / 2);
-			textBox.setPosition(averageXOrigin, averageYOrigin - FONTS::ORIGIN_YOFFSET);
-			textBox.setFillColor(mSystem.AssetMgr.GetTextboxColor());
-
-			Draw(textBox);
-			Draw(titleText);
-			Draw(itemText);
-			Draw(costText);
-
-			
-
-		}
+		Draw(textBox);
+		Draw(titleText);
+		Draw(itemText);
+		Draw(costText);
 	}
+	
 }
 
 sf::Sprite RenderManager::GetGheedIdleFrame(Merchant& merchant)

@@ -475,7 +475,8 @@ std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> Inventory::GetMissingItem()
 			return item.first;
 		}
 	}
-	
+	// Exception case for if there are no items missing and game is won
+	return { ITEMID::KEY, ITEMRARITY::NORMAL };
 }
 
 int Inventory::GetNumberOfItemsMissing()

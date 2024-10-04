@@ -5,22 +5,22 @@ Merchant::Merchant(System& system)
 	:mSystem{system}
 	,mTotalFrames{8}
 	,mCurrentPos{ 694.f,246.f }
-	,mStartPos{694.f, 246.f}
-	,mEndPos{978.f,456.f}
-	,mRect{ {29.f, 68.f} }
+	,mStartPos{898.f, 314.f}
+	,mEndPos{992.f,394.f}
+	,mRect{ {38.f, 92.f} }
 	,mIsVisible{false}
 	,mItem{ITEMID::MAX_ITEMS, ITEMRARITY::MAX_RARITIES}
+	,mLastSoldItem{ITEMID::MAX_ITEMS, ITEMRARITY::MAX_RARITIES}
 	,mMousePos{0.f,0.f}
-	,mDialogueOpen{false}
 	,mIdleAnimFrame{0}
 	,mWalkAnimFrame{0}
 	,mWalkAnimProgress{0}
 	,mWalking{true}
-	,mWalkAnimStep{1.0f}
+	,mWalkAnimStep{1.3f}
 	,mIdleAnimStep{1.0f}
 	,mIdleAnimProgress{0.f}
 	,mWalkingProgress{0.f}
-	,mWalkingIncrement{0.15f}
+	,mWalkingIncrement{0.40f}
 {
 	mRect.setOrigin(mRect.getLocalBounds().getSize().x / 2, mRect.getLocalBounds().getSize().y);
 }
@@ -36,15 +36,6 @@ void Merchant::OnMouseMove(int x, int y)
 	else
 	{
 		mMouseOverMerchant = false;
-	}
-
-	if (mPurchaseButton.getGlobalBounds().contains(mMousePos) && mDialogueOpen)
-	{
-		mMouseOverPurchase = true;
-	}
-	else
-	{
-		mMouseOverPurchase = false;
 	}
 }
 
@@ -66,17 +57,18 @@ void Merchant::OnMouseRelease(sf::Mouse::Button button)
 	if (mWalking) { return; }
 	if (mMouseOverMerchant)
 	{
-		mDialogueOpen = !mDialogueOpen;
-	}
-	if (mMouseOverPurchase && mDialogueOpen)
-	{
+		if (mItem == mLastSoldItem)
+		{
+			return;
+		}
 		int itemCost = CalculcateMissingItemCost();
 		if (mSystem.InventoryMgr.GetGold() >= itemCost)
 		{
-			mDialogueOpen = false;
 			mSystem.InventoryMgr.RemoveGold(itemCost);
 			SpawnItem();
+			mLastSoldItem = mItem;
 			UpdateItemToSell();
+			PurchaseAudio();
 		}
 	}
 }
@@ -123,19 +115,10 @@ int Merchant::GetIdleFrame()
 	return (int)(mIdleAnimProgress / progressPerFrame);
 }
 
-bool Merchant::IsDialogueOpen()
-{
-	return mDialogueOpen;
-}
 
 bool Merchant::IsMouseOverMerchant()
 {
 	return mMouseOverMerchant;
-}
-
-bool Merchant::IsMouseOverPurchase()
-{
-	return mMouseOverPurchase;
 }
 
 void Merchant::UpdateWalkingProgress()
@@ -146,7 +129,6 @@ void Merchant::UpdateWalkingProgress()
 	{
 		mWalkingProgress = 1.0f;
 		mWalking = false;
-		InitializePurchaseButton();
 	}
 }
 
@@ -161,10 +143,6 @@ sf::Vector2f Merchant::GetCurrentPosition()
 	return mCurrentPos.getAsSFVec2F();
 }
 
-sf::RectangleShape& Merchant::GetPurchaseButtonRect()
-{
-	return mPurchaseButton;
-}
 
 void Merchant::UpdateMerchant()
 {
@@ -189,7 +167,7 @@ void Merchant::UpdateItemToSell()
 
 int Merchant::CalculcateMissingItemCost()
 {
-	return (ITEMGEN::TOTAL_UNIQUE_ITEMS - mSystem.InventoryMgr.GetNumberOfItemsMissing()) * 10000;
+	return (6 - (ITEMGEN::TOTAL_UNIQUE_ITEMS - mSystem.InventoryMgr.GetNumberOfUniqueItems())) * 100000;
 }
 
 void Merchant::IncremenentWalkAnimation()
@@ -217,18 +195,36 @@ void Merchant::SpawnItem()
 
 void Merchant::ArrivalAudio()
 {
-
+	if (!mFirstAppearance)
+	{
+		SoundManager::GetInstance().PlayASound(PLAYSOUND::INTRO, 25.f, 1.0f, false);
+		mFirstAppearance = true;
+	}
+	else
+	{
+		int itemsMissing = ITEMGEN::TOTAL_UNIQUE_ITEMS - mSystem.InventoryMgr.GetNumberOfUniqueItems();
+		switch (itemsMissing)
+		{
+		case 1: SoundManager::GetInstance().PlayASound(PLAYSOUND::INSULT, 25.f, 1.0f, false); break;
+		case 2: SoundManager::GetInstance().PlayASound(PLAYSOUND::HAPPY, 25.f, 1.0f, false); break;
+		default: SoundManager::GetInstance().PlayASound(PLAYSOUND::GOODTOSEEYOU, 25.f, 1.0f, false); break;
+		}		
+	}
+	
 }
 
 void Merchant::PurchaseAudio()
 {
-
-}
-
-void Merchant::InitializePurchaseButton()
-{
-	mPurchaseButton.setSize({ 65.f, 65.f });
-	mPurchaseButton.setPosition(mCurrentPos.getAsSFVec2F() + sf::Vector2f{30.f, -120.f});
+	int random = MathU::Random(1, 2);
+	StopAllGheedAudio();
+	if (random == 1)
+	{
+		SoundManager::GetInstance().PlayASound(PLAYSOUND::FAREWELL, 25.f, 1.0f, false);
+	}
+	else
+	{
+		SoundManager::GetInstance().PlayASound(PLAYSOUND::LAUGH, 25.f, 1.0f, false);
+	}
 }
 
 void Merchant::ResetMerchant()
@@ -237,4 +233,14 @@ void Merchant::ResetMerchant()
 	mWalkAnimProgress = 0.f;
 	mWalking = true;
 	mCurrentPos = mStartPos;
+}
+
+void Merchant::StopAllGheedAudio()
+{
+	SoundManager::GetInstance().StopPlayingSound(PLAYSOUND::INTRO);
+	SoundManager::GetInstance().StopPlayingSound(PLAYSOUND::INSULT);
+	SoundManager::GetInstance().StopPlayingSound(PLAYSOUND::HAPPY);
+	SoundManager::GetInstance().StopPlayingSound(PLAYSOUND::GOODTOSEEYOU);
+	SoundManager::GetInstance().StopPlayingSound(PLAYSOUND::FAREWELL);
+	SoundManager::GetInstance().StopPlayingSound(PLAYSOUND::LAUGH);
 }
