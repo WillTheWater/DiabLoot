@@ -40,7 +40,7 @@ void AssetManager::InitializeTextureSprites()
     mTextures[TEXTURES::CLOSE_BUTTON]->loadFromFile         ("assets/graphics/closebutton.png");
     mTextures[TEXTURES::MINI_BUTTON]->loadFromFile          ("assets/graphics/minibutton.png");
     mTextures[TEXTURES::INFO_BUTTON]->loadFromFile          ("assets/graphics/infobutton.png");
-    mTextures[TEXTURES::PURCHASE_BUTTON]->loadFromFile      ("assets/graphics/upgradebutton.png");
+    mTextures[TEXTURES::PURCHASE_BUTTON]->loadFromFile      ("assets/graphics/buybutton.png");
     mTextures[TEXTURES::CHESTCLOSED]->loadFromFile          ("assets/graphics/chestclosed.png");
     mTextures[TEXTURES::CHESTOPENED]->loadFromFile          ("assets/graphics/chestopened.png");
     // MAPS
