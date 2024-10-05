@@ -78,6 +78,7 @@ private:
 	void									PickUpItem(Item& item);
 	void									SpawnItem(Particle& particle);
 	void									TurnItemToGold(Particle& particle);
+	void									SortItems(); // Calls SortItemsByVerticalSapce and StackItemLabels
 	void									SortItemsByVerticalSpace();
 	void									StackItemlabels();
 	void									RemoveAllChestObservers();

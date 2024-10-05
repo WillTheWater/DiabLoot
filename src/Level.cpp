@@ -110,11 +110,7 @@ void Level::UpdateLevel()
 
 void Level::UpdateItems()
 {
-	if (mItems.size() > 0)
-	{
-		SortItemsByVerticalSpace();
-		StackItemlabels();
-	}
+	SortItems();
 }
 
 int Level::GetUniqueParticleId()
@@ -293,6 +289,7 @@ void Level::PickUpItem(Item& item)
 			break;
 		}
 	}
+	SortItems();
 	assert(success && "PlayState::RemoveItem failed to remove the item");
 }
 
@@ -313,6 +310,7 @@ void Level::SpawnItem(Particle& particle)
 	SetParticleForRemoval(particle);
 	// Play the sounds 
 	SoundManager::GetInstance().PlayItemSound(itemId);
+	SortItems();
 }
 
 void Level::TurnItemToGold(Particle& particle)
@@ -328,6 +326,7 @@ void Level::TurnItemToGold(Particle& particle)
 	SetParticleForRemoval(particle);
 	// Play the sounds 
 	SoundManager::GetInstance().PlayItemSound({ITEMID::GOLD, ITEMRARITY::GOLD });
+	SortItems();
 }
 
 void Level::SetRain(bool rain)
@@ -361,22 +360,31 @@ void Level::StackItemlabels()
 	for (auto& item : mItems)
 	{
 		sf::RectangleShape textBox = item->GetTextRect();
-		textBox.setPosition(item->GetPosition() + sf::Vector2f{ 0.f, -30.f });
-		if (placedRects.size() != 0)
-		{
-			for (auto& rect : placedRects)
-			{
-				if (rect.getGlobalBounds().intersects(textBox.getGlobalBounds()))
-				{
-					textBox.setPosition(textBox.getPosition().x, rect.getGlobalBounds().top - textBox.getLocalBounds().getSize().y / 2 - 5.f);
-				}
-			}
-		}
-		item->SetTextRect(textBox);
-		placedRects.push_back(textBox);
+		textBox.setPosition(item->GetPosition());
+		textBox.move(0.f, -30.f);
 
+		if (!placedRects.empty())
+		{
+			bool adjusted;
+			do {
+				adjusted = false;
+				for (auto& rect : placedRects)
+				{
+					if (rect.getGlobalBounds().intersects(textBox.getGlobalBounds()))
+					{
+						float newYPosition = rect.getGlobalBounds().top - 2.f;
+                        textBox.setPosition(textBox.getPosition().x, newYPosition);
+						adjusted = true;
+					}
+				}
+			} while (adjusted);  // Ensure no remaining overlaps before moving on
+		}
+
+		placedRects.push_back(textBox);
+		item->SetTextRect(textBox);
 	}
 }
+
 
 bool Level::ThunderStrike()
 {
@@ -443,6 +451,15 @@ void Level::RandomThunder()
 			SoundManager::GetInstance().PlayThunder();
 			mThunder = false;
 		}
+	}
+}
+
+void Level::SortItems()
+{
+	if (!mItems.empty())
+	{
+		SortItemsByVerticalSpace();
+		StackItemlabels();
 	}
 }
 

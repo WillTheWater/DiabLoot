@@ -17,8 +17,8 @@ Item::Item(std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> item, int unique, sf::Vec
 	{
 		mText.setString(std::to_string(quantity) + ' ' + mText.getString());
 	}
-	mRect.setSize({ mText.getGlobalBounds().getSize().x + FONTS::PADDING, mText.getGlobalBounds().getSize().y + FONTS::PADDING });
-	mRect.setOrigin(mRect.getGlobalBounds().width / 2, mRect.getGlobalBounds().height / 2 + FONTS::ORIGIN_YOFFSET);
+	mRect.setSize({ mText.getLocalBounds().getSize().x + FONTS::PADDING, mText.getGlobalBounds().getSize().y + FONTS::PADDING});
+	mRect.setOrigin(mRect.getLocalBounds().width / 2, mRect.getLocalBounds().height);
 	mRect.setPosition(pos);
 }
 
