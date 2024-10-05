@@ -776,7 +776,7 @@ void RenderManager::DrawToolTip(sf::Vector2f mousePos)
 	{
 		sf::Text tooltipText;
 		tooltipText.setFont(mSystem.AssetMgr.GetFont(FONTS::LIGHT));
-		tooltipText.setString("        | How to Play |\n\n   Collect all the items\nby clicking on the chests.\n  Click ~Next Level~ to\n            move on.\n    Collect Gold and to\n       upgrade levels.\n  Use the Upgrade to add\n      up to four chests.\n\n           | Hotkeys |\n          M: Mute all\n      I: Open Inventory\n       U: Upgrade Level\n         N: Next Level");
+		tooltipText.setString("        | How to Play |\n\n    Collect all the items\n by clicking on the chests.\n    Click ~Next Level~ to\n            move on.\n     Collect Gold and\n        upgrade levels\n using the Upgrade button.\n\n           | Hotkeys |\n          M: Mute all\n      I: Open Inventory\n       U: Upgrade Level\n         N: Next Level");
 		tooltipText.setCharacterSize(25);
 		tooltipText.setFillColor(sf::Color::White);
 
