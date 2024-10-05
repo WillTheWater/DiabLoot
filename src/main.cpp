@@ -8,18 +8,18 @@
 #include "Game.h"
 #include <Windows.h>  // Required for WinMain
 
-//int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
-//{
-//    auto game = std::make_unique<Game>();
-//    game->Run();
-//    return 0;
-//}
-
-// WinMain is for building the release mode.
-
-int main()
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
     auto game = std::make_unique<Game>();
     game->Run();
     return 0;
 }
+
+// WinMain is for building the release mode.
+
+//int main()
+//{
+//    auto game = std::make_unique<Game>();
+//    game->Run();
+//    return 0;
+//}
