@@ -666,12 +666,12 @@ void RenderManager::LevelRender(Level& level)
 	Draw(mSystem.AssetMgr.GetLevelMap(level.GetLevelId()));
 	FireRenderer(level.GetLevelId());
 	ChestsRender(level.GetChests());
-	ParticlesRender(level.GetParticles());
-	ItemsRender(level.GetItems());
 	if (level.HasMerchant())
 	{
 		MerchantRender(level);
 	}
+	ParticlesRender(level.GetParticles());
+	ItemsRender(level.GetItems());
 
 	if (level.HasRain())
 	{

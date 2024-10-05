@@ -110,7 +110,8 @@ void PlayState::OnKeyRelease(sf::Keyboard::Key key)
 	}
 	if (key == sf::Keyboard::U)
 	{
-		UpgradeLevel();
+		mLevel.UpgradeLevel();
+		//UpgradeLevel();
 	}
 	if (key == sf::Keyboard::M) { SoundManager::GetInstance().MuteToggle(); }
 	if (key == sf::Keyboard::C)
