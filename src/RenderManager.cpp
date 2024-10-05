@@ -928,7 +928,7 @@ void RenderManager::ItemsRender(std::list<std::unique_ptr<Item>>& items)
 		textRect.setFillColor(mSystem.AssetMgr.GetTextboxColor());
 		sf::Text text = item->GetItemText();
 		text.setOrigin(text.getGlobalBounds().getSize().x / 2, text.getGlobalBounds().getSize().y);
-		text.setPosition(textRect.getPosition() + sf::Vector2f{0.f, FONTS::PADDING});
+		text.setPosition(textRect.getPosition() + sf::Vector2f{0.f, -FONTS::PADDING});
 		text.setColor(mSystem.AssetMgr.GetColorForItemText(itemId));
 		mGameWindow.draw(textRect);
 		mGameWindow.draw(text);
