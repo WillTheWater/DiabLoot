@@ -127,7 +127,7 @@ void Level::SpawnChest(sf::Vector2f pos, bool mirrored, LEVELS::UPGRADE chest)
 
 void Level::SpawnParticles(Chest& chest)
 {
-	int numOfParticles = MathU::Random(100, 300);
+	int numOfParticles = MathU::Random(8, 16);
 	std::function<void(Particle&)> callback = [this](Particle& particle) {this->SpawnItem(particle); };
 	float animStep = MathU::Random(PARTICLE::ANIMSTEP - 0.08f, PARTICLE::ANIMSTEP + 0.08f);
 	for (int i{ 0 }; i < numOfParticles; i++)
