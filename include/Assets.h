@@ -264,6 +264,7 @@ namespace FONTS
 	inline int CHARACTER_SIZE_BUTTONS = 45;
 	inline float PADDING = 8.f;
 	inline float ORIGIN_YOFFSET = -5.f;
+	inline float SFTEXT_RENDER_YOFFSET = -10.f;
 }
 
 namespace IMAGES
