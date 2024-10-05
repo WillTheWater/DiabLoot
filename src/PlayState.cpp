@@ -6,8 +6,8 @@
 #include "Core.h"
 
 PlayState::PlayState(System& system, ChangeStateCallback changeStateCB, Level& level)
-	:GameState{ system, changeStateCB }
-	,mLevel{level}
+	: GameState{ system, changeStateCB }
+	, mLevel{level}
 	, mMouseIsClicked{false}
 	, mIsInventoryOpen{false}
 	, mHasWon{false}
@@ -84,39 +84,10 @@ void PlayState::OnKeyRelease(sf::Keyboard::Key key)
 			mChangeStateCB(std::move(newState));
 		}
 	}
-	if (key == sf::Keyboard::I)
-	{
-		mSystem.InventoryMgr.ToggleInventory();
-	}
-	if (key == sf::Keyboard::S)
-	{
-		mSystem.LevelMgr.SaveLevels();
-		mSystem.InventoryMgr.SaveInventory();
-	}
-	if (key == sf::Keyboard::L)
-	{
-		mSystem.LevelMgr.LoadLevels();
-		mLevel.DeactiveChests();	// This is just to simulate loading the level
-		mLevel.ActivateChests();    // This is just to simulate loading the level
-		mSystem.InventoryMgr.LoadInventory();
-	}
-	if (key == sf::Keyboard::O)
-	{
-		mSystem.InventoryMgr.SortInventory();
-	}
-	if (key == sf::Keyboard::D)
-	{
-		mSystem.InventoryMgr.DeleteInventory();
-	}
-	if (key == sf::Keyboard::U)
-	{
-		UpgradeLevel();
-	}
+	if (key == sf::Keyboard::I) { mSystem.InventoryMgr.ToggleInventory();}
+	if (key == sf::Keyboard::S) { mSystem.InventoryMgr.SortInventory(); }
+	if (key == sf::Keyboard::U)	{ UpgradeLevel();}
 	if (key == sf::Keyboard::M) { SoundManager::GetInstance().MuteToggle(); }
-	if (key == sf::Keyboard::C)
-	{
-		mSystem.InventoryMgr.DebugGetOneOfEverything();
-	}
 	
 }
 
