@@ -419,42 +419,6 @@ void RenderManager::FireRenderer(LEVELS::LEVEL level)
 	}
 }
 
-sf::Sprite& RenderManager::GheedAnimation(const sf::Vector2f& position)
-{
-	static sf::Sprite gheedSprite = mSystem.AssetMgr.GetSprite(SPRITES::GHEED);  // Assuming you have a sprite for Gheed.
-	gheedSprite.setScale(sf::Vector2f{ 1.4f,1.4f });
-	// Idle frames
-	const int frameWidth = 29 - 0;
-	const int frameHeight = 556 - 488;
-	// Walkingframes
-	//const int frameWidth = 278 - 239;
-	//const int frameHeight = 563 - 495;
-
-	const int totalFrames = 8;
-
-	// Get the current animation frame from TimeManager
-	int currentFrame = mSystem.TimeMgr.GetGheedAnimFrame();  // You'll need to implement this similar to fire animation frame update.
-	// Idle start
-	int startX = currentFrame * frameWidth;
-	int startY = 488;
-
-	// Walking
-	//int startX = 239 + (currentFrame * frameWidth);
-	//int startY = 495;
-
-	// Set texture rectangle for the current frame
-	sf::IntRect frameRect(startX, startY, frameWidth, frameHeight);
-	gheedSprite.setTextureRect(frameRect);
-
-	// Set origin to the center for positioning
-	gheedSprite.setOrigin(frameWidth / 2.0f, frameHeight);
-
-	// Set the position and return the sprite
-	gheedSprite.setPosition(position);
-
-	return gheedSprite;
-}
-
 void RenderManager::RainRender()
 {
 	// Get raining timing
@@ -581,7 +545,7 @@ void RenderManager::MerchantRender(Level& level)
 		itemText.setOrigin(itemText.getGlobalBounds().getSize().x / 2, itemText.getGlobalBounds().getSize().y / 2);
 		costText.setOrigin(costText.getGlobalBounds().getSize().x / 2, costText.getGlobalBounds().getSize().y / 2);
 
-		sf::Vector2f textPos{ (sf::Vector2f)sf::Mouse::getPosition() + sf::Vector2f{-150.f, 0.f} };
+		sf::Vector2f textPos{ (sf::Vector2f)sf::Mouse::getPosition(mGameWindow) + sf::Vector2f{-150.f, 0.f} };
 		titleText.setPosition(textPos);
 		itemText.setPosition(textPos);
 		itemText.move(0.f, titleText.getLocalBounds().getSize().y + FONTS::PADDING);
@@ -776,7 +740,7 @@ void RenderManager::DrawToolTip(sf::Vector2f mousePos)
 	{
 		sf::Text tooltipText;
 		tooltipText.setFont(mSystem.AssetMgr.GetFont(FONTS::LIGHT));
-		tooltipText.setString("        | How to Play |\n\n    Collect all the items\n by clicking on the chests.\n    Click ~Next Level~ to\n            move on.\n     Collect Gold and\n        upgrade levels\n using the Upgrade button.\n\n           | Hotkeys |\n          M: Mute all\n      I: Open Inventory\n       U: Upgrade Level\n         N: Next Level");
+		tooltipText.setString("        | How to Play |\n\n    Collect all the items\n by clicking on the chests.\n    Click ~Next Level~ to\n            move on.\n     Collect Gold and\n        upgrade levels\n using the Upgrade button.\n\n           | Hotkeys |\n        M: Toggle Mute\n      I: Open Inventory\n      S: Sort Inventory\n        U: Upgrade Level\n          N: Next Level");
 		tooltipText.setCharacterSize(25);
 		tooltipText.setFillColor(sf::Color::White);
 

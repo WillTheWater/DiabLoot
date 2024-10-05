@@ -30,8 +30,6 @@ public:
 	void										MerchantRender(Level& level);
 	sf::Sprite									GetGheedIdleFrame(Merchant& merchant);
 	sf::Sprite									GetGheedWalkFrame(Merchant& merchant);
-	sf::Sprite&									GheedAnimation(const sf::Vector2f& position);
-
 
 
 	template <typename T>

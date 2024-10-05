@@ -88,7 +88,7 @@ void PlayState::OnKeyRelease(sf::Keyboard::Key key)
 	if (key == sf::Keyboard::S) { mSystem.InventoryMgr.SortInventory(); }
 	if (key == sf::Keyboard::U)	{ UpgradeLevel();}
 	if (key == sf::Keyboard::M) { SoundManager::GetInstance().MuteToggle(); }
-	
+	if (key == sf::Keyboard::N) { auto newState = std::make_unique<PlayState>(mSystem, mChangeStateCB, mSystem.LevelMgr.GetNextLevel()); mChangeStateCB(std::move(newState)); }
 }
 
 void PlayState::OnMouseClick(sf::Mouse::Button button)
