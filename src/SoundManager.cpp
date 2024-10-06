@@ -159,23 +159,63 @@ void SoundManager::FillMusicQueue()
     std::swap(mMusicQueue, empty);
 
     std::vector<MUSIC::PLAYMUSIC> songs = { MUSIC::TRISTRAM, MUSIC::CRYPT, MUSIC::DIABLO, MUSIC::KURAST, MUSIC::LUTGHOLEIN, MUSIC::HAREM };
-    
+
     std::shuffle(songs.begin(), songs.end(), std::default_random_engine(static_cast<unsigned>(std::time(nullptr))));
 
-    for (const auto& song : songs) {
+    for (const auto& song : songs) 
+    {
         mMusicQueue.push(song);
+    }
+}
+
+void SoundManager::PlayNextSong()
+{
+    if (!mMusicQueue.empty()) {
+        mCurrentlyPlaying = mMusicQueue.front();  // Get the next song in the queue
+        mMusicQueue.pop();  // Remove the current song from the queue
+
+        // Retrieve the corresponding sf::Music* from the asset manager
+        auto music = &mAssetMgr->GetMusic(mCurrentlyPlaying);
+        if (music) {  // Check if the music pointer is valid
+            mActiveMusic.push_back({ music, mDefaultVolume });  // Store it as the active music
+            PlayMusic(mCurrentlyPlaying, mDefaultVolume, false);  // Play the song without looping
+        }
+    }
+    else {
+        // If the queue is empty, refill it
+        FillMusicQueue();
     }
 }
 
 void SoundManager::StartMusicSequence()
 {
-    FillMusicQueue();
+    // Check if the currently playing music has stopped
+    if (!mActiveMusic.empty() && mActiveMusic.front().first->getStatus() == sf::SoundSource::Stopped) {
+        mActiveMusic.clear();  // Clear the currently playing music
+    }
 
-    if (!mMusicQueue.empty()) {
-        mCurrentlyPlaying = mMusicQueue.front();
-        PlayMusic(mCurrentlyPlaying, mDefaultVolume, true);
+    // If there's no active music, play the next song
+    if (mActiveMusic.empty()) {
+        PlayNextSong();
     }
 }
+
+void SoundManager::UpdateMusicQueue()
+{
+    // Check if there's currently active music
+    if (!mActiveMusic.empty()) {
+        // Check if the currently playing music has stopped
+        if (mActiveMusic.front().first->getStatus() == sf::SoundSource::Stopped) {
+            mActiveMusic.clear();  // Clear the currently playing music
+            PlayNextSong();  // Play the next song in the queue
+        }
+    }
+    else {
+        // If there is no active music, start from the queue
+        PlayNextSong();
+    }
+}
+
 
 void SoundManager::PlayItemSound(std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> itemid)
 {
