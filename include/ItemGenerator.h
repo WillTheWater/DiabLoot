@@ -9,27 +9,27 @@ namespace ITEMGEN
 	static const std::vector<float> RarityProbabilities = { 0.509, 0.130, 0.093, 0.065, 0.073, 0.056, 0.075 }; // Gold, normal, magic, rare, set, unique, rune
 	static const std::vector<float> RuneProbabilities =
 	{
-		0.030, // 1 : ELRUNE
-		0.030, // 2 : ELDRUNE
-		0.030, // 3 : TIRRUNE
-		0.030, // 4 : NEFRUNE
-		0.030, // 5 : ETHRUNE
-		0.030, // 6 : ITHRUNE
-		0.030, // 7 : TALRUNE
-		0.030, // 8 : RALRUNE
-		0.030, // 9 : ORTRUNE
-		0.030, // 10: THULRUNE
-		0.025, // 11: AMNRUNE
-		0.022, // 12: SOLRUNE
-		0.019, // 13: SHAELRUNE
-		0.017, // 14: DOLRUNE
-		0.015, // 15: HELRUNE
-		0.013, // 16: IORUNE
-		0.011, // 17: LUMRUNE
-		0.009, // 18: KORUNE
-		0.008, // 19: FALRUNE
-		0.007, // 20: LEMRUNE
-		0.006, // 21: PULRUNE
+		0.0300, // 1 : ELRUNE
+		0.0300, // 2 : ELDRUNE
+		0.0300, // 3 : TIRRUNE
+		0.0300, // 4 : NEFRUNE
+		0.0300, // 5 : ETHRUNE
+		0.0300, // 6 : ITHRUNE
+		0.0300, // 7 : TALRUNE
+		0.0300, // 8 : RALRUNE
+		0.0300, // 9 : ORTRUNE
+		0.0300, // 10: THULRUNE
+		0.0250, // 11: AMNRUNE
+		0.0220, // 12: SOLRUNE
+		0.0190, // 13: SHAELRUNE
+		0.0170, // 14: DOLRUNE
+		0.0150, // 15: HELRUNE
+		0.0130, // 16: IORUNE
+		0.0110, // 17: LUMRUNE
+		0.0090, // 18: KORUNE
+		0.0080, // 19: FALRUNE
+		0.0070, // 20: LEMRUNE
+		0.0060, // 21: PULRUNE
 		0.0055, // 22: UMRUNE
 		0.0050, // 23: MALRUNE
 		0.0045, // 24: ISTRUNE
@@ -121,12 +121,12 @@ namespace ITEMGEN
 
 	static const std::array<ITEMID::ITEM, 14> RarityUniqueItems
 	{
-		ITEMID::AMULET1,
-		ITEMID::AMULET2,
-		ITEMID::AMULET3,
-		ITEMID::RING1,
-		ITEMID::RING2,
-		ITEMID::RING3,
+		ITEMID::AMULET_UNIQ1,
+		ITEMID::AMULET_UNIQ2,
+		ITEMID::AMULET_UNIQ3,
+		ITEMID::RING_UNIQ1,
+		ITEMID::RING_UNIQ2,
+		ITEMID::RING_UNIQ3,
 		ITEMID::JEWEL_1,
 		ITEMID::JEWEL_2,
 		ITEMID::JEWEL_3,

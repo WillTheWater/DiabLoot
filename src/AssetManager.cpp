@@ -189,8 +189,11 @@ void AssetManager::InitializeTextureSprites()
     // ITEMS
     mSprites[SPRITES::KEY]->setTexture                      (GetTexture(TEXTURES::KEY));
     mSprites[SPRITES::AMULET1]->setTexture                  (GetTexture(TEXTURES::AMULET1));
+    mSprites[SPRITES::AMULET_UNIQ1]->setTexture             (GetTexture(TEXTURES::AMULET1));
     mSprites[SPRITES::AMULET2]->setTexture                  (GetTexture(TEXTURES::AMULET2));
+    mSprites[SPRITES::AMULET_UNIQ2]->setTexture             (GetTexture(TEXTURES::AMULET2));
     mSprites[SPRITES::AMULET3]->setTexture                  (GetTexture(TEXTURES::AMULET3));
+    mSprites[SPRITES::AMULET_UNIQ3]->setTexture             (GetTexture(TEXTURES::AMULET3));
     mSprites[SPRITES::CHARM1]->setTexture                   (GetTexture(TEXTURES::CHARM1));
     mSprites[SPRITES::CHARM2]->setTexture                   (GetTexture(TEXTURES::CHARM2));
     mSprites[SPRITES::CHARM3]->setTexture                   (GetTexture(TEXTURES::CHARM3));
@@ -298,7 +301,6 @@ void AssetManager::InitializeFontsAndTexts()
     }
     assert(std::ssize(mButtonTexts) == BUTTONS::MAX_BUTTONS && "AssetManager failed to initialize correct number of button texts\n");
 
-
     // Load fonts
     mFonts[FONTS::LIGHT]->loadFromFile("assets/font/lightdiablo.ttf");
     mFonts[FONTS::BOLD]->loadFromFile("assets/font/bolddiablo.ttf");
@@ -313,10 +315,13 @@ void AssetManager::InitializeFontsAndTexts()
 
     // Set Item Texts
     mItemTexts[ITEMID::GOLD]->setString                 ("Gold");
-    mItemTexts[ITEMID::AMULET1]->setString              ("Amulet");
     mItemTexts[ITEMID::KEY]->setString                  ("Key");
+    mItemTexts[ITEMID::AMULET1]->setString              ("Nokozan Relic Amulet");
     mItemTexts[ITEMID::AMULET2]->setString              ("Water Amulet");
-    mItemTexts[ITEMID::AMULET3]->setString              ("Fire Amulet");
+    mItemTexts[ITEMID::AMULET3]->setString              ("The Eye of Etlich Amulet");
+    mItemTexts[ITEMID::AMULET_UNIQ1]->setString         ("Highlord's Wrath Amulet");
+    mItemTexts[ITEMID::AMULET_UNIQ2]->setString         ("Metalgrid Amulet");
+    mItemTexts[ITEMID::AMULET_UNIQ3]->setString         ("Mara's Kaleidoscope Amulet");
     mItemTexts[ITEMID::CHARM1]->setString               ("Small Charm of Dexterity");
     mItemTexts[ITEMID::CHARM2]->setString               ("Small Charm of Luck");
     mItemTexts[ITEMID::CHARM3]->setString               ("Small Charm of Strength");
@@ -349,9 +354,12 @@ void AssetManager::InitializeFontsAndTexts()
     mItemTexts[ITEMID::JEWEL_4]->setString              ("Opal Jewel");
     mItemTexts[ITEMID::JEWEL_5]->setString              ("Sapphire Jewel");
     mItemTexts[ITEMID::JEWEL_6]->setString              ("Amethyst Jewel");
-    mItemTexts[ITEMID::RING1]->setString                ("Ring");
+    mItemTexts[ITEMID::RING1]->setString                ("Ring of Development");
     mItemTexts[ITEMID::RING2]->setString                ("Ring of Water");
     mItemTexts[ITEMID::RING3]->setString                ("Ring of Chloranthy");
+    mItemTexts[ITEMID::RING_UNIQ1]->setString           ("The Stone of Jordan Ring");
+    mItemTexts[ITEMID::RING_UNIQ2]->setString           ("Bul-Kathos' Wedding Band Ring");
+    mItemTexts[ITEMID::RING_UNIQ3]->setString           ("Wisp Projector Ring");
     mItemTexts[ITEMID::TPSCROLL]->setString             ("Scroll of Town Portal");
     mItemTexts[ITEMID::IDSCROLL]->setString             ("Scroll of Identification");
     mItemTexts[ITEMID::ANNIHILUS]->setString            ("Annihilus");
@@ -578,9 +586,9 @@ const sf::Sprite& AssetManager::GetLevelMap(LEVELS::LEVEL level) const
     }
 }
 
-const sf::Text& AssetManager::GetTextForItemID(ITEMID::ITEM item) const
+const sf::Text& AssetManager::GetTextForItemID(ITEMID::ITEM itemId) const
 {
-    return *mItemTexts[item];
+    return *mItemTexts[itemId];
 }
 
 const sf::Text& AssetManager::GetTextForButtons(BUTTONS::BUTTON_TEXT text) const
