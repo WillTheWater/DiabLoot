@@ -4,6 +4,7 @@
 #include <Array>
 #include "MathUtilities.h"
 #include <iostream>
+#include "SoundManager.h"
 
 class FireWorkSystem
 {
@@ -16,6 +17,8 @@ public:
 	void				QueueSparkForDeletion(FireWork& spark);
 	void				RemoveSparkWithID(int id);
 	void				RemoveOldSparks();
+	void				PlayFireWorkSound();
+	void				StopFireWorkSounds();
 
 	const std::vector<std::unique_ptr<FireWork>>& GetFireWorks() const;
 	const std::vector<std::unique_ptr<FireWork>>&	GetSparks() const;

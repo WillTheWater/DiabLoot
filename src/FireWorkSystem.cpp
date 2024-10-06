@@ -31,6 +31,7 @@ void FireWorkSystem::Update(float deltaTime)
 		}
 	}
 	RemoveOldSparks();
+	SoundManager::GetInstance().UpdateFireworkSounds();
 }
 
 void FireWorkSystem::StartFireworks()
@@ -51,6 +52,7 @@ void FireWorkSystem::EndFireWorks()
 	mPlaying = false;
 	mFireWorks.clear();
 	mSparks.clear();
+	StopFireWorkSounds();
 }
 
 
@@ -71,6 +73,7 @@ void FireWorkSystem::CreateSparks(FireWork& fireWork)
 	}
 	RemoveFireWork(fireWork);
 	CreateFireWork();
+	PlayFireWorkSound();
 }
 
 void FireWorkSystem::QueueSparkForDeletion(FireWork& spark)
@@ -128,6 +131,16 @@ void FireWorkSystem::RemoveOldSparks()
 	}
 	mSparksToDelete.clear();
 	mSparksToDelete.reserve(10);
+}
+
+void FireWorkSystem::PlayFireWorkSound()
+{
+	SoundManager::GetInstance().AddFireworkSound();
+}
+
+void FireWorkSystem::StopFireWorkSounds()
+{
+	SoundManager::GetInstance().StopFireWorkSounds();
 }
 
 const std::vector<std::unique_ptr<FireWork>>& FireWorkSystem::GetFireWorks() const
