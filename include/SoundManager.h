@@ -7,6 +7,7 @@
 #include <utility> 
 #include <cassert> 
 #include <iostream>
+#include <deque>
 #include "MathUtilities.h"
 
 class SoundManager
@@ -29,6 +30,9 @@ public:
 	void											FillMusicQueue();
 	void											StartMusicSequence();
 	void											PlayItemSound(std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> itemid);
+	void											AddFireworkSound();
+	void											UpdateFireworkSounds();
+	void											StopFireWorkSounds();
 
 private:
 	SoundManager() = default;
@@ -43,4 +47,5 @@ private:
 	std::queue<MUSIC::PLAYMUSIC>					mMusicQueue;
 	float											mDefaultVolume = 10.f;
 	AUDIO_MUTE::AUDIOSTATE							mAudioState = AUDIO_MUTE::AUDIOSTATE::UNMUTED;
+	std::deque<sf::Sound>							mFireWorkSounds;
 };

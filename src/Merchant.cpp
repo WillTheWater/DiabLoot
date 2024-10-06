@@ -229,6 +229,7 @@ void Merchant::PurchaseAudio()
 
 void Merchant::ResetMerchant()
 {
+	mIsVisible = false;
 	mWalkingProgress = 0.f;
 	mWalkAnimProgress = 0.f;
 	mWalking = true;

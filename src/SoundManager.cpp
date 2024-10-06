@@ -186,6 +186,47 @@ void SoundManager::PlayItemSound(std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> ite
     if (currentAudioState == AUDIO_MUTE::AUDIOSTATE::UNMUTED ||
         currentAudioState == AUDIO_MUTE::AUDIOSTATE::MUTE_MUSIC)
     {
-        SoundManager::GetInstance().PlayASound(sound, modulator, pitchShifter);
+        PlayASound(sound, modulator, pitchShifter);
     }
 }
+
+void SoundManager::AddFireworkSound()
+{
+    AUDIO_MUTE::AUDIOSTATE currentAudioState = GetAudioState();
+    sf::Sound firework = mAssetMgr->GetSound(PLAYSOUND::FIREWORKS);
+    auto pitchShifter = MathU::Random(0.8f, 1.2f);
+    auto modulator = MathU::Random(8.f, 10.f);
+    firework.setVolume(modulator);
+    firework.setPitch(pitchShifter);
+    mFireWorkSounds.push_back(firework);
+    mFireWorkSounds.back().play();
+}
+
+void SoundManager::UpdateFireworkSounds()
+{
+    for (auto& firework : mFireWorkSounds)
+    {
+        if (firework.getStatus() == sf::SoundSource::Playing)
+        {
+            if (mAudioState == AUDIO_MUTE::AUDIOSTATE::MUTE_ALL)
+            {
+                firework.stop();
+            }
+        }
+        else if(firework.getStatus() == sf::SoundSource::Stopped)
+        {
+            mFireWorkSounds.pop_front();
+        }
+    }
+}
+
+void SoundManager::StopFireWorkSounds()
+{
+    for (auto& sound : mFireWorkSounds)
+    {
+        sound.stop();
+    }
+    mFireWorkSounds.clear();
+}
+
+
