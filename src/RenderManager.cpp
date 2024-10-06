@@ -509,10 +509,6 @@ void RenderManager::MerchantRender(Level& level)
 	{
 		gheed = GetGheedIdleFrame(merchant);
 	}
-	if (merchant.IsMouseOverMerchant())
-	{
-		gheed.setColor({ 180, 255, 20, 255 });
-	}
 	gheed.setPosition(merchant.GetCurrentPosition()); 
 	Draw(gheed);
 
