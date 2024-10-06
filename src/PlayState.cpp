@@ -40,6 +40,7 @@ void PlayState::Exit()
 void PlayState::Update()
 {
 	//mSystem.TimeMgr.PrintTimeStats();
+	SoundManager::GetInstance().UpdateMusicQueue();
 	bool hasWon = false;
 	if (mSystem.InventoryMgr.HasOneOfEverything())
 	{	

@@ -28,7 +28,9 @@ public:
 	void											AudioControl();
 	void											MuteToggle();
 	void											FillMusicQueue();
+	void											PlayNextSong();
 	void											StartMusicSequence();
+	void											UpdateMusicQueue();
 	void											PlayItemSound(std::pair<ITEMID::ITEM, ITEMRARITY::RARITY> itemid);
 	void											AddFireworkSound();
 	void											UpdateFireworkSounds();
