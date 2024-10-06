@@ -197,7 +197,7 @@ void Merchant::ArrivalAudio()
 {
 	if (!mFirstAppearance)
 	{
-		SoundManager::GetInstance().PlayASound(PLAYSOUND::INTRO, 25.f, 1.0f, false);
+		SoundManager::GetInstance().PlayASound(PLAYSOUND::INTRO, PLAYSOUND::GHEED_VOLUME, 1.0f, false);
 		mFirstAppearance = true;
 	}
 	else
@@ -205,9 +205,9 @@ void Merchant::ArrivalAudio()
 		int itemsMissing = ITEMGEN::TOTAL_UNIQUE_ITEMS - mSystem.InventoryMgr.GetNumberOfUniqueItems();
 		switch (itemsMissing)
 		{
-		case 1: SoundManager::GetInstance().PlayASound(PLAYSOUND::INSULT, 25.f, 1.0f, false); break;
-		case 2: SoundManager::GetInstance().PlayASound(PLAYSOUND::HAPPY, 25.f, 1.0f, false); break;
-		default: SoundManager::GetInstance().PlayASound(PLAYSOUND::GOODTOSEEYOU, 25.f, 1.0f, false); break;
+		case 1: SoundManager::GetInstance().PlayASound(PLAYSOUND::INSULT, PLAYSOUND::GHEED_VOLUME, 1.0f, false); break;
+		case 2: SoundManager::GetInstance().PlayASound(PLAYSOUND::HAPPY, PLAYSOUND::GHEED_VOLUME, 1.0f, false); break;
+		default: SoundManager::GetInstance().PlayASound(PLAYSOUND::GOODTOSEEYOU, PLAYSOUND::GHEED_VOLUME, 1.0f, false); break;
 		}		
 	}
 	
@@ -219,11 +219,11 @@ void Merchant::PurchaseAudio()
 	StopAllGheedAudio();
 	if (random == 1)
 	{
-		SoundManager::GetInstance().PlayASound(PLAYSOUND::FAREWELL, 25.f, 1.0f, false);
+		SoundManager::GetInstance().PlayASound(PLAYSOUND::FAREWELL, PLAYSOUND::GHEED_VOLUME, 1.0f, false);
 	}
 	else
 	{
-		SoundManager::GetInstance().PlayASound(PLAYSOUND::LAUGH, 25.f, 1.0f, false);
+		SoundManager::GetInstance().PlayASound(PLAYSOUND::LAUGH, PLAYSOUND::GHEED_VOLUME, 1.0f, false);
 	}
 }
 
