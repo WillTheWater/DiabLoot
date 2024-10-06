@@ -47,7 +47,7 @@ void Level::EnterLevel()
 	{
 		SoundManager::GetInstance().StopPlayingSound(PLAYSOUND::FIRE);
 	}
-	if (mMerchant && (mSystem.InventoryMgr.GetNumberOfItemsMissing() <= 105))
+	if (mMerchant && (mSystem.InventoryMgr.GetNumberOfItemsMissing() <= 5))
 	{
 		mSystem.InputMgr.AddObserver(mMerchant.get());
 		mMerchant->SetVisiblility(true);
