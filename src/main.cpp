@@ -6,20 +6,17 @@
 #endif
 #endif
 #include "Game.h"
+#ifdef _WIN32
 #include <Windows.h>  // Required for WinMain
+#endif
 
+#ifdef _WIN32
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
+#else
+int main(int argc, char **argv)
+#endif
 {
     auto game = std::make_unique<Game>();
     game->Run();
     return 0;
 }
-
-// WinMain is for building the release mode.
-
-//int main()
-//{
-//    auto game = std::make_unique<Game>();
-//    game->Run();
-//    return 0;
-//}

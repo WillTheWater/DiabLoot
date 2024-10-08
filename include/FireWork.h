@@ -1,9 +1,9 @@
 #pragma once
 #include "Bezier.h"
 #include "Vec2.h"
-#include "sfml/Graphics.hpp"
+#include "SFML/Graphics.hpp"
 #include <functional>
-#include "assets.h"
+#include "Assets.h"
 #include <utility>
 
 class FireWork

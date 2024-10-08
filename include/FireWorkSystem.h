@@ -1,7 +1,7 @@
 #pragma once
 #include "FireWork.h"
-#include <Vector>
-#include <Array>
+#include <vector>
+#include <array>
 #include "MathUtilities.h"
 #include <iostream>
 #include "SoundManager.h"

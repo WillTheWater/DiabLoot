@@ -2,7 +2,9 @@
 #include "MainMenuState.h"
 #include "WinState.h"
 #include "SoundManager.h"
-#include <windows.h>
+#ifdef _WIN32
+#include <Windows.h>
+#endif
 #include "Core.h"
 
 PlayState::PlayState(System& system, ChangeStateCallback changeStateCB, Level& level)
@@ -21,7 +23,9 @@ PlayState::PlayState(System& system, ChangeStateCallback changeStateCB, Level& l
 	mSystem.GUIMgr.GetButton(BUTTONS::SORT_BUTTON_ID).SetClickCB([this]() { mSystem.InventoryMgr.SortInventory(); });
 	mSystem.GUIMgr.GetButton(BUTTONS::CLOSE_BUTTON_ID).SetClickCB([this]() {mSystem.Save(); mSystem.RenderMgr.GetWindow().close(); });
 
+#ifdef _WIN32
 	mSystem.GUIMgr.GetButton(BUTTONS::MINI_BUTTON_ID).SetClickCB([this]() {HWND hwnd = mSystem.RenderMgr.GetWindow().getSystemHandle();	ShowWindow(hwnd, SW_MINIMIZE); });
+#endif
 	mSystem.GUIMgr.GetButton(BUTTONS::UPGRADE_BUTTON_ID).SetClickCB([this]() {this->UpgradeLevel(); });
 }
 
