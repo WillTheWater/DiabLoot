@@ -1,7 +1,7 @@
 #include "MainMenuState.h"
 #include "PlayState.h"
 #include "SoundManager.h"
-#include <windows.h>
+#include <Windows.h>
 #include "Core.h"
 
 MainMenuState::MainMenuState(System& system, ChangeStateCallback changeStateCB)

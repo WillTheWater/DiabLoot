@@ -2,7 +2,7 @@
 #include "MainMenuState.h"
 #include "WinState.h"
 #include "SoundManager.h"
-#include <windows.h>
+#include <Windows.h>
 #include "Core.h"
 
 PlayState::PlayState(System& system, ChangeStateCallback changeStateCB, Level& level)

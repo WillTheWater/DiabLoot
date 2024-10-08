@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include <functional>
+#include <memory>
 #include "Assets.h"
 #include "Button.h"
 
