@@ -53,7 +53,9 @@ void GUIManager::ButtonInit()
     mButtons[BUTTONS::INFO_BUTTON_ID] = MakeSquareButton(BUTTONS::INFO, {100.f,192.f});
     mButtons[BUTTONS::UPGRADE_BUTTON_ID] = MakeSquareButton(BUTTONS::UPGRADE, { 192.f, 100.f }); 
     mButtons[BUTTONS::CLOSE_BUTTON_ID] = MakeSquareButton(BUTTONS::CLOSE, { 1890.f, 30.f }); 
+#ifdef _WIN32
     mButtons[BUTTONS::MINI_BUTTON_ID] = MakeSquareButton(BUTTONS::MINI, { 1840.f, 30.f });
+#endif
     mButtons[BUTTONS::NEW_GAME_ID] = MakeButton(BUTTONS::WIDE, BUTTONS::NEW_GAME, mWindowCenter - sf::Vector2f{ 0.f, 43.f });
     GetButton(BUTTONS::NEW_GAME_ID).SetScale(.7f);
 }
@@ -70,7 +72,9 @@ void GUIManager::MainMenuUpdate(sf::Vector2f mousePos, bool isClicked)
     mButtons[BUTTONS::EXIT_ID]->HandleEvent(mousePos, isClicked);
     mButtons[BUTTONS::MUTE_BUTTON_ID]->HandleEvent(mousePos, isClicked);
     mButtons[BUTTONS::CLOSE_BUTTON_ID]->HandleEvent(mousePos, isClicked);
+#ifdef _WIN32
     mButtons[BUTTONS::MINI_BUTTON_ID]->HandleEvent(mousePos, isClicked);
+#endif
 }
 
 void GUIManager::PlayStateUpdate(sf::Vector2f mousePos, bool isClicked)
@@ -84,7 +88,9 @@ void GUIManager::PlayStateUpdate(sf::Vector2f mousePos, bool isClicked)
     mButtons[BUTTONS::UPGRADE_BUTTON_ID]->HandleEvent(mousePos, isClicked);
     mButtons[BUTTONS::SORT_BUTTON_ID]->HandleEvent(mousePos, isClicked);
     mButtons[BUTTONS::CLOSE_BUTTON_ID]->HandleEvent(mousePos, isClicked);
+#ifdef _WIN32
     mButtons[BUTTONS::MINI_BUTTON_ID]->HandleEvent(mousePos, isClicked);
+#endif
     if (mSystem.InventoryMgr.HasOneOfEverything())
     {
         mButtons[BUTTONS::NEW_GAME_ID]->HandleEvent(mousePos, isClicked);
